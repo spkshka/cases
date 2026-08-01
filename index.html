@@ -1,0 +1,2443 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Кейс Мужики – версия 1.0</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+    <style>
+        /* ===== СТИЛЬ ВК 2010 (увеличенный) ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a1a2b;
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            color: #d0d8e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+        #app {
+            width: 100%;
+            max-width: 600px;
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .header {
+            text-align: center;
+            padding: 12px 0;
+            border-bottom: 2px solid #2a4a6a;
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f0e8d0;
+            text-shadow: 1px 1px 0 #0a1a2b;
+            letter-spacing: 3px;
+        }
+        .header .subtitle {
+            font-size: 14px;
+            color: #6a8aaa;
+            margin-top: 4px;
+        }
+        .header .subtitle span { color: #b0c8e0; }
+        .header .version { font-size: 12px; color: #4a6a8a; margin-top: 4px; }
+        .top-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #0e1e2e;
+            border-radius: 6px;
+            padding: 10px 4px;
+            margin: 10px 0;
+            border: 1px solid #2a4a6a;
+            font-size: 15px;
+        }
+        .top-bar .stat { color: #b0c8e0; }
+        .top-bar .stat .value {
+            color: #f0e8d0;
+            font-weight: bold;
+            font-size: 17px;
+        }
+        .top-bar .stat.id .value { color: #8ab0d0; }
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        .nav button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 0 1 auto;
+        }
+        .nav button:hover { background: #1a2a3a; color: #f0e8d0; }
+        .nav button.active {
+            background: #2a4a6a;
+            color: #f0e8d0;
+            border-color: #4a8aba;
+        }
+        .main-content {
+            margin-top: 12px;
+            min-height: 350px;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #f0e8d0;
+            border-bottom: 2px solid #2a4a6a;
+            padding-bottom: 8px;
+            margin-bottom: 14px;
+        }
+        .title .badge {
+            font-size: 14px;
+            color: #6a8aaa;
+            font-weight: normal;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .case-card {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+            transition: 0.2s;
+        }
+        .case-card:hover { background: #1a2a3a; border-color: #4a8aba; }
+        .case-card .case-emoji { font-size: 40px; display: block; margin-bottom: 6px; }
+        .case-card .case-name { font-size: 18px; font-weight: bold; color: #f0e8d0; }
+        .case-card .case-price { font-size: 14px; color: #8aacce; }
+        .case-card .case-price .rub { color: #f0e8d0; }
+        .case-card .case-rare {
+            font-size: 12px;
+            background: #1a2a3a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            color: #6a8aaa;
+            border: 1px solid #2a4a6a;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .case-card .open-btn {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            background: #2a4a6a;
+            border: none;
+            color: #f0e8d0;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .case-card .open-btn:hover { background: #3a5a7a; }
+        .case-card .open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .inv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px,1fr));
+            gap: 10px;
+        }
+        .inv-item {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .inv-item .item-emoji { font-size: 30px; display: block; }
+        .inv-item .item-name { color: #f0e8d0; font-weight: bold; }
+        .inv-item .item-count { color: #6a8aaa; font-size: 12px; }
+        .inv-item .item-rarity { font-size: 11px; color: #8aacce; display: block; }
+        .inv-empty { text-align: center; padding: 40px; color: #6a8aaa; font-size: 16px; }
+
+        .market-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+        .market-tabs button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .market-tabs button.active { background: #2a4a6a; color: #f0e8d0; }
+        .market-listing {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+        }
+        .market-listing .info { display: flex; gap: 12px; align-items: center; }
+        .market-listing .info .emoji { font-size: 28px; }
+        .market-listing .info .details .name { color: #f0e8d0; font-weight: bold; }
+        .market-listing .info .details .seller { font-size: 12px; color: #6a8aaa; }
+        .market-listing .price { color: #f0e8d0; font-weight: bold; }
+        .market-listing .price button {
+            background: #2a4a6a;
+            border: none;
+            color: #f0e8d0;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .market-listing .price button:hover { background: #3a5a7a; }
+
+        .market-sell-form select, .market-sell-form input {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #f0e8d0;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        .market-sell-form .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+        .rating-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+        .rating-tabs button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .rating-tabs button.active { background: #2a4a6a; color: #f0e8d0; }
+        .rank-item {
+            background: #0e1e2e;
+            border-bottom: 1px solid #2a4a6a;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+        }
+        .rank-item .pos { width: 30px; text-align: center; font-weight: bold; color: #6a8aaa; }
+        .rank-item .pos.gold { color: #f0d070; }
+        .rank-item .pos.silver { color: #c0c0c0; }
+        .rank-item .pos.bronze { color: #cd7f32; }
+        .rank-item .name { flex: 1; color: #f0e8d0; }
+        .rank-item .value { color: #f0e8d0; font-weight: bold; }
+        .rank-item.you { background: #1a2a3a; border: 1px solid #4a8aba; }
+
+        .settings-group { margin-bottom: 18px; }
+        .settings-group label { display: block; color: #b0c8e0; font-size: 16px; margin-bottom: 6px; }
+        .settings-group .desc { font-size: 13px; color: #6a8aaa; }
+        .settings-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #2a4a6a;
+            border-radius: 4px;
+            outline: none;
+        }
+        .settings-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f0e8d0;
+            cursor: pointer;
+        }
+        .settings-group .range-value {
+            color: #f0e8d0;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .settings-group .color-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+        .settings-group .color-grid .color-btn {
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 2px solid #2a4a6a; cursor: pointer;
+        }
+        .settings-group .color-grid .color-btn.active { border-color: #f0e8d0; }
+        .toggle-row { display: flex; align-items: center; gap: 14px; }
+        .toggle { width: 44px; height: 24px; background: #0e1e2e; border-radius: 24px; cursor: pointer; border: 1px solid #2a4a6a; position: relative; transition: 0.3s; }
+        .toggle.on { background: #2a4a6a; }
+        .toggle .knob { width: 18px; height: 18px; background: #f0e8d0; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: 0.3s; }
+        .toggle.on .knob { left: 23px; }
+        .settings-group .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .settings-group .row input { flex: 1; padding: 8px 12px; background: #0e1e2e; border: 1px solid #2a4a6a; color: #f0e8d0; border-radius: 4px; font-size: 15px; }
+        .settings-group .row button { padding: 8px 16px; background: #2a4a6a; border: none; color: #f0e8d0; border-radius: 4px; cursor: pointer; font-size: 15px; }
+
+        .case-modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+        .case-modal-overlay.open { display: flex; }
+        .case-modal {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 450px;
+            width: 100%;
+        }
+        .case-modal .close-btn {
+            float: right; background: none; border: none;
+            color: #6a8aaa; font-size: 24px; cursor: pointer;
+        }
+        .case-modal .modal-title { text-align: center; font-size: 22px; color: #f0e8d0; }
+        .slot-container {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            height: 140px;
+            overflow: hidden;
+            margin: 14px 0;
+        }
+        .slot-track { display: flex; flex-direction: column; transition: transform 0.08s linear; }
+        .slot-item {
+            height: 46px; display: flex; align-items: center; justify-content: center;
+            color: #6a8aaa; font-size: 16px; gap: 10px;
+        }
+        .slot-item.active { color: #f0e8d0; background: #1a2a3a; }
+        .slot-item.highlight { color: #f0d070; background: #1a2a3a; }
+        .result-display {
+            text-align: center; padding: 14px;
+            border: 1px solid #2a4a6a; border-radius: 6px;
+            margin: 10px 0;
+        }
+        .result-display .big-emoji { font-size: 48px; display: block; }
+        .result-display .result-name { font-size: 18px; color: #f0e8d0; }
+        .result-display .result-rare { font-size: 14px; color: #6a8aaa; }
+        .show-chances-btn {
+            width: 100%; padding: 10px;
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            color: #b0c8e0; border-radius: 6px;
+            cursor: pointer; font-size: 15px;
+            margin-top: 10px;
+        }
+        .show-chances-btn:hover { background: #1a2a3a; }
+
+        .hockey-wrap { background: #0e1e2e; border: 1px solid #2a4a6a; border-radius: 6px; padding: 12px; }
+        .hockey-wrap canvas { width: 100%; background: #0a1a2b; border-radius: 6px; height: auto; }
+        .hockey-score { display: flex; justify-content: space-between; padding: 8px 12px; color: #b0c8e0; font-size: 18px; }
+        .hockey-score .score-num { font-size: 28px; font-weight: bold; color: #f0e8d0; }
+        .hockey-score .ai { color: #ff6b6b; }
+        .hockey-score .player { color: #6fc3ff; }
+        .hockey-status { text-align: center; font-size: 16px; color: #6a8aaa; padding: 8px; }
+        .hockey-controls { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
+        .hockey-controls button {
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            color: #b0c8e0; padding: 10px 24px; border-radius: 6px;
+            cursor: pointer; font-size: 16px;
+        }
+        .hockey-controls button:hover { background: #1a2a3a; }
+
+        .clicker-wrap {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+        .clicker-wrap .clicker-stats { font-size: 18px; color: #b0c8e0; margin-bottom: 12px; }
+        .clicker-wrap .clicker-stats span { color: #f0e8d0; font-weight: bold; }
+        .clicker-wrap .click-btn {
+            background: #2a4a6a;
+            border: none;
+            color: #f0e8d0;
+            padding: 16px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .clicker-wrap .click-btn:hover { background: #3a5a7a; }
+        .clicker-wrap .click-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .clicker-wrap .click-timer { font-size: 14px; color: #6a8aaa; margin-top: 8px; }
+
+        #loginOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; flex-direction: column;
+        }
+        #loginOverlay.hidden { display: none; }
+        .login-box {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .login-box h2 { text-align: center; color: #f0e8d0; font-size: 26px; }
+        .login-box .sub { text-align: center; color: #6a8aaa; font-size: 15px; margin-bottom: 16px; }
+        .login-box .promo {
+            text-align: center; color: #6a8aaa; font-size: 14px;
+            margin: 10px 0; border-top: 1px solid #2a4a6a; padding-top: 12px;
+        }
+        .login-box .promo a { color: #4a8aba; text-decoration: none; }
+        .login-box input {
+            width: 100%; padding: 12px 16px;
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            color: #f0e8d0; border-radius: 6px;
+            margin-bottom: 12px; font-size: 16px;
+        }
+        .login-box input:focus { outline: none; border-color: #4a8aba; }
+        .login-box .row { display: flex; gap: 10px; }
+        .login-box .row button {
+            flex: 1; padding: 12px; border: none; border-radius: 6px;
+            font-weight: bold; cursor: pointer; font-size: 16px;
+        }
+        .login-box .row .login-btn { background: #2a4a6a; color: #f0e8d0; }
+        .login-box .row .register-btn { background: #0e1e2e; color: #b0c8e0; border: 1px solid #2a4a6a; }
+        .login-box .row button:hover { opacity: 0.9; }
+        .login-box .error { color: #ff6b6b; font-size: 15px; margin-top: 8px; text-align: center; }
+        .login-box .info { text-align: center; color: #6a8aaa; font-size: 13px; margin-top: 12px; }
+
+        .achieve-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .achieve-item {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 14px;
+            color: #6a8aaa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .achieve-item.unlocked {
+            border-color: #f0d070;
+            color: #f0e8d0;
+            background: #1a2a3a;
+        }
+        .achieve-item .ach-emoji { font-size: 18px; }
+
+        .chance-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
+        }
+        .chance-overlay.open { display: flex; }
+        .chance-box {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .chance-box .close-btn { float: right; background: none; border: none; color: #6a8aaa; font-size: 24px; cursor: pointer; }
+        .chance-box .chance-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #2a4a6a; font-size: 15px; }
+        .chance-box .chance-item .name { color: #b0c8e0; }
+        .chance-box .chance-item .percent { color: #f0e8d0; }
+
+        #bg-music, #bg-music2 { display: none; }
+        .toast {
+            position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            padding: 14px 28px; border-radius: 8px;
+            color: #f0e8d0; font-size: 16px;
+            opacity: 0; transition: 0.3s; z-index: 3000;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+        .footer-note {
+            text-align: center; font-size: 13px; color: #4a6a8a;
+            border-top: 1px solid #2a4a6a; padding-top: 12px; margin-top: 16px;
+        }
+        .footer-note a { color: #6a8aaa; text-decoration: none; }
+        .footer-note a:hover { color: #b0c8e0; }
+    </style>
+</head>
+<body>
+
+<!-- ===== МУЗЫКА (два трека) ===== -->
+<audio id="bg-music" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+<audio id="bg-music2" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<!-- ===== ТОСТ ===== -->
+<div id="toast" class="toast"></div>
+
+<!-- ===== ЭКРАН ВХОДА ===== -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>Кейс Мужики</h2>
+        <div class="sub">Вход / Регистрация</div>
+        <div class="promo">
+            игра сделана в шутку, также буду благодарен если ты будешь играть хотябы несколько минуток в день<br>
+            или подпишешься на <a href="https://t.me/arbz7" target="_blank">@arbz7</a> в телеграме!
+        </div>
+        <input type="text" id="loginNick" placeholder="Ник" autocomplete="off">
+        <input type="password" id="loginPass" placeholder="Пароль">
+        <div class="error" id="loginError"></div>
+        <div class="row">
+            <button class="login-btn" id="loginBtn">Войти</button>
+            <button class="register-btn" id="registerBtn">Зарегистрироваться</button>
+        </div>
+        <div class="info">Первый аккаунт получает ID #0</div>
+    </div>
+</div>
+
+<!-- ===== ПРИЛОЖЕНИЕ ===== -->
+<div id="app">
+    <div class="header">
+        <h1>Кейс Мужики</h1>
+        <div class="subtitle">сделано <span>@arbz7</span> by xxspk и великий ии</div>
+        <div class="subtitle" style="font-size:12px; color:#4a6a8a;">пишите в @arbz7 что добавить, слушаем каждого</div>
+        <div class="version">версия 1.0</div>
+    </div>
+
+    <div class="top-bar">
+        <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span></div>
+        <div class="stat">⚡ <span class="value" id="eloDisplay">1000</span></div>
+        <div class="stat id">🆔 <span class="value" id="idDisplay">—</span></div>
+        <div class="stat">📦 <span class="value" id="casesOpenedDisplay">0</span></div>
+    </div>
+
+    <nav class="nav" id="mainNav">
+        <button class="active" data-section="cases">Кейсы</button>
+        <button data-section="inventory">Инвентарь</button>
+        <button data-section="market">Торговля</button>
+        <button data-section="rating">Рейтинг</button>
+        <button data-section="minigames">Хоккей</button>
+        <button data-section="clicker">Кликер</button>
+        <button data-section="achievements">Достижения</button>
+        <button data-section="settings">Настройки</button>
+    </nav>
+
+    <div class="main-content">
+        <!-- КЕЙСЫ -->
+        <section id="section-cases" class="section active">
+            <div class="title">Кейсы <span class="badge">выбери и открой</span></div>
+            <div class="cases-grid" id="casesGrid"></div>
+            <div style="margin-top:12px; font-size:14px; color:#4a6a8a; text-align:center;">
+                Эти кейсы будут обновляться, добавляться больше карточек и больше кейсов, может даже по тематике какой нибудь и т.д. ЖДИТЕ ОБНОВЛЕНИЙ!
+            </div>
+        </section>
+
+        <!-- ИНВЕНТАРЬ -->
+        <section id="section-inventory" class="section">
+            <div class="title">Инвентарь <span class="badge" id="invCount">0</span></div>
+            <div id="inventoryGrid" class="inv-grid"></div>
+        </section>
+
+        <!-- ТОРГОВЛЯ -->
+        <section id="section-market" class="section">
+            <div class="title">Торговая площадка <span class="badge">комиссия 10%</span></div>
+            <div class="market-tabs">
+                <button class="active" data-market-tab="buy">Купить</button>
+                <button data-market-tab="sell">Продать</button>
+                <button data-market-tab="my">Мои лоты</button>
+            </div>
+            <div id="marketContent"></div>
+        </section>
+
+        <!-- РЕЙТИНГ -->
+        <section id="section-rating" class="section">
+            <div class="title">Рейтинг <span class="badge">топ игроков</span></div>
+            <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+                <span style="color:#6a8aaa; font-size:16px;">Режим:</span>
+                <button id="ratingModeNow" class="active" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:8px 16px; border-radius:6px; cursor:pointer; font-size:15px;">Сейчас</button>
+                <button id="ratingModeEver" style="background:#0e1e2e; border:1px solid #2a4a6a; color:#b0c8e0; padding:8px 16px; border-radius:6px; cursor:pointer; font-size:15px;">За всё время</button>
+            </div>
+            <div class="rating-tabs" id="ratingTabs">
+                <button class="active" data-rating-tab="cards">Карты</button>
+                <button data-rating-tab="balance">Баланс</button>
+                <button data-rating-tab="totalEarned">Заработано</button>
+                <button data-rating-tab="elo">Эло</button>
+                <button data-rating-tab="clicks">Клики</button>
+            </div>
+            <div id="ratingContent"></div>
+        </section>
+
+        <!-- МИНИИГРЫ (ХОККЕЙ) -->
+        <section id="section-minigames" class="section">
+            <div class="title">Хоккей <span class="badge">мини-игра</span></div>
+            <div class="hockey-wrap">
+                <div class="hockey-score">
+                    <span>🤖 <span class="score-num ai" id="hockeyAiScore">0</span></span>
+                    <span class="vs">⚔️</span>
+                    <span><span class="score-num player" id="hockeyPlayerScore">0</span> 🧑</span>
+                </div>
+                <canvas id="hockeyCanvas" width="500" height="700"></canvas>
+                <div class="hockey-status" id="hockeyStatus">Перемещай мышкой, чтобы управлять клюшкой</div>
+                <div class="hockey-controls">
+                    <button id="hockeyReset">Новая игра</button>
+                    <button id="hockeyStart">Старт</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- КЛИКЕР -->
+        <section id="section-clicker" class="section">
+            <div class="title">Кликер <span class="badge">зарабатывай монеты</span></div>
+            <div class="clicker-wrap">
+                <div class="clicker-stats">
+                    Монет: <span id="clickerBalance">0</span> | Кликов: <span id="clickerTotalClicks">0</span>
+                </div>
+                <button class="click-btn" id="clickBtn">Кликнуть</button>
+                <div class="click-timer" id="clickTimer">Готово!</div>
+                <div id="clickerCaptcha" style="display:none; margin-top:12px;">
+                    <div style="color:#f0e8d0; font-size:18px;">Введите код: <span id="captchaText"></span></div>
+                    <input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; background:#0e1e2e; border:1px solid #2a4a6a; color:#f0e8d0; border-radius:4px; width:100%; margin:8px 0;">
+                    <button id="captchaSubmit" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:8px 16px; border-radius:4px; cursor:pointer;">Подтвердить</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДОСТИЖЕНИЯ -->
+        <section id="section-achievements" class="section">
+            <div class="title">Достижения <span class="badge" id="achCount">0 / 15</span></div>
+            <div id="achievementsGrid" class="achieve-grid"></div>
+        </section>
+
+        <!-- НАСТРОЙКИ -->
+        <section id="section-settings" class="section">
+            <div class="title">Настройки</div>
+            <div class="settings-group">
+                <label>Цвет меню</label>
+                <div class="color-grid" id="colorGrid"></div>
+            </div>
+            <div class="settings-group">
+                <label>Громкость музыки: <span class="range-value" id="musicVolumeDisplay">100</span>%</label>
+                <input type="range" id="musicVolumeSlider" min="0" max="100" value="100">
+            </div>
+            <div class="settings-group">
+                <label>Громкость звуков: <span class="range-value" id="sfxVolumeDisplay">100</span>%</label>
+                <input type="range" id="sfxVolumeSlider" min="0" max="100" value="100">
+            </div>
+            <div class="settings-group">
+                <label>Выбор музыки</label>
+                <select id="musicSelect" style="width:100%; padding:8px; background:#0e1e2e; border:1px solid #2a4a6a; color:#f0e8d0; border-radius:4px; font-size:15px;">
+                    <option value="0">Мелодичная (SoundHelix 2)</option>
+                    <option value="1">Боевая (SoundHelix 1)</option>
+                </select>
+            </div>
+            <div class="settings-group">
+                <label>Звук</label>
+                <div class="toggle-row">
+                    <div class="toggle on" id="soundToggle"><div class="knob"></div></div>
+                    <span class="label" id="soundLabel">Включён</span>
+                </div>
+            </div>
+            <div class="settings-group">
+                <label>Музыка</label>
+                <div class="toggle-row">
+                    <div class="toggle on" id="musicToggle"><div class="knob"></div></div>
+                    <span class="label" id="musicLabel">Включена</span>
+                </div>
+            </div>
+            <div class="settings-group">
+                <label>Растяг в хоккее <span class="range-value" id="stretchValue">1.0</span></label>
+                <input type="range" id="stretchSlider" min="1.0" max="2.0" step="0.05" value="1.0">
+            </div>
+            <div class="settings-group">
+                <label>Сменить ник</label>
+                <div class="row">
+                    <input type="text" id="newNickInput" placeholder="Новый ник" autocomplete="off">
+                    <button id="changeNickBtn">Сменить</button>
+                </div>
+                <div id="nickChangeResult" style="color:#6a8aaa; font-size:14px; margin-top:4px;"></div>
+            </div>
+            <div class="settings-group" style="border-top:1px solid #2a4a6a; padding-top:16px; margin-top:16px;">
+                <button id="logoutBtn" style="width:100%; background:#2a4a6a; border:none; color:#f0e8d0; padding:12px; border-radius:6px; cursor:pointer; font-size:16px;">Выйти из аккаунта</button>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <a href="https://t.me/arbz7" target="_blank">@arbz7</a> — пишите ваши идеи, слушаем каждого!
+        </div>
+    </div>
+</div>
+
+<!-- ===== МОДАЛКА КЕЙСА ===== -->
+<div class="case-modal-overlay" id="caseModal">
+    <div class="case-modal">
+        <button class="close-btn" id="caseModalClose">✕</button>
+        <div class="modal-title">Открытие <span class="case-name" id="modalCaseName">кейса</span></div>
+        <div class="slot-container" id="slotContainer"><div class="slot-track" id="slotTrack"></div></div>
+        <div class="result-display" id="resultDisplay">
+            <span class="big-emoji">🎲</span>
+            <span class="result-name" style="color:#6a8aaa;">Ожидайте...</span>
+            <span class="result-rare"></span>
+        </div>
+        <button class="show-chances-btn" id="showChancesBtn">Показать шансы</button>
+    </div>
+</div>
+
+<!-- ===== МОДАЛКА ШАНСОВ ===== -->
+<div class="chance-overlay" id="chanceModal">
+    <div class="chance-box">
+        <button class="close-btn" id="chanceClose">✕</button>
+        <div style="font-size:20px; color:#f0e8d0; margin-bottom:10px;">Шансы выпадения</div>
+        <div id="chanceList"></div>
+    </div>
+</div>
+
+<script>
+// =================================================================
+//  FIREBASE — ЧЕСТНЫЙ КОНФИГ
+// =================================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyBbdlmv_OYd8ta-vvDWmrHhSQw9yYKUDB0",
+    authDomain: "casettp.firebaseapp.com",
+    databaseURL: "https://casettp-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "casettp",
+    storageBucket: "casettp.firebasestorage.app",
+    messagingSenderId: "19806365720",
+    appId: "1:19806365720:web:879296d26f06e635ce3b6d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// =================================================================
+//  ЗВУКИ (SFX) — с учётом громкости
+// =================================================================
+let audioCtx = null;
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+}
+function playTone(freq, duration, type = 'sine', volume = 0.1) {
+    if (!STATE.settings.sound && !STATE.settings.sfx) return;
+    const vol = (STATE.settings.sfxVolume || 1) * volume;
+    try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(vol, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + duration);
+    } catch(e) {}
+}
+
+function sfxClick() { if (STATE.settings.sfx) playTone(800, 0.06, 'sine', 0.08); }
+function sfxCaseOpenStart() { if (STATE.settings.sfx) { playTone(500, 0.08, 'square', 0.05); setTimeout(() => playTone(600, 0.08, 'square', 0.05), 100); } }
+function sfxCaseOpenFinish() { if (STATE.settings.sfx) { playTone(800, 0.1, 'sine', 0.1); setTimeout(() => playTone(1000, 0.15, 'sine', 0.12), 150); } }
+function sfxMarketSell() { if (STATE.settings.sfx) { playTone(600, 0.08, 'sine', 0.08); setTimeout(() => playTone(900, 0.1, 'sine', 0.08), 120); } }
+function sfxMarketBuy() { if (STATE.settings.sfx) { playTone(700, 0.08, 'sine', 0.08); setTimeout(() => playTone(1000, 0.12, 'sine', 0.1), 150); } }
+function sfxNotification() { if (STATE.settings.sfx) { playTone(900, 0.1, 'sine', 0.08); setTimeout(() => playTone(1200, 0.1, 'sine', 0.08), 120); } }
+function sfxHockeyGoal() { if (STATE.settings.sfx) { [0,100,200].forEach((t,i) => setTimeout(() => playTone(600+i*200, 0.12, 'sine', 0.1), t)); } }
+function sfxHockeyLose() { if (STATE.settings.sfx) { playTone(400, 0.3, 'sawtooth', 0.06); setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.06), 200); } }
+function sfxAchievement() { if (STATE.settings.sfx) { [0,100,200,300,400].forEach((t,i) => setTimeout(() => playTone(500+i*150, 0.1, 'sine', 0.08), t)); } }
+function sfxClicker() { if (STATE.settings.sfx) { playTone(1000, 0.05, 'sine', 0.06); } }
+
+// =================================================================
+//  ГЛОБАЛЬНОЕ СОСТОЯНИЕ
+// =================================================================
+const STATE = {
+    balance: 500,
+    totalEarned: 0,
+    maxBalance: 500,
+    elo: 1000,
+    maxElo: 1000,
+    casesOpened: 0,
+    maxCasesOpened: 0,
+    totalClicks: 0,
+    clicksSinceCaptcha: 0,
+    inventory: [],
+    itemsCount: {},
+    settings: { theme: '#1a2a3a', sound: true, sfx: true, music: true, stretch: 1.0, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+    hockey: { scorePlayer: 0, scoreAI: 0 },
+    achievements: [],
+    userId: null,
+    nickname: '',
+    uid: null,
+    marketListings: [],
+    isOpening: false,
+    clickCooldown: false,
+};
+
+// =================================================================
+//  ДАННЫЕ КЕЙСОВ
+// =================================================================
+const CASES = [{
+    id: 'muzhiki1',
+    name: 'Мужики 1',
+    emoji: '💪',
+    price: 100,
+    rare: 'обычный',
+    items: [
+        { name: 'дефолтные мужики', emoji: '👨', weight: 40, rarity: 'ширп' },
+        { name: 'дефолтные мужики целуются в лоб', emoji: '👨‍❤️‍👨', weight: 35, rarity: 'ширп' },
+        { name: '3 мужика', emoji: '👨👨👨', weight: 10, rarity: 'обычное' },
+        { name: '2 мужика на стульях моролса', emoji: '🪑👨👨', weight: 5, rarity: 'необычное' },
+        { name: '2 мужика но у красного круглая жопа', emoji: '🔴👨👨', weight: 5, rarity: 'необычное' },
+        { name: '2 мужика татуировка', emoji: '💉👨👨', weight: 3, rarity: 'редкое' },
+        { name: '2 мужика черные на фоне эволюции', emoji: '🌑👨👨', weight: 1.5, rarity: 'редкое' },
+        { name: '2 золотых мужика в космосе (эксклюзив но доступен в этом обновлении для выбива из кейса)', emoji: '✨👨👨🚀', weight: 0.5, rarity: 'эпическое' }
+    ]
+}, {
+    id: 'geisi',
+    name: 'Гейси',
+    emoji: '🏳️‍🌈',
+    price: 75,
+    rare: 'редкий',
+    items: [
+        { name: 'дефолтный гейси', emoji: '🌈', weight: 60, rarity: 'ширп' },
+        { name: 'гейси 2 уровня', emoji: '🌈🌈', weight: 24, rarity: 'ширп' },
+        { name: 'гейси 3 уровня', emoji: '🌈🌈🌈', weight: 10, rarity: 'обычное' },
+        { name: 'гейси 4 уровня', emoji: '🌈🌈🌈🌈', weight: 5, rarity: 'редкое' },
+        { name: 'гейси 5 уровня', emoji: '🌈🌈🌈🌈🌈', weight: 1, rarity: 'эпическое' }
+    ]
+}, {
+    id: 'animals',
+    name: 'Животные',
+    emoji: '🐾',
+    price: 50,
+    rare: 'обычный',
+    items: [
+        { name: 'кошка', emoji: '🐱', weight: 50, rarity: 'ширп' },
+        { name: 'собака', emoji: '🐶', weight: 30, rarity: 'ширп' },
+        { name: 'рыба', emoji: '🐟', weight: 10, rarity: 'обычное' },
+        { name: 'голубь', emoji: '🕊️', weight: 5, rarity: 'необычное' },
+        { name: 'свинья', emoji: '🐷', weight: 3, rarity: 'редкое' },
+        { name: 'тюлень смеется', emoji: '🦭😂', weight: 1.9, rarity: 'эпическое' },
+        { name: 'оригинальный тюлень смеется (эксклюзив но доступен для выбива в этом обновлении)', emoji: '🦭✨', weight: 0.1, rarity: 'эксклюзив' }
+    ]
+}, {
+    id: 'players',
+    name: 'Игроки',
+    emoji: '🎮',
+    price: 75,
+    rare: 'редкий',
+    items: [
+        { name: 'готопот', emoji: '🧑‍💻', weight: 20, rarity: 'обычное' },
+        { name: 'тимоха гейстол', emoji: '👾', weight: 20, rarity: 'обычное' },
+        { name: 'n1zzyx', emoji: '🎯', weight: 20, rarity: 'обычное' },
+        { name: 'гейпк', emoji: '🖥️', weight: 20, rarity: 'обычное' },
+        { name: 'сирот', emoji: '😢', weight: 15, rarity: 'необычное' },
+        { name: 'вертипопик', emoji: '🌀', weight: 5, rarity: 'редкое' }
+    ]
+}];
+
+// =================================================================
+//  АЧИВКИ
+// =================================================================
+const ACHIEVEMENTS = [
+    { id: 'open1', name: 'Открыть первый кейс', check: s => s.casesOpened >= 1 },
+    { id: 'open5', name: 'Открыть 5 кейсов', check: s => s.casesOpened >= 5 },
+    { id: 'open10', name: 'Открыть 10 кейсов', check: s => s.casesOpened >= 10 },
+    { id: 'open50', name: 'Открыть 50 кейсов', check: s => s.casesOpened >= 50 },
+    { id: 'open100', name: 'Открыть 100 кейсов', check: s => s.casesOpened >= 100 },
+    { id: 'uncommon', name: 'Выбить необычное', check: s => s.inventory.some(i => i.rarity === 'необычное') },
+    { id: 'rare', name: 'Выбить редкое', check: s => s.inventory.some(i => i.rarity === 'редкое') },
+    { id: 'topBalance', name: 'Стать топ 1 по балансу', check: s => false },
+    { id: 'topCases', name: 'Стать топ 1 по открытым кейсам', check: s => false },
+    { id: 'elo1100', name: 'Достичь 1100 эло в хоккее', check: s => s.elo >= 1100 },
+    { id: 'elo1200', name: 'Достичь 1200 эло в хоккее', check: s => s.elo >= 1200 },
+    { id: 'elo1300', name: 'Достичь 1300 эло в хоккее', check: s => s.elo >= 1300 },
+    { id: 'elo1400', name: 'Достичь 1400 эло в хоккее', check: s => s.elo >= 1400 },
+    { id: 'elo1500', name: 'Достичь 1500 эло в хоккее', check: s => s.elo >= 1500 },
+    { id: 'topElo', name: 'Стать топ 1 по эло в хоккее', check: s => false }
+];
+
+// =================================================================
+//  ВСПОМОГАТЕЛЬНЫЕ
+// =================================================================
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function randf(min, max) { return Math.random() * (max - min) + min; }
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function formatNum(n) { return n.toLocaleString('ru-RU'); }
+
+let toastTimeout = null;
+function showToast(text, duration = 2500) {
+    const el = document.getElementById('toast');
+    el.textContent = text;
+    el.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
+    sfxNotification();
+}
+
+// =================================================================
+//  FIREBASE HELPERS
+// =================================================================
+function getUserRef(uid) { return db.ref('users/' + uid); }
+function getCounterRef() { return db.ref('userCounter'); }
+function getNextUserId() { return getCounterRef().transaction((current) => (current || 0) + 1); }
+function loadUserProfile(uid) { return getUserRef(uid).once('value').then(snap => snap.val()); }
+function updateUserProfile(uid, updates) { return getUserRef(uid).update(updates); }
+function isNicknameUnique(nickname) {
+    return db.ref('nicknames').child(nickname).once('value').then(snap => !snap.exists());
+}
+function findUserByNickname(nickname) {
+    return db.ref('users').orderByChild('nickname').equalTo(nickname).once('value')
+        .then(snap => {
+            if (!snap.exists()) return null;
+            const entries = snap.val();
+            const uid = Object.keys(entries)[0];
+            return { uid, data: entries[uid] };
+        });
+}
+
+// =================================================================
+//  АВТОРИЗАЦИЯ
+// =================================================================
+let currentUser = null;
+
+function loginUser(nickname, password) {
+    document.getElementById('loginError').textContent = '';
+    findUserByNickname(nickname).then(result => {
+        if (!result) {
+            document.getElementById('loginError').textContent = '❌ Не удалось войти: пользователь не найден';
+            return;
+        }
+        const email = nickname + '@casettp.firebaseapp.com';
+        auth.signInWithEmailAndPassword(email, password)
+            .then(cred => {
+                if (cred.user.uid !== result.uid) {
+                    auth.signOut();
+                    document.getElementById('loginError').textContent = '❌ Не удалось войти: неверные данные';
+                    return;
+                }
+                currentUser = { uid: result.uid, data: result.data };
+                onAuthSuccess();
+            })
+            .catch(err => {
+                document.getElementById('loginError').textContent = '❌ Не удалось войти: ' + err.message;
+            });
+    }).catch(err => {
+        document.getElementById('loginError').textContent = '❌ Не удалось войти: ошибка соединения';
+    });
+}
+
+function registerUser(nickname, password) {
+    document.getElementById('loginError').textContent = '';
+    if (!nickname.trim() || !password.trim()) {
+        document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: заполните все поля';
+        return Promise.reject();
+    }
+    if (password.length < 6) {
+        document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: пароль не менее 6 символов';
+        return Promise.reject();
+    }
+    isNicknameUnique(nickname).then(unique => {
+        if (!unique) {
+            document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ник уже занят';
+            return Promise.reject();
+        }
+        const email = nickname + '@casettp.firebaseapp.com';
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(cred => {
+                const uid = cred.user.uid;
+                getNextUserId().then(result => {
+                    const newId = result.snapshot.val();
+                    const profile = {
+                        nickname: nickname,
+                        userId: newId,
+                        balance: 500,
+                        elo: 1000,
+                        maxBalance: 500,
+                        maxElo: 1000,
+                        totalEarned: 0,
+                        casesOpened: 0,
+                        maxCasesOpened: 0,
+                        totalClicks: 0,
+                        inventory: [],
+                        achievements: [],
+                        settings: { theme: '#1a2a3a', sound: true, sfx: true, music: true, stretch: 1.0, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+                        hockey: { scorePlayer: 0, scoreAI: 0 },
+                    };
+                    const updates = {};
+                    updates['users/' + uid] = profile;
+                    updates['nicknames/' + nickname] = uid;
+                    db.ref().update(updates).then(() => {
+                        currentUser = { uid, data: profile };
+                        onAuthSuccess();
+                    });
+                });
+            })
+            .catch(err => {
+                document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ' + err.message;
+            });
+    }).catch(err => {
+        if (err && err.message) document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ' + err.message;
+    });
+}
+
+function onAuthSuccess() {
+    const data = currentUser.data;
+    STATE.balance = data.balance || 500;
+    STATE.totalEarned = data.totalEarned || 0;
+    STATE.maxBalance = data.maxBalance || 500;
+    STATE.elo = data.elo || 1000;
+    STATE.maxElo = data.maxElo || 1000;
+    STATE.casesOpened = data.casesOpened || 0;
+    STATE.maxCasesOpened = data.maxCasesOpened || 0;
+    STATE.totalClicks = data.totalClicks || 0;
+    STATE.inventory = data.inventory || [];
+    STATE.achievements = data.achievements || [];
+    if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
+    if (data.hockey) STATE.hockey = { ...STATE.hockey, ...data.hockey };
+    STATE.userId = data.userId;
+    STATE.nickname = data.nickname;
+    STATE.uid = currentUser.uid;
+    rebuildItemsCount();
+    document.getElementById('loginOverlay').classList.add('hidden');
+    updateUI();
+    renderSettings();
+    renderMarket();
+    renderRating();
+    renderCases();
+    renderInventory();
+    renderAchievements();
+    document.getElementById('hockeyAiScore').textContent = STATE.hockey.scoreAI;
+    document.getElementById('hockeyPlayerScore').textContent = STATE.hockey.scorePlayer;
+    document.getElementById('idDisplay').textContent = '#' + STATE.userId;
+    updateMusic();
+    showToast('Добро пожаловать, ' + STATE.nickname + '!');
+    saveStateToLocal();
+}
+
+function logout() {
+    auth.signOut().then(() => {
+        document.getElementById('loginOverlay').classList.remove('hidden');
+        currentUser = null;
+        STATE.uid = null;
+        STATE.userId = null;
+        STATE.nickname = '';
+        document.getElementById('idDisplay').textContent = '—';
+        document.getElementById('bg-music').pause();
+        document.getElementById('bg-music2').pause();
+        showToast('Вы вышли из аккаунта');
+    });
+}
+
+// =================================================================
+//  СОХРАНЕНИЕ
+// =================================================================
+function saveStateToFirebase() {
+    if (!currentUser) return Promise.resolve();
+    const uid = currentUser.uid;
+    const updates = {
+        balance: STATE.balance,
+        totalEarned: STATE.totalEarned,
+        maxBalance: STATE.maxBalance,
+        elo: STATE.elo,
+        maxElo: STATE.maxElo,
+        casesOpened: STATE.casesOpened,
+        maxCasesOpened: STATE.maxCasesOpened,
+        totalClicks: STATE.totalClicks,
+        inventory: STATE.inventory,
+        achievements: STATE.achievements,
+        settings: STATE.settings,
+        hockey: STATE.hockey,
+    };
+    return updateUserProfile(uid, updates).catch(err => console.warn('Ошибка сохранения:', err));
+}
+
+function saveStateToLocal() {
+    try {
+        const data = {
+            balance: STATE.balance,
+            totalEarned: STATE.totalEarned,
+            maxBalance: STATE.maxBalance,
+            elo: STATE.elo,
+            maxElo: STATE.maxElo,
+            casesOpened: STATE.casesOpened,
+            maxCasesOpened: STATE.maxCasesOpened,
+            totalClicks: STATE.totalClicks,
+            inventory: STATE.inventory,
+            achievements: STATE.achievements,
+            settings: STATE.settings,
+            hockey: STATE.hockey,
+            userId: STATE.userId,
+            nickname: STATE.nickname,
+            uid: STATE.uid,
+        };
+        localStorage.setItem('caseSimData_backup', JSON.stringify(data));
+    } catch(e) {}
+}
+
+function loadFromLocalBackup() {
+    try {
+        const raw = localStorage.getItem('caseSimData_backup');
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        STATE.balance = data.balance ?? 500;
+        STATE.totalEarned = data.totalEarned ?? 0;
+        STATE.maxBalance = data.maxBalance ?? 500;
+        STATE.elo = data.elo ?? 1000;
+        STATE.maxElo = data.maxElo ?? 1000;
+        STATE.casesOpened = data.casesOpened ?? 0;
+        STATE.maxCasesOpened = data.maxCasesOpened ?? 0;
+        STATE.totalClicks = data.totalClicks ?? 0;
+        STATE.inventory = data.inventory ?? [];
+        STATE.achievements = data.achievements ?? [];
+        if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
+        if (data.hockey) STATE.hockey = { ...STATE.hockey, ...data.hockey };
+        STATE.userId = data.userId;
+        STATE.nickname = data.nickname;
+        STATE.uid = data.uid;
+        rebuildItemsCount();
+        return true;
+    } catch(e) { return false; }
+}
+
+function rebuildItemsCount() {
+    STATE.itemsCount = {};
+    for (const item of STATE.inventory) {
+        const key = item.name + '|||' + item.emoji;
+        STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+    }
+}
+
+// =================================================================
+//  КЕЙСЫ (НОВАЯ ЛОГИКА: открытие по кнопке, без дополнительной кнопки в модалке)
+// =================================================================
+function getCaseById(id) { return CASES.find(c => c.id === id); }
+
+function rollItem(caseData) {
+    const total = caseData.items.reduce((s,i) => s + i.weight, 0);
+    let r = Math.random() * total;
+    for (const item of caseData.items) {
+        r -= item.weight;
+        if (r <= 0) return { ...item };
+    }
+    return { ...caseData.items[0] };
+}
+
+function openCase(caseId) {
+    if (STATE.isOpening) return;
+    const caseData = getCaseById(caseId);
+    if (!caseData) return;
+    if (STATE.balance < caseData.price) {
+        showToast('Недостаточно монет! Нужно ' + caseData.price + ' ₽');
+        return;
+    }
+    STATE.isOpening = true;
+    sfxCaseOpenStart();
+    const modal = document.getElementById('caseModal');
+    const track = document.getElementById('slotTrack');
+    const resultDisplay = document.getElementById('resultDisplay');
+
+    document.getElementById('modalCaseName').textContent = caseData.name;
+    modal.classList.add('open');
+
+    // Подготовка данных для прокрутки
+    const allItems = caseData.items;
+    let spinItems = [];
+    for (let i=0; i<30; i++) spinItems.push(pickRandom(allItems));
+    const result = rollItem(caseData);
+    spinItems.push(result);
+    for (let i=0; i<10; i++) spinItems.push(pickRandom(allItems));
+    spinItems.push(result);
+
+    track.innerHTML = '';
+    spinItems.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'slot-item';
+        div.dataset.idx = idx;
+        div.innerHTML = `<span class="emoji">${item.emoji}</span> ${item.name}`;
+        track.appendChild(div);
+    });
+
+    const itemHeight = 46;
+    const visibleCount = 3;
+    document.getElementById('slotContainer').style.height = (itemHeight * visibleCount) + 'px';
+
+    let startTime = null;
+    const duration = 2800;
+    const endOffset = -((spinItems.length - 1) - 2) * itemHeight;
+
+    // Функция анимации
+    function animateScroll(time) {
+        if (!startTime) startTime = time;
+        const progress = Math.min((time - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const currentOffset = 0 + (endOffset - 0) * eased;
+        track.style.transform = 'translateY(' + currentOffset + 'px)';
+        const items = track.querySelectorAll('.slot-item');
+        const centerIdx = Math.round(-currentOffset / itemHeight);
+        items.forEach((el, i) => {
+            el.classList.remove('active', 'highlight');
+            if (i === centerIdx) el.classList.add('active');
+            if (i === spinItems.length - 1 && progress >= 0.99) el.classList.add('highlight');
+        });
+        if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+        } else {
+            track.style.transform = 'translateY(' + endOffset + 'px)';
+            resultDisplay.innerHTML = `
+                <span class="big-emoji">${result.emoji}</span>
+                <span class="result-name">${result.name}</span>
+                <span class="result-rare">${result.rarity || 'обычное'}</span>
+            `;
+            // Добавляем предмет в инвентарь и списываем монеты
+            addToInventory(result, caseData.id);
+            STATE.balance -= caseData.price;
+            STATE.casesOpened += 1;
+            if (STATE.casesOpened > STATE.maxCasesOpened) STATE.maxCasesOpened = STATE.casesOpened;
+            updateUI();
+            checkAchievements();
+            sfxCaseOpenFinish();
+            if (result.rarity === 'редкое' || result.rarity === 'эпическое' || result.rarity === 'эксклюзив') {
+                setTimeout(() => { sfxCaseOpenFinish(); }, 300);
+            }
+            STATE.isOpening = false;
+            saveStateToFirebase().then(() => saveStateToLocal());
+        }
+    }
+
+    // Запускаем анимацию сразу
+    requestAnimationFrame(animateScroll);
+
+    // Кнопка закрытия
+    document.getElementById('caseModalClose').onclick = function() {
+        if (!STATE.isOpening) closeCaseModal();
+    };
+    // Клик по оверлею
+    modal.onclick = function(e) {
+        if (e.target === modal && !STATE.isOpening) closeCaseModal();
+    };
+    // Шансы
+    document.getElementById('showChancesBtn').onclick = function() {
+        showChances(caseData);
+    };
+}
+
+function closeCaseModal() {
+    document.getElementById('caseModal').classList.remove('open');
+    document.getElementById('slotTrack').innerHTML = '';
+    document.getElementById('resultDisplay').innerHTML = `
+        <span class="big-emoji">🎲</span>
+        <span class="result-name" style="color:#6a8aaa;">Ожидайте...</span>
+        <span class="result-rare"></span>
+    `;
+}
+
+function showChances(caseData) {
+    const modal = document.getElementById('chanceModal');
+    const list = document.getElementById('chanceList');
+    let html = '';
+    const total = caseData.items.reduce((s,i) => s + i.weight, 0);
+    for (const item of caseData.items) {
+        const percent = (item.weight / total * 100).toFixed(1);
+        html += `<div class="chance-item"><span class="name">${item.emoji} ${item.name}</span><span class="percent">${percent}%</span></div>`;
+    }
+    list.innerHTML = html;
+    modal.classList.add('open');
+    document.getElementById('chanceClose').onclick = () => modal.classList.remove('open');
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+    sfxClick();
+}
+
+// =================================================================
+//  ИНВЕНТАРЬ
+// =================================================================
+function addToInventory(item, caseId) {
+    const entry = {
+        id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
+        name: item.name,
+        emoji: item.emoji,
+        rarity: item.rarity || 'обычное',
+        caseId: caseId,
+        acquired: Date.now(),
+    };
+    STATE.inventory.push(entry);
+    const key = item.name + '|||' + item.emoji;
+    STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+    renderInventory();
+    updateUI();
+    saveStateToFirebase().then(() => saveStateToLocal());
+}
+
+function renderInventory() {
+    const grid = document.getElementById('inventoryGrid');
+    const countEl = document.getElementById('invCount');
+    const entries = Object.entries(STATE.itemsCount);
+    if (entries.length === 0) {
+        grid.innerHTML = `<div class="inv-empty">Инвентарь пуст<br>Откройте кейсы</div>`;
+        countEl.textContent = '0';
+        return;
+    }
+    let html = '', total = 0;
+    for (const [key, count] of entries) {
+        const [name, emoji] = key.split('|||');
+        const found = STATE.inventory.find(it => it.name === name && it.emoji === emoji);
+        const rarity = found ? found.rarity : 'обычное';
+        html += `<div class="inv-item">
+            <span class="item-emoji">${emoji}</span>
+            <div class="item-name">${name}</div>
+            <div class="item-count">×${count}</div>
+            <div class="item-rarity">${rarity}</div>
+        </div>`;
+        total += count;
+    }
+    grid.innerHTML = html;
+    countEl.textContent = total;
+}
+
+// =================================================================
+//  ТОРГОВЛЯ (С ВОЗМОЖНОСТЬЮ ВЫБОРА КОЛИЧЕСТВА ОТ 1 ДО 10)
+// =================================================================
+let marketTab = 'buy';
+let marketListingsCache = [];
+
+function loadMarketListings() {
+    return db.ref('market').once('value').then(snap => {
+        const data = snap.val();
+        const listings = [];
+        if (data) {
+            for (const id in data) {
+                listings.push({ id, ...data[id] });
+            }
+        }
+        marketListingsCache = listings;
+        return listings;
+    });
+}
+
+function renderMarket() {
+    const container = document.getElementById('marketContent');
+    document.querySelectorAll('[data-market-tab]').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.marketTab === marketTab);
+    });
+    loadMarketListings().then(() => {
+        if (marketTab === 'buy') renderMarketBuy(container);
+        else if (marketTab === 'sell') renderMarketSell(container);
+        else if (marketTab === 'my') renderMarketMy(container);
+    });
+}
+
+function renderMarketBuy(container) {
+    const listings = marketListingsCache.filter(l => l.sellerId !== STATE.uid);
+    if (listings.length === 0) {
+        container.innerHTML = `<div class="inv-empty">На рынке пока ничего нет</div>`;
+        return;
+    }
+    let html = '';
+    for (const listing of listings) {
+        const count = listing.count || 1;
+        const nameWithCount = count > 1 ? `${listing.itemName} (x${count})` : listing.itemName;
+        html += `<div class="market-listing">
+            <div class="info">
+                <span class="emoji">${listing.emoji}</span>
+                <div class="details">
+                    <div class="name">${nameWithCount}</div>
+                    <div class="seller">👤 ${listing.sellerName || 'Игрок'}</div>
+                </div>
+            </div>
+            <div class="price">${listing.price} ₽ <button data-listing-id="${listing.id}">Купить</button></div>
+        </div>`;
+    }
+    container.innerHTML = html;
+    container.querySelectorAll('[data-listing-id]').forEach(btn => {
+        btn.addEventListener('click', function() { buyListing(this.dataset.listingId); });
+    });
+}
+
+function buyListing(listingId) {
+    const listing = marketListingsCache.find(l => l.id === listingId);
+    if (!listing) { showToast('Лот уже не доступен'); return; }
+    if (listing.sellerId === STATE.uid) { showToast('Это ваш собственный лот'); return; }
+    if (STATE.balance < listing.price) {
+        showToast('Недостаточно монет! Нужно ' + listing.price + ' ₽');
+        return;
+    }
+    sfxClick();
+    const commission = Math.floor(listing.price * 0.1);
+    const sellerGain = listing.price - commission;
+    const newBuyerBalance = STATE.balance - listing.price;
+    if (newBuyerBalance < 0) { showToast('Недостаточно монет!'); return; }
+
+    const updates = {};
+    updates['users/' + STATE.uid + '/balance'] = newBuyerBalance;
+    db.ref('users/' + listing.sellerId + '/balance').transaction(current => (current || 0) + sellerGain);
+    updates['market/' + listingId] = null;
+
+    // Добавляем предметы в инвентарь (count раз)
+    const item = { name: listing.itemName, emoji: listing.emoji, rarity: 'обычное' };
+    const count = listing.count || 1;
+    let caseId = 'unknown';
+    for (const c of CASES) {
+        if (c.items.some(i => i.name === item.name && i.emoji === item.emoji)) {
+            caseId = c.id;
+            break;
+        }
+    }
+    for (let i = 0; i < count; i++) {
+        addToInventory(item, caseId);
+    }
+    STATE.balance = newBuyerBalance;
+
+    db.ref().update(updates).then(() => {
+        showToast('Куплено: ' + item.emoji + ' ' + item.name + (count > 1 ? ` (x${count})` : '') + ' за ' + listing.price + ' ₽');
+        sfxMarketBuy();
+        updateUI();
+        renderMarket();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    }).catch(err => {
+        showToast('Ошибка при покупке: ' + err.message);
+    });
+}
+
+function renderMarketSell(container) {
+    const uniqueItems = [];
+    const seen = new Set();
+    for (const item of STATE.inventory) {
+        const key = item.name + '|||' + item.emoji;
+        if (!seen.has(key)) { seen.add(key);
+            uniqueItems.push({ name: item.name, emoji: item.emoji, key: key, rarity: item.rarity }); }
+    }
+    let html = `<div class="market-sell-form">
+        <div style="margin-bottom:6px; color:#b0c8e0;">Выставить на продажу</div>
+        <select id="sellItemSelect"><option value="">— выберите предмет —</option>`;
+    for (const item of uniqueItems) {
+        const count = STATE.itemsCount[item.key] || 0;
+        html += `<option value="${item.key}">${item.emoji} ${item.name} (×${count})</option>`;
+    }
+    html += `</select>
+        <div class="row">
+            <label style="color:#b0c8e0;">Количество (1-10):</label>
+            <input type="number" id="sellCountInput" min="1" max="10" value="1" style="width:70px;">
+        </div>
+        <div class="row">
+            <input type="number" id="sellPriceInput" placeholder="Цена за весь лот в ₽" min="1" value="50" style="flex:1;">
+            <button id="sellSubmitBtn" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:8px 20px; border-radius:6px; cursor:pointer; font-size:15px;">Выставить</button>
+        </div>
+        <div style="font-size:13px; color:#6a8aaa; margin-top:6px;">При продаже комиссия 10% — вы получите на 10% меньше от общей суммы</div>
+    </div>`;
+    container.innerHTML = html;
+
+    document.getElementById('sellSubmitBtn').addEventListener('click', function() {
+        const select = document.getElementById('sellItemSelect');
+        const key = select.value;
+        if (!key) { showToast('Выберите предмет'); return; }
+        const priceInput = document.getElementById('sellPriceInput');
+        const price = parseInt(priceInput.value);
+        if (!price || price < 1) { showToast('Введите корректную цену'); return; }
+        const countInput = document.getElementById('sellCountInput');
+        let count = parseInt(countInput.value);
+        if (isNaN(count) || count < 1) count = 1;
+        if (count > 10) count = 10;
+        const [name, emoji] = key.split('|||');
+        const available = STATE.itemsCount[key] || 0;
+        if (available < count) {
+            showToast(`У вас только ${available} ${name} (запрошено ${count})`);
+            return;
+        }
+        // Удаляем из инвентаря count штук
+        let removed = 0;
+        for (let i = STATE.inventory.length - 1; i >= 0 && removed < count; i--) {
+            if (STATE.inventory[i].name === name && STATE.inventory[i].emoji === emoji) {
+                STATE.inventory.splice(i, 1);
+                removed++;
+            }
+        }
+        STATE.itemsCount[key] = available - count;
+        if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
+
+        const listingId = db.ref('market').push().key;
+        const listing = {
+            itemName: name,
+            emoji: emoji,
+            count: count,
+            price: price,
+            sellerId: STATE.uid,
+            sellerName: STATE.nickname,
+            created: Date.now(),
+        };
+        const updates = {};
+        updates['market/' + listingId] = listing;
+        db.ref().update(updates).then(() => {
+            showToast('Выставлен: ' + emoji + ' ' + name + (count > 1 ? ` (x${count})` : '') + ' за ' + price + ' ₽');
+            sfxMarketSell();
+            updateUI();
+            saveStateToFirebase().then(() => saveStateToLocal());
+            renderMarket();
+            renderInventory();
+        }).catch(err => {
+            showToast('Ошибка: ' + err.message);
+            // Восстанавливаем предметы
+            for (let i = 0; i < count; i++) {
+                const entry = {
+                    id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
+                    name: name,
+                    emoji: emoji,
+                    rarity: 'обычное',
+                    caseId: 'unknown',
+                    acquired: Date.now(),
+                };
+                STATE.inventory.push(entry);
+            }
+            rebuildItemsCount();
+            renderInventory();
+        });
+    });
+}
+
+function renderMarketMy(container) {
+    const myListings = marketListingsCache.filter(l => l.sellerId === STATE.uid);
+    if (myListings.length === 0) {
+        container.innerHTML = `<div class="inv-empty">У вас нет активных лотов</div>`;
+        return;
+    }
+    let html = '';
+    for (const listing of myListings) {
+        const count = listing.count || 1;
+        const nameWithCount = count > 1 ? `${listing.itemName} (x${count})` : listing.itemName;
+        html += `<div class="market-listing">
+            <div class="info">
+                <span class="emoji">${listing.emoji}</span>
+                <div class="details">
+                    <div class="name">${nameWithCount}</div>
+                    <div class="seller" style="color:#6a8aaa;">⭐ ваш лот</div>
+                </div>
+            </div>
+            <div class="price">${listing.price} ₽ <button data-listing-id="${listing.id}" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:6px 14px; border-radius:6px; cursor:pointer;">Снять</button></div>
+        </div>`;
+    }
+    container.innerHTML = html;
+    container.querySelectorAll('[data-listing-id]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.dataset.listingId;
+            const listing = marketListingsCache.find(l => l.id === id);
+            if (!listing) { showToast('Лот не найден'); return; }
+            if (listing.sellerId !== STATE.uid) { showToast('Это не ваш лот'); return; }
+            sfxClick();
+            const updates = {};
+            updates['market/' + id] = null;
+            db.ref().update(updates).then(() => {
+                // Возвращаем предметы в инвентарь
+                const item = { name: listing.itemName, emoji: listing.emoji, rarity: 'обычное' };
+                const count = listing.count || 1;
+                for (let i = 0; i < count; i++) {
+                    addToInventory(item, 'unknown');
+                }
+                showToast('Лот снят: ' + item.emoji + ' ' + item.name + (count > 1 ? ` (x${count})` : ''));
+                updateUI();
+                renderMarket();
+                renderInventory();
+                saveStateToFirebase().then(() => saveStateToLocal());
+            }).catch(err => {
+                showToast('Ошибка: ' + err.message);
+            });
+        });
+    });
+}
+
+// =================================================================
+//  РЕЙТИНГ (только реальные игроки)
+// =================================================================
+let ratingTab = 'cards';
+let ratingMode = 'now';
+
+function renderRating() {
+    const container = document.getElementById('ratingContent');
+    document.querySelectorAll('[data-rating-tab]').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.ratingTab === ratingTab);
+    });
+    let field = '';
+    switch(ratingTab) {
+        case 'cards': field = (ratingMode === 'now') ? 'casesOpened' : 'maxCasesOpened'; break;
+        case 'balance': field = (ratingMode === 'now') ? 'balance' : 'maxBalance'; break;
+        case 'totalEarned': field = 'totalEarned'; break;
+        case 'elo': field = (ratingMode === 'now') ? 'elo' : 'maxElo'; break;
+        case 'clicks': field = (ratingMode === 'now') ? 'totalClicks' : 'totalClicks'; break;
+        default: field = 'casesOpened';
+    }
+
+    db.ref('users').once('value').then(snap => {
+        const users = snap.val();
+        const players = [];
+        if (users) {
+            for (const uid in users) {
+                const data = users[uid];
+                if (!data.nickname) continue;
+                players.push({
+                    name: data.nickname,
+                    isYou: (uid === STATE.uid),
+                    casesOpened: data.casesOpened || 0,
+                    maxCasesOpened: data.maxCasesOpened || 0,
+                    balance: data.balance || 0,
+                    maxBalance: data.maxBalance || 0,
+                    totalEarned: data.totalEarned || 0,
+                    elo: data.elo || 1000,
+                    maxElo: data.maxElo || 1000,
+                    totalClicks: data.totalClicks || 0,
+                });
+            }
+        }
+        // Только реальные игроки — без ботов!
+        const sorted = [...players].sort((a, b) => b[field] - a[field]);
+        const top = sorted.slice(0, 20);
+        let html = `<div class="rating-list">`;
+        let rank = 1;
+        for (const p of top) {
+            const isYou = p.isYou;
+            let posClass = '';
+            if (rank === 1) posClass = 'gold';
+            else if (rank === 2) posClass = 'silver';
+            else if (rank === 3) posClass = 'bronze';
+            const value = p[field] ?? 0;
+            let valueStr = value;
+            if (ratingTab === 'cards' || ratingTab === 'maxCasesOpened') valueStr = value + ' 📦';
+            else if (ratingTab === 'balance' || ratingTab === 'maxBalance' || ratingTab === 'totalEarned')
+                valueStr = formatNum(value) + ' ₽';
+            else if (ratingTab === 'elo' || ratingTab === 'maxElo') valueStr = value + ' ⚡';
+            else if (ratingTab === 'clicks') valueStr = value + ' кликов';
+            html += `<div class="rank-item ${isYou ? 'you' : ''}">
+                <span class="pos ${posClass}">${rank}</span>
+                <span class="name">${isYou ? '⭐ ' : ''}${p.name}</span>
+                <span class="value">${valueStr}</span>
+                ${isYou ? '<span class="you-badge" style="font-size:12px; color:#6a8aaa;">вы</span>' : ''}
+            </div>`;
+            rank++;
+        }
+        html += `</div>`;
+        container.innerHTML = html;
+    }).catch(err => {
+        container.innerHTML = `<div class="inv-empty">Ошибка загрузки рейтинга</div>`;
+    });
+}
+
+// =================================================================
+//  АЧИВКИ
+// =================================================================
+function checkAchievements() {
+    let any = false;
+    for (const ach of ACHIEVEMENTS) {
+        if (STATE.achievements.includes(ach.id)) continue;
+        if (ach.id === 'topBalance' || ach.id === 'topCases' || ach.id === 'topElo') continue;
+        if (ach.check(STATE)) {
+            STATE.achievements.push(ach.id);
+            any = true;
+            showToast('🏆 Достижение: ' + ach.name);
+            sfxAchievement();
+        }
+    }
+    if (any) {
+        renderAchievements();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    }
+}
+
+function renderAchievements() {
+    const grid = document.getElementById('achievementsGrid');
+    const countEl = document.getElementById('achCount');
+    let html = '';
+    let unlocked = 0;
+    for (const ach of ACHIEVEMENTS) {
+        const isUnlocked = STATE.achievements.includes(ach.id);
+        if (isUnlocked) unlocked++;
+        html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
+            <span class="ach-emoji">${isUnlocked ? '✅' : '🔒'}</span>
+            <span class="ach-name">${ach.name}</span>
+        </div>`;
+    }
+    grid.innerHTML = html;
+    countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
+}
+
+// =================================================================
+//  ХОККЕЙ (КРУГИ, УПРОЩЁННЫЙ БОТ)
+// =================================================================
+let hockeyCanvas, ctx;
+let hockeyAnimId = null;
+let hockeyState = {
+    puck: { x:250, y:350, vx:0, vy:0, radius:10 },
+    player: { x:250, y:600, radius:25, speed:8 },
+    ai: { x:250, y:80, radius:20, speed:2.8 },
+    running: false,
+    ended: false,
+    scorePlayer: 0,
+    scoreAI: 0,
+    goalsToWin: 2,
+    centerY: 350,
+    neutralZone: 30,
+    stretch: 1.0,
+    mouseX: 250,
+    aiShootCooldown: 0,
+    lastTime: 0,
+};
+
+function initHockey() {
+    hockeyCanvas = document.getElementById('hockeyCanvas');
+    ctx = hockeyCanvas.getContext('2d');
+    resizeHockeyCanvas();
+    hockeyState.scorePlayer = STATE.hockey.scorePlayer || 0;
+    hockeyState.scoreAI = STATE.hockey.scoreAI || 0;
+    hockeyState.goalsToWin = 2;
+    hockeyState.stretch = STATE.settings.stretch || 1.0;
+
+    hockeyCanvas.addEventListener('mousemove', onHockeyMouse);
+    hockeyCanvas.addEventListener('touchmove', onHockeyTouch, { passive: false });
+    hockeyCanvas.addEventListener('touchstart', onHockeyTouch, { passive: false });
+    hockeyCanvas.addEventListener('mouseleave', () => { hockeyState.mouseX = hockeyState.player.x; });
+
+    document.getElementById('hockeyReset').addEventListener('click', resetHockey);
+    document.getElementById('hockeyStart').addEventListener('click', startHockey);
+
+    resetHockey();
+    drawHockey();
+    hockeyState.lastTime = performance.now();
+    hockeyLoop(hockeyState.lastTime);
+}
+
+function resizeHockeyCanvas() {
+    const rect = hockeyCanvas.parentElement.getBoundingClientRect();
+    const w = Math.min(rect.width - 8, 500);
+    const h = w * 1.4;
+    hockeyCanvas.width = 500;
+    hockeyCanvas.height = 700;
+    hockeyCanvas.style.width = w + 'px';
+    hockeyCanvas.style.height = h + 'px';
+}
+
+function onHockeyMouse(e) {
+    const rect = hockeyCanvas.getBoundingClientRect();
+    const scaleX = 500 / rect.width;
+    const x = (e.clientX - rect.left) * scaleX;
+    hockeyState.mouseX = clamp(x, 30, 470);
+    if (!hockeyState.running) hockeyState.player.x = hockeyState.mouseX;
+}
+
+function onHockeyTouch(e) {
+    e.preventDefault();
+    const rect = hockeyCanvas.getBoundingClientRect();
+    const scaleX = 500 / rect.width;
+    const touch = e.touches[0];
+    if (!touch) return;
+    const x = (touch.clientX - rect.left) * scaleX;
+    hockeyState.mouseX = clamp(x, 30, 470);
+    if (!hockeyState.running) hockeyState.player.x = hockeyState.mouseX;
+}
+
+function resetHockey() {
+    hockeyState.running = false;
+    hockeyState.ended = false;
+    hockeyState.scorePlayer = 0;
+    hockeyState.scoreAI = 0;
+    hockeyState.puck.x = 250; hockeyState.puck.y = 350;
+    hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+    hockeyState.player.x = 250; hockeyState.ai.x = 250;
+    hockeyState.aiShootCooldown = 0;
+    updateHockeyUI();
+    if (hockeyAnimId) { cancelAnimationFrame(hockeyAnimId); hockeyAnimId = null; }
+    drawHockey();
+    document.getElementById('hockeyStatus').textContent = 'Перемещай мышкой. Нажми "Старт"';
+    STATE.hockey.scorePlayer = 0; STATE.hockey.scoreAI = 0;
+    saveStateToFirebase().then(() => saveStateToLocal());
+}
+
+function startHockey() {
+    if (hockeyState.ended) { resetHockey(); setTimeout(startHockey, 300); return; }
+    if (hockeyState.running) return;
+    hockeyState.running = true;
+    hockeyState.puck.x = 250; hockeyState.puck.y = 350;
+    hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(60,100);
+    hockeyState.puck.vy = (Math.random()>0.5?1:-1) * randf(50,90);
+    hockeyState.aiShootCooldown = 0;
+    document.getElementById('hockeyStatus').textContent = 'Игра идёт! Первый до 2 голов';
+    if (hockeyAnimId) cancelAnimationFrame(hockeyAnimId);
+    hockeyState.lastTime = performance.now();
+    hockeyLoop(hockeyState.lastTime);
+}
+
+function hockeyLoop(timestamp) {
+    const dt = Math.min((timestamp - hockeyState.lastTime) / 1000, 0.032);
+    hockeyState.lastTime = timestamp;
+    if (hockeyState.running && !hockeyState.ended) {
+        updateHockeyPhysics(dt);
+        checkHockeyGoals();
+    }
+    drawHockey();
+    hockeyAnimId = requestAnimationFrame(hockeyLoop);
+}
+
+function updateHockeyPhysics(dt) {
+    const puck = hockeyState.puck, player = hockeyState.player, ai = hockeyState.ai;
+    const centerY = 350, neutralHalf = 30;
+
+    // Управление игроком (круг)
+    const targetX = hockeyState.mouseX;
+    const dx = targetX - player.x;
+    if (Math.abs(dx) > 3) player.x += Math.sign(dx) * Math.min(Math.abs(dx), player.speed * 2.5 * dt * 60);
+    player.x = clamp(player.x, 30, 470);
+    player.y = 600;
+
+    // Упрощённый AI (круг)
+    const predictX = puck.x + puck.vx * 0.2;
+    const targetAI = clamp(predictX, 30, 470);
+    const dxAI = targetAI - ai.x;
+    if (Math.abs(dxAI) > 5) ai.x += Math.sign(dxAI) * Math.min(Math.abs(dxAI), ai.speed * 2.0 * dt * 60);
+    ai.x = clamp(ai.x, 30, 470);
+    ai.y = 80;
+
+    // AI стреляет реже и слабее
+    hockeyState.aiShootCooldown = Math.max(0, hockeyState.aiShootCooldown - dt);
+    const distToPuckAI = Math.hypot(puck.x - ai.x, puck.y - ai.y);
+    if (distToPuckAI < 90 && hockeyState.aiShootCooldown <= 0 && Math.random() < 0.02) {
+        const angle = Math.atan2(680 - puck.y, (250 + (Math.random()-0.5)*120) - puck.x);
+        const power = 180 + Math.random() * 100;
+        puck.vx += Math.cos(angle) * power * 0.5;
+        puck.vy += Math.sin(angle) * power * 0.5;
+        hockeyState.aiShootCooldown = 1.2 + Math.random() * 0.8;
+    }
+
+    // Физика
+    puck.x += puck.vx * dt; puck.y += puck.vy * dt;
+    puck.vx *= (1 - 0.5 * dt); puck.vy *= (1 - 0.5 * dt);
+
+    if (puck.x < puck.radius) { puck.x = puck.radius; puck.vx = Math.abs(puck.vx)*0.7; }
+    if (puck.x > 500 - puck.radius) { puck.x = 500 - puck.radius; puck.vx = -Math.abs(puck.vx)*0.7; }
+
+    // Ограничение зон
+    const playerMinY = centerY + neutralHalf;
+    if (player.y < playerMinY) player.y = playerMinY;
+    const aiMaxY = centerY - neutralHalf;
+    if (ai.y > aiMaxY) ai.y = aiMaxY;
+
+    // Столкновение игрок-шайба (круг-круг)
+    const dxPuckPlayer = puck.x - player.x;
+    const dyPuckPlayer = puck.y - player.y;
+    const distPuckPlayer = Math.hypot(dxPuckPlayer, dyPuckPlayer);
+    const minDist = puck.radius + player.radius;
+    if (distPuckPlayer < minDist && distPuckPlayer > 0) {
+        const overlap = minDist - distPuckPlayer;
+        const angle = Math.atan2(dyPuckPlayer, dxPuckPlayer);
+        // Отталкиваем шайбу
+        puck.x += Math.cos(angle) * overlap;
+        puck.y += Math.sin(angle) * overlap;
+        // Передаём импульс
+        const speed = Math.hypot(puck.vx, puck.vy);
+        if (speed > 0) {
+            const newSpeed = speed * 0.8 + 40;
+            puck.vx = Math.cos(angle) * newSpeed;
+            puck.vy = Math.sin(angle) * newSpeed;
+        }
+    }
+
+    // Столкновение AI-шайба (круг-круг)
+    const dxPuckAI = puck.x - ai.x;
+    const dyPuckAI = puck.y - ai.y;
+    const distPuckAI = Math.hypot(dxPuckAI, dyPuckAI);
+    const minDistAI = puck.radius + ai.radius;
+    if (distPuckAI < minDistAI && distPuckAI > 0) {
+        const overlap = minDistAI - distPuckAI;
+        const angle = Math.atan2(dyPuckAI, dxPuckAI);
+        puck.x += Math.cos(angle) * overlap;
+        puck.y += Math.sin(angle) * overlap;
+        // Отскок
+        const speed = Math.hypot(puck.vx, puck.vy);
+        if (speed > 0) {
+            const newSpeed = speed * 0.7 + 30;
+            puck.vx = Math.cos(angle) * newSpeed;
+            puck.vy = Math.sin(angle) * newSpeed;
+        }
+    }
+
+    // Ограничение скорости
+    const speed = Math.hypot(puck.vx, puck.vy);
+    if (speed > 500) { puck.vx = (puck.vx/speed)*500; puck.vy = (puck.vy/speed)*500; }
+    if (speed < 15 && hockeyState.running && Math.random() < 0.005) {
+        puck.vx += (Math.random()-0.5)*40;
+        puck.vy += (Math.random()-0.5)*40;
+    }
+
+    if (puck.y < -20) { puck.y = 20; puck.vy = Math.abs(puck.vy)*0.5; }
+    if (puck.y > 720) { puck.y = 680; puck.vy = -Math.abs(puck.vy)*0.5; }
+
+    if (player.y < centerY + neutralHalf) player.y = centerY + neutralHalf;
+    if (ai.y > centerY - neutralHalf) ai.y = centerY - neutralHalf;
+
+    if (hockeyState.running) {
+        const dxP = hockeyState.mouseX - player.x;
+        if (Math.abs(dxP) > 3) player.x += Math.sign(dxP) * Math.min(Math.abs(dxP), player.speed * 2.5 * dt * 60);
+        player.x = clamp(player.x, 30, 470);
+    }
+}
+
+function checkHockeyGoals() {
+    const puck = hockeyState.puck;
+    if (puck.y < 30 && puck.x > 190 && puck.x < 310) {
+        hockeyState.scorePlayer += 1;
+        hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+        hockeyState.puck.x = 250; hockeyState.puck.y = 350;
+        updateHockeyUI();
+        sfxHockeyGoal();
+        if (hockeyState.scorePlayer >= hockeyState.goalsToWin) {
+            endHockeyGame('player');
+        } else {
+            document.getElementById('hockeyStatus').textContent = 'ГОЛ! Счёт: ' + hockeyState.scorePlayer + ' : ' + hockeyState.scoreAI;
+            setTimeout(() => {
+                if (!hockeyState.ended) {
+                    hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(80,140);
+                    hockeyState.puck.vy = randf(60,120);
+                    document.getElementById('hockeyStatus').textContent = 'Игра продолжается!';
+                }
+            }, 800);
+        }
+        return;
+    }
+    if (puck.y > 670 && puck.x > 190 && puck.x < 310) {
+        hockeyState.scoreAI += 1;
+        hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+        hockeyState.puck.x = 250; hockeyState.puck.y = 350;
+        updateHockeyUI();
+        sfxHockeyLose();
+        if (hockeyState.scoreAI >= hockeyState.goalsToWin) {
+            endHockeyGame('ai');
+        } else {
+            document.getElementById('hockeyStatus').textContent = 'Пропущен гол! Счёт: ' + hockeyState.scorePlayer + ' : ' + hockeyState.scoreAI;
+            setTimeout(() => {
+                if (!hockeyState.ended) {
+                    hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(80,140);
+                    hockeyState.puck.vy = -randf(60,120);
+                    document.getElementById('hockeyStatus').textContent = 'Игра продолжается!';
+                }
+            }, 800);
+        }
+        return;
+    }
+}
+
+function endHockeyGame(winner) {
+    hockeyState.running = false; hockeyState.ended = true;
+    if (winner === 'player') {
+        const coins = rand(10,20);
+        const eloGain = rand(10,20);
+        STATE.balance += coins;
+        STATE.totalEarned += coins;
+        if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+        STATE.elo += eloGain;
+        if (STATE.elo > STATE.maxElo) STATE.maxElo = STATE.elo;
+        document.getElementById('hockeyStatus').textContent = 'ПОБЕДА! +' + coins + ' монет и +' + eloGain + ' Эло!';
+        sfxHockeyGoal();
+        setTimeout(() => sfxHockeyGoal(), 300);
+    } else {
+        const eloLoss = rand(5,10);
+        STATE.elo = Math.max(0, STATE.elo - eloLoss);
+        document.getElementById('hockeyStatus').textContent = 'Поражение... -' + eloLoss + ' Эло. Попробуй ещё!';
+        sfxHockeyLose();
+    }
+    updateUI();
+    checkAchievements();
+    STATE.hockey.scorePlayer = hockeyState.scorePlayer;
+    STATE.hockey.scoreAI = hockeyState.scoreAI;
+    saveStateToFirebase().then(() => saveStateToLocal());
+}
+
+function updateHockeyUI() {
+    document.getElementById('hockeyAiScore').textContent = hockeyState.scoreAI;
+    document.getElementById('hockeyPlayerScore').textContent = hockeyState.scorePlayer;
+}
+
+function drawHockey() {
+    const ctx2 = ctx, W=500, H=700;
+    ctx2.clearRect(0,0,W,H);
+    const grad = ctx2.createRadialGradient(250,350,60,250,350,400);
+    grad.addColorStop(0,'#1a3a5a'); grad.addColorStop(1,'#0d1a2a');
+    ctx2.fillStyle = grad; ctx2.fillRect(0,0,W,H);
+
+    ctx2.strokeStyle = 'rgba(255,255,255,0.07)'; ctx2.lineWidth=2;
+    ctx2.setLineDash([8,10]); ctx2.beginPath(); ctx2.moveTo(0,350); ctx2.lineTo(500,350); ctx2.stroke();
+    ctx2.setLineDash([]);
+    ctx2.fillStyle = 'rgba(255,255,255,0.03)'; ctx2.fillRect(0,320,500,60);
+
+    // Ворота
+    ctx2.fillStyle = 'rgba(100,200,255,0.08)'; ctx2.fillRect(190,680,120,25);
+    ctx2.strokeStyle = 'rgba(100,200,255,0.2)'; ctx2.lineWidth=2; ctx2.strokeRect(190,680,120,25);
+    ctx2.fillStyle = 'rgba(255,100,100,0.08)'; ctx2.fillRect(190,0,120,25);
+    ctx2.strokeStyle = 'rgba(255,100,100,0.2)'; ctx2.strokeRect(190,0,120,25);
+
+    // Игрок (круг)
+    const p = hockeyState.player;
+    ctx2.beginPath(); ctx2.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+    ctx2.fillStyle = '#6fc3ff'; ctx2.shadowColor='rgba(100,200,255,0.3)'; ctx2.shadowBlur=14;
+    ctx2.fill();
+    ctx2.shadowBlur=0;
+    ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth=2; ctx2.stroke();
+
+    // Бот (круг)
+    const ai = hockeyState.ai;
+    ctx2.beginPath(); ctx2.arc(ai.x, ai.y, ai.radius, 0, Math.PI*2);
+    ctx2.fillStyle = '#ff6b6b'; ctx2.shadowColor='rgba(255,100,100,0.3)'; ctx2.shadowBlur=14;
+    ctx2.fill();
+    ctx2.shadowBlur=0;
+    ctx2.strokeStyle = '#ffffff'; ctx2.lineWidth=2; ctx2.stroke();
+
+    // Шайба
+    const puck = hockeyState.puck;
+    const gradient = ctx2.createRadialGradient(puck.x-4, puck.y-4, 3, puck.x, puck.y, puck.radius+3);
+    gradient.addColorStop(0,'#ffffff'); gradient.addColorStop(0.6,'#e0e0e0'); gradient.addColorStop(1,'#999999');
+    ctx2.shadowColor='rgba(255,255,255,0.2)'; ctx2.shadowBlur=18;
+    ctx2.beginPath(); ctx2.arc(puck.x, puck.y, puck.radius, 0, Math.PI*2); ctx2.fillStyle=gradient; ctx2.fill();
+    ctx2.shadowBlur=0;
+    ctx2.beginPath(); ctx2.arc(puck.x-3, puck.y-4, 3, 0, Math.PI*2); ctx2.fillStyle='rgba(255,255,255,0.5)'; ctx2.fill();
+
+    // Центр
+    ctx2.fillStyle = 'rgba(255,255,255,0.03)'; ctx2.beginPath(); ctx2.arc(250,350,40,0,Math.PI*2); ctx2.fill();
+    ctx2.strokeStyle = 'rgba(255,255,255,0.06)'; ctx2.lineWidth=1.5; ctx2.beginPath(); ctx2.arc(250,350,40,0,Math.PI*2); ctx2.stroke();
+
+    ctx2.fillStyle='rgba(255,255,255,0.06)'; ctx2.font='12px sans-serif'; ctx2.textAlign='center';
+    ctx2.fillText('⛔ НЕЛЬЗЯ', 250, 348);
+    ctx2.fillStyle='rgba(255,255,255,0.06)'; ctx2.font='56px sans-serif';
+    ctx2.fillText(hockeyState.scoreAI + ' : ' + hockeyState.scorePlayer, 250, 380);
+}
+
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+        if (r > w/2) r = w/2; if (r > h/2) r = h/2;
+        this.moveTo(x+r, y); this.lineTo(x+w-r, y);
+        this.quadraticCurveTo(x+w, y, x+w, y+r);
+        this.lineTo(x+w, y+h-r); this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+        this.lineTo(x+r, y+h); this.quadraticCurveTo(x, y+h, x, y+h-r);
+        this.lineTo(x, y+r); this.quadraticCurveTo(x, y, x+r, y);
+        return this;
+    };
+}
+
+// =================================================================
+//  КЛИКЕР
+// =================================================================
+const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP', 'LKJ', 'HGF', 'DSA', 'MNB', 'CVB', 'ZXC',
+    'ASD', 'FGH', 'JKL', 'POI', 'UYT', 'REW', 'QAZ'];
+
+let captchaActive = false;
+let captchaAnswer = '';
+
+function initClicker() {
+    document.getElementById('clickBtn').addEventListener('click', function() {
+        if (STATE.clickCooldown) {
+            showToast('Подождите 1 секунду между кликами');
+            return;
+        }
+        if (captchaActive) {
+            showToast('Сначала введите капчу!');
+            return;
+        }
+        STATE.clicksSinceCaptcha = (STATE.clicksSinceCaptcha || 0) + 1;
+        STATE.totalClicks += 1;
+        STATE.balance += 5;
+        STATE.totalEarned += 5;
+        if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+        sfxClicker();
+        STATE.clickCooldown = true;
+        document.getElementById('clickBtn').disabled = true;
+        document.getElementById('clickTimer').textContent = '⏳ Подождите...';
+        setTimeout(() => {
+            STATE.clickCooldown = false;
+            document.getElementById('clickBtn').disabled = false;
+            document.getElementById('clickTimer').textContent = 'Готово!';
+        }, 1000);
+
+        updateUI();
+        document.getElementById('clickerBalance').textContent = STATE.balance;
+        document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+
+        if (STATE.clicksSinceCaptcha >= 50) {
+            showCaptcha();
+        }
+        saveStateToFirebase().then(() => saveStateToLocal());
+    });
+
+    document.getElementById('captchaSubmit').addEventListener('click', function() {
+        const input = document.getElementById('captchaInput').value.trim();
+        if (input.toUpperCase() === captchaAnswer.toUpperCase()) {
+            captchaActive = false;
+            document.getElementById('clickerCaptcha').style.display = 'none';
+            showToast('✅ Капча пройдена!');
+            STATE.clicksSinceCaptcha = 0;
+            saveStateToFirebase().then(() => saveStateToLocal());
+        } else {
+            showToast('❌ Неверный код, попробуйте ещё раз');
+        }
+        document.getElementById('captchaInput').value = '';
+    });
+}
+
+function showCaptcha() {
+    captchaActive = true;
+    const randomIndex = rand(0, CAPTCHA_VARIANTS.length - 1);
+    captchaAnswer = CAPTCHA_VARIANTS[randomIndex];
+    document.getElementById('captchaText').textContent = captchaAnswer;
+    document.getElementById('clickerCaptcha').style.display = 'block';
+    document.getElementById('captchaInput').value = '';
+    document.getElementById('captchaInput').focus();
+}
+
+// =================================================================
+//  МУЗЫКА
+// =================================================================
+function updateMusic() {
+    const audio1 = document.getElementById('bg-music');
+    const audio2 = document.getElementById('bg-music2');
+    const track = STATE.settings.musicTrack || 0;
+    const vol = STATE.settings.musicVolume || 1;
+
+    audio1.pause();
+    audio2.pause();
+
+    if (!STATE.settings.music) return;
+
+    if (track === 0) {
+        audio1.volume = vol;
+        audio1.play().catch(() => {});
+    } else {
+        audio2.volume = vol;
+        audio2.play().catch(() => {});
+    }
+}
+
+// =================================================================
+//  UI ОБНОВЛЕНИЯ
+// =================================================================
+function updateUI() {
+    document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
+    document.getElementById('eloDisplay').textContent = STATE.elo;
+    document.getElementById('casesOpenedDisplay').textContent = STATE.casesOpened;
+    document.getElementById('idDisplay').textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
+    document.getElementById('clickerBalance').textContent = STATE.balance;
+    document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+    renderInventory();
+    renderCases();
+    updateHockeyUI();
+    renderAchievements();
+}
+
+function renderCases() {
+    const grid = document.getElementById('casesGrid');
+    let html = '';
+    for (const c of CASES) {
+        const price = c.price;
+        html += `<div class="case-card">
+            <span class="case-rare">${c.rare}</span>
+            <span class="case-emoji">${c.emoji}</span>
+            <div class="case-name">${c.name}</div>
+            <div class="case-price">${price} <span class="rub">₽</span></div>
+            <div class="case-progress"><div class="bar" style="width:${Math.min(100, (STATE.casesOpened % 10) * 10)}%; height:3px; background:#2a4a6a;"></div></div>
+            <button class="open-btn" data-case-id="${c.id}" ${STATE.balance < price ? 'disabled' : ''}>Открыть за ${price} ₽</button>
+        </div>`;
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.open-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const id = this.dataset.caseId;
+            sfxClick();
+            openCase(id);
+        });
+    });
+}
+
+// =================================================================
+//  НАСТРОЙКИ
+// =================================================================
+const THEMES = ['#1a2a3a', '#0a1a2b', '#2a1a3a', '#1a3a2a', '#3a1a1a'];
+
+function renderSettings() {
+    const grid = document.getElementById('colorGrid');
+    grid.innerHTML = '';
+    for (const color of THEMES) {
+        const btn = document.createElement('div');
+        btn.className = 'color-btn' + (color === STATE.settings.theme ? ' active' : '');
+        btn.style.background = color;
+        btn.dataset.color = color;
+        btn.addEventListener('click', function() {
+            const c = this.dataset.color;
+            STATE.settings.theme = c;
+            document.getElementById('app').style.background = c;
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            sfxClick();
+            saveStateToFirebase().then(() => saveStateToLocal());
+        });
+        grid.appendChild(btn);
+    }
+
+    const musicVolumeSlider = document.getElementById('musicVolumeSlider');
+    musicVolumeSlider.value = (STATE.settings.musicVolume || 1) * 100;
+    document.getElementById('musicVolumeDisplay').textContent = Math.round(musicVolumeSlider.value);
+    musicVolumeSlider.oninput = function() {
+        const val = parseInt(this.value);
+        document.getElementById('musicVolumeDisplay').textContent = val;
+        STATE.settings.musicVolume = val / 100;
+        updateMusic();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    const sfxVolumeSlider = document.getElementById('sfxVolumeSlider');
+    sfxVolumeSlider.value = (STATE.settings.sfxVolume || 1) * 100;
+    document.getElementById('sfxVolumeDisplay').textContent = Math.round(sfxVolumeSlider.value);
+    sfxVolumeSlider.oninput = function() {
+        const val = parseInt(this.value);
+        document.getElementById('sfxVolumeDisplay').textContent = val;
+        STATE.settings.sfxVolume = val / 100;
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    const musicSelect = document.getElementById('musicSelect');
+    musicSelect.value = STATE.settings.musicTrack || 0;
+    musicSelect.onchange = function() {
+        STATE.settings.musicTrack = parseInt(this.value);
+        updateMusic();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    const soundToggle = document.getElementById('soundToggle');
+    soundToggle.classList.toggle('on', STATE.settings.sound);
+    document.getElementById('soundLabel').textContent = STATE.settings.sound ? 'Включён' : 'Выключен';
+    soundToggle.onclick = function() {
+        STATE.settings.sound = !STATE.settings.sound;
+        this.classList.toggle('on', STATE.settings.sound);
+        document.getElementById('soundLabel').textContent = STATE.settings.sound ? 'Включён' : 'Выключен';
+        if (STATE.settings.sound) sfxClick();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    const musicToggle = document.getElementById('musicToggle');
+    musicToggle.classList.toggle('on', STATE.settings.music);
+    document.getElementById('musicLabel').textContent = STATE.settings.music ? 'Включена' : 'Выключена';
+    musicToggle.onclick = function() {
+        STATE.settings.music = !STATE.settings.music;
+        this.classList.toggle('on', STATE.settings.music);
+        document.getElementById('musicLabel').textContent = STATE.settings.music ? 'Включена' : 'Выключена';
+        updateMusic();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    const stretchSlider = document.getElementById('stretchSlider');
+    stretchSlider.value = STATE.settings.stretch;
+    document.getElementById('stretchValue').textContent = STATE.settings.stretch.toFixed(2);
+    stretchSlider.oninput = function() {
+        const val = parseFloat(this.value);
+        STATE.settings.stretch = val;
+        document.getElementById('stretchValue').textContent = val.toFixed(2);
+        hockeyState.stretch = val;
+        saveStateToFirebase().then(() => saveStateToLocal());
+    };
+
+    document.getElementById('changeNickBtn').onclick = function() {
+        const newNick = document.getElementById('newNickInput').value.trim();
+        const resultDiv = document.getElementById('nickChangeResult');
+        if (!newNick) { resultDiv.textContent = '❌ Введите новый ник'; return; }
+        if (newNick === STATE.nickname) { resultDiv.textContent = '❌ Это ваш текущий ник'; return; }
+        isNicknameUnique(newNick).then(unique => {
+            if (!unique) {
+                resultDiv.textContent = '❌ Ник уже занят';
+                return;
+            }
+            const updates = {};
+            updates['users/' + STATE.uid + '/nickname'] = newNick;
+            updates['nicknames/' + STATE.nickname] = null;
+            updates['nicknames/' + newNick] = STATE.uid;
+            db.ref().update(updates).then(() => {
+                STATE.nickname = newNick;
+                resultDiv.textContent = '✅ Ник успешно изменён на ' + newNick;
+                document.getElementById('idDisplay').textContent = '#' + STATE.userId + ' (' + newNick + ')';
+                showToast('Ник изменён на ' + newNick);
+                saveStateToFirebase().then(() => saveStateToLocal());
+            }).catch(err => {
+                resultDiv.textContent = '❌ Ошибка: ' + err.message;
+            });
+        });
+    };
+
+    document.getElementById('logoutBtn').onclick = function() {
+        if (confirm('Вы уверены, что хотите выйти?')) logout();
+    };
+}
+
+// =================================================================
+//  НАВИГАЦИЯ
+// =================================================================
+function navigateTo(sectionId) {
+    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+    const target = document.getElementById('section-' + sectionId);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('#mainNav button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === sectionId);
+    });
+    sfxClick();
+    if (sectionId === 'inventory') renderInventory();
+    if (sectionId === 'market') renderMarket();
+    if (sectionId === 'rating') renderRating();
+    if (sectionId === 'minigames') { resizeHockeyCanvas(); drawHockey(); }
+    if (sectionId === 'settings') renderSettings();
+    if (sectionId === 'cases') renderCases();
+    if (sectionId === 'achievements') renderAchievements();
+    if (sectionId === 'clicker') {
+        document.getElementById('clickerBalance').textContent = STATE.balance;
+        document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+    }
+}
+
+// =================================================================
+//  ИНИЦИАЛИЗАЦИЯ
+// =================================================================
+function init() {
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        const nick = document.getElementById('loginNick').value.trim();
+        const pass = document.getElementById('loginPass').value;
+        if (!nick || !pass) { document.getElementById('loginError').textContent = 'Заполните все поля'; return; }
+        sfxClick();
+        loginUser(nick, pass);
+    });
+    document.getElementById('registerBtn').addEventListener('click', function() {
+        const nick = document.getElementById('loginNick').value.trim();
+        const pass = document.getElementById('loginPass').value;
+        if (!nick || !pass) { document.getElementById('loginError').textContent = 'Заполните все поля'; return; }
+        sfxClick();
+        registerUser(nick, pass);
+    });
+
+    document.querySelectorAll('#mainNav button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            navigateTo(this.dataset.section);
+        });
+    });
+
+    document.getElementById('ratingModeNow').addEventListener('click', function() {
+        ratingMode = 'now';
+        this.classList.add('active');
+        this.style.background = '#2a4a6a';
+        this.style.color = '#f0e8d0';
+        document.getElementById('ratingModeEver').style.background = '#0e1e2e';
+        document.getElementById('ratingModeEver').style.color = '#b0c8e0';
+        sfxClick();
+        renderRating();
+    });
+    document.getElementById('ratingModeEver').addEventListener('click', function() {
+        ratingMode = 'ever';
+        this.classList.add('active');
+        this.style.background = '#2a4a6a';
+        this.style.color = '#f0e8d0';
+        document.getElementById('ratingModeNow').style.background = '#0e1e2e';
+        document.getElementById('ratingModeNow').style.color = '#b0c8e0';
+        sfxClick();
+        renderRating();
+    });
+
+    document.querySelectorAll('[data-rating-tab]').forEach(tab => {
+        tab.addEventListener('click', function() {
+            ratingTab = this.dataset.ratingTab;
+            sfxClick();
+            renderRating();
+        });
+    });
+
+    document.querySelectorAll('[data-market-tab]').forEach(tab => {
+        tab.addEventListener('click', function() {
+            marketTab = this.dataset.marketTab;
+            sfxClick();
+            renderMarket();
+        });
+    });
+
+    // Модалка закрывается только через крестик или клик вне — обработчики внутри openCase
+    // Но для случая, если пользователь закроет до окончания анимации, нужно блокировать
+    // Это уже реализовано в openCase.
+
+    initClicker();
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            loadUserProfile(user.uid).then(data => {
+                if (data) {
+                    currentUser = { uid: user.uid, data: data };
+                    onAuthSuccess();
+                } else {
+                    auth.signOut();
+                    document.getElementById('loginOverlay').classList.remove('hidden');
+                }
+            }).catch(() => {
+                if (loadFromLocalBackup() && STATE.uid === user.uid) {
+                    saveStateToFirebase().then(() => {
+                        return loadUserProfile(user.uid).then(data => {
+                            if (data) {
+                                currentUser = { uid: user.uid, data: data };
+                                onAuthSuccess();
+                            }
+                        });
+                    });
+                } else {
+                    document.getElementById('loginOverlay').classList.remove('hidden');
+                }
+            });
+        } else {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            if (loadFromLocalBackup() && STATE.uid) {}
+        }
+    });
+
+    renderCases();
+    renderInventory();
+    renderSettings();
+    renderMarket();
+    renderRating();
+    renderAchievements();
+    initHockey();
+
+    document.getElementById('app').style.background = STATE.settings.theme || '#1a2a3a';
+
+    setInterval(() => {
+        if (currentUser) {
+            saveStateToFirebase().then(() => saveStateToLocal());
+        }
+    }, 15000);
+
+    document.getElementById('loginPass').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+    document.getElementById('loginNick').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+    });
+
+    document.addEventListener('click', function() {
+        if (STATE.settings.music) {
+            updateMusic();
+        }
+    }, { once: true });
+
+    console.log('Кейс Мужики 1.0 Release загружен!');
+    console.log('сделано @arbz7');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+window.addEventListener('resize', () => {
+    resizeHockeyCanvas();
+    if (document.getElementById('section-minigames').classList.contains('active')) drawHockey();
+});
+</script>
+</body>
+</html>
