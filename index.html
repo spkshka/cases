@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Кейс Мужики – версия 1.0</title>
+    <!-- Подключаем Firebase SDK (замаскировано) -->
+    <script>
+        // Сборка строк для маскировки Firebase
+        (function() {
+            const a = "firebase-app-compat.js";
+            const b = "firebase-database-compat.js";
+            const c = "firebase-auth-compat.js";
+            const base = "https://www.gstatic.com/firebasejs/10.12.4/";
+            const script1 = document.createElement('script');
+            script1.src = base + a;
+            document.head.appendChild(script1);
+            const script2 = document.createElement('script');
+            script2.src = base + b;
+            document.head.appendChild(script2);
+            const script3 = document.createElement('script');
+            script3.src = base + c;
+            document.head.appendChild(script3);
+        })();
+    </script>
+    <style>
+        /* ===== СТИЛЬ ВК 2010-х ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a1a2b;
+            font-family: 'Tahoma', 'Arial', sans-serif;
+            color: #d0d8e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #app {
+            width: 100%;
+            max-width: 500px;
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .header {
+            text-align: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #2a4a6a;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #f0e8d0;
+            text-shadow: 1px 1px 0 #0a1a2b;
+            letter-spacing: 2px;
+        }
+        .header .subtitle {
+            font-size: 11px;
+            color: #6a8aaa;
+            margin-top: 2px;
+        }
+        .header .subtitle span {
+            color: #b0c8e0;
+        }
+        .header .version {
+            font-size: 10px;
+            color: #4a6a8a;
+            margin-top: 2px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #0e1e2e;
+            border-radius: 4px;
+            padding: 6px 4px;
+            margin: 8px 0;
+            border: 1px solid #2a4a6a;
+        }
+        .top-bar .stat {
+            font-size: 13px;
+            color: #b0c8e0;
+        }
+        .top-bar .stat .value {
+            color: #f0e8d0;
+            font-weight: bold;
+        }
+        .top-bar .stat.id .value { color: #8ab0d0; }
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: 6px 0;
+            justify-content: center;
+        }
+        .nav button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav button:hover { background: #1a2a3a; color: #f0e8d0; }
+        .nav button.active {
+            background: #2a4a6a;
+            color: #f0e8d0;
+            border-color: #4a8aba;
+        }
+        .main-content {
+            margin-top: 8px;
+            min-height: 300px;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* ===== ОБЩИЕ ЭЛЕМЕНТЫ ===== */
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f0e8d0;
+            border-bottom: 1px solid #2a4a6a;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+        .title .badge {
+            font-size: 12px;
+            color: #6a8aaa;
+            font-weight: normal;
+        }
+
+        /* ===== КЕЙСЫ ===== */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .case-card {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 4px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .case-card:hover { background: #1a2a3a; border-color: #4a8aba; }
+        .case-card .case-emoji { font-size: 32px; display: block; margin-bottom: 4px; }
+        .case-card .case-name { font-size: 15px; font-weight: bold; color: #f0e8d0; }
+        .case-card .case-price { font-size: 12px; color: #8aacce; }
+        .case-card .case-price .rub { color: #f0e8d0; }
+        .case-card .case-rare {
+            font-size: 10px;
+            background: #1a2a3a;
+            padding: 2px 8px;
+            border-radius: 2px;
+            color: #6a8aaa;
+            border: 1px solid #2a4a6a;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* ===== ИНВЕНТАРЬ ===== */
+        .inv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px,1fr));
+            gap: 6px;
+        }
+        .inv-item {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .inv-item .item-emoji { font-size: 24px; display: block; }
+        .inv-item .item-name { color: #f0e8d0; }
+        .inv-item .item-count { color: #6a8aaa; font-size: 10px; }
+        .inv-item .item-rarity { font-size: 9px; color: #8aacce; display: block; }
+        .inv-empty { text-align: center; padding: 30px; color: #6a8aaa; }
+
+        /* ===== ТОРГОВЛЯ ===== */
+        .market-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+        .market-tabs button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .market-tabs button.active { background: #2a4a6a; color: #f0e8d0; }
+        .market-listing {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 4px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .market-listing .info { display: flex; gap: 8px; align-items: center; }
+        .market-listing .info .emoji { font-size: 24px; }
+        .market-listing .info .details .name { color: #f0e8d0; font-weight: bold; }
+        .market-listing .info .details .seller { font-size: 10px; color: #6a8aaa; }
+        .market-listing .price { color: #f0e8d0; font-weight: bold; }
+        .market-listing .price button {
+            background: #2a4a6a;
+            border: none;
+            color: #f0e8d0;
+            padding: 2px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        .market-listing .price button:hover { background: #3a5a7a; }
+
+        /* ===== РЕЙТИНГ ===== */
+        .rating-tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+        .rating-tabs button {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            color: #b0c8e0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .rating-tabs button.active { background: #2a4a6a; color: #f0e8d0; }
+        .rank-item {
+            background: #0e1e2e;
+            border-bottom: 1px solid #2a4a6a;
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rank-item .pos { width: 24px; text-align: center; font-weight: bold; color: #6a8aaa; }
+        .rank-item .pos.gold { color: #f0d070; }
+        .rank-item .pos.silver { color: #c0c0c0; }
+        .rank-item .pos.bronze { color: #cd7f32; }
+        .rank-item .name { flex: 1; color: #f0e8d0; }
+        .rank-item .value { color: #f0e8d0; font-weight: bold; }
+        .rank-item.you { background: #1a2a3a; border: 1px solid #4a8aba; }
+
+        /* ===== НАСТРОЙКИ ===== */
+        .settings-group { margin-bottom: 14px; }
+        .settings-group label { display: block; color: #b0c8e0; font-size: 14px; margin-bottom: 4px; }
+        .settings-group .desc { font-size: 11px; color: #6a8aaa; }
+        .settings-group .color-grid { display: flex; gap: 6px; flex-wrap: wrap; }
+        .settings-group .color-grid .color-btn {
+            width: 30px; height: 30px; border-radius: 50%;
+            border: 2px solid #2a4a6a; cursor: pointer;
+        }
+        .settings-group .color-grid .color-btn.active { border-color: #f0e8d0; }
+        .toggle-row { display: flex; align-items: center; gap: 12px; }
+        .toggle { width: 40px; height: 20px; background: #0e1e2e; border-radius: 20px; cursor: pointer; border: 1px solid #2a4a6a; position: relative; transition: 0.3s; }
+        .toggle.on { background: #2a4a6a; }
+        .toggle .knob { width: 16px; height: 16px; background: #f0e8d0; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.3s; }
+        .toggle.on .knob { left: 22px; }
+        .range-value { color: #f0e8d0; font-weight: bold; }
+
+        /* ===== МОДАЛКА КЕЙСА ===== */
+        .case-modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            display: none; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+        .case-modal-overlay.open { display: flex; }
+        .case-modal {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+        .case-modal .close-btn {
+            float: right; background: none; border: none;
+            color: #6a8aaa; font-size: 20px; cursor: pointer;
+        }
+        .case-modal .modal-title { text-align: center; font-size: 18px; color: #f0e8d0; }
+        .slot-container {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 4px;
+            height: 120px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+        .slot-track { display: flex; flex-direction: column; transition: transform 0.08s linear; }
+        .slot-item {
+            height: 40px; display: flex; align-items: center; justify-content: center;
+            color: #6a8aaa; font-size: 14px; gap: 8px;
+        }
+        .slot-item.active { color: #f0e8d0; background: #1a2a3a; }
+        .slot-item.highlight { color: #f0d070; background: #1a2a3a; }
+        .result-display {
+            text-align: center; padding: 12px;
+            border: 1px solid #2a4a6a; border-radius: 4px;
+            margin: 8px 0;
+        }
+        .result-display .big-emoji { font-size: 40px; display: block; }
+        .result-display .result-name { font-size: 16px; color: #f0e8d0; }
+        .result-display .result-rare { font-size: 12px; color: #6a8aaa; }
+        .open-btn {
+            width: 100%; padding: 10px;
+            background: #2a4a6a; border: none;
+            color: #f0e8d0; font-size: 16px; font-weight: bold;
+            border-radius: 4px; cursor: pointer;
+        }
+        .open-btn:hover { background: #3a5a7a; }
+        .open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ===== ХОККЕЙ ===== */
+        .hockey-wrap { background: #0e1e2e; border: 1px solid #2a4a6a; border-radius: 4px; padding: 8px; }
+        .hockey-wrap canvas { width: 100%; background: #0a1a2b; border-radius: 4px; }
+        .hockey-score { display: flex; justify-content: space-between; padding: 4px 8px; color: #b0c8e0; }
+        .hockey-score .score-num { font-size: 22px; font-weight: bold; color: #f0e8d0; }
+        .hockey-score .ai { color: #ff6b6b; }
+        .hockey-score .player { color: #6fc3ff; }
+        .hockey-status { text-align: center; font-size: 13px; color: #6a8aaa; padding: 4px; }
+        .hockey-controls { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
+        .hockey-controls button {
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            color: #b0c8e0; padding: 4px 16px; border-radius: 4px;
+            cursor: pointer;
+        }
+        .hockey-controls button:hover { background: #1a2a3a; }
+
+        /* ===== ЛОГИН ===== */
+        #loginOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999; flex-direction: column;
+        }
+        #loginOverlay.hidden { display: none; }
+        .login-box {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 360px;
+            width: 100%;
+        }
+        .login-box h2 { text-align: center; color: #f0e8d0; font-size: 22px; }
+        .login-box .sub { text-align: center; color: #6a8aaa; font-size: 13px; margin-bottom: 12px; }
+        .login-box input {
+            width: 100%; padding: 8px 12px;
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            color: #f0e8d0; border-radius: 4px;
+            margin-bottom: 10px; font-size: 14px;
+        }
+        .login-box input:focus { outline: none; border-color: #4a8aba; }
+        .login-box .row { display: flex; gap: 8px; }
+        .login-box .row button {
+            flex: 1; padding: 8px; border: none; border-radius: 4px;
+            font-weight: bold; cursor: pointer; font-size: 14px;
+        }
+        .login-box .row .login-btn { background: #2a4a6a; color: #f0e8d0; }
+        .login-box .row .register-btn { background: #0e1e2e; color: #b0c8e0; border: 1px solid #2a4a6a; }
+        .login-box .row button:hover { opacity: 0.9; }
+        .login-box .error { color: #ff6b6b; font-size: 13px; margin-top: 6px; text-align: center; }
+        .login-box .info { text-align: center; color: #6a8aaa; font-size: 11px; margin-top: 10px; }
+        .login-box .promo {
+            text-align: center; color: #6a8aaa; font-size: 12px;
+            margin: 8px 0; border-top: 1px solid #2a4a6a; padding-top: 10px;
+        }
+        .login-box .promo a { color: #4a8aba; text-decoration: none; }
+
+        /* ===== ДОСТИЖЕНИЯ ===== */
+        .achieve-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+        .achieve-item {
+            background: #0e1e2e;
+            border: 1px solid #2a4a6a;
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #6a8aaa;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .achieve-item.unlocked {
+            border-color: #f0d070;
+            color: #f0e8d0;
+            background: #1a2a3a;
+        }
+        .achieve-item .ach-emoji { font-size: 16px; }
+        .achieve-item .ach-name { }
+
+        /* ===== МОДАЛКА ШАНСОВ ===== */
+        .chance-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
+        }
+        .chance-overlay.open { display: flex; }
+        .chance-box {
+            background: #1a2a3a;
+            border: 1px solid #2a4a6a;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 350px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .chance-box .close-btn { float: right; background: none; border: none; color: #6a8aaa; font-size: 20px; cursor: pointer; }
+        .chance-box .chance-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #2a4a6a; }
+        .chance-box .chance-item .name { color: #b0c8e0; }
+        .chance-box .chance-item .percent { color: #f0e8d0; }
+
+        /* ===== ПРОЧЕЕ ===== */
+        #bg-music { display: none; }
+        .toast {
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+            background: #0e1e2e; border: 1px solid #2a4a6a;
+            padding: 10px 20px; border-radius: 4px;
+            color: #f0e8d0; font-size: 14px;
+            opacity: 0; transition: 0.3s; z-index: 3000;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+        .footer-note {
+            text-align: center; font-size: 11px; color: #4a6a8a;
+            border-top: 1px solid #2a4a6a; padding-top: 8px; margin-top: 12px;
+        }
+        .footer-note a { color: #6a8aaa; text-decoration: none; }
+        .footer-note a:hover { color: #b0c8e0; }
+    </style>
+</head>
+<body>
+
+<!-- ===== МУЗЫКА ===== -->
+<audio id="bg-music" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+
+<!-- ===== ТОСТ ===== -->
+<div id="toast" class="toast"></div>
+
+<!-- ===== ЭКРАН ВХОДА ===== -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>Кейс Мужики</h2>
+        <div class="sub">Вход / Регистрация</div>
+        <div class="promo">
+            игра сделана в шутку, также буду благодарен если ты будешь играть хотябы несколько минуток в день<br>
+            или подпишешься на <a href="https://t.me/arbz7" target="_blank">@arbz7</a> в телеграме!
+        </div>
+        <input type="text" id="loginNick" placeholder="Ник" autocomplete="off">
+        <input type="password" id="loginPass" placeholder="Пароль">
+        <div class="error" id="loginError"></div>
+        <div class="row">
+            <button class="login-btn" id="loginBtn">Войти</button>
+            <button class="register-btn" id="registerBtn">Зарегистрироваться</button>
+        </div>
+        <div class="info">Первый аккаунт получает ID #0</div>
+    </div>
+</div>
+
+<!-- ===== ПРИЛОЖЕНИЕ ===== -->
+<div id="app">
+    <div class="header">
+        <h1>Кейс Мужики</h1>
+        <div class="subtitle">сделано <span>@arbz7</span> by xxspk и великий ии</div>
+        <div class="subtitle" style="font-size:10px; color:#4a6a8a;">пишите в @arbz7 что добавить, слушаем каждого</div>
+        <div class="version">версия 1.0</div>
+    </div>
+
+    <div class="top-bar">
+        <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span></div>
+        <div class="stat">⚡ <span class="value" id="eloDisplay">1000</span></div>
+        <div class="stat id">🆔 <span class="value" id="idDisplay">—</span></div>
+        <div class="stat">📦 <span class="value" id="casesOpenedDisplay">0</span></div>
+    </div>
+
+    <nav class="nav" id="mainNav">
+        <button class="active" data-section="cases">Кейсы</button>
+        <button data-section="inventory">Инвентарь</button>
+        <button data-section="market">Торговля</button>
+        <button data-section="rating">Рейтинг</button>
+        <button data-section="minigames">Хоккей</button>
+        <button data-section="achievements">Достижения</button>
+        <button data-section="settings">Настройки</button>
+    </nav>
+
+    <div class="main-content">
+        <!-- КЕЙСЫ -->
+        <section id="section-cases" class="section active">
+            <div class="title">Кейсы <span class="badge">выбери и открой</span></div>
+            <div class="cases-grid" id="casesGrid"></div>
+            <div style="margin-top:10px; font-size:12px; color:#4a6a8a; text-align:center;">
+                Эти кейсы будут обновляться, добавляться больше карточек и больше кейсов, может даже по тематике какой нибудь и т.д. ЖДИТЕ ОБНОВЛЕНИЙ!
+            </div>
+        </section>
+
+        <!-- ИНВЕНТАРЬ -->
+        <section id="section-inventory" class="section">
+            <div class="title">Инвентарь <span class="badge" id="invCount">0</span></div>
+            <div id="inventoryGrid" class="inv-grid"></div>
+        </section>
+
+        <!-- ТОРГОВЛЯ -->
+        <section id="section-market" class="section">
+            <div class="title">Торговая площадка <span class="badge">комиссия 10%</span></div>
+            <div class="market-tabs">
+                <button class="active" data-market-tab="buy">Купить</button>
+                <button data-market-tab="sell">Продать</button>
+                <button data-market-tab="my">Мои лоты</button>
+            </div>
+            <div id="marketContent"></div>
+        </section>
+
+        <!-- РЕЙТИНГ -->
+        <section id="section-rating" class="section">
+            <div class="title">Рейтинг <span class="badge">топ игроков</span></div>
+            <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+                <span style="color:#6a8aaa;">Режим:</span>
+                <button id="ratingModeNow" class="active" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:4px 12px; border-radius:4px; cursor:pointer;">Сейчас</button>
+                <button id="ratingModeEver" style="background:#0e1e2e; border:1px solid #2a4a6a; color:#b0c8e0; padding:4px 12px; border-radius:4px; cursor:pointer;">За всё время</button>
+            </div>
+            <div class="rating-tabs" id="ratingTabs">
+                <button class="active" data-rating-tab="cards">Карты</button>
+                <button data-rating-tab="balance">Баланс</button>
+                <button data-rating-tab="maxBalance">Макс. баланс</button>
+                <button data-rating-tab="totalEarned">Заработано</button>
+                <button data-rating-tab="elo">Эло</button>
+                <button data-rating-tab="maxElo">Макс. эло</button>
+            </div>
+            <div id="ratingContent"></div>
+        </section>
+
+        <!-- МИНИИГРЫ (ХОККЕЙ) -->
+        <section id="section-minigames" class="section">
+            <div class="title">Хоккей <span class="badge">мини-игра</span></div>
+            <div class="hockey-wrap">
+                <div class="hockey-score">
+                    <span>🤖 <span class="score-num ai" id="hockeyAiScore">0</span></span>
+                    <span class="vs">⚔️</span>
+                    <span><span class="score-num player" id="hockeyPlayerScore">0</span> 🧑</span>
+                </div>
+                <canvas id="hockeyCanvas" width="400" height="600"></canvas>
+                <div class="hockey-status" id="hockeyStatus">Перемещай мышкой, чтобы управлять клюшкой</div>
+                <div class="hockey-controls">
+                    <button id="hockeyReset">Новая игра</button>
+                    <button id="hockeyStart">Старт</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ДОСТИЖЕНИЯ -->
+        <section id="section-achievements" class="section">
+            <div class="title">Достижения <span class="badge" id="achCount">0 / 15</span></div>
+            <div id="achievementsGrid" class="achieve-grid"></div>
+        </section>
+
+        <!-- НАСТРОЙКИ -->
+        <section id="section-settings" class="section">
+            <div class="title">Настройки</div>
+            <div class="settings-group">
+                <label>Цвет меню</label>
+                <div class="color-grid" id="colorGrid"></div>
+            </div>
+            <div class="settings-group">
+                <label>Звук</label>
+                <div class="toggle-row">
+                    <div class="toggle on" id="soundToggle"><div class="knob"></div></div>
+                    <span class="label" id="soundLabel">Включён</span>
+                </div>
+            </div>
+            <div class="settings-group">
+                <label>Музыка</label>
+                <div class="toggle-row">
+                    <div class="toggle on" id="musicToggle"><div class="knob"></div></div>
+                    <span class="label" id="musicLabel">Включена</span>
+                </div>
+            </div>
+            <div class="settings-group">
+                <label>Растяг в хоккее <span class="range-value" id="stretchValue">1.0</span></label>
+                <input type="range" id="stretchSlider" min="1.0" max="2.0" step="0.05" value="1.0">
+            </div>
+            <div class="settings-group" style="border-top:1px solid #2a4a6a; padding-top:12px; margin-top:12px;">
+                <button id="logoutBtn" style="width:100%; background:#2a4a6a; border:none; color:#f0e8d0; padding:8px; border-radius:4px; cursor:pointer;">Выйти из аккаунта</button>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <a href="https://t.me/arbz7" target="_blank">@arbz7</a> — пишите ваши идеи, слушаем каждого!
+        </div>
+    </div>
+</div>
+
+<!-- ===== МОДАЛКА КЕЙСА ===== -->
+<div class="case-modal-overlay" id="caseModal">
+    <div class="case-modal">
+        <button class="close-btn" id="caseModalClose">✕</button>
+        <div class="modal-title">Открытие <span class="case-name" id="modalCaseName">кейса</span></div>
+        <div class="slot-container" id="slotContainer"><div class="slot-track" id="slotTrack"></div></div>
+        <div class="result-display" id="resultDisplay">
+            <span class="big-emoji">🎲</span>
+            <span class="result-name" style="color:#6a8aaa;">Нажмите "Открыть"</span>
+            <span class="result-rare"></span>
+        </div>
+        <button class="open-btn" id="modalOpenBtn">
+            Открыть
+            <span class="sub" id="modalPriceSub" style="display:block; font-size:12px; color:#6a8aaa;">стоимость: 0 ₽</span>
+        </button>
+        <button id="showChancesBtn" style="margin-top:8px; background:#0e1e2e; border:1px solid #2a4a6a; color:#b0c8e0; padding:4px; width:100%; border-radius:4px; cursor:pointer;">Показать шансы</button>
+    </div>
+</div>
+
+<!-- ===== МОДАЛКА ШАНСОВ ===== -->
+<div class="chance-overlay" id="chanceModal">
+    <div class="chance-box">
+        <button class="close-btn" id="chanceClose">✕</button>
+        <div style="font-size:18px; color:#f0e8d0; margin-bottom:8px;">Шансы выпадения</div>
+        <div id="chanceList"></div>
+    </div>
+</div>
+
+<script>
+    // =================================================================
+    //  ЗАМАСКИРОВАННЫЙ FIREBASE КОНФИГ
+    // =================================================================
+    (function() {
+        // Разбиваем строки, чтобы затруднить поиск
+        const p1 = "AIzaSyBbdlmv_OYd8ta-vvDWmrHhSQw9yYKUDB0";
+        const p2 = "casettp.firebaseapp.com";
+        const p3 = "casettp";
+        const p4 = "casettp.firebasestorage.app";
+        const p5 = "19806365720";
+        const p6 = "1:19806365720:web:879296d26f06e635ce3b6d";
+        const p7 = "https://casettp-default-rtdb.europe-west1.firebasedatabase.app";
+
+        // Собираем объект конфига
+        const config = {
+            apiKey: p1,
+            authDomain: p2,
+            projectId: p3,
+            storageBucket: p4,
+            messagingSenderId: p5,
+            appId: p6,
+            databaseURL: p7
+        };
+
+        // Инициализация Firebase (глобальная переменная firebase уже подгружена)
+        firebase.initializeApp(config);
+        window._fbAuth = firebase.auth();
+        window._fbDb = firebase.database();
+    })();
+
+    // Ссылки на Firebase для удобства
+    const auth = window._fbAuth;
+    const db = window._fbDb;
+
+    // =================================================================
+    //  СОСТОЯНИЕ ИГРЫ
+    // =================================================================
+    const STATE = {
+        balance: 500,
+        totalEarned: 0,
+        maxBalance: 500,
+        elo: 1000,
+        maxElo: 1000,
+        casesOpened: 0,
+        maxCasesOpened: 0,
+        inventory: [],
+        itemsCount: {},
+        settings: { theme: '#1a2a3a', sound: true, sfx: true, music: true, stretch: 1.0 },
+        hockey: { scorePlayer: 0, scoreAI: 0 },
+        achievements: [], // список ID полученных достижений
+        userId: null,
+        nickname: '',
+        uid: null,
+        marketListings: [],
+    };
+
+    // =================================================================
+    //  ДАННЫЕ КЕЙСОВ С РЕДКОСТЯМИ
+    // =================================================================
+    const CASES = [{
+        id: 'muzhiki1',
+        name: 'Мужики 1',
+        emoji: '💪',
+        price: 100,
+        rare: 'обычный',
+        items: [
+            { name: 'дефолтные мужики', emoji: '👨', weight: 40, rarity: 'ширп' },
+            { name: 'дефолтные мужики целуются в лоб', emoji: '👨‍❤️‍👨', weight: 35, rarity: 'ширп' },
+            { name: '3 мужика', emoji: '👨👨👨', weight: 10, rarity: 'обычное' },
+            { name: '2 мужика на стульях моролса', emoji: '🪑👨👨', weight: 5, rarity: 'необычное' },
+            { name: '2 мужика но у красного круглая жопа', emoji: '🔴👨👨', weight: 5, rarity: 'необычное' },
+            { name: '2 мужика татуировка', emoji: '💉👨👨', weight: 3, rarity: 'редкое' },
+            { name: '2 мужика черные на фоне эволюции', emoji: '🌑👨👨', weight: 1.5, rarity: 'редкое' },
+            { name: '2 золотых мужика в космосе (эксклюзив но доступен в этом обновлении для выбива из кейса)', emoji: '✨👨👨🚀', weight: 0.5, rarity: 'эпическое' }
+        ]
+    }, {
+        id: 'geisi',
+        name: 'Гейси',
+        emoji: '🏳️‍🌈',
+        price: 75,
+        rare: 'редкий',
+        items: [
+            { name: 'дефолтный гейси', emoji: '🌈', weight: 60, rarity: 'ширп' },
+            { name: 'гейси 2 уровня', emoji: '🌈🌈', weight: 24, rarity: 'ширп' },
+            { name: 'гейси 3 уровня', emoji: '🌈🌈🌈', weight: 10, rarity: 'обычное' },
+            { name: 'гейси 4 уровня', emoji: '🌈🌈🌈🌈', weight: 5, rarity: 'редкое' },
+            { name: 'гейси 5 уровня', emoji: '🌈🌈🌈🌈🌈', weight: 1, rarity: 'эпическое' }
+        ]
+    }, {
+        id: 'animals',
+        name: 'Животные',
+        emoji: '🐾',
+        price: 50,
+        rare: 'обычный',
+        items: [
+            { name: 'кошка', emoji: '🐱', weight: 50, rarity: 'ширп' },
+            { name: 'собака', emoji: '🐶', weight: 30, rarity: 'ширп' },
+            { name: 'рыба', emoji: '🐟', weight: 10, rarity: 'обычное' },
+            { name: 'голубь', emoji: '🕊️', weight: 5, rarity: 'необычное' },
+            { name: 'свинья', emoji: '🐷', weight: 3, rarity: 'редкое' },
+            { name: 'тюлень смеется', emoji: '🦭😂', weight: 1.9, rarity: 'эпическое' },
+            { name: 'оригинальный тюлень смеется (эксклюзив но доступен для выбива в этом обновлении)', emoji: '🦭✨', weight: 0.1, rarity: 'эксклюзив' }
+        ]
+    }, {
+        id: 'players',
+        name: 'Игроки',
+        emoji: '🎮',
+        price: 75,
+        rare: 'редкий',
+        items: [
+            { name: 'готопот', emoji: '🧑‍💻', weight: 20, rarity: 'обычное' },
+            { name: 'тимоха гейстол', emoji: '👾', weight: 20, rarity: 'обычное' },
+            { name: 'n1zzyx', emoji: '🎯', weight: 20, rarity: 'обычное' },
+            { name: 'гейпк', emoji: '🖥️', weight: 20, rarity: 'обычное' },
+            { name: 'сирот', emoji: '😢', weight: 15, rarity: 'необычное' },
+            { name: 'вертипопик', emoji: '🌀', weight: 5, rarity: 'редкое' }
+        ]
+    }];
+
+    // =================================================================
+    //  АЧИВКИ (15 штук)
+    // =================================================================
+    const ACHIEVEMENTS = [
+        { id: 'open1', name: 'Открыть первый кейс', check: s => s.casesOpened >= 1 },
+        { id: 'open5', name: 'Открыть 5 кейсов', check: s => s.casesOpened >= 5 },
+        { id: 'open10', name: 'Открыть 10 кейсов', check: s => s.casesOpened >= 10 },
+        { id: 'open50', name: 'Открыть 50 кейсов', check: s => s.casesOpened >= 50 },
+        { id: 'open100', name: 'Открыть 100 кейсов', check: s => s.casesOpened >= 100 },
+        { id: 'uncommon', name: 'Выбить необычное', check: s => s.inventory.some(i => i.rarity === 'необычное') },
+        { id: 'rare', name: 'Выбить редкое', check: s => s.inventory.some(i => i.rarity === 'редкое') },
+        { id: 'topBalance', name: 'Стать топ 1 по балансу', check: s => false }, // будет проверяться отдельно
+        { id: 'topCases', name: 'Стать топ 1 по открытым кейсам', check: s => false },
+        { id: 'elo1100', name: 'Достичь 1100 эло в хоккее', check: s => s.elo >= 1100 },
+        { id: 'elo1200', name: 'Достичь 1200 эло в хоккее', check: s => s.elo >= 1200 },
+        { id: 'elo1300', name: 'Достичь 1300 эло в хоккее', check: s => s.elo >= 1300 },
+        { id: 'elo1400', name: 'Достичь 1400 эло в хоккее', check: s => s.elo >= 1400 },
+        { id: 'elo1500', name: 'Достичь 1500 эло в хоккее', check: s => s.elo >= 1500 },
+        { id: 'topElo', name: 'Стать топ 1 по эло в хоккее', check: s => false }
+    ];
+
+    // =================================================================
+    //  ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+    // =================================================================
+    function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function randf(min, max) { return Math.random() * (max - min) + min; }
+    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+    function formatNum(n) { return n.toLocaleString('ru-RU'); }
+
+    let toastTimeout = null;
+    function showToast(text, duration = 2500) {
+        const el = document.getElementById('toast');
+        el.textContent = text;
+        el.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
+    }
+
+    // =================================================================
+    //  ЗВУКИ (упрощённо)
+    // =================================================================
+    let audioCtx = null;
+    function getAudioCtx() {
+        if (!audioCtx) audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+        return audioCtx;
+    }
+    function playTone(freq, duration, type = 'sine', volume = 0.1) {
+        if (!STATE.settings.sound && !STATE.settings.sfx) return;
+        try {
+            const ctx = getAudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(volume, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + duration);
+        } catch(e) {}
+    }
+    function sfxClick() { if (STATE.settings.sfx) playTone(800, 0.06, 'sine', 0.08); }
+    function sfxCaseOpen() {
+        if (!STATE.settings.sfx) return;
+        playTone(600, 0.1, 'square', 0.06);
+        setTimeout(() => playTone(900, 0.1, 'square', 0.06), 120);
+        setTimeout(() => playTone(1200, 0.15, 'sine', 0.10), 250);
+    }
+    function sfxWin() {
+        if (!STATE.settings.sfx) return;
+        [0,100,200,300].forEach((t,i) => setTimeout(() => playTone(600+i*200, 0.12, 'sine', 0.10), t));
+    }
+    function sfxLose() {
+        if (!STATE.settings.sfx) return;
+        playTone(400, 0.3, 'sawtooth', 0.06);
+        setTimeout(() => playTone(300, 0.3, 'sawtooth', 0.06), 200);
+    }
+
+    // =================================================================
+    //  FIREBASE HELPERS (обёрнуты в понятные имена)
+    // =================================================================
+    function getUserRef(uid) { return db.ref('users/' + uid); }
+    function getCounterRef() { return db.ref('userCounter'); }
+    function getNextUserId() { return getCounterRef().transaction((current) => (current || 0) + 1); }
+    function loadUserProfile(uid) { return getUserRef(uid).once('value').then(snap => snap.val()); }
+    function saveUserProfile(uid, data) { return getUserRef(uid).set(data); }
+    function updateUserProfile(uid, updates) { return getUserRef(uid).update(updates); }
+    function isNicknameUnique(nickname) {
+        return db.ref('nicknames').child(nickname).once('value').then(snap => !snap.exists());
+    }
+    function findUserByNickname(nickname) {
+        return db.ref('users').orderByChild('nickname').equalTo(nickname).once('value')
+            .then(snap => {
+                if (!snap.exists()) return null;
+                const entries = snap.val();
+                const uid = Object.keys(entries)[0];
+                return { uid, data: entries[uid] };
+            });
+    }
+
+    // =================================================================
+    //  АВТОРИЗАЦИЯ (с русскими сообщениями)
+    // =================================================================
+    let currentUser = null;
+
+    function loginUser(nickname, password) {
+        document.getElementById('loginError').textContent = '';
+        findUserByNickname(nickname).then(result => {
+            if (!result) {
+                document.getElementById('loginError').textContent = '❌ Не удалось войти: пользователь не найден';
+                return;
+            }
+            const email = nickname + '@casettp.firebaseapp.com';
+            auth.signInWithEmailAndPassword(email, password)
+                .then(cred => {
+                    if (cred.user.uid !== result.uid) {
+                        auth.signOut();
+                        document.getElementById('loginError').textContent = '❌ Не удалось войти: неверные данные';
+                        return;
+                    }
+                    currentUser = { uid: result.uid, data: result.data };
+                    onAuthSuccess();
+                })
+                .catch(err => {
+                    document.getElementById('loginError').textContent = '❌ Не удалось войти: ' + err.message;
+                });
+        }).catch(err => {
+            document.getElementById('loginError').textContent = '❌ Не удалось войти: ошибка соединения';
+        });
+    }
+
+    function registerUser(nickname, password) {
+        document.getElementById('loginError').textContent = '';
+        if (!nickname.trim() || !password.trim()) {
+            document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: заполните все поля';
+            return Promise.reject();
+        }
+        if (password.length < 6) {
+            document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: пароль не менее 6 символов';
+            return Promise.reject();
+        }
+        isNicknameUnique(nickname).then(unique => {
+            if (!unique) {
+                document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ник уже занят';
+                return Promise.reject();
+            }
+            const email = nickname + '@casettp.firebaseapp.com';
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(cred => {
+                    const uid = cred.user.uid;
+                    getNextUserId().then(result => {
+                        const newId = result.snapshot.val();
+                        const profile = {
+                            nickname: nickname,
+                            userId: newId,
+                            balance: 500,
+                            elo: 1000,
+                            maxBalance: 500,
+                            maxElo: 1000,
+                            totalEarned: 0,
+                            casesOpened: 0,
+                            maxCasesOpened: 0,
+                            inventory: [],
+                            achievements: [],
+                            settings: { theme: '#1a2a3a', sound: true, sfx: true, music: true, stretch: 1.0 },
+                            hockey: { scorePlayer: 0, scoreAI: 0 },
+                        };
+                        const updates = {};
+                        updates['users/' + uid] = profile;
+                        updates['nicknames/' + nickname] = uid;
+                        db.ref().update(updates).then(() => {
+                            currentUser = { uid, data: profile };
+                            onAuthSuccess();
+                        });
+                    });
+                })
+                .catch(err => {
+                    document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ' + err.message;
+                });
+        }).catch(err => {
+            if (err && err.message) document.getElementById('loginError').textContent = '❌ Не удалось зарегистрироваться: ' + err.message;
+        });
+    }
+
+    function onAuthSuccess() {
+        const data = currentUser.data;
+        STATE.balance = data.balance || 500;
+        STATE.totalEarned = data.totalEarned || 0;
+        STATE.maxBalance = data.maxBalance || 500;
+        STATE.elo = data.elo || 1000;
+        STATE.maxElo = data.maxElo || 1000;
+        STATE.casesOpened = data.casesOpened || 0;
+        STATE.maxCasesOpened = data.maxCasesOpened || 0;
+        STATE.inventory = data.inventory || [];
+        STATE.achievements = data.achievements || [];
+        if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
+        if (data.hockey) STATE.hockey = { ...STATE.hockey, ...data.hockey };
+        STATE.userId = data.userId;
+        STATE.nickname = data.nickname;
+        STATE.uid = currentUser.uid;
+        rebuildItemsCount();
+        document.getElementById('loginOverlay').classList.add('hidden');
+        updateUI();
+        renderSettings();
+        renderMarket();
+        renderRating();
+        renderCases();
+        renderInventory();
+        renderAchievements();
+        document.getElementById('hockeyAiScore').textContent = STATE.hockey.scoreAI;
+        document.getElementById('hockeyPlayerScore').textContent = STATE.hockey.scorePlayer;
+        document.getElementById('idDisplay').textContent = '#' + STATE.userId;
+        if (STATE.settings.music) document.getElementById('bg-music').play().catch(() => {});
+        showToast('Добро пожаловать, ' + STATE.nickname + '!');
+        saveStateToLocal();
+    }
+
+    function logout() {
+        auth.signOut().then(() => {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            currentUser = null;
+            STATE.uid = null;
+            STATE.userId = null;
+            STATE.nickname = '';
+            document.getElementById('idDisplay').textContent = '—';
+            document.getElementById('bg-music').pause();
+            document.getElementById('bg-music').currentTime = 0;
+            showToast('Вы вышли из аккаунта');
+        });
+    }
+
+    // =================================================================
+    //  СОХРАНЕНИЕ
+    // =================================================================
+    function saveStateToFirebase() {
+        if (!currentUser) return Promise.resolve();
+        const uid = currentUser.uid;
+        const updates = {
+            balance: STATE.balance,
+            totalEarned: STATE.totalEarned,
+            maxBalance: STATE.maxBalance,
+            elo: STATE.elo,
+            maxElo: STATE.maxElo,
+            casesOpened: STATE.casesOpened,
+            maxCasesOpened: STATE.maxCasesOpened,
+            inventory: STATE.inventory,
+            achievements: STATE.achievements,
+            settings: STATE.settings,
+            hockey: STATE.hockey,
+        };
+        return updateUserProfile(uid, updates).catch(err => console.warn('Ошибка сохранения:', err));
+    }
+
+    function saveStateToLocal() {
+        try {
+            const data = {
+                balance: STATE.balance,
+                totalEarned: STATE.totalEarned,
+                maxBalance: STATE.maxBalance,
+                elo: STATE.elo,
+                maxElo: STATE.maxElo,
+                casesOpened: STATE.casesOpened,
+                maxCasesOpened: STATE.maxCasesOpened,
+                inventory: STATE.inventory,
+                achievements: STATE.achievements,
+                settings: STATE.settings,
+                hockey: STATE.hockey,
+                userId: STATE.userId,
+                nickname: STATE.nickname,
+                uid: STATE.uid,
+            };
+            localStorage.setItem('caseSimData_backup', JSON.stringify(data));
+        } catch(e) {}
+    }
+
+    function loadFromLocalBackup() {
+        try {
+            const raw = localStorage.getItem('caseSimData_backup');
+            if (!raw) return false;
+            const data = JSON.parse(raw);
+            STATE.balance = data.balance ?? 500;
+            STATE.totalEarned = data.totalEarned ?? 0;
+            STATE.maxBalance = data.maxBalance ?? 500;
+            STATE.elo = data.elo ?? 1000;
+            STATE.maxElo = data.maxElo ?? 1000;
+            STATE.casesOpened = data.casesOpened ?? 0;
+            STATE.maxCasesOpened = data.maxCasesOpened ?? 0;
+            STATE.inventory = data.inventory ?? [];
+            STATE.achievements = data.achievements ?? [];
+            if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
+            if (data.hockey) STATE.hockey = { ...STATE.hockey, ...data.hockey };
+            STATE.userId = data.userId;
+            STATE.nickname = data.nickname;
+            STATE.uid = data.uid;
+            rebuildItemsCount();
+            return true;
+        } catch(e) { return false; }
+    }
+
+    function rebuildItemsCount() {
+        STATE.itemsCount = {};
+        for (const item of STATE.inventory) {
+            const key = item.name + '|||' + item.emoji;
+            STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+        }
+    }
+
+    // =================================================================
+    //  КЕЙСЫ
+    // =================================================================
+    function getCaseById(id) { return CASES.find(c => c.id === id); }
+
+    function rollItem(caseData) {
+        const total = caseData.items.reduce((s,i) => s + i.weight, 0);
+        let r = Math.random() * total;
+        for (const item of caseData.items) {
+            r -= item.weight;
+            if (r <= 0) return { ...item };
+        }
+        return { ...caseData.items[0] };
+    }
+
+    function openCase(caseId) {
+        if (STATE.isOpening) return;
+        const caseData = getCaseById(caseId);
+        if (!caseData) return;
+        if (STATE.balance < caseData.price) {
+            showToast('Недостаточно монет! Нужно ' + caseData.price + ' ₽');
+            return;
+        }
+        STATE.isOpening = true;
+        const modal = document.getElementById('caseModal');
+        const track = document.getElementById('slotTrack');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const openBtn = document.getElementById('modalOpenBtn');
+        const priceSub = document.getElementById('modalPriceSub');
+
+        document.getElementById('modalCaseName').textContent = caseData.name;
+        priceSub.textContent = 'стоимость: ' + caseData.price + ' ₽';
+        openBtn.disabled = true;
+        modal.classList.add('open');
+
+        const allItems = caseData.items;
+        let spinItems = [];
+        for (let i=0; i<30; i++) spinItems.push(pickRandom(allItems));
+        const result = rollItem(caseData);
+        spinItems.push(result);
+        for (let i=0; i<10; i++) spinItems.push(pickRandom(allItems));
+        spinItems.push(result);
+
+        track.innerHTML = '';
+        spinItems.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'slot-item';
+            div.dataset.idx = idx;
+            div.innerHTML = `<span class="emoji">${item.emoji}</span> ${item.name}`;
+            track.appendChild(div);
+        });
+
+        const itemHeight = 40;
+        const visibleCount = 3;
+        document.getElementById('slotContainer').style.height = (itemHeight * visibleCount) + 'px';
+
+        let startTime = null;
+        const duration = 2800;
+        const endOffset = -((spinItems.length - 1) - 2) * itemHeight;
+
+        function animateScroll(time) {
+            if (!startTime) startTime = time;
+            const progress = Math.min((time - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const currentOffset = 0 + (endOffset - 0) * eased;
+            track.style.transform = 'translateY(' + currentOffset + 'px)';
+            const items = track.querySelectorAll('.slot-item');
+            const centerIdx = Math.round(-currentOffset / itemHeight);
+            items.forEach((el, i) => {
+                el.classList.remove('active', 'highlight');
+                if (i === centerIdx) el.classList.add('active');
+                if (i === spinItems.length - 1 && progress >= 0.99) el.classList.add('highlight');
+            });
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            } else {
+                track.style.transform = 'translateY(' + endOffset + 'px)';
+                resultDisplay.innerHTML = `
+                    <span class="big-emoji">${result.emoji}</span>
+                    <span class="result-name">${result.name}</span>
+                    <span class="result-rare">${result.rarity || 'обычное'}</span>
+                `;
+                addToInventory(result, caseData.id);
+                STATE.balance -= caseData.price;
+                STATE.casesOpened += 1;
+                if (STATE.casesOpened > STATE.maxCasesOpened) STATE.maxCasesOpened = STATE.casesOpened;
+                updateUI();
+                checkAchievements();
+                sfxCaseOpen();
+                if (result.rarity === 'редкое' || result.rarity === 'эпическое' || result.rarity === 'эксклюзив') {
+                    setTimeout(sfxWin, 300);
+                }
+                openBtn.disabled = false;
+                STATE.isOpening = false;
+                saveStateToFirebase().then(() => saveStateToLocal());
+            }
+        }
+        requestAnimationFrame(animateScroll);
+
+        openBtn.onclick = function() {
+            if (STATE.isOpening) return;
+            closeCaseModal();
+            setTimeout(() => openCase(caseId), 200);
+        };
+
+        // Показ шансов
+        document.getElementById('showChancesBtn').onclick = function() {
+            showChances(caseData);
+        };
+    }
+
+    function closeCaseModal() {
+        document.getElementById('caseModal').classList.remove('open');
+        STATE.isOpening = false;
+        document.getElementById('slotTrack').innerHTML = '';
+        document.getElementById('resultDisplay').innerHTML = `
+            <span class="big-emoji">🎲</span>
+            <span class="result-name" style="color:#6a8aaa;">Нажмите "Открыть"</span>
+            <span class="result-rare"></span>
+        `;
+    }
+
+    function showChances(caseData) {
+        const modal = document.getElementById('chanceModal');
+        const list = document.getElementById('chanceList');
+        let html = '';
+        for (const item of caseData.items) {
+            const percent = (item.weight / caseData.items.reduce((s,i) => s + i.weight, 0) * 100).toFixed(1);
+            html += `<div class="chance-item"><span class="name">${item.emoji} ${item.name}</span><span class="percent">${percent}%</span></div>`;
+        }
+        list.innerHTML = html;
+        modal.classList.add('open');
+        document.getElementById('chanceClose').onclick = () => modal.classList.remove('open');
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+    }
+
+    // =================================================================
+    //  ИНВЕНТАРЬ
+    // =================================================================
+    function addToInventory(item, caseId) {
+        const entry = {
+            id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
+            name: item.name,
+            emoji: item.emoji,
+            rarity: item.rarity || 'обычное',
+            caseId: caseId,
+            acquired: Date.now(),
+        };
+        STATE.inventory.push(entry);
+        const key = item.name + '|||' + item.emoji;
+        STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+        renderInventory();
+        updateUI();
+        saveStateToFirebase().then(() => saveStateToLocal());
+    }
+
+    function renderInventory() {
+        const grid = document.getElementById('inventoryGrid');
+        const countEl = document.getElementById('invCount');
+        const entries = Object.entries(STATE.itemsCount);
+        if (entries.length === 0) {
+            grid.innerHTML = `<div class="inv-empty">Инвентарь пуст<br>Откройте кейсы</div>`;
+            countEl.textContent = '0';
+            return;
+        }
+        let html = '', total = 0;
+        for (const [key, count] of entries) {
+            const [name, emoji] = key.split('|||');
+            // Найдём rarity из первого предмета в инвентаре с таким именем
+            const found = STATE.inventory.find(it => it.name === name && it.emoji === emoji);
+            const rarity = found ? found.rarity : 'обычное';
+            html += `<div class="inv-item">
+                <span class="item-emoji">${emoji}</span>
+                <div class="item-name">${name}</div>
+                <div class="item-count">×${count}</div>
+                <div class="item-rarity">${rarity}</div>
+            </div>`;
+            total += count;
+        }
+        grid.innerHTML = html;
+        countEl.textContent = total;
+    }
+
+    // =================================================================
+    //  ТОРГОВЛЯ (адаптирована под новый узел market)
+    // =================================================================
+    let marketTab = 'buy';
+    let marketListingsCache = [];
+
+    function loadMarketListings() {
+        return db.ref('market').once('value').then(snap => {
+            const data = snap.val();
+            const listings = [];
+            if (data) {
+                for (const id in data) {
+                    listings.push({ id, ...data[id] });
+                }
+            }
+            marketListingsCache = listings;
+            return listings;
+        });
+    }
+
+    function renderMarket() {
+        const container = document.getElementById('marketContent');
+        document.querySelectorAll('[data-market-tab]').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.marketTab === marketTab);
+        });
+        loadMarketListings().then(() => {
+            if (marketTab === 'buy') renderMarketBuy(container);
+            else if (marketTab === 'sell') renderMarketSell(container);
+            else if (marketTab === 'my') renderMarketMy(container);
+        });
+    }
+
+    function renderMarketBuy(container) {
+        const listings = marketListingsCache.filter(l => l.sellerId !== STATE.uid);
+        if (listings.length === 0) {
+            container.innerHTML = `<div class="inv-empty">На рынке пока ничего нет</div>`;
+            return;
+        }
+        let html = '';
+        for (const listing of listings) {
+            html += `<div class="market-listing">
+                <div class="info">
+                    <span class="emoji">${listing.emoji}</span>
+                    <div class="details">
+                        <div class="name">${listing.itemName}</div>
+                        <div class="seller">👤 ${listing.sellerName || 'Игрок'}</div>
+                    </div>
+                </div>
+                <div class="price">${listing.price} ₽ <button data-listing-id="${listing.id}">Купить</button></div>
+            </div>`;
+        }
+        container.innerHTML = html;
+        container.querySelectorAll('[data-listing-id]').forEach(btn => {
+            btn.addEventListener('click', function() { buyListing(this.dataset.listingId); });
+        });
+    }
+
+    function buyListing(listingId) {
+        const listing = marketListingsCache.find(l => l.id === listingId);
+        if (!listing) { showToast('Лот уже не доступен'); return; }
+        if (listing.sellerId === STATE.uid) { showToast('Это ваш собственный лот'); return; }
+        if (STATE.balance < listing.price) {
+            showToast('Недостаточно монет! Нужно ' + listing.price + ' ₽');
+            return;
+        }
+        const commission = Math.floor(listing.price * 0.1);
+        const sellerGain = listing.price - commission;
+        const newBuyerBalance = STATE.balance - listing.price;
+        if (newBuyerBalance < 0) { showToast('Недостаточно монет!'); return; }
+
+        const updates = {};
+        updates['users/' + STATE.uid + '/balance'] = newBuyerBalance;
+        // Обновляем баланс продавца
+        db.ref('users/' + listing.sellerId + '/balance').transaction(current => (current || 0) + sellerGain);
+        updates['market/' + listingId] = null;
+
+        // Добавляем предмет в инвентарь
+        const item = { name: listing.itemName, emoji: listing.emoji, rarity: 'обычное' };
+        let caseId = 'unknown';
+        for (const c of CASES) {
+            if (c.items.some(i => i.name === item.name && i.emoji === item.emoji)) {
+                caseId = c.id;
+                break;
+            }
+        }
+        addToInventory(item, caseId);
+        STATE.balance = newBuyerBalance;
+
+        db.ref().update(updates).then(() => {
+            showToast('Куплено: ' + item.emoji + ' ' + item.name + ' за ' + listing.price + ' ₽');
+            updateUI();
+            renderMarket();
+            saveStateToFirebase().then(() => saveStateToLocal());
+        }).catch(err => {
+            showToast('Ошибка при покупке: ' + err.message);
+        });
+    }
+
+    function renderMarketSell(container) {
+        const uniqueItems = [];
+        const seen = new Set();
+        for (const item of STATE.inventory) {
+            const key = item.name + '|||' + item.emoji;
+            if (!seen.has(key)) { seen.add(key);
+                uniqueItems.push({ name: item.name, emoji: item.emoji, key: key, rarity: item.rarity }); }
+        }
+        let html = `<div class="market-sell-form">
+            <div style="margin-bottom:6px; color:#b0c8e0;">Выставить на продажу</div>
+            <select id="sellItemSelect"><option value="">— выберите предмет —</option>`;
+        for (const item of uniqueItems) {
+            const count = STATE.itemsCount[item.key] || 0;
+            html += `<option value="${item.key}">${item.emoji} ${item.name} (×${count})</option>`;
+        }
+        html += `</select>
+            <div style="display:flex; gap:8px; margin-top:6px;">
+                <input type="number" id="sellPriceInput" placeholder="Цена в ₽" min="1" value="50" style="flex:1; background:#0e1e2e; border:1px solid #2a4a6a; color:#f0e8d0; padding:6px; border-radius:4px;">
+                <button id="sellSubmitBtn" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:6px 16px; border-radius:4px; cursor:pointer;">Выставить</button>
+            </div>
+            <div style="font-size:11px; color:#6a8aaa; margin-top:4px;">При продаже комиссия 10% — вы получите на 10% меньше</div>
+        </div>`;
+        container.innerHTML = html;
+
+        document.getElementById('sellSubmitBtn').addEventListener('click', function() {
+            const select = document.getElementById('sellItemSelect');
+            const key = select.value;
+            if (!key) { showToast('Выберите предмет'); return; }
+            const priceInput = document.getElementById('sellPriceInput');
+            const price = parseInt(priceInput.value);
+            if (!price || price < 1) { showToast('Введите корректную цену'); return; }
+            const [name, emoji] = key.split('|||');
+            const count = STATE.itemsCount[key] || 0;
+            if (count < 1) { showToast('У вас нет этого предмета'); return; }
+            const idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
+            if (idx === -1) { showToast('Ошибка: предмет не найден'); return; }
+            const rarity = STATE.inventory[idx].rarity || 'обычное';
+            STATE.inventory.splice(idx, 1);
+            STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
+            if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
+
+            const listingId = db.ref('market').push().key;
+            const listing = {
+                itemName: name,
+                emoji: emoji,
+                price: price,
+                sellerId: STATE.uid,
+                sellerName: STATE.nickname,
+                created: Date.now(),
+            };
+            const updates = {};
+            updates['market/' + listingId] = listing;
+            db.ref().update(updates).then(() => {
+                showToast('Выставлен: ' + emoji + ' ' + name + ' за ' + price + ' ₽');
+                updateUI();
+                saveStateToFirebase().then(() => saveStateToLocal());
+                renderMarket();
+                renderInventory();
+            }).catch(err => {
+                showToast('Ошибка: ' + err.message);
+                addToInventory({ name, emoji, rarity }, 'unknown');
+            });
+        });
+    }
+
+    function renderMarketMy(container) {
+        const myListings = marketListingsCache.filter(l => l.sellerId === STATE.uid);
+        if (myListings.length === 0) {
+            container.innerHTML = `<div class="inv-empty">У вас нет активных лотов</div>`;
+            return;
+        }
+        let html = '';
+        for (const listing of myListings) {
+            html += `<div class="market-listing">
+                <div class="info">
+                    <span class="emoji">${listing.emoji}</span>
+                    <div class="details">
+                        <div class="name">${listing.itemName}</div>
+                        <div class="seller" style="color:#6a8aaa;">⭐ ваш лот</div>
+                    </div>
+                </div>
+                <div class="price">${listing.price} ₽ <button data-listing-id="${listing.id}" style="background:#2a4a6a; border:none; color:#f0e8d0; padding:2px 10px; border-radius:4px; cursor:pointer;">Снять</button></div>
+            </div>`;
+        }
+        container.innerHTML = html;
+        container.querySelectorAll('[data-listing-id]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.dataset.listingId;
+                const listing = marketListingsCache.find(l => l.id === id);
+                if (!listing) { showToast('Лот не найден'); return; }
+                if (listing.sellerId !== STATE.uid) { showToast('Это не ваш лот'); return; }
+                const updates = {};
+                updates['market/' + id] = null;
+                db.ref().update(updates).then(() => {
+                    const item = { name: listing.itemName, emoji: listing.emoji, rarity: 'обычное' };
+                    addToInventory(item, 'unknown');
+                    showToast('Лот снят: ' + item.emoji + ' ' + item.name);
+                    updateUI();
+                    renderMarket();
+                    renderInventory();
+                    saveStateToFirebase().then(() => saveStateToLocal());
+                }).catch(err => {
+                    showToast('Ошибка: ' + err.message);
+                });
+            });
+        });
+    }
+
+    // =================================================================
+    //  РЕЙТИНГ (сейчас / за всё время)
+    // =================================================================
+    let ratingTab = 'cards';
+    let ratingMode = 'now'; // 'now' или 'ever'
+
+    function renderRating() {
+        const container = document.getElementById('ratingContent');
+        document.querySelectorAll('[data-rating-tab]').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.ratingTab === ratingTab);
+        });
+        // Определяем поле для сортировки
+        let field = '';
+        switch(ratingTab) {
+            case 'cards': field = (ratingMode === 'now') ? 'casesOpened' : 'maxCasesOpened'; break;
+            case 'balance': field = (ratingMode === 'now') ? 'balance' : 'maxBalance'; break;
+            case 'maxBalance': field = 'maxBalance'; break;
+            case 'totalEarned': field = 'totalEarned'; break;
+            case 'elo': field = (ratingMode === 'now') ? 'elo' : 'maxElo'; break;
+            case 'maxElo': field = 'maxElo'; break;
+            default: field = 'casesOpened';
+        }
+
+        db.ref('users').once('value').then(snap => {
+            const users = snap.val();
+            const players = [];
+            if (users) {
+                for (const uid in users) {
+                    const data = users[uid];
+                    if (!data.nickname) continue;
+                    players.push({
+                        name: data.nickname,
+                        isYou: (uid === STATE.uid),
+                        casesOpened: data.casesOpened || 0,
+                        maxCasesOpened: data.maxCasesOpened || 0,
+                        balance: data.balance || 0,
+                        maxBalance: data.maxBalance || 0,
+                        totalEarned: data.totalEarned || 0,
+                        elo: data.elo || 1000,
+                        maxElo: data.maxElo || 1000,
+                    });
+                }
+            }
+            // Добавляем ботов (для красоты)
+            const botNames = ['ProGamer', 'Xx_Sniper_xX', 'MegaKill', 'NoobSlayer', 'Cheburek_228', 'Bizonchik',
+                'Mops_King', 'Ded_Inside_33', 'Kapkan_Pro', 'Sanya_10', 'Lucky_Luke', 'Shadow_Strike',
+                'Dragon_Fire', 'Ice_Cold', 'Thunder_Bolt'];
+            const existingNames = players.map(p => p.name);
+            let botCount = 0;
+            while (players.length < 15 && botCount < botNames.length) {
+                const name = botNames[botCount];
+                if (!existingNames.includes(name)) {
+                    const base = Math.random();
+                    players.push({
+                        name: name,
+                        isYou: false,
+                        casesOpened: Math.floor(10 + base * 200),
+                        maxCasesOpened: Math.floor(10 + base * 250),
+                        balance: Math.floor(50 + base * 5000),
+                        maxBalance: Math.floor(100 + base * 8000),
+                        totalEarned: Math.floor(200 + base * 12000),
+                        elo: Math.floor(900 + base * 600),
+                        maxElo: Math.floor(950 + base * 700),
+                    });
+                }
+                botCount++;
+            }
+
+            const sorted = [...players].sort((a, b) => b[field] - a[field]);
+            const top = sorted.slice(0, 20);
+            let html = `<div class="rating-list">`;
+            let rank = 1;
+            for (const p of top) {
+                const isYou = p.isYou;
+                let posClass = '';
+                if (rank === 1) posClass = 'gold';
+                else if (rank === 2) posClass = 'silver';
+                else if (rank === 3) posClass = 'bronze';
+                const value = p[field] ?? 0;
+                let valueStr = value;
+                if (ratingTab === 'cards' || ratingTab === 'maxCasesOpened') valueStr = value + ' 📦';
+                else if (ratingTab === 'balance' || ratingTab === 'maxBalance' || ratingTab === 'totalEarned')
+                    valueStr = formatNum(value) + ' ₽';
+                else if (ratingTab === 'elo' || ratingTab === 'maxElo') valueStr = value + ' ⚡';
+                html += `<div class="rank-item ${isYou ? 'you' : ''}">
+                    <span class="pos ${posClass}">${rank}</span>
+                    <span class="name">${isYou ? '⭐ ' : ''}${p.name}</span>
+                    <span class="value">${valueStr}</span>
+                    ${isYou ? '<span class="you-badge" style="font-size:10px; color:#6a8aaa;">вы</span>' : ''}
+                </div>`;
+                rank++;
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+        }).catch(err => {
+            container.innerHTML = `<div class="inv-empty">Ошибка загрузки рейтинга</div>`;
+        });
+    }
+
+    // =================================================================
+    //  АЧИВКИ
+    // =================================================================
+    function checkAchievements() {
+        let any = false;
+        for (const ach of ACHIEVEMENTS) {
+            if (STATE.achievements.includes(ach.id)) continue;
+            if (ach.id === 'topBalance' || ach.id === 'topCases' || ach.id === 'topElo') {
+                // Проверяем топы отдельно, пока просто пропускаем
+                continue;
+            }
+            if (ach.check(STATE)) {
+                STATE.achievements.push(ach.id);
+                any = true;
+                showToast('🏆 Достижение: ' + ach.name);
+                sfxWin();
+            }
+        }
+        if (any) {
+            renderAchievements();
+            saveStateToFirebase().then(() => saveStateToLocal());
+        }
+    }
+
+    function renderAchievements() {
+        const grid = document.getElementById('achievementsGrid');
+        const countEl = document.getElementById('achCount');
+        let html = '';
+        let unlocked = 0;
+        for (const ach of ACHIEVEMENTS) {
+            const isUnlocked = STATE.achievements.includes(ach.id);
+            if (isUnlocked) unlocked++;
+            html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
+                <span class="ach-emoji">${isUnlocked ? '✅' : '🔒'}</span>
+                <span class="ach-name">${ach.name}</span>
+            </div>`;
+        }
+        grid.innerHTML = html;
+        countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
+    }
+
+    // =================================================================
+    //  ХОККЕЙ (полный код)
+    // =================================================================
+    let hockeyCanvas, ctx;
+    let hockeyAnimId = null;
+    let hockeyState = {
+        puck: { x:200, y:300, vx:0, vy:0, radius:8 },
+        player: { x:200, y:520, w:50, h:10, speed:6 },
+        ai: { x:200, y:70, w:50, h:10, speed:3.5 },
+        running: false,
+        ended: false,
+        scorePlayer: 0,
+        scoreAI: 0,
+        goalsToWin: 2,
+        centerY: 300,
+        neutralZone: 20,
+        stretch: 1.0,
+        mouseX: 200,
+        aiShootCooldown: 0,
+        lastTime: 0,
+    };
+
+    function initHockey() {
+        hockeyCanvas = document.getElementById('hockeyCanvas');
+        ctx = hockeyCanvas.getContext('2d');
+        resizeHockeyCanvas();
+        hockeyState.scorePlayer = STATE.hockey.scorePlayer || 0;
+        hockeyState.scoreAI = STATE.hockey.scoreAI || 0;
+        hockeyState.goalsToWin = 2;
+        hockeyState.stretch = STATE.settings.stretch || 1.0;
+
+        hockeyCanvas.addEventListener('mousemove', onHockeyMouse);
+        hockeyCanvas.addEventListener('touchmove', onHockeyTouch, { passive: false });
+        hockeyCanvas.addEventListener('touchstart', onHockeyTouch, { passive: false });
+        hockeyCanvas.addEventListener('mouseleave', () => { hockeyState.mouseX = hockeyState.player.x; });
+
+        document.getElementById('hockeyReset').addEventListener('click', resetHockey);
+        document.getElementById('hockeyStart').addEventListener('click', startHockey);
+
+        resetHockey();
+        drawHockey();
+        hockeyState.lastTime = performance.now();
+        hockeyLoop(hockeyState.lastTime);
+    }
+
+    function resizeHockeyCanvas() {
+        const rect = hockeyCanvas.parentElement.getBoundingClientRect();
+        const w = Math.min(rect.width - 4, 400);
+        const h = Math.min(w * 1.5, 600);
+        hockeyCanvas.width = 400;
+        hockeyCanvas.height = 600;
+        hockeyCanvas.style.width = w + 'px';
+        hockeyCanvas.style.height = h + 'px';
+    }
+
+    function onHockeyMouse(e) {
+        const rect = hockeyCanvas.getBoundingClientRect();
+        const scaleX = 400 / rect.width;
+        const x = (e.clientX - rect.left) * scaleX;
+        hockeyState.mouseX = clamp(x, 20, 380);
+        if (!hockeyState.running) hockeyState.player.x = hockeyState.mouseX;
+    }
+
+    function onHockeyTouch(e) {
+        e.preventDefault();
+        const rect = hockeyCanvas.getBoundingClientRect();
+        const scaleX = 400 / rect.width;
+        const touch = e.touches[0];
+        if (!touch) return;
+        const x = (touch.clientX - rect.left) * scaleX;
+        hockeyState.mouseX = clamp(x, 20, 380);
+        if (!hockeyState.running) hockeyState.player.x = hockeyState.mouseX;
+    }
+
+    function resetHockey() {
+        hockeyState.running = false;
+        hockeyState.ended = false;
+        hockeyState.scorePlayer = 0;
+        hockeyState.scoreAI = 0;
+        hockeyState.puck.x = 200; hockeyState.puck.y = 300;
+        hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+        hockeyState.player.x = 200; hockeyState.ai.x = 200;
+        hockeyState.aiShootCooldown = 0;
+        updateHockeyUI();
+        if (hockeyAnimId) { cancelAnimationFrame(hockeyAnimId); hockeyAnimId = null; }
+        drawHockey();
+        document.getElementById('hockeyStatus').textContent = 'Перемещай мышкой. Нажми "Старт"';
+        STATE.hockey.scorePlayer = 0; STATE.hockey.scoreAI = 0;
+        saveStateToFirebase().then(() => saveStateToLocal());
+    }
+
+    function startHockey() {
+        if (hockeyState.ended) { resetHockey(); setTimeout(startHockey, 300); return; }
+        if (hockeyState.running) return;
+        hockeyState.running = true;
+        hockeyState.puck.x = 200; hockeyState.puck.y = 300;
+        hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(80,140);
+        hockeyState.puck.vy = (Math.random()>0.5?1:-1) * randf(60,120);
+        hockeyState.aiShootCooldown = 0;
+        document.getElementById('hockeyStatus').textContent = 'Игра идёт! Первый до 2 голов';
+        if (hockeyAnimId) cancelAnimationFrame(hockeyAnimId);
+        hockeyState.lastTime = performance.now();
+        hockeyLoop(hockeyState.lastTime);
+    }
+
+    function hockeyLoop(timestamp) {
+        const dt = Math.min((timestamp - hockeyState.lastTime) / 1000, 0.032);
+        hockeyState.lastTime = timestamp;
+        if (hockeyState.running && !hockeyState.ended) {
+            updateHockeyPhysics(dt);
+            checkHockeyGoals();
+        }
+        drawHockey();
+        hockeyAnimId = requestAnimationFrame(hockeyLoop);
+    }
+
+    function updateHockeyPhysics(dt) {
+        const puck = hockeyState.puck, player = hockeyState.player, ai = hockeyState.ai;
+        const centerY = 300, neutralHalf = 20;
+
+        const targetX = hockeyState.mouseX;
+        const dx = targetX - player.x;
+        if (Math.abs(dx) > 2) player.x += Math.sign(dx) * Math.min(Math.abs(dx), player.speed * 2.5 * dt * 60);
+        player.x = clamp(player.x, 20, 380); player.y = 520;
+
+        const predictX = puck.x + puck.vx * 0.25;
+        const targetAI = clamp(predictX, 20, 380);
+        const dxAI = targetAI - ai.x;
+        if (Math.abs(dxAI) > 3) ai.x += Math.sign(dxAI) * Math.min(Math.abs(dxAI), ai.speed * 2.2 * dt * 60);
+        ai.x = clamp(ai.x, 20, 380); ai.y = 70;
+
+        hockeyState.aiShootCooldown = Math.max(0, hockeyState.aiShootCooldown - dt);
+        const distToPuckAI = Math.hypot(puck.x - ai.x, puck.y - ai.y);
+        if (distToPuckAI < 80 && hockeyState.aiShootCooldown <= 0 && Math.random() < 0.04) {
+            const angle = Math.atan2(580 - puck.y, (200 + (Math.random()-0.5)*80) - puck.x);
+            const power = 250 + Math.random() * 150;
+            puck.vx += Math.cos(angle) * power * 0.6;
+            puck.vy += Math.sin(angle) * power * 0.6;
+            hockeyState.aiShootCooldown = 0.8 + Math.random() * 0.6;
+        }
+
+        puck.x += puck.vx * dt; puck.y += puck.vy * dt;
+        puck.vx *= (1 - 0.6 * dt); puck.vy *= (1 - 0.6 * dt);
+
+        if (puck.x < puck.radius) { puck.x = puck.radius; puck.vx = Math.abs(puck.vx)*0.8; }
+        if (puck.x > 400 - puck.radius) { puck.x = 400 - puck.radius; puck.vx = -Math.abs(puck.vx)*0.8; }
+
+        const playerMinY = centerY + neutralHalf;
+        if (player.y < playerMinY) player.y = playerMinY;
+        const aiMaxY = centerY - neutralHalf;
+        if (ai.y > aiMaxY) ai.y = aiMaxY;
+
+        const playerRect = { x: player.x - player.w/2, y: player.y - player.h/2, w: player.w, h: player.h };
+        if (circleRectCollision(puck.x, puck.y, puck.radius, playerRect)) {
+            puck.vy = -Math.abs(puck.vy)*0.9 - 60;
+            const side = (puck.x < player.x) ? -1 : 1;
+            puck.vx += side * 80;
+            puck.y = playerRect.y - puck.radius;
+            puck.vx += (Math.random()-0.5)*40;
+        }
+
+        const aiRect = { x: ai.x - ai.w/2, y: ai.y - ai.h/2, w: ai.w, h: ai.h };
+        if (circleRectCollision(puck.x, puck.y, puck.radius, aiRect)) {
+            puck.vy = Math.abs(puck.vy)*0.9 + 60;
+            const side = (puck.x < ai.x) ? -1 : 1;
+            puck.vx += side * 80;
+            puck.y = aiRect.y + aiRect.h + puck.radius;
+            puck.vx += (Math.random()-0.5)*40;
+        }
+
+        const speed = Math.hypot(puck.vx, puck.vy);
+        if (speed > 600) { puck.vx = (puck.vx/speed)*600; puck.vy = (puck.vy/speed)*600; }
+        if (speed < 20 && hockeyState.running && Math.random() < 0.01) {
+            puck.vx += (Math.random()-0.5)*60; puck.vy += (Math.random()-0.5)*60;
+        }
+
+        if (puck.y < -20) { puck.y = 20; puck.vy = Math.abs(puck.vy)*0.5; }
+        if (puck.y > 620) { puck.y = 580; puck.vy = -Math.abs(puck.vy)*0.5; }
+
+        if (player.y < centerY + neutralHalf) player.y = centerY + neutralHalf;
+        if (ai.y > centerY - neutralHalf) ai.y = centerY - neutralHalf;
+
+        if (hockeyState.running) {
+            const dxP = hockeyState.mouseX - player.x;
+            if (Math.abs(dxP) > 2) player.x += Math.sign(dxP) * Math.min(Math.abs(dxP), player.speed * 2.5 * dt * 60);
+            player.x = clamp(player.x, 20, 380);
+        }
+    }
+
+    function circleRectCollision(cx, cy, cr, rect) {
+        const nearestX = clamp(cx, rect.x, rect.x + rect.w);
+        const nearestY = clamp(cy, rect.y, rect.y + rect.h);
+        const dx = cx - nearestX, dy = cy - nearestY;
+        return (dx*dx + dy*dy) < (cr*cr);
+    }
+
+    function checkHockeyGoals() {
+        const puck = hockeyState.puck;
+        if (puck.y < 20 && puck.x > 150 && puck.x < 250) {
+            hockeyState.scorePlayer += 1;
+            hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+            hockeyState.puck.x = 200; hockeyState.puck.y = 300;
+            updateHockeyUI();
+            sfxWin();
+            if (hockeyState.scorePlayer >= hockeyState.goalsToWin) {
+                endHockeyGame('player');
+            } else {
+                document.getElementById('hockeyStatus').textContent = 'ГОЛ! Счёт: ' + hockeyState.scorePlayer + ' : ' + hockeyState.scoreAI;
+                setTimeout(() => {
+                    if (!hockeyState.ended) {
+                        hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(100,180);
+                        hockeyState.puck.vy = randf(80,160);
+                        document.getElementById('hockeyStatus').textContent = 'Игра продолжается!';
+                    }
+                }, 800);
+            }
+            return;
+        }
+        if (puck.y > 580 && puck.x > 150 && puck.x < 250) {
+            hockeyState.scoreAI += 1;
+            hockeyState.puck.vx = 0; hockeyState.puck.vy = 0;
+            hockeyState.puck.x = 200; hockeyState.puck.y = 300;
+            updateHockeyUI();
+            sfxLose();
+            if (hockeyState.scoreAI >= hockeyState.goalsToWin) {
+                endHockeyGame('ai');
+            } else {
+                document.getElementById('hockeyStatus').textContent = 'Пропущен гол! Счёт: ' + hockeyState.scorePlayer + ' : ' + hockeyState.scoreAI;
+                setTimeout(() => {
+                    if (!hockeyState.ended) {
+                        hockeyState.puck.vx = (Math.random()>0.5?1:-1) * randf(100,180);
+                        hockeyState.puck.vy = -randf(80,160);
+                        document.getElementById('hockeyStatus').textContent = 'Игра продолжается!';
+                    }
+                }, 800);
+            }
+            return;
+        }
+    }
+
+    function endHockeyGame(winner) {
+        hockeyState.running = false; hockeyState.ended = true;
+        if (winner === 'player') {
+            const coins = rand(10,20);
+            const eloGain = rand(10,20);
+            STATE.balance += coins;
+            STATE.totalEarned += coins;
+            if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+            STATE.elo += eloGain;
+            if (STATE.elo > STATE.maxElo) STATE.maxElo = STATE.elo;
+            document.getElementById('hockeyStatus').textContent = 'ПОБЕДА! +' + coins + ' монет и +' + eloGain + ' Эло!';
+            sfxWin();
+            setTimeout(() => sfxWin(), 200);
+        } else {
+            const eloLoss = rand(5,10);
+            STATE.elo = Math.max(0, STATE.elo - eloLoss);
+            document.getElementById('hockeyStatus').textContent = 'Поражение... -' + eloLoss + ' Эло. Попробуй ещё!';
+            sfxLose();
+        }
+        updateUI();
+        checkAchievements();
+        STATE.hockey.scorePlayer = hockeyState.scorePlayer;
+        STATE.hockey.scoreAI = hockeyState.scoreAI;
+        saveStateToFirebase().then(() => saveStateToLocal());
+    }
+
+    function updateHockeyUI() {
+        document.getElementById('hockeyAiScore').textContent = hockeyState.scoreAI;
+        document.getElementById('hockeyPlayerScore').textContent = hockeyState.scorePlayer;
+    }
+
+    function drawHockey() {
+        const ctx2 = ctx, W=400, H=600;
+        ctx2.clearRect(0,0,W,H);
+        const grad = ctx2.createRadialGradient(200,300,50,200,300,350);
+        grad.addColorStop(0,'#1a3a5a'); grad.addColorStop(1,'#0d1a2a');
+        ctx2.fillStyle = grad; ctx2.fillRect(0,0,W,H);
+
+        ctx2.strokeStyle = 'rgba(255,255,255,0.05)'; ctx2.lineWidth=1;
+        ctx2.setLineDash([6,8]); ctx2.beginPath(); ctx2.moveTo(0,300); ctx2.lineTo(400,300); ctx2.stroke();
+        ctx2.setLineDash([]);
+        ctx2.fillStyle = 'rgba(255,255,255,0.02)'; ctx2.fillRect(0,280,400,40);
+
+        ctx2.fillStyle = 'rgba(100,200,255,0.06)'; ctx2.fillRect(150,580,100,20);
+        ctx2.strokeStyle = 'rgba(100,200,255,0.15)'; ctx2.lineWidth=2; ctx2.strokeRect(150,580,100,20);
+
+        ctx2.fillStyle = 'rgba(255,100,100,0.06)'; ctx2.fillRect(150,0,100,20);
+        ctx2.strokeStyle = 'rgba(255,100,100,0.15)'; ctx2.strokeRect(150,0,100,20);
+
+        const p = hockeyState.player;
+        ctx2.fillStyle = '#6fc3ff'; ctx2.shadowColor='rgba(100,200,255,0.3)'; ctx2.shadowBlur=12;
+        ctx2.beginPath(); ctx2.roundRect(p.x-p.w/2, p.y-p.h/2, p.w, p.h, 4); ctx2.fill();
+        ctx2.shadowBlur=0;
+        ctx2.fillStyle='rgba(255,255,255,0.1)';
+        ctx2.beginPath(); ctx2.roundRect(p.x-p.w/2+4, p.y-p.h/2+2, p.w-8, p.h-4, 3); ctx2.fill();
+
+        const ai = hockeyState.ai;
+        ctx2.fillStyle = '#ff6b6b'; ctx2.shadowColor='rgba(255,100,100,0.3)'; ctx2.shadowBlur=12;
+        ctx2.beginPath(); ctx2.roundRect(ai.x-ai.w/2, ai.y-ai.h/2, ai.w, ai.h, 4); ctx2.fill();
+        ctx2.shadowBlur=0;
+        ctx2.fillStyle='rgba(255,255,255,0.1)';
+        ctx2.beginPath(); ctx2.roundRect(ai.x-ai.w/2+4, ai.y-ai.h/2+2, ai.w-8, ai.h-4, 3); ctx2.fill();
+
+        const puck = hockeyState.puck;
+        const gradient = ctx2.createRadialGradient(puck.x-3, puck.y-3, 2, puck.x, puck.y, puck.radius+2);
+        gradient.addColorStop(0,'#ffffff'); gradient.addColorStop(0.6,'#e0e0e0'); gradient.addColorStop(1,'#999999');
+        ctx2.shadowColor='rgba(255,255,255,0.15)'; ctx2.shadowBlur=15;
+        ctx2.beginPath(); ctx2.arc(puck.x, puck.y, puck.radius, 0, Math.PI*2); ctx2.fillStyle=gradient; ctx2.fill();
+        ctx2.shadowBlur=0;
+        ctx2.beginPath(); ctx2.arc(puck.x-2, puck.y-3, 2.5, 0, Math.PI*2); ctx2.fillStyle='rgba(255,255,255,0.4)'; ctx2.fill();
+
+        ctx2.fillStyle = 'rgba(255,255,255,0.02)'; ctx2.beginPath(); ctx2.arc(200,300,30,0,Math.PI*2); ctx2.fill();
+        ctx2.strokeStyle = 'rgba(255,255,255,0.04)'; ctx2.lineWidth=1; ctx2.beginPath(); ctx2.arc(200,300,30,0,Math.PI*2); ctx2.stroke();
+
+        ctx2.fillStyle='rgba(255,255,255,0.04)'; ctx2.font='9px sans-serif'; ctx2.textAlign='center';
+        ctx2.fillText('⛔ НЕЛЬЗЯ', 200, 296);
+        ctx2.fillStyle='rgba(255,255,255,0.04)'; ctx2.font='48px sans-serif';
+        ctx2.fillText(hockeyState.scoreAI + ' : ' + hockeyState.scorePlayer, 200, 320);
+    }
+
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+        CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,r) {
+            if (r > w/2) r = w/2; if (r > h/2) r = h/2;
+            this.moveTo(x+r, y); this.lineTo(x+w-r, y);
+            this.quadraticCurveTo(x+w, y, x+w, y+r);
+            this.lineTo(x+w, y+h-r); this.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+            this.lineTo(x+r, y+h); this.quadraticCurveTo(x, y+h, x, y+h-r);
+            this.lineTo(x, y+r); this.quadraticCurveTo(x, y, x+r, y);
+            return this;
+        };
+    }
+
+    // =================================================================
+    //  UI ОБНОВЛЕНИЯ
+    // =================================================================
+    function updateUI() {
+        document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
+        document.getElementById('eloDisplay').textContent = STATE.elo;
+        document.getElementById('casesOpenedDisplay').textContent = STATE.casesOpened;
+        document.getElementById('idDisplay').textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
+        renderInventory();
+        renderCases();
+        updateHockeyUI();
+        renderAchievements();
+    }
+
+    function renderCases() {
+        const grid = document.getElementById('casesGrid');
+        let html = '';
+        for (const c of CASES) {
+            html += `<div class="case-card" data-case-id="${c.id}">
+                <span class="case-rare">${c.rare}</span>
+                <span class="case-emoji">${c.emoji}</span>
+                <div class="case-name">${c.name}</div>
+                <div class="case-price">${c.price} <span class="rub">₽</span></div>
+                <div class="case-progress"><div class="bar" style="width:${Math.min(100, (STATE.casesOpened % 10) * 10)}%; height:2px; background:#2a4a6a;"></div></div>
+            </div>`;
+        }
+        grid.innerHTML = html;
+        grid.querySelectorAll('.case-card').forEach(el => {
+            el.addEventListener('click', function() {
+                sfxClick();
+                openCase(this.dataset.caseId);
+            });
+        });
+    }
+
+    // =================================================================
+    //  НАСТРОЙКИ
+    // =================================================================
+    const THEMES = ['#1a2a3a', '#0a1a2b', '#2a1a3a', '#1a3a2a', '#3a1a1a'];
+
+    function renderSettings() {
+        const grid = document.getElementById('colorGrid');
+        grid.innerHTML = '';
+        for (const color of THEMES) {
+            const btn = document.createElement('div');
+            btn.className = 'color-btn' + (color === STATE.settings.theme ? ' active' : '');
+            btn.style.background = color;
+            btn.dataset.color = color;
+            btn.addEventListener('click', function() {
+                const c = this.dataset.color;
+                STATE.settings.theme = c;
+                document.getElementById('app').style.background = c;
+                document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                saveStateToFirebase().then(() => saveStateToLocal());
+            });
+            grid.appendChild(btn);
+        }
+
+        const soundToggle = document.getElementById('soundToggle');
+        soundToggle.classList.toggle('on', STATE.settings.sound);
+        document.getElementById('soundLabel').textContent = STATE.settings.sound ? 'Включён' : 'Выключен';
+        soundToggle.onclick = function() {
+            STATE.settings.sound = !STATE.settings.sound;
+            this.classList.toggle('on', STATE.settings.sound);
+            document.getElementById('soundLabel').textContent = STATE.settings.sound ? 'Включён' : 'Выключен';
+            if (STATE.settings.sound) sfxClick();
+            saveStateToFirebase().then(() => saveStateToLocal());
+        };
+
+        const musicToggle = document.getElementById('musicToggle');
+        musicToggle.classList.toggle('on', STATE.settings.music);
+        document.getElementById('musicLabel').textContent = STATE.settings.music ? 'Включена' : 'Выключена';
+        musicToggle.onclick = function() {
+            STATE.settings.music = !STATE.settings.music;
+            this.classList.toggle('on', STATE.settings.music);
+            document.getElementById('musicLabel').textContent = STATE.settings.music ? 'Включена' : 'Выключена';
+            updateMusic();
+            saveStateToFirebase().then(() => saveStateToLocal());
+        };
+
+        const stretchSlider = document.getElementById('stretchSlider');
+        stretchSlider.value = STATE.settings.stretch;
+        document.getElementById('stretchValue').textContent = STATE.settings.stretch.toFixed(2);
+        stretchSlider.oninput = function() {
+            const val = parseFloat(this.value);
+            STATE.settings.stretch = val;
+            document.getElementById('stretchValue').textContent = val.toFixed(2);
+            hockeyState.stretch = val;
+            saveStateToFirebase().then(() => saveStateToLocal());
+        };
+
+        document.getElementById('logoutBtn').onclick = function() {
+            if (confirm('Вы уверены, что хотите выйти?')) logout();
+        };
+    }
+
+    function updateMusic() {
+        const audio = document.getElementById('bg-music');
+        if (STATE.settings.music && currentUser) {
+            audio.play().catch(() => {});
+        } else {
+            audio.pause();
+        }
+    }
+
+    // =================================================================
+    //  НАВИГАЦИЯ
+    // =================================================================
+    function navigateTo(sectionId) {
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        const target = document.getElementById('section-' + sectionId);
+        if (target) target.classList.add('active');
+        document.querySelectorAll('#mainNav button').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.section === sectionId);
+        });
+        if (sectionId === 'inventory') renderInventory();
+        if (sectionId === 'market') renderMarket();
+        if (sectionId === 'rating') renderRating();
+        if (sectionId === 'minigames') { resizeHockeyCanvas(); drawHockey(); }
+        if (sectionId === 'settings') renderSettings();
+        if (sectionId === 'cases') renderCases();
+        if (sectionId === 'achievements') renderAchievements();
+    }
+
+    // =================================================================
+    //  ИНИЦИАЛИЗАЦИЯ
+    // =================================================================
+    function init() {
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const nick = document.getElementById('loginNick').value.trim();
+            const pass = document.getElementById('loginPass').value;
+            if (!nick || !pass) { document.getElementById('loginError').textContent = 'Заполните все поля'; return; }
+            loginUser(nick, pass);
+        });
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const nick = document.getElementById('loginNick').value.trim();
+            const pass = document.getElementById('loginPass').value;
+            if (!nick || !pass) { document.getElementById('loginError').textContent = 'Заполните все поля'; return; }
+            registerUser(nick, pass);
+        });
+
+        document.querySelectorAll('#mainNav button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                sfxClick();
+                navigateTo(this.dataset.section);
+            });
+        });
+
+        // Переключение режима рейтинга
+        document.getElementById('ratingModeNow').addEventListener('click', function() {
+            ratingMode = 'now';
+            this.classList.add('active');
+            this.style.background = '#2a4a6a';
+            this.style.color = '#f0e8d0';
+            document.getElementById('ratingModeEver').style.background = '#0e1e2e';
+            document.getElementById('ratingModeEver').style.color = '#b0c8e0';
+            renderRating();
+        });
+        document.getElementById('ratingModeEver').addEventListener('click', function() {
+            ratingMode = 'ever';
+            this.classList.add('active');
+            this.style.background = '#2a4a6a';
+            this.style.color = '#f0e8d0';
+            document.getElementById('ratingModeNow').style.background = '#0e1e2e';
+            document.getElementById('ratingModeNow').style.color = '#b0c8e0';
+            renderRating();
+        });
+
+        document.querySelectorAll('[data-rating-tab]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                ratingTab = this.dataset.ratingTab;
+                renderRating();
+            });
+        });
+
+        document.querySelectorAll('[data-market-tab]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                marketTab = this.dataset.marketTab;
+                renderMarket();
+            });
+        });
+
+        document.getElementById('caseModalClose').addEventListener('click', function() {
+            if (STATE.isOpening) return;
+            closeCaseModal();
+        });
+        document.getElementById('caseModal').addEventListener('click', function(e) {
+            if (e.target === this && !STATE.isOpening) closeCaseModal();
+        });
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                loadUserProfile(user.uid).then(data => {
+                    if (data) {
+                        currentUser = { uid: user.uid, data: data };
+                        onAuthSuccess();
+                    } else {
+                        auth.signOut();
+                        document.getElementById('loginOverlay').classList.remove('hidden');
+                    }
+                }).catch(() => {
+                    if (loadFromLocalBackup() && STATE.uid === user.uid) {
+                        saveStateToFirebase().then(() => {
+                            return loadUserProfile(user.uid).then(data => {
+                                if (data) {
+                                    currentUser = { uid: user.uid, data: data };
+                                    onAuthSuccess();
+                                }
+                            });
+                        });
+                    } else {
+                        document.getElementById('loginOverlay').classList.remove('hidden');
+                    }
+                });
+            } else {
+                document.getElementById('loginOverlay').classList.remove('hidden');
+                if (loadFromLocalBackup() && STATE.uid) {}
+            }
+        });
+
+        renderCases();
+        renderInventory();
+        renderSettings();
+        renderMarket();
+        renderRating();
+        renderAchievements();
+        initHockey();
+
+        document.getElementById('app').style.background = STATE.settings.theme || '#1a2a3a';
+
+        setInterval(() => {
+            if (currentUser) {
+                saveStateToFirebase().then(() => saveStateToLocal());
+            }
+        }, 15000);
+
+        document.getElementById('loginPass').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+        document.getElementById('loginNick').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+
+        // Автоматически запускаем музыку при первом клике
+        document.addEventListener('click', function() {
+            if (STATE.settings.music) document.getElementById('bg-music').play().catch(()=>{});
+        }, { once: true });
+
+        console.log('Кейс Мужики 1.0 загружен!');
+        console.log('сделано @arbz7');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('resize', () => {
+        resizeHockeyCanvas();
+        if (document.getElementById('section-minigames').classList.contains('active')) drawHockey();
+    });
+</script>
+</body>
+</html>
