@@ -2220,5 +2220,116 @@ function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 </script>
+    <script>
+// ============================================================
+//  АВТОМАТИЧЕСКАЯ УСТАНОВКА ЭЛО = 1000 (ЕСЛИ МЕНЬШЕ 1000)
+//  ДЛЯ ВСЕХ, КРОМЕ spK
+// ============================================================
+
+// 1. МЕНЯЕМ РЕГИСТРАЦИЮ — новые игроки получают 1000 Эло
+registerUser = function(nickname, password) {
+    document.getElementById('loginError').textContent = '';
+    if (!nickname.trim() || !password.trim()) {
+        document.getElementById('loginError').textContent = '❌ Заполните все поля';
+        return;
+    }
+    if (password.length < 6) {
+        document.getElementById('loginError').textContent = '❌ Пароль не менее 6 символов';
+        return;
+    }
+    isNicknameUnique(nickname).then(unique => {
+        if (!unique) {
+            document.getElementById('loginError').textContent = '❌ Ник уже занят';
+            return;
+        }
+        const email = nickname + '@casettp.firebaseapp.com';
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(cred => {
+                const uid = cred.user.uid;
+                getNextUserId().then(result => {
+                    const newId = result.snapshot.val();
+                    const profile = {
+                        nickname: nickname,
+                        userId: newId,
+                        balance: 500,
+                        elo: 1000,
+                        maxBalance: 500,
+                        maxElo: 1000,
+                        totalEarned: 0,
+                        totalSpent: 0,
+                        casesOpened: 0,
+                        maxCasesOpened: 0,
+                        totalClicks: 0,
+                        inventory: [],
+                        achievements: [],
+                        registrationDate: Date.now(),
+                        settings: { theme: 'windows_xp', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+                        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 },
+                        dino: { xp: 0, totalCoins: 0, bestTime: 0 },
+                        exp: 0,
+                        level: 1,
+                        clan: '',
+                        freeOpens: 0,
+                        promoUsed: false,
+                        eloBoosted: false,
+                        marketBuys: 0,
+                        marketSells: 0,
+                        nickChanged: false,
+                        easterFound: false,
+                        topElo: false,
+                        muzhikiRestored: false,
+                        eloPromoUsed: false,
+                        eloInitialized: false
+                    };
+                    const updates = {};
+                    updates['users/' + uid] = profile;
+                    updates['nicknames/' + nickname] = uid;
+                    db.ref().update(updates).then(() => {
+                        currentUser = { uid, data: profile };
+                        onAuthSuccess();
+                    });
+                });
+            })
+            .catch(err => {
+                document.getElementById('loginError').textContent = '❌ ' + err.message;
+            });
+    }).catch(() => {
+        document.getElementById('loginError').textContent = '❌ Ошибка соединения';
+    });
+};
+
+// 2. ПРИ ВХОДЕ: ЕСЛИ ЭЛО < 1000 (И НЕ spK) → СТАВИМ 1000
+const originalOnAuth = onAuthSuccess;
+onAuthSuccess = function() {
+    // Вызываем оригинальную загрузку
+    originalOnAuth.call(this);
+    
+    const nickname = STATE.nickname;
+    const currentElo = STATE.elo;
+    
+    // Проверка: если ник не spK, эло < 1000, и флаг не установлен
+    if (nickname && nickname.toLowerCase() !== 'spk' && currentElo < 1000 && !STATE.eloInitialized) {
+        STATE.elo = 1000;
+        STATE.maxElo = 1000;
+        STATE.eloInitialized = true;
+        
+        const uid = STATE.uid;
+        const updates = {};
+        updates['users/' + uid + '/elo'] = 1000;
+        updates['users/' + uid + '/maxElo'] = 1000;
+        updates['users/' + uid + '/eloInitialized'] = true;
+        db.ref().update(updates).then(() => {
+            document.getElementById('eloDisplay').textContent = 1000;
+            showToast('✅ Ваше Эло установлено на 1000 (было меньше)');
+            updateUI();
+            saveStateToFirebase();
+            checkAllAchievements();
+            renderAccount();
+        }).catch(err => {
+            showToast('❌ Ошибка установки Эло: ' + err.message);
+        });
+    }
+};
+</script>
 </body>
 </html>
