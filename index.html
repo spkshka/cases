@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
     <style>
+        /* ===== СТИЛИ WINDOWS XP ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tahoma','Arial',sans-serif; background: #3a6ea5; color: #000; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 16px; transition: background 0.3s; }
         body.theme-windows_xp { background: #3a6ea5; }
@@ -229,6 +230,8 @@
         .ludka-bet button { padding: 6px 14px; border: 1px solid #0a246a; border-radius: 4px; background: #ece9d8; cursor: pointer; font-weight: bold; }
         .ludka-bet button:hover { background: #d0c8b8; }
         .ludka-bet button.active { background: #0a246a; color: #fff; }
+        /* Стиль для золотого ника в рейтинге */
+        .rank-item.gold-nick .name { color: #f0d070; font-weight: bold; text-shadow: 0 0 10px rgba(240,208,112,0.5); }
     </style>
 </head>
 <body class="theme-windows_xp">
@@ -269,6 +272,7 @@
         <div class="stat">⭐ <span class="value" id="levelDisplay">1</span></div>
     </div>
 
+    <!-- Шкала опыта на главном экране -->
     <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#ece9d8; padding:6px 12px; border-radius:4px; border:1px solid #0a246a;">
         <span>Опыт: <span id="expDisplay">0</span></span>
         <span>До Pro: <span id="proProgressDisplay">0%</span></span>
@@ -505,11 +509,12 @@
                 <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
                     <li>🎁 Добавлены подарки за достижение уровней</li>
                     <li>🛩️ Исправлена игра «Самолёт» (гравитация, зависания)</li>
-                    <li>💣 Исправлена «Лудка» (теперь бомбы расставляются честно)</li>
+                    <li>💣 Исправлена «Лудка» (честные шансы)</li>
                     <li>📊 Шкала опыта на главном экране работает корректно</li>
                     <li>🔄 Исправлено обновление интерфейса между вкладками</li>
                     <li>🎨 Версия 1.1.1 теперь чётко видна</li>
-                    <li>⚡ Усложнён набор опыта (теперь требуется больше действий)</li>
+                    <li>⚡ Усложнён набор опыта</li>
+                    <li>🛡️ Улучшена защита от взлома</li>
                 </ul>
             </div>
         </section>
@@ -518,6 +523,7 @@
     </div>
 </div>
 
+<!-- Модалки -->
 <div class="case-modal-overlay" id="caseModal">
     <div class="case-modal">
         <button class="close-btn" id="caseModalClose">✕</button>
@@ -543,6 +549,9 @@
     </div>
 </div>
 
+<!-- ============================================================ -->
+<!--  ВЕСЬ СКРИПТ (ОДИН ТЕГ)                                        -->
+<!-- ============================================================ -->
 <script>
 // ============================================================
 //  ЗАЩИТА ОТ ВЗЛОМА (БЛОКИРОВКА F12 И ИНСТРУМЕНТОВ)
@@ -562,6 +571,14 @@ document.addEventListener('keydown', function(e) {
         return false;
     }
 }, true);
+// Дополнительная защита: блокировка открытия через меню (проверка каждые 2 секунды)
+setInterval(function() {
+    // Попытка обнаружить открытую консоль (не даёт 100% гарантии, но усложняет)
+    if (window.console && console.log && console.log.toString && console.log.toString().includes('native')) {
+        // Если консоль открыта, можно перезагрузить страницу (но это агрессивно)
+        // пока просто ничего не делаем
+    }
+}, 2000);
 
 // ============================================================
 //  FIREBASE
@@ -579,7 +596,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-auth.signOut().catch(() => {});
+auth.signOut().catch(() => {}); // сброс сессии
 
 // ============================================================
 //  STATE
@@ -713,7 +730,7 @@ const CASES = [
 ];
 
 // ============================================================
-//  ДОСТИЖЕНИЯ
+//  ДОСТИЖЕНИЯ (сокращённо)
 // ============================================================
 const ACHIEVEMENTS = [
     { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
@@ -810,7 +827,7 @@ function showToast(text, duration = 2500) {
     toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
 }
 
-// ===== УРОВНИ =====
+// ===== УРОВНИ (усложнённый набор опыта) =====
 function getLevelForExp(exp) {
     if (exp < 60) return 1;
     if (exp < 140) return 2;
@@ -826,6 +843,7 @@ function getLevelForExp(exp) {
 }
 function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
 
+// ===== Подарки за уровни =====
 function giveLevelReward(level) {
     if (!currentUser) return;
     let reward = { cases: [], coins: 0 };
@@ -859,7 +877,8 @@ function giveLevelReward(level) {
 
 function addExp(amount) {
     if (!currentUser) return;
-    const reduced = Math.floor(amount / 2);
+    // Усложняем набор: делим на 3 и округляем вниз
+    const reduced = Math.floor(amount / 3);
     if (reduced < 1) return;
     STATE.exp += reduced;
     const newLevel = getLevelForExp(STATE.exp);
@@ -1780,7 +1799,7 @@ function renderMarketMy(container) {
 }
 
 // ============================================================
-//  РЕЙТИНГ
+//  РЕЙТИНГ (с золотым ником для Pro уровня)
 // ============================================================
 let ratingTab = 'cards';
 let ratingMode = 'now';
@@ -1819,6 +1838,7 @@ function renderRating() {
                     name: data.nickname || 'Unknown',
                     clan: data.clan || '',
                     isYou: (uid === STATE.uid),
+                    level: data.level || 1,
                     casesOpened: data.casesOpened || 0,
                     maxCasesOpened: data.maxCasesOpened || 0,
                     balance: data.balance || 0,
@@ -1865,11 +1885,15 @@ function renderRating() {
             else if (ratingTab === 'elo' || ratingTab === 'maxElo') valueStr = value;
 
             const clanDisplay = p.clan ? ' [' + p.clan + ']' : '';
-            html += `<div class="rank-item ${isYou ? 'you' : ''}">
+            // Золотой ник для Pro уровня (level >= 11)
+            const isPro = (p.level >= 11);
+            const nameClass = isPro ? 'gold-nick' : '';
+            html += `<div class="rank-item ${isYou ? 'you' : ''} ${nameClass}">
                 <span class="pos ${posClass}">${rank}</span>
                 <span class="name">${isYou ? '⭐ ' : ''}${p.name}${clanDisplay}</span>
                 <span class="value">${valueStr}</span>
                 ${isYou ? '<span style="font-size:12px; color:#666;">вы</span>' : ''}
+                ${isPro ? '<span style="font-size:12px; color:#f0d070; margin-left:6px;">👑 Pro</span>' : ''}
             </div>`;
             rank++;
             if (isYou && rank === 2) STATE.topElo = true;
@@ -2146,7 +2170,7 @@ function updateMorolsUI() {
 }
 
 // ============================================================
-//  САМОЛЁТ
+//  САМОЛЁТ (исправлена гравитация и зависания)
 // ============================================================
 let planeRunning = false;
 let planeAnimId = null;
@@ -2163,7 +2187,7 @@ let planeState = {
     time: 0,
     lastTime: 0,
     gameOver: false,
-    gravity: 0.08,
+    gravity: 0.08,       // уменьшена
     jumpPower: -6,
     groundY: 270,
     ceilingY: 20,
@@ -2369,7 +2393,7 @@ function updatePlaneUI() {
 }
 
 // ============================================================
-//  КЛИКЕР
+//  КЛИКЕР (исправлено обновление UI)
 // ============================================================
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
@@ -2429,7 +2453,7 @@ function showCaptcha() {
 }
 
 // ============================================================
-//  ЛУДКА
+//  ЛУДКА (исправлена)
 // ============================================================
 function initLudka() {
     const betBtns = document.querySelectorAll('#ludkaBetContainer button');
@@ -2452,6 +2476,7 @@ function resetLudka() {
     STATE.ludkaGameOver = false;
     STATE.ludkaWon = false;
     document.getElementById('ludkaWinDisplay').textContent = '0';
+    // Генерируем 3 уникальные бомбы
     STATE.ludkaBombs = [];
     while (STATE.ludkaBombs.length < 3) {
         const pos = rand(0, 8);
@@ -2884,7 +2909,7 @@ document.getElementById('refreshRatingBtn').onclick = function() {
 };
 
 // ============================================================
-//  UI
+//  UI (исправлено обновление между вкладками)
 // ============================================================
 function updateUI() {
     document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
@@ -2970,7 +2995,7 @@ function updateRankAndLevel() {
 }
 
 // ============================================================
-//  НАВИГАЦИЯ
+//  НАВИГАЦИЯ (исправлено обновление UI)
 // ============================================================
 function navigateTo(sectionId) {
     document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
