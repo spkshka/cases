@@ -8,19 +8,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
     <style>
-        /* ===== СТИЛИ WINDOWS XP ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Tahoma','Arial',sans-serif;
-            background: #3a6ea5;
-            color: #000;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
+        body { font-family: 'Tahoma','Arial',sans-serif; background: #3a6ea5; color: #000; min-height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 16px; transition: background 0.3s; }
         body.theme-windows_xp { background: #3a6ea5; }
         body.theme-windows_xp #app { background: #d4d0c8; border: 3px solid #0a246a; border-style: inset; }
         body.theme-windows_xp .header { border-bottom-color: #0a246a; }
@@ -37,8 +26,6 @@
         body.theme-windows_xp .click-btn, body.theme-windows_xp .modal-buttons button { background: #0a246a; color: #fff; border: 2px solid #0a246a; border-style: outset; }
         body.theme-windows_xp .open-btn:hover, body.theme-windows_xp .market-listing .price button:hover,
         body.theme-windows_xp .click-btn:hover, body.theme-windows_xp .modal-buttons button:hover { background: #1a3a8a; }
-
-        /* ===== ОБЩИЕ СТИЛИ ===== */
         #app { width: 100%; max-width: 600px; background: #d4d0c8; border-radius: 12px; padding: 16px; border: 3px solid #0a246a; border-style: inset; }
         .header { text-align: center; padding: 12px 0; border-bottom: 2px solid #0a246a; }
         .header h1 { font-size: 32px; font-weight: bold; letter-spacing: 3px; color: #fff; text-shadow: 1px 1px 0 #000; }
@@ -164,55 +151,17 @@
         .clicker-wrap .click-btn:hover { background: #1a3a8a; }
         .clicker-wrap .click-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .clicker-wrap .click-timer { font-size: 14px; color: #666; margin-top: 8px; }
-        #loginOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            flex-direction: column;
-            transition: opacity 0.3s;
-        }
+        #loginOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; flex-direction: column; transition: opacity 0.3s; }
         #loginOverlay.hidden { display: none; }
-        .login-box {
-            background: #ece9d8;
-            border: 1px solid #0a246a;
-            border-style: inset;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            color: #000;
-        }
+        .login-box { background: #ece9d8; border: 1px solid #0a246a; border-style: inset; border-radius: 12px; padding: 30px; max-width: 400px; width: 100%; color: #000; }
         .login-box h2 { text-align: center; font-size: 26px; }
         .login-box .sub { text-align: center; font-size: 15px; margin-bottom: 16px; color: #666; }
         .login-box .promo { text-align: center; font-size: 14px; margin: 10px 0; border-top: 1px solid #0a246a; padding-top: 12px; color: #666; }
         .login-box .promo a { text-decoration: none; color: #0a246a; }
-        .login-box input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #0a246a;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            font-size: 16px;
-            background: #ece9d8;
-            color: #000;
-        }
+        .login-box input { width: 100%; padding: 12px 16px; border: 1px solid #0a246a; border-radius: 6px; margin-bottom: 12px; font-size: 16px; background: #ece9d8; color: #000; }
         .login-box input:focus { outline: none; border-color: #0a246a; }
         .login-box .row { display: flex; gap: 10px; }
-        .login-box .row button {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #0a246a;
-            border-style: outset;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
-        }
+        .login-box .row button { flex: 1; padding: 12px; border: 2px solid #0a246a; border-style: outset; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.2s; }
         .login-box .row .login-btn { background: #0a246a; color: #fff; }
         .login-box .row .register-btn { background: #ece9d8; color: #000; }
         .login-box .row button:hover { opacity: 0.9; }
@@ -569,7 +518,6 @@
     </div>
 </div>
 
-<!-- МОДАЛКИ -->
 <div class="case-modal-overlay" id="caseModal">
     <div class="case-modal">
         <button class="close-btn" id="caseModalClose">✕</button>
@@ -594,6 +542,7 @@
         <div id="chanceList"></div>
     </div>
 </div>
+
 <script>
 // ============================================================
 //  ЗАЩИТА ОТ ВЗЛОМА (БЛОКИРОВКА F12 И ИНСТРУМЕНТОВ)
@@ -630,7 +579,6 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-// ===== ПРИНУДИТЕЛЬНЫЙ СБРОС СЕССИИ =====
 auth.signOut().catch(() => {});
 
 // ============================================================
@@ -765,7 +713,7 @@ const CASES = [
 ];
 
 // ============================================================
-//  ДОСТИЖЕНИЯ (сокращённо для экономии)
+//  ДОСТИЖЕНИЯ
 // ============================================================
 const ACHIEVEMENTS = [
     { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
@@ -862,7 +810,7 @@ function showToast(text, duration = 2500) {
     toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
 }
 
-// ===== УРОВНИ (усложнённый опыт) =====
+// ===== УРОВНИ =====
 function getLevelForExp(exp) {
     if (exp < 60) return 1;
     if (exp < 140) return 2;
@@ -878,7 +826,6 @@ function getLevelForExp(exp) {
 }
 function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
 
-// ===== ПОДАРКИ ЗА УРОВНИ =====
 function giveLevelReward(level) {
     if (!currentUser) return;
     let reward = { cases: [], coins: 0 };
@@ -896,13 +843,9 @@ function giveLevelReward(level) {
         case 11: reward = { cases: CASES.map(c => ({ id: c.id, count: 3 })), coins: 300 }; break;
         default: return;
     }
-    // Начисляем кейсы
     for (const item of reward.cases) {
         const caseData = CASES.find(c => c.id === item.id);
         if (caseData) {
-            // Добавляем бесплатные открытия для этого кейса
-            // Пока просто добавим в общий счётчик freeOpens, но лучше отдельно.
-            // Но в игре freeOpens общий, поэтому просто добавим общее количество.
             STATE.freeOpens += item.count;
             showToast(`🎁 +${item.count} открытий кейса "${caseData.name}"!`);
         }
@@ -914,10 +857,8 @@ function giveLevelReward(level) {
     saveStateToFirebase();
 }
 
-// ===== Функция добавления опыта (с подарками) =====
 function addExp(amount) {
     if (!currentUser) return;
-    // Усложняем набор опыта: делим на 2, чтобы копилось медленнее
     const reduced = Math.floor(amount / 2);
     if (reduced < 1) return;
     STATE.exp += reduced;
@@ -1005,7 +946,7 @@ function findUserByNickname(nickname) {
 }
 
 // ============================================================
-//  АВТОРИЗАЦИЯ (ИСПРАВЛЕННАЯ)
+//  АВТОРИЗАЦИЯ
 // ============================================================
 let currentUser = null;
 
@@ -1472,10 +1413,9 @@ function showChances(caseData) {
     modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
     sfxClick();
 }
-</script>
-<script>
+
 // ============================================================
-//  ИНВЕНТАРЬ (ИСПРАВЛЕНА ПРОДАЖА)
+//  ИНВЕНТАРЬ
 // ============================================================
 function renderInventory() {
     const grid = document.getElementById('inventoryGrid');
@@ -2206,7 +2146,7 @@ function updateMorolsUI() {
 }
 
 // ============================================================
-//  САМОЛЁТ (ИСПРАВЛЕНА ГРАВИТАЦИЯ И ЗАВИСАНИЯ)
+//  САМОЛЁТ
 // ============================================================
 let planeRunning = false;
 let planeAnimId = null;
@@ -2223,8 +2163,8 @@ let planeState = {
     time: 0,
     lastTime: 0,
     gameOver: false,
-    gravity: 0.08,       // уменьшена в 2.5 раза
-    jumpPower: -6,       // увеличен прыжок
+    gravity: 0.08,
+    jumpPower: -6,
     groundY: 270,
     ceilingY: 20,
 };
@@ -2289,7 +2229,6 @@ function planeLoop(timestamp) {
     planeState.xp += dt * 5;
     planeState.score += dt;
 
-    // Физика (уменьшенная гравитация)
     planeState.vy += planeState.gravity;
     planeState.planeY += planeState.vy;
     if (planeState.planeY < planeState.ceilingY) planeState.planeY = planeState.ceilingY;
@@ -2298,7 +2237,6 @@ function planeLoop(timestamp) {
         planeState.vy = 0;
     }
 
-    // Спавн препятствий (реже)
     if (Math.random() < 0.015 * dt * 60) {
         const height = 20 + Math.random() * 30;
         const y = Math.random() > 0.5 ? planeState.ceilingY : planeState.groundY - height;
@@ -2311,7 +2249,6 @@ function planeLoop(timestamp) {
             passed: false
         });
     }
-    // Монеты (появляются реже, чтобы не было зависаний)
     if (Math.random() < 0.02 * dt * 60) {
         planeState.coins.push({
             x: 600,
@@ -2323,7 +2260,6 @@ function planeLoop(timestamp) {
         });
     }
 
-    // Обновление препятствий
     for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
         const o = planeState.obstacles[i];
         o.x -= o.speed * dt;
@@ -2331,7 +2267,6 @@ function planeLoop(timestamp) {
             planeState.obstacles.splice(i, 1);
             continue;
         }
-        // Столкновение
         if (o.x < planeState.planeX + planeState.width &&
             o.x + o.width > planeState.planeX &&
             o.y < planeState.planeY + planeState.height &&
@@ -2357,7 +2292,6 @@ function planeLoop(timestamp) {
         }
     }
 
-    // Обновление монет (без зависаний — убираем лишние toast)
     for (let i = planeState.coins.length - 1; i >= 0; i--) {
         const c = planeState.coins[i];
         c.x -= c.speed * dt;
@@ -2372,7 +2306,6 @@ function planeLoop(timestamp) {
             STATE.totalEarned += value;
             if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
             sfxPlaneCoin();
-            // Не показываем каждый раз toast, чтобы не тормозить
             addExp(rand(10, 20));
         }
     }
@@ -2436,7 +2369,7 @@ function updatePlaneUI() {
 }
 
 // ============================================================
-//  КЛИКЕР (исправлено обновление UI)
+//  КЛИКЕР
 // ============================================================
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
@@ -2461,7 +2394,7 @@ function initClicker() {
             document.getElementById('clickTimer').textContent = 'Готово!';
         }, 1000);
         addExp(1);
-        updateUI(); // обновляем сразу
+        updateUI();
         document.getElementById('clickerBalance').textContent = STATE.balance;
         document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
         checkAllAchievements();
@@ -2496,7 +2429,7 @@ function showCaptcha() {
 }
 
 // ============================================================
-//  ЛУДКА (переписана, чтобы бомбы работали честно)
+//  ЛУДКА
 // ============================================================
 function initLudka() {
     const betBtns = document.querySelectorAll('#ludkaBetContainer button');
@@ -2519,7 +2452,6 @@ function resetLudka() {
     STATE.ludkaGameOver = false;
     STATE.ludkaWon = false;
     document.getElementById('ludkaWinDisplay').textContent = '0';
-    // Генерируем 3 уникальные бомбы
     STATE.ludkaBombs = [];
     while (STATE.ludkaBombs.length < 3) {
         const pos = rand(0, 8);
@@ -2559,7 +2491,6 @@ function ludkaClick(index) {
         return;
     }
 
-    // Списание ставки при первом клике
     if (STATE.ludkaClicks === 0) {
         STATE.balance -= STATE.ludkaBet;
         STATE.totalSpent += STATE.ludkaBet;
@@ -2677,7 +2608,7 @@ function renderAccount() {
             if (!unique) { showToast('❌ Ник занят'); return; }
             const updates = {};
             updates['users/' + STATE.uid + '/nickname'] = newNick;
-            updates['nicknames/' + STATE.nickname] = null;
+            updates['nicknames/' + STATE.nickname'] = null;
             updates['nicknames/' + newNick] = STATE.uid;
             db.ref().update(updates).then(() => {
                 STATE.nickname = newNick;
@@ -2953,7 +2884,7 @@ document.getElementById('refreshRatingBtn').onclick = function() {
 };
 
 // ============================================================
-//  UI (исправлено обновление между вкладками)
+//  UI
 // ============================================================
 function updateUI() {
     document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
@@ -2968,7 +2899,6 @@ function updateUI() {
     renderInventory();
     updateRankAndLevel();
     if (document.getElementById('progressContainer').style.display !== 'none') updateProgressDisplay();
-    // Обновляем статистику кликера и других вкладок
     document.querySelectorAll('.section').forEach(section => {
         if (section.id === 'section-clicker') {
             document.getElementById('clickerBalance').textContent = STATE.balance;
@@ -3040,7 +2970,7 @@ function updateRankAndLevel() {
 }
 
 // ============================================================
-//  НАВИГАЦИЯ (исправлено обновление UI)
+//  НАВИГАЦИЯ
 // ============================================================
 function navigateTo(sectionId) {
     document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
@@ -3050,7 +2980,6 @@ function navigateTo(sectionId) {
         btn.classList.toggle('active', btn.dataset.section === sectionId);
     });
     sfxClick();
-    // Обновляем UI при переходе
     updateUI();
     if (sectionId === 'inventory') renderInventory();
     if (sectionId === 'market') renderMarket();
@@ -3190,3 +3119,6 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
