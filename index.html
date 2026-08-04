@@ -55,6 +55,7 @@ function formatNum(n) { return n.toLocaleString('ru-RU'); }
 let toastTimeout = null;
 function showToast(text, duration = 2500) {
     const el = document.getElementById('toast');
+    if (!el) return;
     el.textContent = text;
     el.classList.add('show');
     clearTimeout(toastTimeout);
@@ -82,8 +83,10 @@ function updateProProgress() {
     const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
     const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
     const progress = nextExp === Infinity ? 100 : Math.min(100, ((exp - prevExp) / (nextExp - prevExp) * 100));
-    document.getElementById('expDisplay').textContent = exp;
-    document.getElementById('proProgressDisplay').textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
+    const expEl = document.getElementById('expDisplay');
+    const progEl = document.getElementById('proProgressDisplay');
+    if (expEl) expEl.textContent = exp;
+    if (progEl) progEl.textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
 }
 
 function addExp(amount) {
@@ -536,7 +539,8 @@ function onAuthSuccess() {
     renderInventory();
     renderAchievements();
     renderAccount();
-    document.getElementById('idDisplay').textContent = '#' + STATE.userId;
+    const idEl = document.getElementById('idDisplay');
+    if (idEl) idEl.textContent = '#' + STATE.userId;
     updateMusic();
     showToast('Добро пожаловать, ' + STATE.nickname);
     updateRankAndLevel();
@@ -2139,13 +2143,20 @@ document.getElementById('recheckAchievementsBtn').onclick = function() {
 
 // ---- UI ----
 function updateUI() {
-    document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
-    document.getElementById('eloDisplay').textContent = STATE.elo;
-    document.getElementById('levelDisplay').textContent = getLevelLabel(STATE.level);
-    document.getElementById('idDisplay').textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
-    document.getElementById('clickerBalance').textContent = STATE.balance;
-    document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
-    document.getElementById('ludkaBalance').textContent = STATE.balance;
+    const balEl = document.getElementById('balanceDisplay');
+    if (balEl) balEl.textContent = formatNum(STATE.balance);
+    const eloEl = document.getElementById('eloDisplay');
+    if (eloEl) eloEl.textContent = STATE.elo;
+    const levelEl = document.getElementById('levelDisplay');
+    if (levelEl) levelEl.textContent = getLevelLabel(STATE.level);
+    const idEl = document.getElementById('idDisplay');
+    if (idEl) idEl.textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
+    const clickerBal = document.getElementById('clickerBalance');
+    if (clickerBal) clickerBal.textContent = STATE.balance;
+    const clickerClicks = document.getElementById('clickerTotalClicks');
+    if (clickerClicks) clickerClicks.textContent = STATE.totalClicks;
+    const ludkaBal = document.getElementById('ludkaBalance');
+    if (ludkaBal) ludkaBal.textContent = STATE.balance;
     updateProProgress();
     renderCases();
     renderInventory();
@@ -2153,11 +2164,14 @@ function updateUI() {
     if (document.getElementById('progressContainer').style.display !== 'none') updateProgressDisplay();
     document.querySelectorAll('.section').forEach(section => {
         if (section.id === 'section-clicker') {
-            document.getElementById('clickerBalance').textContent = STATE.balance;
-            document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+            const cb = document.getElementById('clickerBalance');
+            if (cb) cb.textContent = STATE.balance;
+            const cc = document.getElementById('clickerTotalClicks');
+            if (cc) cc.textContent = STATE.totalClicks;
         }
         if (section.id === 'section-ludka') {
-            document.getElementById('ludkaBalance').textContent = STATE.balance;
+            const lb = document.getElementById('ludkaBalance');
+            if (lb) lb.textContent = STATE.balance;
         }
     });
 }
@@ -2229,8 +2243,10 @@ function navigateTo(sectionId) {
     if (sectionId === 'account') renderAccount();
     if (sectionId === 'ludka') { initLudka(); renderLudka(); }
     if (sectionId === 'clicker') {
-        document.getElementById('clickerBalance').textContent = STATE.balance;
-        document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+        const cb = document.getElementById('clickerBalance');
+        if (cb) cb.textContent = STATE.balance;
+        const cc = document.getElementById('clickerTotalClicks');
+        if (cc) cc.textContent = STATE.totalClicks;
     }
 }
 
@@ -2374,6 +2390,7 @@ function formatNum(n) { return n.toLocaleString('ru-RU'); }
 let toastTimeout = null;
 function showToast(text, duration = 2500) {
     const el = document.getElementById('toast');
+    if (!el) return;
     el.textContent = text;
     el.classList.add('show');
     clearTimeout(toastTimeout);
@@ -2401,8 +2418,10 @@ function updateProProgress() {
     const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
     const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
     const progress = nextExp === Infinity ? 100 : Math.min(100, ((exp - prevExp) / (nextExp - prevExp) * 100));
-    document.getElementById('expDisplay').textContent = exp;
-    document.getElementById('proProgressDisplay').textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
+    const expEl = document.getElementById('expDisplay');
+    const progEl = document.getElementById('proProgressDisplay');
+    if (expEl) expEl.textContent = exp;
+    if (progEl) progEl.textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
 }
 
 function addExp(amount) {
@@ -2855,7 +2874,8 @@ function onAuthSuccess() {
     renderInventory();
     renderAchievements();
     renderAccount();
-    document.getElementById('idDisplay').textContent = '#' + STATE.userId;
+    const idEl = document.getElementById('idDisplay');
+    if (idEl) idEl.textContent = '#' + STATE.userId;
     updateMusic();
     showToast('Добро пожаловать, ' + STATE.nickname);
     updateRankAndLevel();
@@ -4458,13 +4478,20 @@ document.getElementById('recheckAchievementsBtn').onclick = function() {
 
 // ---- UI ----
 function updateUI() {
-    document.getElementById('balanceDisplay').textContent = formatNum(STATE.balance);
-    document.getElementById('eloDisplay').textContent = STATE.elo;
-    document.getElementById('levelDisplay').textContent = getLevelLabel(STATE.level);
-    document.getElementById('idDisplay').textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
-    document.getElementById('clickerBalance').textContent = STATE.balance;
-    document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
-    document.getElementById('ludkaBalance').textContent = STATE.balance;
+    const balEl = document.getElementById('balanceDisplay');
+    if (balEl) balEl.textContent = formatNum(STATE.balance);
+    const eloEl = document.getElementById('eloDisplay');
+    if (eloEl) eloEl.textContent = STATE.elo;
+    const levelEl = document.getElementById('levelDisplay');
+    if (levelEl) levelEl.textContent = getLevelLabel(STATE.level);
+    const idEl = document.getElementById('idDisplay');
+    if (idEl) idEl.textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
+    const clickerBal = document.getElementById('clickerBalance');
+    if (clickerBal) clickerBal.textContent = STATE.balance;
+    const clickerClicks = document.getElementById('clickerTotalClicks');
+    if (clickerClicks) clickerClicks.textContent = STATE.totalClicks;
+    const ludkaBal = document.getElementById('ludkaBalance');
+    if (ludkaBal) ludkaBal.textContent = STATE.balance;
     updateProProgress();
     renderCases();
     renderInventory();
@@ -4472,11 +4499,14 @@ function updateUI() {
     if (document.getElementById('progressContainer').style.display !== 'none') updateProgressDisplay();
     document.querySelectorAll('.section').forEach(section => {
         if (section.id === 'section-clicker') {
-            document.getElementById('clickerBalance').textContent = STATE.balance;
-            document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+            const cb = document.getElementById('clickerBalance');
+            if (cb) cb.textContent = STATE.balance;
+            const cc = document.getElementById('clickerTotalClicks');
+            if (cc) cc.textContent = STATE.totalClicks;
         }
         if (section.id === 'section-ludka') {
-            document.getElementById('ludkaBalance').textContent = STATE.balance;
+            const lb = document.getElementById('ludkaBalance');
+            if (lb) lb.textContent = STATE.balance;
         }
     });
 }
@@ -4548,8 +4578,10 @@ function navigateTo(sectionId) {
     if (sectionId === 'account') renderAccount();
     if (sectionId === 'ludka') { initLudka(); renderLudka(); }
     if (sectionId === 'clicker') {
-        document.getElementById('clickerBalance').textContent = STATE.balance;
-        document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+        const cb = document.getElementById('clickerBalance');
+        if (cb) cb.textContent = STATE.balance;
+        const cc = document.getElementById('clickerTotalClicks');
+        if (cc) cc.textContent = STATE.totalClicks;
     }
 }
 
@@ -4636,5 +4668,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addLog('🚀 Игра загружена, ожидание входа.');
 });
 </script>
+</body>
+</html>
 </body>
 </html>
