@@ -1555,22 +1555,38 @@ function removeLot(lotId) {
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
-
+    
 function renderRating() {
     const container = document.getElementById('ratingContent');
-    if (!container) return;
+    if (!container) {
+        // Если контейнера нет – покажем ошибку в консоли (но вы её не видите)
+        return;
+    }
+
+    // Показываем статус загрузки
+    container.innerHTML = '⏳ Загрузка рейтинга...';
+
     fetch(DB_URL + '/users.json')
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
         .then(data => {
-            if (!data) { container.innerHTML = '<div class="inv-empty">Нет игроков</div>'; return; }
+            // Если данных нет – показываем сообщение
+            if (!data) {
+                container.innerHTML = '❌ Нет данных от сервера (пустой ответ)';
+                return;
+            }
+
+            // Собираем игроков
             let players = [];
             for (const uid in data) {
                 const p = data[uid];
-                if (!p.nickname) continue;
+                if (!p.nickname) continue; // пропускаем без ника
                 players.push({
                     name: p.nickname,
                     clan: p.clan || '',
-                    isYou: (uid === STATE.uid),
+                    isYou: (uid === STATE.uid), // помечаем текущего игрока
                     elo: p.elo || 0,
                     casesOpened: p.casesOpened || 0,
                     balance: p.balance || 0,
@@ -1579,8 +1595,17 @@ function renderRating() {
                     level: p.level || 1
                 });
             }
-            players.sort((a,b) => b.elo - a.elo);
-            let html = '<div class="rating-list">';
+
+            if (players.length === 0) {
+                container.innerHTML = '😕 Игроков пока нет (зарегистрируйтесь)';
+                return;
+            }
+
+            // Сортируем по Эло (по убыванию)
+            players.sort((a, b) => b.elo - a.elo);
+
+            // Формируем HTML
+            let html = `<div style="padding: 6px 0; font-size: 14px; color: #666;">👥 Всего игроков: ${players.length}</div><div class="rating-list">`;
             let rank = 1;
             for (const p of players.slice(0, 20)) {
                 const isYou = p.isYou;
@@ -1602,7 +1627,10 @@ function renderRating() {
             html += '</div>';
             container.innerHTML = html;
         })
-        .catch(err => container.innerHTML = '<div class="inv-empty">Ошибка загрузки рейтинга</div>');
+        .catch(err => {
+            // Если ошибка – показываем её текст
+            container.innerHTML = '❌ Ошибка загрузки: ' + err.message + '. Проверьте интернет.';
+        });
 }
 
 function renderAchievements() {
