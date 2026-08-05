@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>прикольная игра ттп 1.1.1</title>
+    <title>TTPCASES 1.1.1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -405,7 +405,7 @@
         <section id="section-cases" class="section active"><div class="title">Кейсы <span class="badge">выбери и открой</span></div><div class="cases-grid" id="casesGrid"></div></section>
         <section id="section-inventory" class="section"><div class="title">Инвентарь <span class="badge" id="invCount">0</span></div><button class="inv-clear-all" id="clearAllInventoryBtn">Очистить весь инвентарь</button><div id="inventoryGrid" class="inv-grid"></div></section>
         <section id="section-market" class="section"><div class="title">Торговая площадка <span class="badge">комиссия 10%</span></div><div class="market-tabs"><button class="active" data-market-tab="buy">Купить</button><button data-market-tab="sell">Продать</button><button data-market-tab="my">Мои лоты</button></div><div class="market-sort"><span>Сортировка:</span><select id="marketSort"><option value="price_asc">Цена ↑</option><option value="price_desc">Цена ↓</option><option value="rarity_desc">Редкость ↓</option><option value="rarity_asc">Редкость ↑</option></select></div><div id="marketContent"></div></section>
-        <section id="section-rating" class="section"><div class="title">Рейтинг <span class="badge">топ игроков</span><button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button><button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Перепроверить ачивки</button></div><div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;"><span style="font-size:16px; color:#666;">Режим:</span><button id="ratingModeNow" class="active" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#0a246a; color:#fff;">Сейчас</button><button id="ratingModeEver" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ece9d8; color:#000;">За всё время</button></div><div class="rating-tabs" id="ratingTabs"><button class="active" data-rating-tab="cards">Карты</button><button data-rating-tab="balance">Баланс</button><button data-rating-tab="totalEarned">Заработано</button><button data-rating-tab="clicks">Клики</button><button data-rating-tab="speed">Скорость</button><button data-rating-tab="distance">Километры</button><button data-rating-tab="planeXP">XP самолёт</button><button data-rating-tab="planeTime">Время полёта</button><button data-rating-tab="elo">Эло</button></div><div id="ratingContent"></div></section>
+        <section id="section-rating" class="section"><div class="title">Рейтинг <span class="badge">топ игроков</span><button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button><button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Перепроверить ачивки</button></div><div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;"><span style="font-size:16px; color:#666;">Режим:</span><button id="ratingModeNow" class="active" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#0a246a; color:#fff;">Сейчас</button><button id="ratingModeEver" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ece9d8; color:#000;">За всё время</button></div><div class="rating-tabs" id="ratingTabs"><button class="active" data-rating-tab="cards">Карты</button><button data-rating-tab="balance">Баланс</button><button data-rating-tab="totalEarned">Заработано</button><button data-rating-tab="clicks">Клики</button><button data-rating-tab="speed">Скорость</button><button data-rating-tab="distance">Километры</button><button data-rating-tab="planeXP">XP самолёт</button><button data-rating-tab="planeTime">Время полёта</button><button class="active" data-rating-tab="elo">Эло</button></div><div id="ratingContent"></div></section>
         <section id="section-morols" class="section"><div class="title">Моролс на стуле <span class="badge">гонка</span></div><div class="game-wrap"><div class="game-stats">Скорость: <span id="morolsSpeed">0</span> км/ч &nbsp;|&nbsp; Дистанция: <span id="morolsDistance">0.00</span> км &nbsp;|&nbsp; Монет: <span id="morolsCoins">0</span></div><div class="game-canvas"><canvas id="morolsCanvas" width="600" height="300"></canvas></div><div class="game-controls"><button id="morolsStart">Старт</button><button id="morolsReset">Сброс</button></div><div style="margin-top:8px; font-size:14px; color:#666;">Управление: стрелки <kbd>←</kbd> <kbd>→</kbd> (на телефоне кнопки ниже)</div><div class="morols-touch-controls"><button id="morolsTouchLeft">←</button><button id="morolsTouchRight">→</button></div></div></section>
         <section id="section-plane" class="section"><div class="title">Самолёт <span class="badge">облетай препятствия</span></div><div class="game-wrap"><div class="game-stats">Монет: <span id="planeCoins">0</span> &nbsp;|&nbsp; XP: <span id="planeXP">0</span> &nbsp;|&nbsp; Секунд: <span id="planeTime">0</span></div><div class="game-canvas"><canvas id="planeCanvas" width="600" height="300"></canvas></div><div class="game-controls"><button id="planeStart">Старт</button><button id="planeReset">Сброс</button></div><div style="margin-top:6px; font-size:14px; color:#666;">Пробел или клик — взлёт/снижение, уклоняйся от препятствий!</div></div></section>
         <section id="section-clicker" class="section"><div class="title">Кликер <span class="badge">зарабатывай монеты</span></div><div class="clicker-wrap"><div class="clicker-stats">Монет: <span id="clickerBalance">0</span> | Кликов: <span id="clickerTotalClicks">0</span></div><button class="click-btn" id="clickBtn">Кликнуть</button><div class="click-timer" id="clickTimer">Готово!</div><div id="clickerCaptcha" style="display:none; margin-top:12px;"><div style="font-size:18px; color:#1a2a3a;">Введите код: <span id="captchaText"></span></div><input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #0a246a; border-radius:4px; width:100%; margin:8px 0; background:#ece9d8; color:#1a2a3a;"><button id="captchaSubmit" style="border:2px solid #0a246a; border-style:outset; border-radius:4px; padding:8px 16px; cursor:pointer; background:#0a246a; color:#fff;">Подтвердить</button></div></div></section>
@@ -424,7 +424,7 @@
 <div class="log-popup" id="logPopup"></div>
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.1 (ВСЕ ИГРЫ, ВСЕ ФУНКЦИИ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.1 (ВСЕ ИГРЫ, РЕЙТИНГ, ВКЛАДКИ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -960,7 +960,7 @@ function onAuthSuccess() {
     updateUI();
     renderSettings();
     renderMarket();
-    renderRating();
+    renderRating('elo');
     renderCases();
     renderInventory();
     renderAchievements();
@@ -1373,7 +1373,7 @@ function renderMarket() {
     const activeTab = document.querySelector('.market-tabs .active')?.dataset.marketTab || 'buy';
     const sort = document.getElementById('marketSort')?.value || 'price_asc';
 
-    fetch(DB_URL + '/market.json')
+    fetch(DB_URL + '/market.json?auth=' + (currentUser?.idToken || ''))
         .then(res => res.json())
         .then(data => {
             let lots = [];
@@ -1544,11 +1544,25 @@ function buyLot(lotId) {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-function renderRating() {
+function removeLot(lotId) {
+    if (!confirm('Снять лот?')) return;
+    fetch(DB_URL + '/market/' + lotId + '.json?auth=' + currentUser.idToken, {
+        method: 'DELETE'
+    })
+    .then(() => {
+        showToast('Лот снят');
+        renderMarket();
+    })
+    .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+// ============================================================
+//  ИСПРАВЛЕННЫЙ РЕЙТИНГ – С ПОДДЕРЖКОЙ ВКЛАДОК И СОРТИРОВКИ
+// ============================================================
+function renderRating(sortBy = 'elo') {
     const container = document.getElementById('ratingContent');
     if (!container) return;
 
-    // Проверяем авторизацию
     if (!currentUser || !currentUser.idToken) {
         container.innerHTML = '❌ Вы не авторизованы. Войдите в аккаунт.';
         return;
@@ -1556,7 +1570,6 @@ function renderRating() {
 
     container.innerHTML = '⏳ Загрузка рейтинга...';
 
-    // 🔥 Добавляем токен в запрос
     const url = DB_URL + '/users.json?auth=' + currentUser.idToken;
     fetch(url)
         .then(res => {
@@ -1582,7 +1595,11 @@ function renderRating() {
                     balance: p.balance || 0,
                     totalEarned: p.totalEarned || 0,
                     totalClicks: p.totalClicks || 0,
-                    level: p.level || 1
+                    level: p.level || 1,
+                    maxSpeed: p.morols?.maxSpeed || 0,
+                    maxDistance: p.morols?.maxDistance || 0,
+                    planeXP: p.plane?.xp || 0,
+                    planeTime: p.plane?.bestTime || 0
                 });
             }
 
@@ -1591,7 +1608,17 @@ function renderRating() {
                 return;
             }
 
-            players.sort((a, b) => b.elo - a.elo);
+            switch (sortBy) {
+                case 'cards': players.sort((a, b) => b.casesOpened - a.casesOpened); break;
+                case 'balance': players.sort((a, b) => b.balance - a.balance); break;
+                case 'totalEarned': players.sort((a, b) => b.totalEarned - a.totalEarned); break;
+                case 'clicks': players.sort((a, b) => b.totalClicks - a.totalClicks); break;
+                case 'speed': players.sort((a, b) => b.maxSpeed - a.maxSpeed); break;
+                case 'distance': players.sort((a, b) => b.maxDistance - a.maxDistance); break;
+                case 'planeXP': players.sort((a, b) => b.planeXP - a.planeXP); break;
+                case 'planeTime': players.sort((a, b) => b.planeTime - a.planeTime); break;
+                default: players.sort((a, b) => b.elo - a.elo);
+            }
 
             let html = `<div style="padding:6px 0;font-size:14px;color:#666;">👥 Всего игроков: ${players.length}</div><div class="rating-list">`;
             let rank = 1;
@@ -1603,10 +1630,22 @@ function renderRating() {
                 else if (rank === 3) posClass = 'bronze';
                 const isPro = p.level >= 11;
                 const nameClass = isPro ? 'gold-nick' : '';
+                let valueDisplay = p.elo;
+                switch (sortBy) {
+                    case 'cards': valueDisplay = p.casesOpened; break;
+                    case 'balance': valueDisplay = p.balance; break;
+                    case 'totalEarned': valueDisplay = p.totalEarned; break;
+                    case 'clicks': valueDisplay = p.totalClicks; break;
+                    case 'speed': valueDisplay = p.maxSpeed.toFixed(1); break;
+                    case 'distance': valueDisplay = p.maxDistance.toFixed(1); break;
+                    case 'planeXP': valueDisplay = p.planeXP.toFixed(1); break;
+                    case 'planeTime': valueDisplay = p.planeTime.toFixed(1); break;
+                    default: valueDisplay = p.elo;
+                }
                 html += `<div class="rank-item ${isYou ? 'you' : ''} ${nameClass}">
                     <span class="pos ${posClass}">${rank}</span>
                     <span class="name">${isYou ? '⭐ ' : ''}${p.name}${p.clan ? ' [' + p.clan + ']' : ''}</span>
-                    <span class="value">${p.elo}</span>
+                    <span class="value">${valueDisplay}</span>
                     ${isYou ? '<span style="font-size:12px; color:#666;">вы</span>' : ''}
                     ${isPro ? '<span style="font-size:12px; color:#f0d070; margin-left:6px;">👑 Pro</span>' : ''}
                 </div>`;
@@ -1620,238 +1659,7 @@ function renderRating() {
         });
 }
 
-function renderAchievements() {
-    const grid = document.getElementById('achievementsGrid');
-    if (!grid) return;
-    const countEl = document.getElementById('achCount');
-    let html = '';
-    let unlocked = 0;
-    for (const ach of ACHIEVEMENTS) {
-        const isUnlocked = STATE.achievements.includes(ach.id);
-        if (isUnlocked) unlocked++;
-        html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
-            <span>${isUnlocked ? '✅' : '🔒'}</span>
-            <span>${ach.name}</span>
-        </div>`;
-    }
-    grid.innerHTML = html;
-    if (countEl) countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
-}
-
-function checkAllAchievements() {
-    let any = false;
-    const allIds = ACHIEVEMENTS.map(a => a.id).filter(id => id !== 'allAchievements');
-    for (const ach of ACHIEVEMENTS) {
-        if (STATE.achievements.includes(ach.id)) continue;
-        if (ach.id === 'allAchievements') continue;
-        if (ach.check(STATE)) {
-            STATE.achievements.push(ach.id);
-            any = true;
-            showToast('🏆 Достижение: ' + ach.name);
-            sfxAchievement();
-            addExp(25);
-        }
-    }
-    if (!STATE.achievements.includes('allAchievements')) {
-        const hasAll = allIds.every(id => STATE.achievements.includes(id));
-        if (hasAll) {
-            STATE.achievements.push('allAchievements');
-            any = true;
-            showToast('🏆 Все достижения выполнены!');
-            sfxAchievement();
-            addExp(100);
-        }
-    }
-    if (any) {
-        renderAchievements();
-        saveStateToFirebase();
-    }
-}
-
-function renderAccount() {
-    const container = document.getElementById('accountInfo');
-    if (!container) return;
-    container.innerHTML = `
-        <div class="row"><span class="label">Никнейм</span><span class="value">${STATE.nickname}</span></div>
-        <div class="row"><span class="label">ID</span><span class="value">#${STATE.userId}</span></div>
-        <div class="row"><span class="label">Клан</span><span class="value" id="clanDisplay">${STATE.clan || '—'}</span></div>
-        <div class="row"><span class="label">Уровень</span><span class="value">${getLevelLabel(STATE.level)}</span></div>
-        <div class="row"><span class="label">Опыт</span><span class="value">${STATE.exp}</span></div>
-        <div class="row"><span class="label">Баланс</span><span class="value">${formatNum(STATE.balance)} ₽</span></div>
-        <div class="row"><span class="label">Эло</span><span class="value">${STATE.elo}</span></div>
-        <div class="row"><span class="label">Открыто кейсов</span><span class="value">${STATE.casesOpened}</span></div>
-        <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
-        <div class="row"><span class="label">XP Самолёт</span><span class="value">${STATE.plane.xp.toFixed(1)}</span></div>
-        <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
-    `;
-
-    const clanDisplay = document.getElementById('clanDisplay');
-    if (clanDisplay) {
-        clanDisplay.style.cursor = 'pointer';
-        clanDisplay.title = 'Нажмите, чтобы изменить клан';
-        clanDisplay.onclick = function() {
-            const newClan = prompt('Введите название клана (макс. 10 символов):', STATE.clan);
-            if (newClan !== null) {
-                STATE.clan = newClan.trim().slice(0, 10);
-                saveStateToFirebase();
-                renderAccount();
-                showToast('Клан обновлён');
-            }
-        };
-    }
-
-    const setClanBtn = document.getElementById('setClanBtn');
-    if (setClanBtn) {
-        setClanBtn.onclick = function() {
-            const input = document.getElementById('clanInput');
-            if (!input) return;
-            const clan = input.value.trim().slice(0, 10);
-            if (!clan) { showToast('Введите название клана'); return; }
-            STATE.clan = clan;
-            saveStateToFirebase();
-            renderAccount();
-            showToast('✅ Клан установлен: ' + clan);
-            input.value = '';
-        };
-    }
-    const clearClanBtn = document.getElementById('clearClanBtn');
-    if (clearClanBtn) {
-        clearClanBtn.onclick = function() {
-            STATE.clan = '';
-            saveStateToFirebase();
-            renderAccount();
-            showToast('Клан удалён');
-        };
-    }
-
-    const changeNickBtn = document.getElementById('changeNickBtnAccount');
-    if (changeNickBtn) {
-        changeNickBtn.onclick = function() {
-            const newNick = prompt('Введите новый ник:', STATE.nickname);
-            if (!newNick || newNick === STATE.nickname) return;
-            fetch(DB_URL + '/nicknames/' + newNick + '.json')
-                .then(res => res.json())
-                .then(data => {
-                    if (data) { showToast('❌ Ник занят'); return; }
-                    const updates = {};
-                    updates['/users/' + STATE.uid + '/nickname'] = newNick;
-                    updates['/nicknames/' + STATE.nickname] = null;
-                    updates['/nicknames/' + newNick] = STATE.uid;
-                    return fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updates)
-                    });
-                })
-                .then(res => {
-                    if (res && res.ok) {
-                        STATE.nickname = newNick;
-                        STATE.nickChanged = true;
-                        showToast('✅ Ник изменён');
-                        const idEl = document.getElementById('idDisplay');
-                        if (idEl) idEl.textContent = '#' + STATE.userId + ' (' + newNick + ')';
-                        renderAccount();
-                        saveStateToFirebase();
-                        checkAllAchievements();
-                    }
-                })
-                .catch(err => showToast('❌ Ошибка: ' + err.message));
-        };
-    }
-
-    const changePassBtn = document.getElementById('changePassBtnAccount');
-    if (changePassBtn) {
-        changePassBtn.onclick = function() {
-            const newPass = prompt('Введите новый пароль (6+ символов):');
-            if (!newPass || newPass.length < 6) { showToast('❌ Минимум 6 символов'); return; }
-            const email = getEmail(STATE.nickname);
-            fetch(AUTH_URL + ':update?key=' + API_KEY, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ idToken: currentUser.idToken, password: newPass, returnSecureToken: true })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) { showToast('❌ Ошибка: ' + data.error.message); return; }
-                showToast('✅ Пароль изменён');
-                currentUser.idToken = data.idToken;
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-        };
-    }
-
-    const deleteBtn = document.getElementById('deleteAccountBtn');
-    if (deleteBtn) {
-        deleteBtn.onclick = function() {
-            if (!confirm('Удалить аккаунт?')) return;
-            const password = prompt('Введите пароль:');
-            if (!password) return;
-            const email = getEmail(STATE.nickname);
-            fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, returnSecureToken: true })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) { showToast('❌ Неверный пароль'); return; }
-                const idToken = data.idToken;
-                return fetch(AUTH_URL + ':delete?key=' + API_KEY, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ idToken })
-                });
-            })
-            .then(res => {
-                if (res && res.ok) {
-                    showToast('✅ Аккаунт удалён');
-                    logout();
-                }
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-        };
-    }
-
-    const logoutBtn = document.getElementById('logoutBtnAccount');
-    if (logoutBtn) {
-        logoutBtn.onclick = function() {
-            if (confirm('Выйти?')) logout();
-        };
-    }
-
-    const showProgressBtn = document.getElementById('showProgressBtn');
-    if (showProgressBtn) {
-        showProgressBtn.onclick = function() {
-            const container = document.getElementById('progressContainer');
-            if (!container) return;
-            if (container.style.display === 'none') {
-                container.style.display = 'block';
-                updateProgressDisplay();
-            } else {
-                container.style.display = 'none';
-            }
-        };
-    }
-}
-
-function updateProgressDisplay() {
-    const exp = STATE.exp;
-    const level = STATE.level;
-    const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
-    const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
-    const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
-    const progressExp = document.getElementById('progressExp');
-    if (progressExp) progressExp.textContent = exp;
-    const progressFill = document.getElementById('progressFill');
-    if (progressFill) progressFill.style.width = Math.min(100, currentProgress) + '%';
-    const progressLabel = document.getElementById('progressLabel');
-    if (progressLabel) {
-        if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
-        else progressLabel.textContent = `Уровень ${level} → ${level+1}`;
-    }
-}
-
-// ---- МОРОЛС ----
+// ---- ИГРЫ: МОРОЛС ----
 let morolsRunning = false;
 let morolsAnimId = null;
 let morolsState = {
@@ -1931,15 +1739,11 @@ async function morolsLoop(timestamp) {
     morolsState.speed += 0.03 * dt * 60;
     if (morolsState.speed > morolsState.maxSpeedReached) {
         morolsState.maxSpeedReached = morolsState.speed;
-        if (morolsState.maxSpeedReached > STATE.morols.maxSpeed) {
-            STATE.morols.maxSpeed = morolsState.maxSpeedReached;
-        }
+        if (morolsState.maxSpeedReached > STATE.morols.maxSpeed) STATE.morols.maxSpeed = morolsState.maxSpeedReached;
     }
 
     morolsState.distance += morolsState.speed * dt / 10;
-    if (morolsState.distance > STATE.morols.maxDistance) {
-        STATE.morols.maxDistance = morolsState.distance;
-    }
+    if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
 
     const moveSpeed = 300 * dt;
     if (morolsState.keys.left) morolsState.carX -= moveSpeed;
@@ -2059,26 +1863,14 @@ function updateMorolsUI() {
     document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
 }
 
-// ---- САМОЛЁТ ----
+// ---- ИГРА: САМОЛЁТ ----
 let planeRunning = false;
 let planeAnimId = null;
 let planeState = {
-    planeX: 80,
-    planeY: 150,
-    width: 40,
-    height: 30,
-    vy: 0,
-    obstacles: [],
-    coins: [],
-    score: 0,
-    xp: 0,
-    time: 0,
-    lastTime: 0,
-    gameOver: false,
-    gravity: 0.08,
-    jumpPower: -6,
-    groundY: 270,
-    ceilingY: 20,
+    planeX: 80, planeY: 150, width: 40, height: 30, vy: 0,
+    obstacles: [], coins: [], score: 0, xp: 0, time: 0,
+    lastTime: 0, gameOver: false, gravity: 0.08, jumpPower: -6,
+    groundY: 270, ceilingY: 20,
 };
 
 function initPlane() {
@@ -2156,32 +1948,21 @@ function planeLoop(timestamp) {
         const height = 20 + Math.random() * 30;
         const y = Math.random() > 0.5 ? planeState.ceilingY : planeState.groundY - height;
         planeState.obstacles.push({
-            x: 600,
-            y: y,
-            width: 20,
-            height: height,
-            speed: 200 + planeState.time * 1.2,
-            passed: false
+            x: 600, y, width: 20, height: height,
+            speed: 200 + planeState.time * 1.2, passed: false
         });
     }
     if (Math.random() < 0.02 * dt * 60) {
         planeState.coins.push({
-            x: 600,
-            y: 50 + Math.random() * 180,
-            radius: 10,
-            speed: 180 + planeState.time * 1.0,
-            collected: false,
-            value: rand(1, 5)
+            x: 600, y: 50 + Math.random() * 180, radius: 10,
+            speed: 180 + planeState.time * 1.0, collected: false, value: rand(1, 5)
         });
     }
 
     for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
         const o = planeState.obstacles[i];
         o.x -= o.speed * dt;
-        if (o.x + o.width < 0) {
-            planeState.obstacles.splice(i, 1);
-            continue;
-        }
+        if (o.x + o.width < 0) { planeState.obstacles.splice(i, 1); continue; }
         if (o.x < planeState.planeX + planeState.width &&
             o.x + o.width > planeState.planeX &&
             o.y < planeState.planeY + planeState.height &&
@@ -2248,7 +2029,6 @@ function drawPlane() {
         ctx.fillRect(o.x-2, o.y+2, o.width+4, 4);
         ctx.fillRect(o.x-2, o.y+o.height-6, o.width+4, 4);
     }
-
     for (const c of planeState.coins) {
         ctx.beginPath();
         ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2);
@@ -2258,7 +2038,6 @@ function drawPlane() {
         ctx.lineWidth = 1;
         ctx.stroke();
     }
-
     const p = planeState;
     ctx.fillStyle = '#ece9d8';
     ctx.fillRect(p.planeX, p.planeY, p.width, p.height);
@@ -2267,7 +2046,6 @@ function drawPlane() {
     ctx.fillRect(p.planeX - 6, p.planeY + 6, 8, 6);
     ctx.fillStyle = '#4a8aba';
     ctx.fillRect(p.planeX + 4, p.planeY + 4, 6, 6);
-
     if (planeState.gameOver) {
         ctx.fillStyle = 'rgba(255,0,0,0.3)';
         ctx.fillRect(0, 0, 600, 300);
@@ -2284,7 +2062,7 @@ function updatePlaneUI() {
     document.getElementById('planeTime').textContent = Math.floor(planeState.time);
 }
 
-// ---- КЛИКЕР ----
+// ---- ИГРА: КЛИКЕР ----
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
 let captchaAnswer = '';
@@ -2344,7 +2122,7 @@ function showCaptcha() {
     document.getElementById('captchaInput').focus();
 }
 
-// ---- ЛУДКА ----
+// ---- ИГРА: ЛУДКА ----
 function initLudka() {
     try {
         const betBtns = document.querySelectorAll('#ludkaBetContainer button');
@@ -2605,11 +2383,11 @@ document.getElementById('easterEggBtn').onclick = function() {
     }
 };
 
-// ---- ОБНОВЛЕНИЕ РЕЙТИНГА ----
+// ---- ОБНОВЛЕНИЕ РЕЙТИНГА И АЧИВОК ----
 document.getElementById('refreshRatingBtn').onclick = function() {
     this.disabled = true;
     showToast('🔄 Обновление...');
-    renderRating();
+    renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     setTimeout(() => { this.disabled = false; showToast('✅ Обновлено'); }, 3000);
 };
 document.getElementById('recheckAchievementsBtn').onclick = function() {
@@ -2698,11 +2476,8 @@ function renderCases() {
     });
 }
 
-function updateRankAndLevel() {
-    if (!currentUser) return;
-}
+function updateRankAndLevel() { if (!currentUser) return; }
 
-// ---- НАВИГАЦИЯ ----
 function navigateTo(sectionId) {
     document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
     const target = document.getElementById('section-' + sectionId);
@@ -2714,7 +2489,7 @@ function navigateTo(sectionId) {
     updateUI();
     if (sectionId === 'inventory') renderInventory();
     if (sectionId === 'market') renderMarket();
-    if (sectionId === 'rating') renderRating();
+    if (sectionId === 'rating') renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     if (sectionId === 'morols') { initMorols(); drawMorols(); }
     if (sectionId === 'plane') { initPlane(); drawPlane(); }
     if (sectionId === 'settings') renderSettings();
@@ -2723,81 +2498,277 @@ function navigateTo(sectionId) {
     if (sectionId === 'account') renderAccount();
     if (sectionId === 'ludka') { initLudka(); renderLudka(); }
     if (sectionId === 'clicker') {
-        const cb = document.getElementById('clickerBalance');
-        if (cb) cb.textContent = STATE.balance;
-        const cc = document.getElementById('clickerTotalClicks');
-        if (cc) cc.textContent = STATE.totalClicks;
+        document.getElementById('clickerBalance').textContent = STATE.balance;
+        document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
+    }
+}
+
+function renderAchievements() {
+    const grid = document.getElementById('achievementsGrid');
+    if (!grid) return;
+    const countEl = document.getElementById('achCount');
+    let html = '';
+    let unlocked = 0;
+    for (const ach of ACHIEVEMENTS) {
+        const isUnlocked = STATE.achievements.includes(ach.id);
+        if (isUnlocked) unlocked++;
+        html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
+            <span>${isUnlocked ? '✅' : '🔒'}</span>
+            <span>${ach.name}</span>
+        </div>`;
+    }
+    grid.innerHTML = html;
+    if (countEl) countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
+}
+
+function checkAllAchievements() {
+    let any = false;
+    const allIds = ACHIEVEMENTS.map(a => a.id).filter(id => id !== 'allAchievements');
+    for (const ach of ACHIEVEMENTS) {
+        if (STATE.achievements.includes(ach.id)) continue;
+        if (ach.id === 'allAchievements') continue;
+        if (ach.check(STATE)) {
+            STATE.achievements.push(ach.id);
+            any = true;
+            showToast('🏆 Достижение: ' + ach.name);
+            sfxAchievement();
+            addExp(25);
+        }
+    }
+    if (!STATE.achievements.includes('allAchievements')) {
+        const hasAll = allIds.every(id => STATE.achievements.includes(id));
+        if (hasAll) {
+            STATE.achievements.push('allAchievements');
+            any = true;
+            showToast('🏆 Все достижения выполнены!');
+            sfxAchievement();
+            addExp(100);
+        }
+    }
+    if (any) {
+        renderAchievements();
+        saveStateToFirebase();
+    }
+}
+
+function renderAccount() {
+    const container = document.getElementById('accountInfo');
+    if (!container) return;
+    container.innerHTML = `
+        <div class="row"><span class="label">Никнейм</span><span class="value">${STATE.nickname}</span></div>
+        <div class="row"><span class="label">ID</span><span class="value">#${STATE.userId}</span></div>
+        <div class="row"><span class="label">Клан</span><span class="value" id="clanDisplay">${STATE.clan || '—'}</span></div>
+        <div class="row"><span class="label">Уровень</span><span class="value">${getLevelLabel(STATE.level)}</span></div>
+        <div class="row"><span class="label">Опыт</span><span class="value">${STATE.exp}</span></div>
+        <div class="row"><span class="label">Баланс</span><span class="value">${formatNum(STATE.balance)} ₽</span></div>
+        <div class="row"><span class="label">Эло</span><span class="value">${STATE.elo}</span></div>
+        <div class="row"><span class="label">Открыто кейсов</span><span class="value">${STATE.casesOpened}</span></div>
+        <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
+        <div class="row"><span class="label">XP Самолёт</span><span class="value">${STATE.plane.xp.toFixed(1)}</span></div>
+        <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
+    `;
+
+    const clanDisplay = document.getElementById('clanDisplay');
+    if (clanDisplay) {
+        clanDisplay.style.cursor = 'pointer';
+        clanDisplay.title = 'Нажмите, чтобы изменить клан';
+        clanDisplay.onclick = function() {
+            const newClan = prompt('Введите название клана (макс. 10 символов):', STATE.clan);
+            if (newClan !== null) {
+                STATE.clan = newClan.trim().slice(0, 10);
+                saveStateToFirebase();
+                renderAccount();
+                showToast('Клан обновлён');
+            }
+        };
+    }
+
+    document.getElementById('setClanBtn').onclick = function() {
+        const input = document.getElementById('clanInput');
+        if (!input) return;
+        const clan = input.value.trim().slice(0, 10);
+        if (!clan) { showToast('Введите название клана'); return; }
+        STATE.clan = clan;
+        saveStateToFirebase();
+        renderAccount();
+        showToast('✅ Клан установлен: ' + clan);
+        input.value = '';
+    };
+    document.getElementById('clearClanBtn').onclick = function() {
+        STATE.clan = '';
+        saveStateToFirebase();
+        renderAccount();
+        showToast('Клан удалён');
+    };
+
+    document.getElementById('changeNickBtnAccount').onclick = function() {
+        const newNick = prompt('Введите новый ник:', STATE.nickname);
+        if (!newNick || newNick === STATE.nickname) return;
+        fetch(DB_URL + '/nicknames/' + newNick + '.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data) { showToast('❌ Ник занят'); return; }
+                const updates = {};
+                updates['/users/' + STATE.uid + '/nickname'] = newNick;
+                updates['/nicknames/' + STATE.nickname] = null;
+                updates['/nicknames/' + newNick] = STATE.uid;
+                return fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updates)
+                });
+            })
+            .then(res => {
+                if (res && res.ok) {
+                    STATE.nickname = newNick;
+                    STATE.nickChanged = true;
+                    showToast('✅ Ник изменён');
+                    const idEl = document.getElementById('idDisplay');
+                    if (idEl) idEl.textContent = '#' + STATE.userId + ' (' + newNick + ')';
+                    renderAccount();
+                    saveStateToFirebase();
+                    checkAllAchievements();
+                }
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('changePassBtnAccount').onclick = function() {
+        const newPass = prompt('Введите новый пароль (6+ символов):');
+        if (!newPass || newPass.length < 6) { showToast('❌ Минимум 6 символов'); return; }
+        const email = getEmail(STATE.nickname);
+        fetch(AUTH_URL + ':update?key=' + API_KEY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken: currentUser.idToken, password: newPass, returnSecureToken: true })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) { showToast('❌ Ошибка: ' + data.error.message); return; }
+            showToast('✅ Пароль изменён');
+            currentUser.idToken = data.idToken;
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('deleteAccountBtn').onclick = function() {
+        if (!confirm('Удалить аккаунт?')) return;
+        const password = prompt('Введите пароль:');
+        if (!password) return;
+        const email = getEmail(STATE.nickname);
+        fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, returnSecureToken: true })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) { showToast('❌ Неверный пароль'); return; }
+            const idToken = data.idToken;
+            return fetch(AUTH_URL + ':delete?key=' + API_KEY, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken })
+            });
+        })
+        .then(res => {
+            if (res && res.ok) {
+                showToast('✅ Аккаунт удалён');
+                logout();
+            }
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('logoutBtnAccount').onclick = function() {
+        if (confirm('Выйти?')) logout();
+    };
+
+    document.getElementById('showProgressBtn').onclick = function() {
+        const container = document.getElementById('progressContainer');
+        if (!container) return;
+        if (container.style.display === 'none') {
+            container.style.display = 'block';
+            updateProgressDisplay();
+        } else {
+            container.style.display = 'none';
+        }
+    };
+}
+
+function updateProgressDisplay() {
+    const exp = STATE.exp;
+    const level = STATE.level;
+    const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
+    const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
+    const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
+    const progressExp = document.getElementById('progressExp');
+    if (progressExp) progressExp.textContent = exp;
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) progressFill.style.width = Math.min(100, currentProgress) + '%';
+    const progressLabel = document.getElementById('progressLabel');
+    if (progressLabel) {
+        if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
+        else progressLabel.textContent = `Уровень ${level} → ${level+1}`;
     }
 }
 
 // ---- КНОПКИ ВХОДА ----
-const loginBtn = document.getElementById('loginBtn');
-if (loginBtn) {
-    loginBtn.onclick = function() {
-        const nick = document.getElementById('loginNick').value.trim();
-        const pass = document.getElementById('loginPass').value;
-        if (!nick || !pass) {
-            document.getElementById('loginError').textContent = '❌ Заполните все поля';
-            return;
-        }
-        document.getElementById('loginError').textContent = '';
-        document.getElementById('loadingStatus').classList.remove('hidden');
-        document.getElementById('loadingText').textContent = '⏳ Вход...';
-        loginUser(nick, pass);
-    };
-}
+document.getElementById('loginBtn').onclick = function() {
+    const nick = document.getElementById('loginNick').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!nick || !pass) {
+        document.getElementById('loginError').textContent = '❌ Заполните все поля';
+        return;
+    }
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loadingStatus').classList.remove('hidden');
+    document.getElementById('loadingText').textContent = '⏳ Вход...';
+    loginUser(nick, pass);
+};
 
-const registerBtn = document.getElementById('registerBtn');
-if (registerBtn) {
-    registerBtn.onclick = function() {
-        const nick = document.getElementById('loginNick').value.trim();
-        const pass = document.getElementById('loginPass').value;
-        if (!nick || !pass || pass.length < 6) {
-            document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
-            return;
-        }
-        document.getElementById('loginError').textContent = '';
-        document.getElementById('loadingStatus').classList.remove('hidden');
-        document.getElementById('loadingText').textContent = '⏳ Регистрация...';
-        registerUser(nick, pass);
-    };
-}
+document.getElementById('registerBtn').onclick = function() {
+    const nick = document.getElementById('loginNick').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!nick || !pass || pass.length < 6) {
+        document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
+        return;
+    }
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loadingStatus').classList.remove('hidden');
+    document.getElementById('loadingText').textContent = '⏳ Регистрация...';
+    registerUser(nick, pass);
+};
 
-const logToggleBtn = document.getElementById('logToggleBtn');
-if (logToggleBtn) {
-    logToggleBtn.onclick = function() {
-        const area = document.getElementById('logArea');
-        if (!area) return;
-        area.classList.toggle('show');
-        if (area.classList.contains('show')) {
-            area.textContent = logMessages.join('\n');
-            area.scrollTop = area.scrollHeight;
-            this.textContent = '📋 Скрыть логи';
-        } else {
-            this.textContent = '📋 Показать логи';
-        }
-    };
-}
+document.getElementById('logToggleBtn').onclick = function() {
+    const area = document.getElementById('logArea');
+    if (!area) return;
+    area.classList.toggle('show');
+    if (area.classList.contains('show')) {
+        area.textContent = logMessages.join('\n');
+        area.scrollTop = area.scrollHeight;
+        this.textContent = '📋 Скрыть логи';
+    } else {
+        this.textContent = '📋 Показать логи';
+    }
+};
 
-const headerLogBtn = document.getElementById('headerLogBtn');
-if (headerLogBtn) {
-    headerLogBtn.onclick = function() {
-        const popup = document.getElementById('logPopup');
-        if (!popup) return;
-        popup.classList.toggle('show');
-        if (popup.classList.contains('show')) {
-            popup.textContent = logMessages.join('\n');
-            popup.scrollTop = popup.scrollHeight;
-            this.classList.add('active');
-            this.textContent = '📋 Скрыть';
-        } else {
-            this.classList.remove('active');
-            this.textContent = '📋 Логи';
-        }
-    };
-}
+document.getElementById('headerLogBtn').onclick = function() {
+    const popup = document.getElementById('logPopup');
+    if (!popup) return;
+    popup.classList.toggle('show');
+    if (popup.classList.contains('show')) {
+        popup.textContent = logMessages.join('\n');
+        popup.scrollTop = popup.scrollHeight;
+        this.classList.add('active');
+        this.textContent = '📋 Скрыть';
+    } else {
+        this.classList.remove('active');
+        this.textContent = '📋 Логи';
+    }
+};
 
-// ---- ИНИЦИАЛИЗАЦИЯ ----
+// ---- ИНИЦИАЛИЗАЦИЯ СТРАНИЦЫ ----
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loadingStatus').classList.add('hidden');
 
@@ -2807,19 +2778,27 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
+    // Обработчики вкладок рейтинга
+    document.querySelectorAll('#ratingTabs button').forEach(btn => {
+        btn.onclick = function() {
+            document.querySelectorAll('#ratingTabs button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const sortType = this.dataset.ratingTab || 'elo';
+            renderRating(sortType);
+        };
+    });
+
     document.getElementById('ratingModeNow').onclick = function() {
-        let ratingMode = 'now';
         this.style.background = '#0a246a'; this.style.color = '#fff';
         document.getElementById('ratingModeEver').style.background = '#ece9d8';
         document.getElementById('ratingModeEver').style.color = '#000';
-        renderRating();
+        renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     };
     document.getElementById('ratingModeEver').onclick = function() {
-        let ratingMode = 'ever';
         this.style.background = '#0a246a'; this.style.color = '#fff';
         document.getElementById('ratingModeNow').style.background = '#ece9d8';
         document.getElementById('ratingModeNow').style.color = '#000';
-        renderRating();
+        renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     };
 
     document.getElementById('loginOverlay').classList.remove('hidden');
