@@ -1544,49 +1544,39 @@ function buyLot(lotId) {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-function removeLot(lotId) {
-    if (!confirm('Снять лот?')) return;
-    fetch(DB_URL + '/market/' + lotId + '.json?auth=' + currentUser.idToken, {
-        method: 'DELETE'
-    })
-    .then(() => {
-        showToast('Лот снят');
-        renderMarket();
-    })
-    .catch(err => showToast('❌ Ошибка: ' + err.message));
-}
-    
 function renderRating() {
     const container = document.getElementById('ratingContent');
-    if (!container) {
-        // Если контейнера нет – покажем ошибку в консоли (но вы её не видите)
+    if (!container) return;
+
+    // Проверяем авторизацию
+    if (!currentUser || !currentUser.idToken) {
+        container.innerHTML = '❌ Вы не авторизованы. Войдите в аккаунт.';
         return;
     }
 
-    // Показываем статус загрузки
     container.innerHTML = '⏳ Загрузка рейтинга...';
 
-    fetch(DB_URL + '/users.json')
+    // 🔥 Добавляем токен в запрос
+    const url = DB_URL + '/users.json?auth=' + currentUser.idToken;
+    fetch(url)
         .then(res => {
-            if (!res.ok) throw new Error('HTTP ' + res.status);
+            if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
             return res.json();
         })
         .then(data => {
-            // Если данных нет – показываем сообщение
             if (!data) {
-                container.innerHTML = '❌ Нет данных от сервера (пустой ответ)';
+                container.innerHTML = '❌ Нет данных от сервера';
                 return;
             }
 
-            // Собираем игроков
             let players = [];
             for (const uid in data) {
                 const p = data[uid];
-                if (!p.nickname) continue; // пропускаем без ника
+                if (!p.nickname) continue;
                 players.push({
                     name: p.nickname,
                     clan: p.clan || '',
-                    isYou: (uid === STATE.uid), // помечаем текущего игрока
+                    isYou: (uid === STATE.uid),
                     elo: p.elo || 0,
                     casesOpened: p.casesOpened || 0,
                     balance: p.balance || 0,
@@ -1597,15 +1587,13 @@ function renderRating() {
             }
 
             if (players.length === 0) {
-                container.innerHTML = '😕 Игроков пока нет (зарегистрируйтесь)';
+                container.innerHTML = '😕 Игроков пока нет';
                 return;
             }
 
-            // Сортируем по Эло (по убыванию)
             players.sort((a, b) => b.elo - a.elo);
 
-            // Формируем HTML
-            let html = `<div style="padding: 6px 0; font-size: 14px; color: #666;">👥 Всего игроков: ${players.length}</div><div class="rating-list">`;
+            let html = `<div style="padding:6px 0;font-size:14px;color:#666;">👥 Всего игроков: ${players.length}</div><div class="rating-list">`;
             let rank = 1;
             for (const p of players.slice(0, 20)) {
                 const isYou = p.isYou;
@@ -1628,8 +1616,7 @@ function renderRating() {
             container.innerHTML = html;
         })
         .catch(err => {
-            // Если ошибка – показываем её текст
-            container.innerHTML = '❌ Ошибка загрузки: ' + err.message + '. Проверьте интернет.';
+            container.innerHTML = '❌ Ошибка: ' + err.message + '. Проверьте интернет.';
         });
 }
 
