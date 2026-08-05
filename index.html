@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>игра про ттп 1.1.1</title>
+    <title>Крутая игра про ттп 1.1.2</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -320,17 +320,10 @@
         .clan-input button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; background: #4a8aba; color: #fff; transition: 0.2s; }
         .clan-input button:hover { background: #3a7aaa; }
 
-        .mine-grid { display: grid; grid-template-columns: repeat(3, 80px); gap: 8px; justify-content: center; margin: 10px 0; }
-        .mine-cell { width: 80px; height: 80px; background: #a0b0c0; border: 2px solid #0a246a; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; transition: 0.2s; user-select: none; }
-        .mine-cell:hover { background: #b0c0d0; }
-        .mine-cell.revealed { background: #ece9d8; cursor: default; }
-        .mine-cell.bomb { background: #cc3333; }
-        .mine-cell.safe { background: #4a8a4a; }
-        .ludka-bet { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 10px 0; }
-        .ludka-bet button { padding: 6px 14px; border: 1px solid #0a246a; border-radius: 4px; background: #ece9d8; cursor: pointer; font-weight: bold; }
-        .ludka-bet button:hover { background: #d0c8b8; }
-        .ludka-bet button.active { background: #0a246a; color: #fff; }
-        .rank-item.gold-nick .name { color: #f0d070; font-weight: bold; text-shadow: 0 0 10px rgba(240,208,112,0.5); }
+        /* Убираем лудку */
+        .mine-grid { display: none; }
+        .mine-cell { display: none; }
+        .ludka-bet { display: none; }
 
         #loadingStatus { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; color: #fff; font-size: 24px; font-weight: bold; flex-direction: column; gap: 20px; }
         #loadingStatus .spinner { border: 6px solid #f3f3f3; border-top: 6px solid #4a8aba; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
@@ -351,9 +344,9 @@
 
 <div id="loginOverlay">
     <div class="login-box">
-        <h2>TTPCASES</h2>
+        <h2>Крутая игра про ттп</h2>
         <div class="sub">Вход / Регистрация</div>
-        <div class="promo">версия 1.1.1 — REST API, логи, тема Windows XP</div>
+        <div class="promo">версия 1.1.2 — Сезон 1</div>
         <input type="text" id="loginNick" placeholder="Ник" value="spK">
         <input type="password" id="loginPass" placeholder="Пароль">
         <div class="error" id="loginError"></div>
@@ -369,9 +362,9 @@
 
 <div id="app">
     <div class="header">
-        <h1>TTPCASES</h1>
-        <div class="version">версия 1.1.1</div>
-        <div class="subtitle">сделано <span>@arbz7</span></div>
+        <h1>Крутая игра про ттп</h1>
+        <div class="version">версия 1.1.2</div>
+        <div class="subtitle">Сезон 1</div>
         <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
     </div>
     <div class="top-bar">
@@ -385,7 +378,7 @@
         <span>Опыт: <span id="expDisplay">0</span></span>
         <span>До Pro: <span id="proProgressDisplay">0%</span></span>
     </div>
-    <div class="update-announce">🔥 Обновление 1.1.1 — исправлены все игры, рынок, кейсы, инвентарь!</div>
+    <div class="update-announce">🔥 Обновление 1.1.2 — Сезон 1, новый опыт, багфиксы!</div>
     <nav class="nav" id="mainNav">
         <button class="active" data-section="cases">Кейсы</button>
         <button data-section="inventory">Инвентарь</button>
@@ -394,7 +387,7 @@
         <button data-section="morols">Моролс</button>
         <button data-section="plane">Самолёт</button>
         <button data-section="clicker">Кликер</button>
-        <button data-section="ludka">Лудка</button>
+        <!-- Лудка удалена -->
         <button data-section="achievements">Достижения</button>
         <button data-section="promo">Промокод</button>
         <button data-section="account">Аккаунт</button>
@@ -405,16 +398,15 @@
         <section id="section-cases" class="section active"><div class="title">Кейсы <span class="badge">выбери и открой</span></div><div class="cases-grid" id="casesGrid"></div></section>
         <section id="section-inventory" class="section"><div class="title">Инвентарь <span class="badge" id="invCount">0</span></div><button class="inv-clear-all" id="clearAllInventoryBtn">Очистить весь инвентарь</button><div id="inventoryGrid" class="inv-grid"></div></section>
         <section id="section-market" class="section"><div class="title">Торговая площадка <span class="badge">комиссия 10%</span></div><div class="market-tabs"><button class="active" data-market-tab="buy">Купить</button><button data-market-tab="sell">Продать</button><button data-market-tab="my">Мои лоты</button></div><div class="market-sort"><span>Сортировка:</span><select id="marketSort"><option value="price_asc">Цена ↑</option><option value="price_desc">Цена ↓</option><option value="rarity_desc">Редкость ↓</option><option value="rarity_asc">Редкость ↑</option></select></div><div id="marketContent"></div></section>
-        <section id="section-rating" class="section"><div class="title">Рейтинг <span class="badge">топ игроков</span><button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button><button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Перепроверить ачивки</button></div><div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;"><span style="font-size:16px; color:#666;">Режим:</span><button id="ratingModeNow" class="active" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#0a246a; color:#fff;">Сейчас</button><button id="ratingModeEver" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ece9d8; color:#000;">За всё время</button></div><div class="rating-tabs" id="ratingTabs"><button class="active" data-rating-tab="cards">Карты</button><button data-rating-tab="balance">Баланс</button><button data-rating-tab="totalEarned">Заработано</button><button data-rating-tab="clicks">Клики</button><button data-rating-tab="speed">Скорость</button><button data-rating-tab="distance">Километры</button><button data-rating-tab="planeXP">XP самолёт</button><button data-rating-tab="planeTime">Время полёта</button><button class="active" data-rating-tab="elo">Эло</button></div><div id="ratingContent"></div></section>
+        <section id="section-rating" class="section"><div class="title">Рейтинг <span class="badge">топ игроков</span><button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button><button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Обновить достижения</button></div><div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;"><span style="font-size:16px; color:#666;">Режим:</span><button id="ratingModeNow" class="active" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#0a246a; color:#fff;">Сейчас</button><button id="ratingModeEver" style="border:1px solid #0a246a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ece9d8; color:#000;">За всё время</button></div><div class="rating-tabs" id="ratingTabs"><button class="active" data-rating-tab="cards">Карты</button><button data-rating-tab="balance">Баланс</button><button data-rating-tab="totalEarned">Заработано</button><button data-rating-tab="clicks">Клики</button><button data-rating-tab="speed">Скорость</button><button data-rating-tab="distance">Километры</button><button data-rating-tab="planeXP">XP самолёт</button><button data-rating-tab="planeTime">Время полёта</button><button class="active" data-rating-tab="elo">Эло</button></div><div id="ratingContent"></div></section>
         <section id="section-morols" class="section"><div class="title">Моролс на стуле <span class="badge">гонка</span></div><div class="game-wrap"><div class="game-stats">Скорость: <span id="morolsSpeed">0</span> км/ч &nbsp;|&nbsp; Дистанция: <span id="morolsDistance">0.00</span> км &nbsp;|&nbsp; Монет: <span id="morolsCoins">0</span></div><div class="game-canvas"><canvas id="morolsCanvas" width="600" height="300"></canvas></div><div class="game-controls"><button id="morolsStart">Старт</button><button id="morolsReset">Сброс</button></div><div style="margin-top:8px; font-size:14px; color:#666;">Управление: стрелки <kbd>←</kbd> <kbd>→</kbd> (на телефоне кнопки ниже)</div><div class="morols-touch-controls"><button id="morolsTouchLeft">←</button><button id="morolsTouchRight">→</button></div></div></section>
         <section id="section-plane" class="section"><div class="title">Самолёт <span class="badge">облетай препятствия</span></div><div class="game-wrap"><div class="game-stats">Монет: <span id="planeCoins">0</span> &nbsp;|&nbsp; XP: <span id="planeXP">0</span> &nbsp;|&nbsp; Секунд: <span id="planeTime">0</span></div><div class="game-canvas"><canvas id="planeCanvas" width="600" height="300"></canvas></div><div class="game-controls"><button id="planeStart">Старт</button><button id="planeReset">Сброс</button></div><div style="margin-top:6px; font-size:14px; color:#666;">Пробел или клик — взлёт/снижение, уклоняйся от препятствий!</div></div></section>
         <section id="section-clicker" class="section"><div class="title">Кликер <span class="badge">зарабатывай монеты</span></div><div class="clicker-wrap"><div class="clicker-stats">Монет: <span id="clickerBalance">0</span> | Кликов: <span id="clickerTotalClicks">0</span></div><button class="click-btn" id="clickBtn">Кликнуть</button><div class="click-timer" id="clickTimer">Готово!</div><div id="clickerCaptcha" style="display:none; margin-top:12px;"><div style="font-size:18px; color:#1a2a3a;">Введите код: <span id="captchaText"></span></div><input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #0a246a; border-radius:4px; width:100%; margin:8px 0; background:#ece9d8; color:#1a2a3a;"><button id="captchaSubmit" style="border:2px solid #0a246a; border-style:outset; border-radius:4px; padding:8px 16px; cursor:pointer; background:#0a246a; color:#fff;">Подтвердить</button></div></div></section>
-        <section id="section-ludka" class="section"><div class="title">Лудка <span class="badge">поле 3x3 с минами</span></div><div class="game-wrap"><div style="font-size:16px; margin-bottom:8px;">Выберите ставку:</div><div class="ludka-bet" id="ludkaBetContainer"><button data-bet="25" class="active">25</button><button data-bet="50">50</button><button data-bet="100">100</button><button data-bet="200">200</button><button data-bet="500">500</button><button data-bet="1000">1000</button></div><div style="font-size:14px; margin-bottom:8px;">Ваш баланс: <span id="ludkaBalance">0</span> ₽</div><div style="font-size:14px; margin-bottom:8px;">Выигрыш: <span id="ludkaWinDisplay">0</span> ₽</div><div id="ludkaGrid" class="mine-grid"></div><button id="ludkaResetBtn" style="padding:8px 20px; background:#0a246a; color:#fff; border:2px solid #0a246a; border-style:outset; border-radius:6px; cursor:pointer;">Новая игра</button><div style="margin-top:6px; font-size:13px; color:#666;">В поле 3 бомбы. Выберите 3 ячейки, не попав на бомбу, чтобы выиграть х2 от ставки.</div></div></section>
         <section id="section-achievements" class="section"><div class="title">Достижения <span class="badge" id="achCount">0 / 80+</span></div><div id="achievementsGrid" class="achieve-grid"></div></section>
-        <section id="section-promo" class="section"><div class="title">Промокод</div><div style="padding:20px; text-align:center; background:#ece9d8; border-radius:6px; border:1px solid #0a246a;"><div style="font-size:18px; margin-bottom:12px;">Введите промокод</div><div class="promo-input"><input type="text" id="promoInput" placeholder="Введите промокод" style="max-width:200px;"><button id="applyPromoBtn">Активировать</button></div><div style="margin-top:12px; font-size:14px; color:#666;">Промокод: <strong>ARBZ</strong> — по 1 открытию каждого кейса!</div></div></section>
+        <section id="section-promo" class="section"><div class="title">Промокод</div><div style="padding:20px; text-align:center; background:#ece9d8; border-radius:6px; border:1px solid #0a246a;"><div style="font-size:18px; margin-bottom:12px;">Введите промокод</div><div class="promo-input"><input type="text" id="promoInput" placeholder="Введите промокод" style="max-width:200px;"><button id="applyPromoBtn">Активировать</button></div><div style="margin-top:12px; font-size:14px; color:#666;">Промокоды: <strong>ARBZ</strong> (по 1 открытию каждого кейса) | <strong>MOROLS</strong> (4 кейса игроков + 2 кейса городов + 100 монет)</div></div></section>
         <section id="section-account" class="section"><div class="title">Аккаунт</div><div class="account-info" id="accountInfo"></div><div style="margin-top:12px;"><button id="showProgressBtn" style="padding:8px 16px; border:1px solid #0a246a; border-radius:6px; background:#ece9d8; cursor:pointer;">Прогресс до Pro</button><div id="progressContainer" style="display:none; margin-top:10px;"><div style="font-size:14px;">Опыт: <span id="progressExp">0</span></div><div class="progress-bar"><div class="fill" id="progressFill" style="width:0%;"></div></div><div style="font-size:13px; color:#666;" id="progressLabel">Уровень 1 → 2</div></div></div><div style="margin-top:12px; border-top:1px solid #0a246a; padding-top:12px;"><div style="font-size:16px; font-weight:bold;">Клан</div><div class="clan-input"><input type="text" id="clanInput" placeholder="Название клана" maxlength="10"><button id="setClanBtn">Установить</button><button id="clearClanBtn" style="background:#cc3333;">✕</button></div></div><div class="account-actions"><button id="changeNickBtnAccount">Сменить ник</button><button id="changePassBtnAccount">Сменить пароль</button><button id="deleteAccountBtn" class="delete-account">Удалить аккаунт</button><button id="logoutBtnAccount" class="danger">Выйти</button></div></section>
         <section id="section-settings" class="section"><div class="title">Настройки</div><div class="settings-group"><label>Тема оформления</label><div class="color-grid" id="colorGrid"></div><div class="desc">Выберите стиль интерфейса</div></div><div class="settings-group"><label>Громкость музыки: <span class="range-value" id="musicVolumeDisplay">100</span>%</label><input type="range" id="musicVolumeSlider" min="0" max="100" value="100"></div><div class="settings-group"><label>Громкость звуков: <span class="range-value" id="sfxVolumeDisplay">100</span>%</label><input type="range" id="sfxVolumeSlider" min="0" max="100" value="100"></div><div class="settings-group"><label>Выбор музыки</label><select id="musicSelect" style="width:100%; padding:8px; border:1px solid #0a246a; border-radius:4px; font-size:15px; background:#ece9d8; color:#1a2a3a;"><option value="0">Мелодичная</option><option value="1">Боевая</option></select></div><div class="settings-group"><label>Звук</label><div class="toggle-row"><div class="toggle on" id="soundToggle"><div class="knob"></div></div><span class="label" id="soundLabel">Включён</span></div></div><div class="settings-group"><label>Музыка</label><div class="toggle-row"><div class="toggle on" id="musicToggle"><div class="knob"></div></div><span class="label" id="musicLabel">Включена</span></div></div></section>
-        <section id="section-updates" class="section"><div class="title">Обновления</div><div style="padding:20px; border:1px solid #0a246a; border-radius:6px; background:#ece9d8; text-align:left; color:#1a2a3a;"><div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.1.1</div><ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;"><li>🔧 Вход переписан на REST API (работает везде)</li><li>📋 Кнопка логов в заголовке (большая и заметная)</li><li>🎨 Тема по умолчанию — Windows XP</li><li>🔄 Автоматическая выдача 1000 Эло новичкам</li><li>⚡ Исправлены все игры, кейсы, инвентарь, рынок</li><li>🚫 Удалены лишние промокоды (только ARBZ)</li></ul></div></section>
+        <section id="section-updates" class="section"><div class="title">Обновления</div><div style="padding:20px; border:1px solid #0a246a; border-radius:6px; background:#ece9d8; text-align:left; color:#1a2a3a;"><div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.1.2</div><ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;"><li>🔧 Новое название: "Крутая игра про ттп"</li><li>📋 Сезон 1 запущен!</li><li>🎨 Исправлен самолёт (меньше прыжок, меньше монет)</li><li>🔄 Перебалансировка опыта – теперь сложнее</li><li>🚫 Убрана Лудка</li><li>➕ Новый промокод MOROLS</li><li>💬 Приветственное сообщение для новых игроков</li></ul></div></section>
         <div class="footer-note"><a href="https://t.me/arbz7" target="_blank">@arbz7</a> — пишите ваши идеи!</div>
     </div>
 </div>
@@ -424,7 +416,7 @@
 <div class="log-popup" id="logPopup"></div>
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.1 (ВСЕ ИГРЫ, РЕЙТИНГ, ВКЛАДКИ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.2 (СЕЗОН 1, ВСЕ ИСПРАВЛЕНИЯ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -455,7 +447,8 @@ let STATE = {
     marketBuys: 0, marketSells: 0, nickChanged: false, easterFound: false, topElo: false,
     eloInitialized: false, muzhikiRestored: false, eloPromoUsed: false,
     ludkaGrid: [], ludkaRevealed: [], ludkaBombs: [], ludkaClicks: 0,
-    ludkaGameOver: false, ludkaBet: 25, ludkaWon: false
+    ludkaGameOver: false, ludkaBet: 25, ludkaWon: false,
+    welcomeShown: false, season: 1
 };
 
 let logMessages = [];
@@ -486,17 +479,18 @@ function showToast(text, duration = 2500) {
     toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
 }
 
+// ===== НОВЫЕ ПОРОГИ УРОВНЕЙ (в 4 раза выше) =====
 function getLevelForExp(exp) {
-    if (exp < 60) return 1;
-    if (exp < 140) return 2;
-    if (exp < 260) return 3;
-    if (exp < 420) return 4;
-    if (exp < 620) return 5;
-    if (exp < 860) return 6;
-    if (exp < 1140) return 7;
-    if (exp < 1460) return 8;
-    if (exp < 1820) return 9;
-    if (exp < 2220) return 10;
+    if (exp < 60*4) return 1;
+    if (exp < 140*4) return 2;
+    if (exp < 260*4) return 3;
+    if (exp < 420*4) return 4;
+    if (exp < 620*4) return 5;
+    if (exp < 860*4) return 6;
+    if (exp < 1140*4) return 7;
+    if (exp < 1460*4) return 8;
+    if (exp < 1820*4) return 9;
+    if (exp < 2220*4) return 10;
     return 11;
 }
 function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
@@ -504,8 +498,8 @@ function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
 function updateProProgress() {
     const exp = STATE.exp;
     const level = STATE.level;
-    const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
-    const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
+    const nextExp = level >= 11 ? Infinity : [60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4,2220*4][level-1] || Infinity;
+    const prevExp = level === 1 ? 0 : [0,60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4][level-1] || 0;
     const progress = nextExp === Infinity ? 100 : Math.min(100, ((exp - prevExp) / (nextExp - prevExp) * 100));
     const expEl = document.getElementById('expDisplay');
     const progEl = document.getElementById('proProgressDisplay');
@@ -527,6 +521,7 @@ function addExp(amount) {
         saveStateToFirebase();
     }
     updateUI();
+    addLog('➕ +' + reduced + ' опыта (итого ' + STATE.exp + ')');
 }
 
 function giveLevelReward(level) {
@@ -558,6 +553,7 @@ function giveLevelReward(level) {
     showToast(`💰 +${reward.coins} монет!`);
     updateUI();
     saveStateToFirebase();
+    addLog('🎁 Награда за уровень ' + level);
 }
 
 const CASES = [
@@ -715,6 +711,7 @@ const ACHIEVEMENTS = [
     { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
 ];
 
+// ===== ЗВУКИ =====
 let audioCtx = null;
 function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -749,9 +746,8 @@ function sfxMorolsCrash() { if (STATE.settings.sfx) { playTone(200, 0.3, 'sawtoo
 function sfxPlaneCoin() { if (STATE.settings.sfx) { playTone(1100, 0.05, 'sine', 0.07); } }
 function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
 function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
-function sfxLudkaWin() { if (STATE.settings.sfx) { playTone(900, 0.1, 'sine', 0.1); setTimeout(() => playTone(1200, 0.1, 'sine', 0.1), 120); } }
-function sfxLudkaLose() { if (STATE.settings.sfx) { playTone(200, 0.3, 'sawtooth', 0.1); } }
 
+// ===== ВХОД И РЕГИСТРАЦИЯ =====
 function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
 function loginUser(nick, password) {
@@ -873,7 +869,9 @@ function registerUser(nick, password) {
                     topElo: false,
                     eloInitialized: true,
                     muzhikiRestored: false,
-                    eloPromoUsed: false
+                    eloPromoUsed: false,
+                    welcomeShown: false,
+                    season: 1
                 };
                 const updates = {};
                 updates['/users/' + uid] = profile;
@@ -941,10 +939,13 @@ function onAuthSuccess() {
     STATE.eloInitialized = data.eloInitialized || false;
     STATE.muzhikiRestored = data.muzhikiRestored || false;
     STATE.eloPromoUsed = data.eloPromoUsed || false;
+    STATE.welcomeShown = data.welcomeShown || false;
+    STATE.season = data.season || 1;
 
-    if (!STATE.eloInitialized && STATE.elo < 1000) {
+    // Выдача 1000 Эло
+    if (!STATE.eloInitialized || STATE.elo < 1000) {
         STATE.elo = 1000;
-        STATE.maxElo = 1000;
+        STATE.maxElo = Math.max(STATE.maxElo, 1000);
         STATE.eloInitialized = true;
         addLog('⭐ Выдано 1000 Эло новичку');
         saveStateToFirebase();
@@ -956,6 +957,14 @@ function onAuthSuccess() {
     document.getElementById('loadingStatus').classList.add('hidden');
 
     applyTheme(STATE.settings.theme || 'windows_xp');
+
+    // Приветствие для новых игроков
+    if (!STATE.welcomeShown) {
+        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
+        STATE.welcomeShown = true;
+        saveStateToFirebase();
+        addLog('💬 Показано приветствие');
+    }
 
     updateUI();
     renderSettings();
@@ -971,7 +980,6 @@ function onAuthSuccess() {
     showToast('Добро пожаловать, ' + STATE.nickname);
     updateRankAndLevel();
     checkAllAchievements();
-    initLudka();
     initMorols();
     initPlane();
     initClicker();
@@ -1010,7 +1018,9 @@ function saveStateToFirebase() {
         topElo: STATE.topElo,
         eloInitialized: STATE.eloInitialized,
         muzhikiRestored: STATE.muzhikiRestored,
-        eloPromoUsed: STATE.eloPromoUsed
+        eloPromoUsed: STATE.eloPromoUsed,
+        welcomeShown: STATE.welcomeShown,
+        season: STATE.season
     };
     return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
         method: 'PATCH',
@@ -1043,8 +1053,8 @@ function logout() {
     showToast('Вы вышли');
 }
 
+// ===== КЕЙСЫ =====
 function getCaseById(id) { return CASES.find(c => c.id === id); }
-
 function rollItem(caseData) {
     const total = caseData.items.reduce((s, i) => s + i.weight, 0);
     let r = Math.random() * total;
@@ -1154,7 +1164,7 @@ function openCase(caseId) {
             STATE.inventory.push(entry);
             const key = finalResult.name + '|||' + finalResult.emoji;
             STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
-            addExp(10);
+            addExp(2); // Уменьшено с 10 до 2
             updateUI();
             checkAllAchievements();
             sfxCaseOpenFinish();
@@ -1185,6 +1195,7 @@ function openCase(caseId) {
                 setTimeout(() => openCase(caseId), 100);
             };
             saveStateToFirebase();
+            addLog('📦 Открыт кейс ' + caseData.name + ', выпало: ' + finalResult.name);
         }
     }
     requestAnimationFrame(animateScroll);
@@ -1235,6 +1246,7 @@ function showChances(caseData) {
     sfxClick();
 }
 
+// ===== ИНВЕНТАРЬ =====
 function renderInventory() {
     try {
         const grid = document.getElementById('inventoryGrid');
@@ -1296,6 +1308,7 @@ function renderInventory() {
                 updateUI();
                 saveStateToFirebase();
                 renderInventory();
+                addLog('💰 Продано: ' + name + ' за ' + price + ' монет');
             };
         });
 
@@ -1316,6 +1329,7 @@ function renderInventory() {
                 updateUI();
                 saveStateToFirebase();
                 renderInventory();
+                addLog('🗑️ Выброшено: ' + name);
             };
         });
 
@@ -1332,6 +1346,7 @@ function renderInventory() {
                 updateUI();
                 saveStateToFirebase();
                 renderInventory();
+                addLog('🧹 Очищено: ' + name + ' x' + count);
             };
         });
 
@@ -1363,10 +1378,12 @@ async function clearAllInventory() {
         updateUI();
         saveStateToFirebase();
         renderInventory();
+        addLog('🧹 Инвентарь полностью очищен');
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
+// ===== РЫНОК =====
 function renderMarket() {
     const container = document.getElementById('marketContent');
     if (!container) return;
@@ -1499,6 +1516,7 @@ function renderMarket() {
                         saveStateToFirebase();
                         renderInventory();
                         renderMarket();
+                        addLog('📈 Выставлен лот: ' + name + ' за ' + price + ' монет');
                     })
                     .catch(err => showToast('❌ Ошибка: ' + err.message));
                 };
@@ -1540,6 +1558,7 @@ function buyLot(lotId) {
         saveStateToFirebase();
         renderInventory();
         renderMarket();
+        addLog('🛒 Куплен лот: ' + lot.name + ' за ' + lot.price + ' монет');
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
@@ -1552,13 +1571,12 @@ function removeLot(lotId) {
     .then(() => {
         showToast('Лот снят');
         renderMarket();
+        addLog('🗑️ Лот снят');
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ============================================================
-//  ИСПРАВЛЕННЫЙ РЕЙТИНГ – С ПОДДЕРЖКОЙ ВКЛАДОК И СОРТИРОВКИ
-// ============================================================
+// ===== РЕЙТИНГ =====
 function renderRating(sortBy = 'elo') {
     const container = document.getElementById('ratingContent');
     if (!container) return;
@@ -1659,7 +1677,284 @@ function renderRating(sortBy = 'elo') {
         });
 }
 
-// ---- ИГРЫ: МОРОЛС ----
+// ===== ДОСТИЖЕНИЯ =====
+function renderAchievements() {
+    const grid = document.getElementById('achievementsGrid');
+    if (!grid) return;
+    const countEl = document.getElementById('achCount');
+    let html = '';
+    let unlocked = 0;
+    for (const ach of ACHIEVEMENTS) {
+        const isUnlocked = STATE.achievements.includes(ach.id);
+        if (isUnlocked) unlocked++;
+        html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
+            <span>${isUnlocked ? '✅' : '🔒'}</span>
+            <span>${ach.name}</span>
+        </div>`;
+    }
+    grid.innerHTML = html;
+    if (countEl) countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
+}
+
+function checkAllAchievements() {
+    let any = false;
+    const allIds = ACHIEVEMENTS.map(a => a.id).filter(id => id !== 'allAchievements');
+    for (const ach of ACHIEVEMENTS) {
+        if (STATE.achievements.includes(ach.id)) continue;
+        if (ach.id === 'allAchievements') continue;
+        if (ach.check(STATE)) {
+            STATE.achievements.push(ach.id);
+            any = true;
+            showToast('🏆 Достижение: ' + ach.name);
+            sfxAchievement();
+            addExp(5); // уменьшено
+            addLog('🏆 Получено достижение: ' + ach.name);
+        }
+    }
+    if (!STATE.achievements.includes('allAchievements')) {
+        const hasAll = allIds.every(id => STATE.achievements.includes(id));
+        if (hasAll) {
+            STATE.achievements.push('allAchievements');
+            any = true;
+            showToast('🏆 Все достижения выполнены!');
+            sfxAchievement();
+            addExp(20);
+            addLog('🏆 Все достижения выполнены!');
+        }
+    }
+    if (any) {
+        renderAchievements();
+        saveStateToFirebase();
+    }
+}
+
+// ===== АККАУНТ =====
+function renderAccount() {
+    const container = document.getElementById('accountInfo');
+    if (!container) return;
+    container.innerHTML = `
+        <div class="row"><span class="label">Никнейм</span><span class="value">${STATE.nickname}</span></div>
+        <div class="row"><span class="label">ID</span><span class="value">#${STATE.userId}</span></div>
+        <div class="row"><span class="label">Клан</span><span class="value" id="clanDisplay">${STATE.clan || '—'}</span></div>
+        <div class="row"><span class="label">Уровень</span><span class="value">${getLevelLabel(STATE.level)}</span></div>
+        <div class="row"><span class="label">Опыт</span><span class="value">${STATE.exp}</span></div>
+        <div class="row"><span class="label">Баланс</span><span class="value">${formatNum(STATE.balance)} ₽</span></div>
+        <div class="row"><span class="label">Эло</span><span class="value">${STATE.elo}</span></div>
+        <div class="row"><span class="label">Открыто кейсов</span><span class="value">${STATE.casesOpened}</span></div>
+        <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
+        <div class="row"><span class="label">XP Самолёт</span><span class="value">${STATE.plane.xp.toFixed(1)}</span></div>
+        <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
+    `;
+
+    const clanDisplay = document.getElementById('clanDisplay');
+    if (clanDisplay) {
+        clanDisplay.style.cursor = 'pointer';
+        clanDisplay.title = 'Нажмите, чтобы изменить клан';
+        clanDisplay.onclick = function() {
+            const newClan = prompt('Введите название клана (макс. 10 символов):', STATE.clan);
+            if (newClan !== null) {
+                STATE.clan = newClan.trim().slice(0, 10);
+                saveStateToFirebase();
+                renderAccount();
+                showToast('Клан обновлён');
+                addLog('🏷️ Клан изменён: ' + STATE.clan);
+            }
+        };
+    }
+
+    document.getElementById('setClanBtn').onclick = function() {
+        const input = document.getElementById('clanInput');
+        if (!input) return;
+        const clan = input.value.trim().slice(0, 10);
+        if (!clan) { showToast('Введите название клана'); return; }
+        STATE.clan = clan;
+        saveStateToFirebase();
+        renderAccount();
+        showToast('✅ Клан установлен: ' + clan);
+        input.value = '';
+        addLog('🏷️ Клан установлен: ' + clan);
+    };
+    document.getElementById('clearClanBtn').onclick = function() {
+        STATE.clan = '';
+        saveStateToFirebase();
+        renderAccount();
+        showToast('Клан удалён');
+        addLog('🏷️ Клан удалён');
+    };
+
+    document.getElementById('changeNickBtnAccount').onclick = function() {
+        const newNick = prompt('Введите новый ник:', STATE.nickname);
+        if (!newNick || newNick === STATE.nickname) return;
+        fetch(DB_URL + '/nicknames/' + newNick + '.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data) { showToast('❌ Ник занят'); return; }
+                const updates = {};
+                updates['/users/' + STATE.uid + '/nickname'] = newNick;
+                updates['/nicknames/' + STATE.nickname] = null;
+                updates['/nicknames/' + newNick] = STATE.uid;
+                return fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updates)
+                });
+            })
+            .then(res => {
+                if (res && res.ok) {
+                    STATE.nickname = newNick;
+                    STATE.nickChanged = true;
+                    showToast('✅ Ник изменён');
+                    const idEl = document.getElementById('idDisplay');
+                    if (idEl) idEl.textContent = '#' + STATE.userId + ' (' + newNick + ')';
+                    renderAccount();
+                    saveStateToFirebase();
+                    checkAllAchievements();
+                    addLog('✏️ Ник изменён на: ' + newNick);
+                }
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('changePassBtnAccount').onclick = function() {
+        const newPass = prompt('Введите новый пароль (6+ символов):');
+        if (!newPass || newPass.length < 6) { showToast('❌ Минимум 6 символов'); return; }
+        const email = getEmail(STATE.nickname);
+        fetch(AUTH_URL + ':update?key=' + API_KEY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idToken: currentUser.idToken, password: newPass, returnSecureToken: true })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) { showToast('❌ Ошибка: ' + data.error.message); return; }
+            showToast('✅ Пароль изменён');
+            currentUser.idToken = data.idToken;
+            addLog('🔑 Пароль изменён');
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('deleteAccountBtn').onclick = function() {
+        if (!confirm('Удалить аккаунт?')) return;
+        const password = prompt('Введите пароль:');
+        if (!password) return;
+        const email = getEmail(STATE.nickname);
+        fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, returnSecureToken: true })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) { showToast('❌ Неверный пароль'); return; }
+            const idToken = data.idToken;
+            return fetch(AUTH_URL + ':delete?key=' + API_KEY, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken })
+            });
+        })
+        .then(res => {
+            if (res && res.ok) {
+                showToast('✅ Аккаунт удалён');
+                logout();
+                addLog('🗑️ Аккаунт удалён');
+            }
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('logoutBtnAccount').onclick = function() {
+        if (confirm('Выйти?')) logout();
+    };
+
+    document.getElementById('showProgressBtn').onclick = function() {
+        const container = document.getElementById('progressContainer');
+        if (!container) return;
+        if (container.style.display === 'none') {
+            container.style.display = 'block';
+            updateProgressDisplay();
+        } else {
+            container.style.display = 'none';
+        }
+    };
+
+    // Добавляем кнопку сброса прогресса (вайп)
+    const actions = document.querySelector('.account-actions');
+    if (actions && !document.getElementById('resetProgressBtn')) {
+        const resetBtn = document.createElement('button');
+        resetBtn.id = 'resetProgressBtn';
+        resetBtn.className = 'delete-account';
+        resetBtn.textContent = '🔄 Сбросить прогресс (сезон 1)';
+        resetBtn.onclick = function() {
+            if (!confirm('ВНИМАНИЕ! Это удалит весь ваш прогресс: баланс, эло, инвентарь, опыт, достижения. Продолжить?')) return;
+            const pass = prompt('Введите пароль для подтверждения:');
+            if (!pass) return;
+            const email = getEmail(STATE.nickname);
+            fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password: pass, returnSecureToken: true })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) { showToast('❌ Неверный пароль'); return; }
+                STATE.balance = 500;
+                STATE.totalEarned = 0;
+                STATE.totalSpent = 0;
+                STATE.maxBalance = 500;
+                STATE.elo = 1000;
+                STATE.maxElo = 1000;
+                STATE.casesOpened = 0;
+                STATE.maxCasesOpened = 0;
+                STATE.totalClicks = 0;
+                STATE.inventory = [];
+                STATE.itemsCount = {};
+                STATE.achievements = [];
+                STATE.exp = 0;
+                STATE.level = 1;
+                STATE.freeOpens = 0;
+                STATE.promoUsed = false;
+                STATE.muzhikiRestored = false;
+                STATE.eloPromoUsed = false;
+                STATE.morols = { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 };
+                STATE.plane = { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 };
+                STATE.season = 1;
+                STATE.welcomeShown = false;
+                saveStateToFirebase().then(() => {
+                    showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
+                    addLog('🔄 Сброс прогресса выполнен');
+                    updateUI();
+                    renderInventory();
+                    renderAccount();
+                    checkAllAchievements();
+                });
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+        };
+        actions.appendChild(resetBtn);
+    }
+}
+
+function updateProgressDisplay() {
+    const exp = STATE.exp;
+    const level = STATE.level;
+    const nextExp = level >= 11 ? Infinity : [60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4,2220*4][level-1] || Infinity;
+    const prevExp = level === 1 ? 0 : [0,60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4][level-1] || 0;
+    const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
+    const progressExp = document.getElementById('progressExp');
+    if (progressExp) progressExp.textContent = exp;
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) progressFill.style.width = Math.min(100, currentProgress) + '%';
+    const progressLabel = document.getElementById('progressLabel');
+    if (progressLabel) {
+        if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
+        else progressLabel.textContent = `Уровень ${level} → ${level+1}`;
+    }
+}
+
+// ===== ИГРЫ =====
+// ---- МОРОЛС ----
 let morolsRunning = false;
 let morolsAnimId = null;
 let morolsState = {
@@ -1783,7 +2078,7 @@ async function morolsLoop(timestamp) {
                 STATE.totalEarned += rewardSteps * 2;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
                 showToast('🏆 +' + rewardSteps + ' Эло, +' + (rewardSteps * 2) + ' монет');
-                addExp(rewardSteps);
+                addExp(Math.floor(rewardSteps / 2)); // уменьшено
             }
             if (morolsState.maxSpeedReached > STATE.morols.maxSpeed) STATE.morols.maxSpeed = morolsState.maxSpeedReached;
             if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
@@ -1793,6 +2088,7 @@ async function morolsLoop(timestamp) {
             updateUI();
             checkAllAchievements();
             drawMorols();
+            addLog('🏁 Моролс: авария, скорость ' + maxSpeed.toFixed(1) + ' км/ч');
             return;
         }
     }
@@ -1863,13 +2159,13 @@ function updateMorolsUI() {
     document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
 }
 
-// ---- ИГРА: САМОЛЁТ ----
+// ---- САМОЛЁТ (исправлен) ----
 let planeRunning = false;
 let planeAnimId = null;
 let planeState = {
     planeX: 80, planeY: 150, width: 40, height: 30, vy: 0,
     obstacles: [], coins: [], score: 0, xp: 0, time: 0,
-    lastTime: 0, gameOver: false, gravity: 0.08, jumpPower: -6,
+    lastTime: 0, gameOver: false, gravity: 0.12, jumpPower: -4.5,
     groundY: 270, ceilingY: 20,
 };
 
@@ -1933,7 +2229,7 @@ function planeLoop(timestamp) {
     if (!planeRunning || planeState.gameOver) { drawPlane(); return; }
 
     planeState.time += dt;
-    planeState.xp += dt * 5;
+    planeState.xp += dt * 3;
     planeState.score += dt;
 
     planeState.vy += planeState.gravity;
@@ -1944,7 +2240,7 @@ function planeLoop(timestamp) {
         planeState.vy = 0;
     }
 
-    if (Math.random() < 0.015 * dt * 60) {
+    if (Math.random() < 0.012 * dt * 60) {
         const height = 20 + Math.random() * 30;
         const y = Math.random() > 0.5 ? planeState.ceilingY : planeState.groundY - height;
         planeState.obstacles.push({
@@ -1952,10 +2248,10 @@ function planeLoop(timestamp) {
             speed: 200 + planeState.time * 1.2, passed: false
         });
     }
-    if (Math.random() < 0.02 * dt * 60) {
+    if (Math.random() < 0.008 * dt * 60) {
         planeState.coins.push({
             x: 600, y: 50 + Math.random() * 180, radius: 10,
-            speed: 180 + planeState.time * 1.0, collected: false, value: rand(1, 5)
+            speed: 180 + planeState.time * 1.0, collected: false, value: rand(1, 2)
         });
     }
 
@@ -1976,7 +2272,7 @@ function planeLoop(timestamp) {
             if (planeState.time > STATE.plane.bestTime) STATE.plane.bestTime = planeState.time;
             STATE.balance += Math.floor(planeState.score);
             STATE.totalEarned += Math.floor(planeState.score);
-            addExp(Math.floor(planeState.xp / 10) + Math.floor(planeState.time * 1.5));
+            addExp(Math.floor(planeState.xp / 15) + Math.floor(planeState.time / 2));
             STATE.plane.gamesPlayed = (STATE.plane.gamesPlayed || 0) + 1;
             showToast('💥 Крах! XP: ' + Math.floor(planeState.xp) + ', монет: ' + Math.floor(planeState.score));
             saveStateToFirebase();
@@ -1984,6 +2280,7 @@ function planeLoop(timestamp) {
             checkAllAchievements();
             drawPlane();
             updatePlaneUI();
+            addLog('✈️ Самолёт разбился, время: ' + Math.floor(planeState.time) + 'с, монет: ' + Math.floor(planeState.score));
             return;
         }
     }
@@ -2002,7 +2299,7 @@ function planeLoop(timestamp) {
             STATE.totalEarned += value;
             if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
             sfxPlaneCoin();
-            addExp(rand(10, 20));
+            addExp(0); // почти нет опыта за монеты
         }
     }
 
@@ -2062,7 +2359,7 @@ function updatePlaneUI() {
     document.getElementById('planeTime').textContent = Math.floor(planeState.time);
 }
 
-// ---- ИГРА: КЛИКЕР ----
+// ---- КЛИКЕР ----
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
 let captchaAnswer = '';
@@ -2086,13 +2383,14 @@ function initClicker() {
                 document.getElementById('clickBtn').disabled = false;
                 document.getElementById('clickTimer').textContent = 'Готово!';
             }, 1000);
-            addExp(1);
+            addExp(0);
             updateUI();
             document.getElementById('clickerBalance').textContent = STATE.balance;
             document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
             checkAllAchievements();
             if (STATE.clicksSinceCaptcha >= 50) showCaptcha();
             saveStateToFirebase();
+            addLog('🖱️ Клик #' + STATE.totalClicks);
         };
 
         document.getElementById('captchaSubmit').onclick = function() {
@@ -2102,11 +2400,13 @@ function initClicker() {
                 document.getElementById('clickerCaptcha').style.display = 'none';
                 showToast('✅ Капча пройдена!');
                 STATE.clicksSinceCaptcha = 0;
-                addExp(5);
+                addExp(2);
                 updateUI();
                 saveStateToFirebase();
+                addLog('✅ Капча пройдена');
             } else {
                 showToast('❌ Неверный код');
+                addLog('❌ Неверная капча');
             }
             document.getElementById('captchaInput').value = '';
         };
@@ -2122,118 +2422,7 @@ function showCaptcha() {
     document.getElementById('captchaInput').focus();
 }
 
-// ---- ИГРА: ЛУДКА ----
-function initLudka() {
-    try {
-        const betBtns = document.querySelectorAll('#ludkaBetContainer button');
-        betBtns.forEach(btn => {
-            btn.onclick = function() {
-                document.querySelectorAll('#ludkaBetContainer button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                STATE.ludkaBet = parseInt(this.dataset.bet);
-                document.getElementById('ludkaBalance').textContent = STATE.balance;
-            };
-        });
-        document.getElementById('ludkaResetBtn').onclick = resetLudka;
-        resetLudka();
-    } catch(e) { console.warn('initLudka error:', e); addLog('⚠️ Ошибка инициализации Лудки: ' + e.message); }
-}
-
-function resetLudka() {
-    STATE.ludkaGrid = Array(9).fill(null);
-    STATE.ludkaRevealed = Array(9).fill(false);
-    STATE.ludkaClicks = 0;
-    STATE.ludkaGameOver = false;
-    STATE.ludkaWon = false;
-    document.getElementById('ludkaWinDisplay').textContent = '0';
-    STATE.ludkaBombs = [];
-    while (STATE.ludkaBombs.length < 3) {
-        const pos = rand(0, 8);
-        if (!STATE.ludkaBombs.includes(pos)) STATE.ludkaBombs.push(pos);
-    }
-    renderLudka();
-    updateLudkaUI();
-}
-
-function renderLudka() {
-    const grid = document.getElementById('ludkaGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'mine-cell';
-        if (STATE.ludkaRevealed[i]) {
-            cell.classList.add('revealed');
-            if (STATE.ludkaBombs.includes(i)) {
-                cell.classList.add('bomb');
-                cell.textContent = '💣';
-            } else {
-                cell.classList.add('safe');
-                cell.textContent = '✅';
-            }
-        }
-        cell.dataset.index = i;
-        cell.onclick = function() { ludkaClick(parseInt(this.dataset.index)); };
-        grid.appendChild(cell);
-    }
-}
-
-function ludkaClick(index) {
-    if (STATE.ludkaGameOver || STATE.ludkaRevealed[index]) return;
-    if (STATE.ludkaClicks >= 3) return;
-    if (STATE.balance < STATE.ludkaBet) {
-        showToast('Недостаточно монет для ставки');
-        return;
-    }
-
-    if (STATE.ludkaClicks === 0) {
-        STATE.balance -= STATE.ludkaBet;
-        STATE.totalSpent += STATE.ludkaBet;
-        updateUI();
-        document.getElementById('ludkaBalance').textContent = STATE.balance;
-    }
-
-    STATE.ludkaRevealed[index] = true;
-    STATE.ludkaClicks++;
-
-    if (STATE.ludkaBombs.includes(index)) {
-        STATE.ludkaGameOver = true;
-        STATE.ludkaWon = false;
-        sfxLudkaLose();
-        showToast('💥 Вы попали на бомбу! Ставка потеряна.');
-        renderLudka();
-        updateLudkaUI();
-        return;
-    } else {
-        sfxClick();
-        renderLudka();
-        updateLudkaUI();
-        if (STATE.ludkaClicks === 3) {
-            const win = STATE.ludkaBet * 2;
-            STATE.balance += win;
-            STATE.totalEarned += win;
-            if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-            STATE.ludkaGameOver = true;
-            STATE.ludkaWon = true;
-            sfxLudkaWin();
-            showToast('🎉 Вы выиграли ' + win + ' монет!');
-            document.getElementById('ludkaWinDisplay').textContent = win;
-            updateUI();
-            saveStateToFirebase();
-            renderLudka();
-            updateLudkaUI();
-        }
-    }
-}
-
-function updateLudkaUI() {
-    document.getElementById('ludkaBalance').textContent = STATE.balance;
-    if (STATE.ludkaGameOver && STATE.ludkaWon) {
-        document.getElementById('ludkaWinDisplay').textContent = STATE.ludkaBet * 2;
-    }
-}
-
-// ---- НАСТРОЙКИ ----
+// ===== НАСТРОЙКИ =====
 const THEMES = { 'windows_xp': 'Windows XP', 'windows7': 'Windows 7', 'windows11': 'Windows 11', 'dark': 'Тёмная', 'light': 'Светлая', 'vk2010': 'VK2010', 'red': 'Красная', 'blue': 'Синяя' };
 
 function renderSettings() {
@@ -2254,6 +2443,7 @@ function renderSettings() {
                 this.classList.add('active');
                 applyTheme(STATE.settings.theme);
                 saveStateToFirebase();
+                addLog('🎨 Тема изменена: ' + label);
             };
             grid.appendChild(btn);
         }
@@ -2306,6 +2496,7 @@ function renderSettings() {
                 if (soundLabel) soundLabel.textContent = STATE.settings.sound ? 'Включён' : 'Выключен';
                 if (STATE.settings.sound) sfxClick();
                 saveStateToFirebase();
+                addLog('🔊 Звук: ' + (STATE.settings.sound ? 'вкл' : 'выкл'));
             };
         }
 
@@ -2320,6 +2511,7 @@ function renderSettings() {
                 if (musicLabel) musicLabel.textContent = STATE.settings.music ? 'Включена' : 'Выключена';
                 updateMusic();
                 saveStateToFirebase();
+                addLog('🎵 Музыка: ' + (STATE.settings.music ? 'вкл' : 'выкл'));
             };
         }
     } catch(e) { console.warn('renderSettings error:', e); addLog('⚠️ Ошибка рендера настроек: ' + e.message); }
@@ -2339,18 +2531,20 @@ function updateMusic() {
     else { if (audio2) { audio2.volume = vol; audio2.play().catch(() => {}); } }
 }
 
-// ---- ПРОМОКОД ----
+// ===== ПРОМОКОДЫ =====
 document.getElementById('applyPromoBtn').onclick = function() {
     const input = document.getElementById('promoInput');
     if (!input) return;
     const code = input.value.trim().toUpperCase();
+    addLog('🔑 Введён промокод: ' + code);
+
     if (code === 'ARBZ') {
         if (STATE.promoUsed) { showToast('❌ Промокод уже использован'); return; }
         STATE.freeOpens += CASES.length;
         STATE.balance += 200;
         STATE.totalEarned += 200;
         STATE.promoUsed = true;
-        addExp(50);
+        addExp(5);
         showToast('🎉 Промокод активирован! +200 монет и по 1 открытию каждого кейса!');
         input.value = '';
         updateUI();
@@ -2358,18 +2552,43 @@ document.getElementById('applyPromoBtn').onclick = function() {
         checkAllAchievements();
         renderAccount();
         renderCases();
+        addLog('✅ Промокод ARBZ активирован');
         return;
     }
+
+    if (code === 'MOROLS') {
+        if (STATE.muzhikiRestored) {
+            showToast('❌ Промокод уже использован');
+            return;
+        }
+        STATE.freeOpens += 4; // кейсы игроков
+        STATE.freeOpens += 2; // кейсы городов
+        STATE.balance += 100;
+        STATE.totalEarned += 100;
+        STATE.muzhikiRestored = true;
+        addExp(5);
+        showToast('🎉 Промокод MOROLS активирован! +4 кейса игроков, +2 кейса городов, +100 монет!');
+        input.value = '';
+        updateUI();
+        saveStateToFirebase();
+        checkAllAchievements();
+        renderAccount();
+        renderCases();
+        addLog('✅ Промокод MOROLS активирован');
+        return;
+    }
+
     showToast('❌ Неверный промокод');
+    addLog('❌ Неверный промокод');
 };
 
-// ---- ПАСХАЛКА ----
+// ===== ПАСХАЛКА =====
 document.getElementById('easterEggBtn').onclick = function() {
     if (!STATE.easterFound) {
         STATE.easterFound = true;
-        addExp(30);
+        addExp(10);
         checkAllAchievements();
-        showToast('🥚 Пасхалка найдена! +30 опыта');
+        showToast('🥚 Пасхалка найдена! +10 опыта');
         sfxAchievement();
         let colors = ['#ff0000','#ff8800','#ffff00','#00ff00','#0088ff','#8800ff'];
         let i = 0;
@@ -2378,25 +2597,28 @@ document.getElementById('easterEggBtn').onclick = function() {
             i++;
             if (i > 30) { clearInterval(interval); document.body.style.background = ''; }
         }, 100);
+        addLog('🥚 Пасхалка найдена');
     } else {
         showToast('🥚 Пасхалка уже найдена!');
     }
 };
 
-// ---- ОБНОВЛЕНИЕ РЕЙТИНГА И АЧИВОК ----
+// ===== ОБНОВЛЕНИЕ РЕЙТИНГА И АЧИВОК =====
 document.getElementById('refreshRatingBtn').onclick = function() {
     this.disabled = true;
     showToast('🔄 Обновление...');
     renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     setTimeout(() => { this.disabled = false; showToast('✅ Обновлено'); }, 3000);
+    addLog('🔄 Рейтинг обновлён');
 };
 document.getElementById('recheckAchievementsBtn').onclick = function() {
-    showToast('🔄 Перепроверка достижений...');
+    showToast('🔄 Обновление достижений...');
     checkAllAchievements();
     showToast('✅ Проверка завершена!');
+    addLog('🔄 Достижения обновлены');
 };
 
-// ---- UI ----
+// ===== UI И НАВИГАЦИЯ =====
 function updateUI() {
     const balEl = document.getElementById('balanceDisplay');
     if (balEl) balEl.textContent = formatNum(STATE.balance);
@@ -2496,224 +2718,14 @@ function navigateTo(sectionId) {
     if (sectionId === 'cases') renderCases();
     if (sectionId === 'achievements') renderAchievements();
     if (sectionId === 'account') renderAccount();
-    if (sectionId === 'ludka') { initLudka(); renderLudka(); }
     if (sectionId === 'clicker') {
         document.getElementById('clickerBalance').textContent = STATE.balance;
         document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
     }
+    addLog('📂 Переход в раздел: ' + sectionId);
 }
 
-function renderAchievements() {
-    const grid = document.getElementById('achievementsGrid');
-    if (!grid) return;
-    const countEl = document.getElementById('achCount');
-    let html = '';
-    let unlocked = 0;
-    for (const ach of ACHIEVEMENTS) {
-        const isUnlocked = STATE.achievements.includes(ach.id);
-        if (isUnlocked) unlocked++;
-        html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
-            <span>${isUnlocked ? '✅' : '🔒'}</span>
-            <span>${ach.name}</span>
-        </div>`;
-    }
-    grid.innerHTML = html;
-    if (countEl) countEl.textContent = unlocked + ' / ' + ACHIEVEMENTS.length;
-}
-
-function checkAllAchievements() {
-    let any = false;
-    const allIds = ACHIEVEMENTS.map(a => a.id).filter(id => id !== 'allAchievements');
-    for (const ach of ACHIEVEMENTS) {
-        if (STATE.achievements.includes(ach.id)) continue;
-        if (ach.id === 'allAchievements') continue;
-        if (ach.check(STATE)) {
-            STATE.achievements.push(ach.id);
-            any = true;
-            showToast('🏆 Достижение: ' + ach.name);
-            sfxAchievement();
-            addExp(25);
-        }
-    }
-    if (!STATE.achievements.includes('allAchievements')) {
-        const hasAll = allIds.every(id => STATE.achievements.includes(id));
-        if (hasAll) {
-            STATE.achievements.push('allAchievements');
-            any = true;
-            showToast('🏆 Все достижения выполнены!');
-            sfxAchievement();
-            addExp(100);
-        }
-    }
-    if (any) {
-        renderAchievements();
-        saveStateToFirebase();
-    }
-}
-
-function renderAccount() {
-    const container = document.getElementById('accountInfo');
-    if (!container) return;
-    container.innerHTML = `
-        <div class="row"><span class="label">Никнейм</span><span class="value">${STATE.nickname}</span></div>
-        <div class="row"><span class="label">ID</span><span class="value">#${STATE.userId}</span></div>
-        <div class="row"><span class="label">Клан</span><span class="value" id="clanDisplay">${STATE.clan || '—'}</span></div>
-        <div class="row"><span class="label">Уровень</span><span class="value">${getLevelLabel(STATE.level)}</span></div>
-        <div class="row"><span class="label">Опыт</span><span class="value">${STATE.exp}</span></div>
-        <div class="row"><span class="label">Баланс</span><span class="value">${formatNum(STATE.balance)} ₽</span></div>
-        <div class="row"><span class="label">Эло</span><span class="value">${STATE.elo}</span></div>
-        <div class="row"><span class="label">Открыто кейсов</span><span class="value">${STATE.casesOpened}</span></div>
-        <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
-        <div class="row"><span class="label">XP Самолёт</span><span class="value">${STATE.plane.xp.toFixed(1)}</span></div>
-        <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
-    `;
-
-    const clanDisplay = document.getElementById('clanDisplay');
-    if (clanDisplay) {
-        clanDisplay.style.cursor = 'pointer';
-        clanDisplay.title = 'Нажмите, чтобы изменить клан';
-        clanDisplay.onclick = function() {
-            const newClan = prompt('Введите название клана (макс. 10 символов):', STATE.clan);
-            if (newClan !== null) {
-                STATE.clan = newClan.trim().slice(0, 10);
-                saveStateToFirebase();
-                renderAccount();
-                showToast('Клан обновлён');
-            }
-        };
-    }
-
-    document.getElementById('setClanBtn').onclick = function() {
-        const input = document.getElementById('clanInput');
-        if (!input) return;
-        const clan = input.value.trim().slice(0, 10);
-        if (!clan) { showToast('Введите название клана'); return; }
-        STATE.clan = clan;
-        saveStateToFirebase();
-        renderAccount();
-        showToast('✅ Клан установлен: ' + clan);
-        input.value = '';
-    };
-    document.getElementById('clearClanBtn').onclick = function() {
-        STATE.clan = '';
-        saveStateToFirebase();
-        renderAccount();
-        showToast('Клан удалён');
-    };
-
-    document.getElementById('changeNickBtnAccount').onclick = function() {
-        const newNick = prompt('Введите новый ник:', STATE.nickname);
-        if (!newNick || newNick === STATE.nickname) return;
-        fetch(DB_URL + '/nicknames/' + newNick + '.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data) { showToast('❌ Ник занят'); return; }
-                const updates = {};
-                updates['/users/' + STATE.uid + '/nickname'] = newNick;
-                updates['/nicknames/' + STATE.nickname] = null;
-                updates['/nicknames/' + newNick] = STATE.uid;
-                return fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updates)
-                });
-            })
-            .then(res => {
-                if (res && res.ok) {
-                    STATE.nickname = newNick;
-                    STATE.nickChanged = true;
-                    showToast('✅ Ник изменён');
-                    const idEl = document.getElementById('idDisplay');
-                    if (idEl) idEl.textContent = '#' + STATE.userId + ' (' + newNick + ')';
-                    renderAccount();
-                    saveStateToFirebase();
-                    checkAllAchievements();
-                }
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
-
-    document.getElementById('changePassBtnAccount').onclick = function() {
-        const newPass = prompt('Введите новый пароль (6+ символов):');
-        if (!newPass || newPass.length < 6) { showToast('❌ Минимум 6 символов'); return; }
-        const email = getEmail(STATE.nickname);
-        fetch(AUTH_URL + ':update?key=' + API_KEY, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idToken: currentUser.idToken, password: newPass, returnSecureToken: true })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) { showToast('❌ Ошибка: ' + data.error.message); return; }
-            showToast('✅ Пароль изменён');
-            currentUser.idToken = data.idToken;
-        })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
-
-    document.getElementById('deleteAccountBtn').onclick = function() {
-        if (!confirm('Удалить аккаунт?')) return;
-        const password = prompt('Введите пароль:');
-        if (!password) return;
-        const email = getEmail(STATE.nickname);
-        fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, returnSecureToken: true })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) { showToast('❌ Неверный пароль'); return; }
-            const idToken = data.idToken;
-            return fetch(AUTH_URL + ':delete?key=' + API_KEY, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ idToken })
-            });
-        })
-        .then(res => {
-            if (res && res.ok) {
-                showToast('✅ Аккаунт удалён');
-                logout();
-            }
-        })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
-
-    document.getElementById('logoutBtnAccount').onclick = function() {
-        if (confirm('Выйти?')) logout();
-    };
-
-    document.getElementById('showProgressBtn').onclick = function() {
-        const container = document.getElementById('progressContainer');
-        if (!container) return;
-        if (container.style.display === 'none') {
-            container.style.display = 'block';
-            updateProgressDisplay();
-        } else {
-            container.style.display = 'none';
-        }
-    };
-}
-
-function updateProgressDisplay() {
-    const exp = STATE.exp;
-    const level = STATE.level;
-    const nextExp = level >= 11 ? Infinity : [60,140,260,420,620,860,1140,1460,1820,2220][level-1] || Infinity;
-    const prevExp = level === 1 ? 0 : [0,60,140,260,420,620,860,1140,1460,1820][level-1] || 0;
-    const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
-    const progressExp = document.getElementById('progressExp');
-    if (progressExp) progressExp.textContent = exp;
-    const progressFill = document.getElementById('progressFill');
-    if (progressFill) progressFill.style.width = Math.min(100, currentProgress) + '%';
-    const progressLabel = document.getElementById('progressLabel');
-    if (progressLabel) {
-        if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
-        else progressLabel.textContent = `Уровень ${level} → ${level+1}`;
-    }
-}
-
-// ---- КНОПКИ ВХОДА ----
+// ===== КНОПКИ ВХОДА =====
 document.getElementById('loginBtn').onclick = function() {
     const nick = document.getElementById('loginNick').value.trim();
     const pass = document.getElementById('loginPass').value;
@@ -2768,7 +2780,7 @@ document.getElementById('headerLogBtn').onclick = function() {
     }
 };
 
-// ---- ИНИЦИАЛИЗАЦИЯ СТРАНИЦЫ ----
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loadingStatus').classList.add('hidden');
 
@@ -2778,7 +2790,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Обработчики вкладок рейтинга
     document.querySelectorAll('#ratingTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#ratingTabs button').forEach(b => b.classList.remove('active'));
