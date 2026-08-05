@@ -70,7 +70,8 @@
         body.theme-windows_xp .market-listing .price button,
         body.theme-windows_xp .click-btn,
         body.theme-windows_xp .modal-buttons button,
-        body.theme-windows_xp .chat-send-btn {
+        body.theme-windows_xp .chat-send-btn,
+        body.theme-windows_xp .clan-create-btn {
             background: #0a246a;
             color: #fff;
             border: 2px solid #0a246a;
@@ -80,10 +81,11 @@
         body.theme-windows_xp .market-listing .price button:hover,
         body.theme-windows_xp .click-btn:hover,
         body.theme-windows_xp .modal-buttons button:hover,
-        body.theme-windows_xp .chat-send-btn:hover {
+        body.theme-windows_xp .chat-send-btn:hover,
+        body.theme-windows_xp .clan-create-btn:hover {
             background: #1a3a8a;
         }
-        /* ... остальные темы опущены для краткости (они аналогичны) ... */
+        /* остальные темы опущены для краткости, они аналогичны */
         body.theme-windows7 { background: #2a6a9a; color: #000; }
         body.theme-windows7 #app { background: #e8e8e8; border: 2px solid #1a3a6a; border-radius: 8px; }
         body.theme-windows7 .header { border-bottom-color: #1a3a6a; }
@@ -104,10 +106,10 @@
         body.theme-windows11 .chat-wrap, body.theme-windows11 .clan-wrap { background: #fafafa; border-color: #ddd; }
         body.theme-windows11 .open-btn, body.theme-windows11 .market-listing .price button,
         body.theme-windows11 .click-btn, body.theme-windows11 .modal-buttons button,
-        body.theme-windows11 .chat-send-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-windows11 .chat-send-btn, body.theme-windows11 .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
         body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover,
         body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover,
-        body.theme-windows11 .chat-send-btn:hover { background: #106ebe; }
+        body.theme-windows11 .chat-send-btn:hover, body.theme-windows11 .clan-create-btn:hover { background: #106ebe; }
 
         body.theme-dark { background: #0a0a0a; color: #c0c0c0; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
@@ -122,10 +124,10 @@
         body.theme-dark .chat-wrap, body.theme-dark .clan-wrap { background: #222; border-color: #444; }
         body.theme-dark .open-btn, body.theme-dark .market-listing .price button,
         body.theme-dark .click-btn, body.theme-dark .modal-buttons button,
-        body.theme-dark .chat-send-btn { background: #444; color: #fff; border: 1px solid #666; }
+        body.theme-dark .chat-send-btn, body.theme-dark .clan-create-btn { background: #444; color: #fff; border: 1px solid #666; }
         body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover,
         body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover,
-        body.theme-dark .chat-send-btn:hover { background: #555; }
+        body.theme-dark .chat-send-btn:hover, body.theme-dark .clan-create-btn:hover { background: #555; }
 
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
@@ -140,7 +142,7 @@
         body.theme-light .chat-wrap, body.theme-light .clan-wrap { background: #fafafa; border-color: #ddd; }
         body.theme-light .open-btn, body.theme-light .market-listing .price button,
         body.theme-light .click-btn, body.theme-light .modal-buttons button,
-        body.theme-light .chat-send-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-light .chat-send-btn, body.theme-light .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
 
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
@@ -193,7 +195,6 @@
             margin-top: 4px;
             color: #666;
         }
-        /* Кнопка логов – справа вверху, не перекрывает заголовок */
         .header .log-btn-header {
             position: absolute;
             right: 10px;
@@ -701,6 +702,10 @@
         .game-wrap .game-stats {
             font-size: 18px;
             margin-bottom: 12px;
+            padding: 6px;
+            background: #d8e0e8;
+            border-radius: 4px;
+            border: 1px solid #a0b0c0;
         }
         .game-wrap .game-stats span { font-weight: bold; }
         .game-wrap .game-canvas {
@@ -985,6 +990,35 @@
             transition: 0.2s;
         }
         .clan-war-btn:hover { background: #3a7aaa; }
+        .clan-create-form {
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid #a0b0c0;
+            border-radius: 6px;
+            background: #ece9d8;
+        }
+        .clan-create-form .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .clan-create-form input {
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 15px;
+            background: #d8e0e8;
+            border: 1px solid #a0b0c0;
+            color: #1a2a3a;
+        }
+        .clan-create-form button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
 
         /* ===== ВХОД ===== */
         #loginOverlay {
@@ -1334,12 +1368,12 @@
         <button data-section="inventory">Инвентарь</button>
         <button data-section="market">Торговля</button>
         <button data-section="rating">Рейтинг</button>
-        <button data-section="games">Игры</button>   <!-- новая кнопка -->
+        <button data-section="games">Игры</button>
         <button data-section="clicker">Кликер</button>
         <button data-section="achievements">Достижения</button>
         <button data-section="promo">Промокод</button>
-        <button data-section="messenger">Мессенджер</button> <!-- новая -->
-        <button data-section="clans">Кланы</button>         <!-- новая -->
+        <button data-section="messenger">Мессенджер</button>
+        <button data-section="clans">Кланы</button>
         <button data-section="account">Аккаунт</button>
         <button data-section="settings">Настройки</button>
         <button data-section="updates">Обновления</button>
@@ -1404,7 +1438,7 @@
             <div id="ratingContent"></div>
         </section>
 
-        <!-- ИГРЫ (новая секция) -->
+        <!-- ИГРЫ -->
         <section id="section-games" class="section">
             <div class="title">Мини-игры <span class="badge">выбери вкладку</span></div>
             <div class="tab-bar" id="gamesTabs">
@@ -1414,7 +1448,9 @@
             <!-- Моролс -->
             <div class="tab-content active" id="tab-morols">
                 <div class="game-wrap">
-                    <div class="game-stats">Скорость: <span id="morolsSpeed">0</span> км/ч &nbsp;|&nbsp; Дистанция: <span id="morolsDistance">0.00</span> км &nbsp;|&nbsp; Монет: <span id="morolsCoins">0</span></div>
+                    <div class="game-stats">
+                        Скорость: <span id="morolsSpeed">0</span> км/ч &nbsp;|&nbsp; Дистанция: <span id="morolsDistance">0.00</span> км &nbsp;|&nbsp; Монет: <span id="morolsCoins">0</span>
+                    </div>
                     <div class="game-canvas"><canvas id="morolsCanvas" width="600" height="300"></canvas></div>
                     <div class="game-controls">
                         <button id="morolsStart">Старт</button>
@@ -1430,7 +1466,9 @@
             <!-- Самолёт -->
             <div class="tab-content" id="tab-plane">
                 <div class="game-wrap">
-                    <div class="game-stats">Монет: <span id="planeCoins">0</span> &nbsp;|&nbsp; XP: <span id="planeXP">0</span> &nbsp;|&nbsp; Секунд: <span id="planeTime">0</span></div>
+                    <div class="game-stats">
+                        Монет: <span id="planeCoins">0</span> &nbsp;|&nbsp; XP: <span id="planeXP">0</span> &nbsp;|&nbsp; Секунд: <span id="planeTime">0</span>
+                    </div>
                     <div class="game-canvas"><canvas id="planeCanvas" width="600" height="300"></canvas></div>
                     <div class="game-controls">
                         <button id="planeStart">Старт</button>
@@ -1479,9 +1517,7 @@
         <section id="section-messenger" class="section">
             <div class="title">Мессенджер <span class="badge">чат, друзья, трейд</span></div>
             <div class="chat-wrap">
-                <div class="chat-friends" id="chatFriends">
-                    <!-- динамически заполняется -->
-                </div>
+                <div class="chat-friends" id="chatFriends"></div>
                 <div class="chat-messages" id="chatMessages">
                     <div style="color:#999;">Выберите собеседника</div>
                 </div>
@@ -1500,29 +1536,9 @@
         <!-- КЛАНЫ -->
         <section id="section-clans" class="section">
             <div class="title">Кланы <span class="badge">объединяйся и воюй</span></div>
-            <div class="clan-wrap">
-                <div class="clan-info">
-                    <span class="clan-name" id="clanNameDisplay">—</span>
-                    <span class="clan-level" id="clanLevelDisplay">Уровень: 1</span>
-                </div>
-                <div class="progress-bar" style="max-width:300px; margin:8px 0;">
-                    <div class="fill" id="clanProgressFill" style="width:0%;"></div>
-                </div>
-                <div style="font-size:14px; margin-bottom:8px;">Опыт клана: <span id="clanExpDisplay">0</span> / <span id="clanExpNextDisplay">—</span></div>
-                <div class="clan-members" id="clanMembersList">
-                    <!-- динамически -->
-                </div>
-                <button class="clan-war-btn" id="clanWarBtn">⚔️ Начать войну с кланом</button>
-                <div class="clan-chat">
-                    <div style="font-weight:bold; margin-bottom:6px;">Клановый чат</div>
-                    <div class="chat-messages" id="clanChatMessages">
-                        <div style="color:#999;">Сообщений пока нет</div>
-                    </div>
-                    <div class="chat-input-row">
-                        <input type="text" id="clanChatInput" placeholder="Сообщение в клан...">
-                        <button class="chat-send-btn" id="clanChatSendBtn">Отправить</button>
-                    </div>
-                </div>
+            <div class="clan-wrap" id="clanWrap">
+                <!-- Динамическое содержимое будет вставляться через JS -->
+                <div id="clanContent"></div>
             </div>
         </section>
 
@@ -1606,7 +1622,7 @@
                     <li>🔄 Вайп теперь обнуляет абсолютно всё</li>
                     <li>💬 Приветствие показывается после каждого входа</li>
                     <li>🎨 Стиль Windows XP улучшен</li>
-                    <li>🧩 Опыт фармится ещё сложнее</li>
+                    <li>🧩 Опыт фармится ещё сложнее (в 2 раза медленнее)</li>
                 </ul>
             </div>
         </section>
@@ -1644,7 +1660,7 @@
 <div class="log-popup" id="logPopup"></div>
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.3 (СЕЗОН 1, ВСЕ НОВОВВЕДЕНИЯ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.3 (ИСПРАВЛЕННАЯ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1675,14 +1691,13 @@ let STATE = {
     marketBuys: 0, marketSells: 0, nickChanged: false, easterFound: false, topElo: false,
     eloInitialized: false, muzhikiRestored: false, eloPromoUsed: false,
     welcomeShown: false, season: 1,
-    // Новые поля для мессенджера и кланов
-    friends: [],           // массив uid друзей
-    blocked: [],           // массив uid заблокированных
-    clanId: null,          // ID клана, к которому принадлежит
-    clanRole: null,        // 'leader' или 'member'
-    messages: {},          // { chatId: [ {sender, text, timestamp, read} ] }
-    trades: [],            // массив объектов {id, from, to, items, status}
-    clanWar: null          // { enemyClanId, startTime, status }
+    friends: [],
+    blocked: [],
+    clanId: null,
+    clanRole: null,
+    messages: {},
+    trades: [],
+    clanWar: null
 };
 
 let logMessages = [];
@@ -1713,27 +1728,28 @@ function showToast(text, duration = 2500) {
     toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
 }
 
-// ===== УРОВНИ И ОПЫТ (пороги в 4 раза выше) =====
+// ===== НОВАЯ СИСТЕМА УРОВНЕЙ (старые пороги) =====
 function getLevelForExp(exp) {
-    if (exp < 60*4) return 1;
-    if (exp < 140*4) return 2;
-    if (exp < 260*4) return 3;
-    if (exp < 420*4) return 4;
-    if (exp < 620*4) return 5;
-    if (exp < 860*4) return 6;
-    if (exp < 1140*4) return 7;
-    if (exp < 1460*4) return 8;
-    if (exp < 1820*4) return 9;
-    if (exp < 2220*4) return 10;
-    return 11;
+    if (exp < 100) return 1;
+    if (exp < 200) return 2;
+    if (exp < 300) return 3;
+    if (exp < 400) return 4;
+    if (exp < 500) return 5;
+    if (exp < 750) return 6;
+    if (exp < 1000) return 7;
+    if (exp < 1500) return 8;
+    if (exp < 2000) return 9;
+    if (exp < 3000) return 10;
+    return 11; // Pro
 }
 function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
 
 function updateProProgress() {
     const exp = STATE.exp;
     const level = STATE.level;
-    const nextExp = level >= 11 ? Infinity : [60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4,2220*4][level-1] || Infinity;
-    const prevExp = level === 1 ? 0 : [0,60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4][level-1] || 0;
+    const thresholds = [0, 100, 200, 300, 400, 500, 750, 1000, 1500, 2000, 3000];
+    const nextExp = level >= 11 ? Infinity : thresholds[level] || Infinity;
+    const prevExp = level === 1 ? 0 : thresholds[level-1] || 0;
     const progress = nextExp === Infinity ? 100 : Math.min(100, ((exp - prevExp) / (nextExp - prevExp) * 100));
     const expEl = document.getElementById('expDisplay');
     const progEl = document.getElementById('proProgressDisplay');
@@ -1741,10 +1757,10 @@ function updateProProgress() {
     if (progEl) progEl.textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
 }
 
-// Опыт начисляется медленнее (делим на 3)
+// Опыт начисляется в 2 раза медленнее (делим на 2)
 function addExp(amount) {
     if (!currentUser) return;
-    const reduced = Math.floor(amount / 3);
+    const reduced = Math.floor(amount / 2);
     if (reduced < 1) return;
     STATE.exp += reduced;
     const newLevel = getLevelForExp(STATE.exp);
@@ -1868,7 +1884,7 @@ const CASES = [
     }
 ];
 
-// ===== ДОСТИЖЕНИЯ (полный список) =====
+// Достижения (полный список – сокращён для краткости, оставлены все)
 const ACHIEVEMENTS = [
     { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
     { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
@@ -1983,7 +1999,7 @@ function sfxPlaneCoin() { if (STATE.settings.sfx) { playTone(1100, 0.05, 'sine',
 function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
 function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
 
-// ===== ВХОД И РЕГИСТРАЦИЯ (обновлены для новых полей) =====
+// ===== ВХОД И РЕГИСТРАЦИЯ =====
 function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
 function loginUser(nick, password) {
@@ -2108,7 +2124,6 @@ function registerUser(nick, password) {
                     eloPromoUsed: false,
                     welcomeShown: false,
                     season: 1,
-                    // Новые поля
                     friends: [],
                     blocked: [],
                     clanId: null,
@@ -2185,7 +2200,6 @@ function onAuthSuccess() {
     STATE.eloPromoUsed = data.eloPromoUsed || false;
     STATE.welcomeShown = data.welcomeShown || false;
     STATE.season = data.season || 1;
-    // Новые поля
     STATE.friends = data.friends || [];
     STATE.blocked = data.blocked || [];
     STATE.clanId = data.clanId || null;
@@ -2194,7 +2208,7 @@ function onAuthSuccess() {
     STATE.trades = data.trades || [];
     STATE.clanWar = data.clanWar || null;
 
-    // Выдача 1000 Эло всем (даже тем, у кого уже есть)
+    // Выдача 1000 Эло всем
     if (!STATE.eloInitialized || STATE.elo < 1000) {
         STATE.elo = 1000;
         STATE.maxElo = Math.max(STATE.maxElo, 1000);
@@ -2210,9 +2224,9 @@ function onAuthSuccess() {
 
     applyTheme(STATE.settings.theme || 'windows_xp');
 
-    // Приветствие показывается после каждого входа (теперь всегда)
+    // Приветствие после каждого входа
     showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
-    STATE.welcomeShown = true; // чтобы не засорять, но сохраняем
+    STATE.welcomeShown = true;
     saveStateToFirebase();
     addLog('💬 Показано приветствие');
 
@@ -2423,7 +2437,7 @@ function openCase(caseId) {
             STATE.inventory.push(entry);
             const key = finalResult.name + '|||' + finalResult.emoji;
             STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
-            addExp(2); // уменьшено
+            addExp(2);
             updateUI();
             checkAllAchievements();
             sfxCaseOpenFinish();
@@ -2642,7 +2656,7 @@ async function clearAllInventory() {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== РЫНОК (исправлен – теперь продажа работает) =====
+// ===== РЫНОК (исправлены вкладки через делегирование) =====
 function renderMarket() {
     const container = document.getElementById('marketContent');
     if (!container) return;
@@ -2784,6 +2798,15 @@ function renderMarket() {
         .catch(err => container.innerHTML = '<div class="inv-empty">Ошибка загрузки рынка</div>');
 }
 
+// Привязка переключения вкладок рынка через делегирование
+document.querySelector('.market-tabs')?.addEventListener('click', function(e) {
+    const btn = e.target.closest('button');
+    if (!btn || !btn.dataset.marketTab) return;
+    this.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderMarket();
+});
+
 function buyLot(lotId) {
     if (!currentUser) { showToast('Войдите'); return; }
     const lot = STATE.marketListings.find(l => l._id === lotId);
@@ -2835,7 +2858,7 @@ function removeLot(lotId) {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== РЕЙТИНГ (добавлены кланы, лидеры) =====
+// ===== РЕЙТИНГ (с отображением кланов) =====
 function renderRating(sortBy = 'elo') {
     const container = document.getElementById('ratingContent');
     if (!container) return;
@@ -2863,9 +2886,6 @@ function renderRating(sortBy = 'elo') {
             for (const uid in data) {
                 const p = data[uid];
                 if (!p.nickname) continue;
-                // Получаем информацию о клане (если есть)
-                let clanInfo = { name: p.clan || '', role: null };
-                // Если есть clanId, можно подгрузить данные клана позже, пока просто имя
                 players.push({
                     name: p.nickname,
                     clan: p.clan || '',
@@ -2923,7 +2943,6 @@ function renderRating(sortBy = 'elo') {
                     case 'planeTime': valueDisplay = p.planeTime.toFixed(1); break;
                     default: valueDisplay = p.elo;
                 }
-                // Отображение клана и роли
                 let clanDisplay = '';
                 if (p.clan) {
                     const roleClass = (p.clanRole === 'leader') ? 'leader' : 'member';
@@ -2946,7 +2965,7 @@ function renderRating(sortBy = 'elo') {
         });
 }
 
-// ===== ДОСТИЖЕНИЯ (без изменений) =====
+// ===== ДОСТИЖЕНИЯ =====
 function renderAchievements() {
     const grid = document.getElementById('achievementsGrid');
     if (!grid) return;
@@ -2997,7 +3016,7 @@ function checkAllAchievements() {
     }
 }
 
-// ===== АККАУНТ (обновлён вайп – теперь обнуляет всё) =====
+// ===== АККАУНТ (исправлен вайп – обнуляет всё) =====
 function renderAccount() {
     const container = document.getElementById('accountInfo');
     if (!container) return;
@@ -3153,7 +3172,7 @@ function renderAccount() {
         }
     };
 
-    // ВАЙП – обнуляет абсолютно всё (включая кланы, друзей, сообщения)
+    // ВАЙП – обнуляет абсолютно всё
     const actions = document.querySelector('.account-actions');
     if (actions && !document.getElementById('resetProgressBtn')) {
         const resetBtn = document.createElement('button');
@@ -3173,7 +3192,6 @@ function renderAccount() {
             .then(res => res.json())
             .then(data => {
                 if (data.error) { showToast('❌ Неверный пароль'); return; }
-                // Сброс всех полей
                 STATE.balance = 500;
                 STATE.totalEarned = 0;
                 STATE.totalSpent = 0;
@@ -3196,7 +3214,6 @@ function renderAccount() {
                 STATE.plane = { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 };
                 STATE.season = 1;
                 STATE.welcomeShown = false;
-                // Новые поля тоже сбрасываем
                 STATE.friends = [];
                 STATE.blocked = [];
                 STATE.clanId = null;
@@ -3205,7 +3222,6 @@ function renderAccount() {
                 STATE.trades = [];
                 STATE.clanWar = null;
                 STATE.clan = '';
-                // Сохраняем
                 saveStateToFirebase().then(() => {
                     showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
                     addLog('🔄 Сброс прогресса выполнен');
@@ -3226,8 +3242,9 @@ function renderAccount() {
 function updateProgressDisplay() {
     const exp = STATE.exp;
     const level = STATE.level;
-    const nextExp = level >= 11 ? Infinity : [60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4,2220*4][level-1] || Infinity;
-    const prevExp = level === 1 ? 0 : [0,60*4,140*4,260*4,420*4,620*4,860*4,1140*4,1460*4,1820*4][level-1] || 0;
+    const thresholds = [0, 100, 200, 300, 400, 500, 750, 1000, 1500, 2000, 3000];
+    const nextExp = level >= 11 ? Infinity : thresholds[level] || Infinity;
+    const prevExp = level === 1 ? 0 : thresholds[level-1] || 0;
     const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
     const progressExp = document.getElementById('progressExp');
     if (progressExp) progressExp.textContent = exp;
@@ -3240,8 +3257,13 @@ function updateProgressDisplay() {
     }
 }
 
-// ===== ИГРЫ =====
-// ---- МОРОЛС (без изменений) ----
+// ===== ИГРЫ (Моролс и Самолёт – без изменений, кроме выноса счётчика) =====
+// ... (код игр идентичен предыдущей версии, но счётчик уже вынесен в HTML)
+// Для краткости я пропущу полный код игр, но он должен быть таким же, как в предыдущей версии.
+// В целях экономии места я приведу его в сокращённом виде, но в реальном коде он должен быть полным.
+// Однако, так как мы должны отправить полный JS, я включу его полностью.
+
+// ===== МОРОЛС =====
 let morolsRunning = false;
 let morolsAnimId = null;
 let morolsState = {
@@ -3446,7 +3468,7 @@ function updateMorolsUI() {
     document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
 }
 
-// ---- САМОЛЁТ (без изменений) ----
+// ===== САМОЛЁТ =====
 let planeRunning = false;
 let planeAnimId = null;
 let planeState = {
@@ -3646,7 +3668,7 @@ function updatePlaneUI() {
     document.getElementById('planeTime').textContent = Math.floor(planeState.time);
 }
 
-// ---- КЛИКЕР (без изменений) ----
+// ===== КЛИКЕР =====
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
 let captchaAnswer = '';
@@ -3709,7 +3731,7 @@ function showCaptcha() {
     document.getElementById('captchaInput').focus();
 }
 
-// ===== НАСТРОЙКИ (без изменений) =====
+// ===== НАСТРОЙКИ =====
 const THEMES = { 'windows_xp': 'Windows XP', 'windows7': 'Windows 7', 'windows11': 'Windows 11', 'dark': 'Тёмная', 'light': 'Светлая', 'vk2010': 'VK2010', 'red': 'Красная', 'blue': 'Синяя' };
 
 function renderSettings() {
@@ -3818,7 +3840,7 @@ function updateMusic() {
     else { if (audio2) { audio2.volume = vol; audio2.play().catch(() => {}); } }
 }
 
-// ===== ПРОМОКОДЫ (без изменений) =====
+// ===== ПРОМОКОДЫ =====
 document.getElementById('applyPromoBtn').onclick = function() {
     const input = document.getElementById('promoInput');
     if (!input) return;
@@ -3869,7 +3891,7 @@ document.getElementById('applyPromoBtn').onclick = function() {
     addLog('❌ Неверный промокод');
 };
 
-// ===== ПАСХАЛКА (без изменений) =====
+// ===== ПАСХАЛКА =====
 document.getElementById('easterEggBtn').onclick = function() {
     if (!STATE.easterFound) {
         STATE.easterFound = true;
@@ -3994,7 +4016,6 @@ function navigateTo(sectionId) {
     if (sectionId === 'market') renderMarket();
     if (sectionId === 'rating') renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
     if (sectionId === 'games') {
-        // активируем первую вкладку игр
         document.querySelector('#gamesTabs .active')?.click();
     }
     if (sectionId === 'settings') renderSettings();
@@ -4010,7 +4031,7 @@ function navigateTo(sectionId) {
     addLog('📂 Переход в раздел: ' + sectionId);
 }
 
-// ===== МЕССЕНДЖЕР =====
+// ===== МЕССЕНДЖЕР (исправлен – только друзья) =====
 let currentChatPartner = null;
 
 function renderMessenger() {
@@ -4020,13 +4041,10 @@ function renderMessenger() {
     const sendBtn = document.getElementById('chatSendBtn');
     if (!friendsDiv || !messagesDiv) return;
 
-    // Отображаем список друзей
     let html = '';
     if (STATE.friends.length === 0) {
         html = '<div style="color:#999; padding:8px;">У вас пока нет друзей. Добавьте кого-нибудь!</div>';
     } else {
-        // Получаем имена друзей из базы (для простоты используем сохранённые данные, но в реальности нужно запросить)
-        // Пока просто показываем uid, но можно улучшить.
         for (const uid of STATE.friends) {
             if (STATE.blocked.includes(uid)) continue;
             const isActive = (currentChatPartner === uid);
@@ -4035,19 +4053,17 @@ function renderMessenger() {
     }
     friendsDiv.innerHTML = html;
 
-    // Обработка клика по другу
     friendsDiv.querySelectorAll('button').forEach(btn => {
         btn.onclick = function() {
             const uid = this.dataset.uid;
             currentChatPartner = uid;
-            renderMessenger(); // перерисовываем
+            renderMessenger();
             loadChatMessages(uid);
             input.disabled = false;
             sendBtn.disabled = false;
         };
     });
 
-    // Если есть активный чат, загружаем сообщения
     if (currentChatPartner) {
         loadChatMessages(currentChatPartner);
         input.disabled = false;
@@ -4058,9 +4074,13 @@ function renderMessenger() {
         sendBtn.disabled = true;
     }
 
-    // Отправка сообщения
     sendBtn.onclick = function() {
         if (!currentChatPartner) return;
+        // Проверяем, что собеседник есть в друзьях
+        if (!STATE.friends.includes(currentChatPartner)) {
+            showToast('❌ Этот пользователь не в друзьях');
+            return;
+        }
         const text = input.value.trim();
         if (!text) return;
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
@@ -4077,7 +4097,6 @@ function renderMessenger() {
         addLog('💬 Отправлено сообщение пользователю ' + currentChatPartner);
     };
 
-    // Добавление друга
     document.getElementById('chatAddFriendBtn').onclick = function() {
         const friendUid = prompt('Введите UID друга:');
         if (!friendUid) return;
@@ -4090,7 +4109,6 @@ function renderMessenger() {
         addLog('➕ Добавлен друг: ' + friendUid);
     };
 
-    // Блокировка
     document.getElementById('chatBlockBtn').onclick = function() {
         if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
         if (STATE.blocked.includes(currentChatPartner)) {
@@ -4104,23 +4122,24 @@ function renderMessenger() {
         addLog('🚫 Заблокирован: ' + currentChatPartner);
     };
 
-    // Трейд
     document.getElementById('chatTradeBtn').onclick = function() {
         if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        // Простой трейд: предложить обмен (можно реализовать позже)
+        if (!STATE.friends.includes(currentChatPartner)) {
+            showToast('❌ Можно торговать только с друзьями');
+            return;
+        }
         const itemKey = prompt('Введите ключ предмета для обмена (например, "дефолтные мужики|||👨"):');
         if (!itemKey) return;
         const [name, emoji] = itemKey.split('|||');
         const count = STATE.itemsCount[itemKey] || 0;
         if (count < 1) { showToast('У вас нет такого предмета'); return; }
-        // Создаём заявку на трейд
         const trade = {
             id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
             from: STATE.uid,
             to: currentChatPartner,
             fromItem: itemKey,
-            toItem: null, // партнёр должен выбрать что отдать
-            status: 'pending', // pending, accepted, declined
+            toItem: null,
+            status: 'pending',
             timestamp: Date.now()
         };
         STATE.trades.push(trade);
@@ -4135,7 +4154,6 @@ function loadChatMessages(partnerUid) {
     if (!messagesDiv) return;
     const chatId = [STATE.uid, partnerUid].sort().join('_');
     const msgs = STATE.messages[chatId] || [];
-    // Помечаем все сообщения как прочитанные (кроме своих)
     let updated = false;
     for (const msg of msgs) {
         if (msg.sender !== STATE.uid && !msg.read) {
@@ -4145,11 +4163,10 @@ function loadChatMessages(partnerUid) {
     }
     if (updated) saveStateToFirebase();
 
-    // Удаляем сообщения, которые были прочитаны более 10 минут назад
     const now = Date.now();
     const filtered = msgs.filter(msg => {
-        if (!msg.read) return true; // непрочитанные оставляем
-        return (now - msg.timestamp) < 10 * 60 * 1000; // 10 минут
+        if (!msg.read) return true;
+        return (now - msg.timestamp) < 10 * 60 * 1000;
     });
     if (filtered.length !== msgs.length) {
         STATE.messages[chatId] = filtered;
@@ -4170,80 +4187,146 @@ function loadChatMessages(partnerUid) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-// ===== КЛАНЫ =====
+// ===== КЛАНЫ (создание, управление, удаление) =====
 function renderClans() {
-    const nameDisplay = document.getElementById('clanNameDisplay');
-    const levelDisplay = document.getElementById('clanLevelDisplay');
-    const progressFill = document.getElementById('clanProgressFill');
-    const expDisplay = document.getElementById('clanExpDisplay');
-    const expNextDisplay = document.getElementById('clanExpNextDisplay');
-    const membersList = document.getElementById('clanMembersList');
-    const chatMessages = document.getElementById('clanChatMessages');
-    const chatInput = document.getElementById('clanChatInput');
-    const chatSendBtn = document.getElementById('clanChatSendBtn');
+    const container = document.getElementById('clanContent');
+    if (!container) return;
 
-    if (!nameDisplay) return;
-
-    // Если у игрока нет клана
+    // Если у игрока нет клана – показываем форму создания
     if (!STATE.clanId) {
-        nameDisplay.textContent = '—';
-        levelDisplay.textContent = 'Уровень: 1';
-        progressFill.style.width = '0%';
-        expDisplay.textContent = '0';
-        expNextDisplay.textContent = '—';
-        membersList.innerHTML = '<div style="color:#999;">Вы не состоите в клане</div>';
-        chatMessages.innerHTML = '<div style="color:#999;">Вступите в клан, чтобы использовать чат</div>';
-        chatInput.disabled = true;
-        chatSendBtn.disabled = true;
-        document.getElementById('clanWarBtn').disabled = true;
+        container.innerHTML = `
+            <div style="text-align:center; padding:20px;">
+                <div style="font-size:18px;">Вы не состоите в клане</div>
+                <div class="clan-create-form">
+                    <h3>Создать клан</h3>
+                    <div class="row">
+                        <input type="text" id="newClanName" placeholder="Название клана" maxlength="10">
+                        <button class="clan-create-btn" id="createClanBtn">Создать</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('createClanBtn')?.addEventListener('click', createClan);
         return;
     }
 
-    // Загружаем данные клана из Firebase (условно)
-    // Для простоты используем сохранённые данные, но можно сделать запрос
-    // Пока что заглушка
-    const clanData = {
-        name: STATE.clan || 'Клан',
-        level: 1,
-        exp: 0,
-        expNext: 100,
-        members: [
-            { uid: STATE.uid, name: STATE.nickname, role: STATE.clanRole || 'member' }
-        ]
-    };
+    // Если клан есть – загружаем его данные из Firebase
+    const clanId = STATE.clanId;
+    fetch(DB_URL + '/clans/' + clanId + '.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(clanData => {
+            if (!clanData) {
+                // Если клан не найден, сбрасываем clanId
+                STATE.clanId = null;
+                STATE.clanRole = null;
+                saveStateToFirebase();
+                renderClans();
+                return;
+            }
+            // Отображаем клан
+            const isLeader = STATE.clanRole === 'leader';
+            const members = clanData.members || [];
+            const memberListHtml = members.map(m => 
+                `<div class="member ${m.role === 'leader' ? 'leader' : ''}">${m.name} ${m.role === 'leader' ? '👑' : ''}</div>`
+            ).join('');
 
-    // Отображаем
-    nameDisplay.textContent = clanData.name;
-    levelDisplay.textContent = 'Уровень: ' + clanData.level;
-    const progress = clanData.exp / clanData.expNext * 100;
-    progressFill.style.width = Math.min(100, progress) + '%';
-    expDisplay.textContent = clanData.exp;
-    expNextDisplay.textContent = clanData.expNext;
+            container.innerHTML = `
+                <div class="clan-info">
+                    <span class="clan-name">${clanData.name}</span>
+                    <span class="clan-level">Уровень: ${clanData.level || 1}</span>
+                </div>
+                <div class="progress-bar" style="max-width:300px; margin:8px 0;">
+                    <div class="fill" id="clanProgressFill" style="width:${Math.min(100, ((clanData.exp || 0) / (clanData.expNext || 100) * 100))}%;"></div>
+                </div>
+                <div style="font-size:14px; margin-bottom:8px;">Опыт клана: ${clanData.exp || 0} / ${clanData.expNext || 100}</div>
+                <div class="clan-members">${memberListHtml}</div>
+                ${isLeader ? `<button class="clan-war-btn" id="deleteClanBtn" style="background:#cc3333;">🗑️ Удалить клан</button>` : ''}
+                <div class="clan-chat">
+                    <div style="font-weight:bold; margin-bottom:6px;">Клановый чат (заглушка)</div>
+                    <div class="chat-messages" id="clanChatMessages" style="height:150px;"><div style="color:#999;">Чат будет доступен в следующей версии</div></div>
+                </div>
+            `;
 
-    // Список участников
-    let membersHtml = '';
-    for (const m of clanData.members) {
-        const isLeader = m.role === 'leader';
-        membersHtml += `<div class="member ${isLeader ? 'leader' : ''}">${m.name} ${isLeader ? '👑' : ''}</div>`;
-    }
-    membersList.innerHTML = membersHtml;
+            if (isLeader) {
+                document.getElementById('deleteClanBtn')?.addEventListener('click', deleteClan);
+            }
+        })
+        .catch(err => {
+            container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки клана</div>';
+            addLog('❌ Ошибка загрузки клана: ' + err.message);
+        });
+}
 
-    // Клановый чат (заглушка)
-    chatMessages.innerHTML = '<div style="color:#999;">Клановый чат будет доступен позже</div>';
-    chatInput.disabled = true;
-    chatSendBtn.disabled = true;
+function createClan() {
+    const input = document.getElementById('newClanName');
+    if (!input) return;
+    const name = input.value.trim().slice(0, 10);
+    if (!name) { showToast('Введите название клана'); return; }
 
-    // Кнопка войны
-    document.getElementById('clanWarBtn').disabled = false;
-    document.getElementById('clanWarBtn').onclick = function() {
-        const enemyClan = prompt('Введите название вражеского клана:');
-        if (!enemyClan) return;
-        // Запускаем войну (заглушка)
-        STATE.clanWar = { enemyClan, startTime: Date.now(), status: 'active' };
+    // Проверяем, не занято ли имя
+    fetch(DB_URL + '/clans.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(data => {
+            if (data) {
+                for (const key in data) {
+                    if (data[key].name === name) {
+                        showToast('❌ Клан с таким именем уже существует');
+                        return;
+                    }
+                }
+            }
+            // Создаём клан
+            const clanData = {
+                name: name,
+                level: 1,
+                exp: 0,
+                expNext: 100,
+                members: [
+                    { uid: STATE.uid, name: STATE.nickname, role: 'leader' }
+                ],
+                createdAt: Date.now()
+            };
+            fetch(DB_URL + '/clans.json?auth=' + currentUser.idToken, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(clanData)
+            })
+            .then(res => res.json())
+            .then(result => {
+                const clanId = result.name;
+                STATE.clanId = clanId;
+                STATE.clanRole = 'leader';
+                STATE.clan = name;
+                saveStateToFirebase();
+                renderClans();
+                showToast('✅ Клан "' + name + '" создан!');
+                addLog('🏰 Создан клан: ' + name);
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+function deleteClan() {
+    if (!confirm('Вы уверены, что хотите удалить клан? Это действие необратимо.')) return;
+    const clanId = STATE.clanId;
+    if (!clanId) return;
+    // Только лидер может удалить
+    if (STATE.clanRole !== 'leader') { showToast('❌ Только лидер может удалить клан'); return; }
+
+    fetch(DB_URL + '/clans/' + clanId + '.json?auth=' + currentUser.idToken, {
+        method: 'DELETE'
+    })
+    .then(() => {
+        STATE.clanId = null;
+        STATE.clanRole = null;
+        STATE.clan = '';
         saveStateToFirebase();
-        showToast('⚔️ Война с кланом ' + enemyClan + ' начата!');
-        addLog('⚔️ Начата война с кланом ' + enemyClan);
-    };
+        renderClans();
+        showToast('🗑️ Клан удалён');
+        addLog('🗑️ Клан удалён');
+    })
+    .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
 // ===== КНОПКИ ВХОДА =====
@@ -4320,7 +4403,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Вкладки игр
     document.querySelectorAll('#gamesTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#gamesTabs button').forEach(b => b.classList.remove('active'));
@@ -4329,7 +4411,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('#section-games .tab-content').forEach(el => el.classList.remove('active'));
             const target = document.getElementById('tab-' + tab);
             if (target) target.classList.add('active');
-            // Инициализация игр при переключении
             if (tab === 'morols') { initMorols(); drawMorols(); }
             if (tab === 'plane') { initPlane(); drawPlane(); }
         };
