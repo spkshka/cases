@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Tahoma','Arial',sans-serif;
-            background: #3a6ea5;
+            background: #2a6a9a;
             color: #000;
             min-height: 100vh;
             display: flex;
@@ -18,7 +18,76 @@
             font-size: 16px;
             transition: background 0.3s, color 0.3s;
         }
-        /* ===== ТЕМЫ ===== */
+        /* ===== ТЕМА WINDOWS 7 (по умолчанию) ===== */
+        body.theme-windows7 {
+            background: #2a6a9a;
+            color: #000;
+        }
+        body.theme-windows7 #app {
+            background: #e8e8e8;
+            border: 2px solid #1a3a6a;
+            border-radius: 8px;
+        }
+        body.theme-windows7 .header {
+            border-bottom: 2px solid #1a3a6a;
+        }
+        body.theme-windows7 .header h1 {
+            color: #1a3a6a;
+            text-shadow: none;
+        }
+        body.theme-windows7 .nav button {
+            background: #d0d8e0;
+            border: 1px solid #1a3a6a;
+            color: #000;
+            border-radius: 4px;
+        }
+        body.theme-windows7 .nav button.active {
+            background: #1a3a6a;
+            color: #fff;
+        }
+        body.theme-windows7 .nav button.important {
+            font-size: 20px;
+            padding: 14px 24px;
+            background: #cc3333;
+            color: #fff;
+            border-color: #aa2222;
+        }
+        body.theme-windows7 .top-bar {
+            background: #ece9d8;
+            border: 1px solid #1a3a6a;
+        }
+        body.theme-windows7 .case-card,
+        body.theme-windows7 .inv-item,
+        body.theme-windows7 .market-listing,
+        body.theme-windows7 .account-info,
+        body.theme-windows7 .game-wrap,
+        body.theme-windows7 .clicker-wrap,
+        body.theme-windows7 .chat-wrap,
+        body.theme-windows7 .clan-wrap {
+            background: #ece9d8;
+            border: 2px solid #1a3a6a;
+            border-style: outset;
+        }
+        body.theme-windows7 .open-btn,
+        body.theme-windows7 .market-listing .price button,
+        body.theme-windows7 .click-btn,
+        body.theme-windows7 .modal-buttons button,
+        body.theme-windows7 .chat-send-btn,
+        body.theme-windows7 .clan-create-btn {
+            background: #1a3a6a;
+            color: #fff;
+            border: 2px solid #1a3a6a;
+            border-style: outset;
+        }
+        body.theme-windows7 .open-btn:hover,
+        body.theme-windows7 .market-listing .price button:hover,
+        body.theme-windows7 .click-btn:hover,
+        body.theme-windows7 .modal-buttons button:hover,
+        body.theme-windows7 .chat-send-btn:hover,
+        body.theme-windows7 .clan-create-btn:hover {
+            background: #2a5a8a;
+        }
+
         body.theme-windows_xp {
             background: #3a6ea5;
             color: #000;
@@ -34,10 +103,6 @@
         body.theme-windows_xp .header h1 {
             color: #fff;
             text-shadow: 1px 1px 0 #000;
-        }
-        body.theme-windows_xp .header .version {
-            color: #000 !important;
-            text-shadow: none;
         }
         body.theme-windows_xp .nav button {
             background: #ece9d8;
@@ -56,11 +121,6 @@
             background: #cc3333;
             color: #fff;
             border-color: #aa2222;
-            font-weight: bold;
-        }
-        body.theme-windows_xp .nav button.important.active {
-            background: #aa2222;
-            border-style: inset;
         }
         body.theme-windows_xp .top-bar {
             background: #ece9d8;
@@ -73,8 +133,7 @@
         body.theme-windows_xp .game-wrap,
         body.theme-windows_xp .clicker-wrap,
         body.theme-windows_xp .chat-wrap,
-        body.theme-windows_xp .clan-wrap,
-        body.theme-windows_xp .social-wrap {
+        body.theme-windows_xp .clan-wrap {
             background: #ece9d8;
             border: 2px solid #0a246a;
             border-style: outset;
@@ -84,8 +143,7 @@
         body.theme-windows_xp .click-btn,
         body.theme-windows_xp .modal-buttons button,
         body.theme-windows_xp .chat-send-btn,
-        body.theme-windows_xp .clan-create-btn,
-        body.theme-windows_xp .social-post-btn {
+        body.theme-windows_xp .clan-create-btn {
             background: #0a246a;
             color: #fff;
             border: 2px solid #0a246a;
@@ -96,17 +154,9 @@
         body.theme-windows_xp .click-btn:hover,
         body.theme-windows_xp .modal-buttons button:hover,
         body.theme-windows_xp .chat-send-btn:hover,
-        body.theme-windows_xp .clan-create-btn:hover,
-        body.theme-windows_xp .social-post-btn:hover {
+        body.theme-windows_xp .clan-create-btn:hover {
             background: #1a3a8a;
         }
-        body.theme-windows7 { background: #2a6a9a; color: #000; }
-        body.theme-windows7 #app { background: #e8e8e8; border: 2px solid #1a3a6a; border-radius: 8px; }
-        body.theme-windows7 .header { border-bottom-color: #1a3a6a; }
-        body.theme-windows7 .header h1 { color: #1a3a6a; text-shadow: none; }
-        body.theme-windows7 .nav button { background: #d0d8e0; border: 1px solid #1a3a6a; color: #000; border-radius: 4px; }
-        body.theme-windows7 .nav button.active { background: #1a3a6a; color: #fff; }
-        body.theme-windows7 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-windows11 { background: #f0f0f0; color: #000; }
         body.theme-windows11 #app { background: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
@@ -115,6 +165,17 @@
         body.theme-windows11 .nav button { background: #f5f5f5; border: 1px solid #ddd; color: #000; border-radius: 6px; }
         body.theme-windows11 .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
         body.theme-windows11 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-windows11 .top-bar { background: #f8f8f8; border-color: #ddd; }
+        body.theme-windows11 .case-card, body.theme-windows11 .inv-item,
+        body.theme-windows11 .market-listing, body.theme-windows11 .account-info,
+        body.theme-windows11 .game-wrap, body.theme-windows11 .clicker-wrap,
+        body.theme-windows11 .chat-wrap, body.theme-windows11 .clan-wrap { background: #fafafa; border-color: #ddd; }
+        body.theme-windows11 .open-btn, body.theme-windows11 .market-listing .price button,
+        body.theme-windows11 .click-btn, body.theme-windows11 .modal-buttons button,
+        body.theme-windows11 .chat-send-btn, body.theme-windows11 .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover,
+        body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover,
+        body.theme-windows11 .chat-send-btn:hover, body.theme-windows11 .clan-create-btn:hover { background: #106ebe; }
 
         body.theme-dark { background: #0a0a0a; color: #c0c0c0; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
@@ -123,6 +184,17 @@
         body.theme-dark .nav button { background: #222; border: 1px solid #444; color: #ccc; }
         body.theme-dark .nav button.active { background: #444; color: #fff; }
         body.theme-dark .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-dark .top-bar { background: #222; border-color: #444; }
+        body.theme-dark .case-card, body.theme-dark .inv-item,
+        body.theme-dark .market-listing, body.theme-dark .account-info,
+        body.theme-dark .game-wrap, body.theme-dark .clicker-wrap,
+        body.theme-dark .chat-wrap, body.theme-dark .clan-wrap { background: #222; border-color: #444; }
+        body.theme-dark .open-btn, body.theme-dark .market-listing .price button,
+        body.theme-dark .click-btn, body.theme-dark .modal-buttons button,
+        body.theme-dark .chat-send-btn, body.theme-dark .clan-create-btn { background: #444; color: #fff; border: 1px solid #666; }
+        body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover,
+        body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover,
+        body.theme-dark .chat-send-btn:hover, body.theme-dark .clan-create-btn:hover { background: #555; }
 
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
@@ -131,6 +203,14 @@
         body.theme-light .nav button { background: #f0f0f0; border: 1px solid #ccc; color: #000; }
         body.theme-light .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
         body.theme-light .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-light .top-bar { background: #f8f8f8; border-color: #ddd; }
+        body.theme-light .case-card, body.theme-light .inv-item,
+        body.theme-light .market-listing, body.theme-light .account-info,
+        body.theme-light .game-wrap, body.theme-light .clicker-wrap,
+        body.theme-light .chat-wrap, body.theme-light .clan-wrap { background: #fafafa; border-color: #ddd; }
+        body.theme-light .open-btn, body.theme-light .market-listing .price button,
+        body.theme-light .click-btn, body.theme-light .modal-buttons button,
+        body.theme-light .chat-send-btn, body.theme-light .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
 
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
@@ -139,6 +219,7 @@
         body.theme-vk2010 .nav button { background: #d8e0e8; border: 1px solid #a0b0c0; color: #4a6a8a; }
         body.theme-vk2010 .nav button.active { background: #4a8aba; color: #fff; border-color: #4a8aba; }
         body.theme-vk2010 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-vk2010 .top-bar { background: #d8e0e8; border-color: #a0b0c0; }
 
         body.theme-red { background: #2a0a0a; color: #f0d0d0; }
         body.theme-red #app { background: #3a1010; border: 1px solid #6a2020; }
@@ -147,6 +228,7 @@
         body.theme-red .nav button { background: #4a1818; border: 1px solid #6a2020; color: #f0d0d0; }
         body.theme-red .nav button.active { background: #8a2a2a; color: #fff; }
         body.theme-red .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-red .top-bar { background: #4a1818; border-color: #6a2020; }
 
         body.theme-blue { background: #0a1a3a; color: #c0d8f0; }
         body.theme-blue #app { background: #102050; border: 1px solid #2a4a8a; }
@@ -155,6 +237,7 @@
         body.theme-blue .nav button { background: #1a2a5a; border: 1px solid #2a4a8a; color: #c0d8f0; }
         body.theme-blue .nav button.active { background: #2a5a9a; color: #fff; }
         body.theme-blue .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
+        body.theme-blue .top-bar { background: #1a2a5a; border-color: #2a4a8a; }
 
         /* ===== ОБЩИЕ СТИЛИ ===== */
         #app {
@@ -177,14 +260,15 @@
             letter-spacing: 3px;
         }
         .header .version {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             margin-top: 2px;
         }
         .header .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             margin-top: 4px;
             color: #666;
+            line-height: 1.4;
         }
         .header .log-btn-header {
             position: absolute;
@@ -868,141 +952,46 @@
             border-radius: 10px;
         }
 
-        /* ===== СОЦ СЕТЬ ===== */
-        .social-wrap {
+        /* ===== МЕССЕНДЖЕР (упрощённый) ===== */
+        .chat-wrap {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
             padding: 12px;
             background: #f0f4f8;
         }
-        .social-feed {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 12px;
-        }
-        .social-post {
-            border: 1px solid #a0b0c0;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 10px;
-            background: #fff;
-        }
-        .social-post .post-header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 4px;
-            margin-bottom: 6px;
-        }
-        .social-post .post-content {
-            font-size: 15px;
-            margin: 6px 0;
-            white-space: pre-wrap;
-        }
-        .social-post .post-actions {
-            display: flex;
-            gap: 12px;
-            font-size: 14px;
-            margin-top: 6px;
-        }
-        .social-post .post-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            color: #4a8aba;
-        }
-        .social-post .post-actions button:hover { text-decoration: underline; }
-        .social-post .comments {
-            margin-top: 8px;
-            padding-top: 6px;
-            border-top: 1px solid #ddd;
-            font-size: 13px;
-        }
-        .social-post .comments .comment {
-            padding: 2px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .social-post .comments .comment .comment-author { font-weight: bold; }
-        .social-post .comments .comment .comment-text { margin-left: 6px; }
-        .social-post .comments .comment-form {
-            display: flex;
-            gap: 6px;
-            margin-top: 6px;
-        }
-        .social-post .comments .comment-form input {
-            flex: 1;
-            padding: 4px 8px;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-        .social-post .comments .comment-form button {
-            padding: 4px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background: #4a8aba;
-            color: #fff;
-        }
-        .social-create-post {
-            margin-bottom: 12px;
-            border: 1px solid #a0b0c0;
-            border-radius: 6px;
-            padding: 12px;
-            background: #d8e0e8;
-        }
-        .social-create-post textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            font-size: 15px;
-            background: #fff;
-            resize: vertical;
-            min-height: 60px;
-        }
-        .social-create-post .row {
+        .chat-wrap .chat-target {
             display: flex;
             gap: 8px;
-            margin-top: 8px;
+            margin-bottom: 12px;
             align-items: center;
-        }
-        .social-create-post .row button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .social-chats {
-            margin-top: 12px;
-            border-top: 1px solid #a0b0c0;
-            padding-top: 12px;
-        }
-        .social-chats .chat-list {
-            display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
         }
-        .social-chats .chat-list button {
+        .chat-wrap .chat-target label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .chat-wrap .chat-target input {
+            flex: 1;
+            padding: 8px 12px;
             border: 1px solid #a0b0c0;
-            border-radius: 6px;
-            padding: 6px 14px;
-            cursor: pointer;
+            border-radius: 4px;
+            font-size: 15px;
             background: #d8e0e8;
-            transition: 0.2s;
+            color: #1a2a3a;
+            min-width: 120px;
         }
-        .social-chats .chat-list button.active {
+        .chat-wrap .chat-target button {
+            padding: 8px 16px;
+            border: 1px solid #a0b0c0;
+            border-radius: 4px;
+            cursor: pointer;
             background: #4a8aba;
             color: #fff;
-            border-color: #4a8aba;
+            transition: 0.2s;
+            font-weight: bold;
         }
-        .social-chats .chat-messages {
+        .chat-wrap .chat-target button:hover { background: #3a7aaa; }
+        .chat-messages {
             height: 200px;
             overflow-y: auto;
             border: 1px solid #a0b0c0;
@@ -1012,17 +1001,17 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
-        .social-chats .chat-messages .msg {
+        .chat-messages .msg {
             padding: 4px 0;
             border-bottom: 1px solid #eee;
         }
-        .social-chats .chat-messages .msg .time { color: #999; font-size: 11px; margin-right: 8px; }
-        .social-chats .chat-messages .msg .sender { font-weight: bold; }
-        .social-chats .chat-input-row {
+        .chat-messages .msg .time { color: #999; font-size: 11px; margin-right: 8px; }
+        .chat-messages .msg .sender { font-weight: bold; }
+        .chat-input-row {
             display: flex;
             gap: 8px;
         }
-        .social-chats .chat-input-row input {
+        .chat-input-row input {
             flex: 1;
             padding: 8px 12px;
             border: 1px solid #a0b0c0;
@@ -1031,36 +1020,17 @@
             background: #d8e0e8;
             color: #1a2a3a;
         }
-        .social-chats .chat-input-row button {
+        .chat-input-row button {
             padding: 8px 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
+            background: #1a3a6a;
+            color: #fff;
         }
-        .social-chats .chat-settings {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .social-chats .chat-settings button {
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            padding: 4px 12px;
-            font-size: 13px;
-            cursor: pointer;
-            background: #d8e0e8;
-            transition: 0.2s;
-        }
-        .social-chats .chat-settings button:hover { background: #c8d0d8; }
-        .social-chats .chat-settings .status-select {
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #a0b0c0;
-            background: #d8e0e8;
-        }
+        .chat-input-row button:hover { background: #2a5a8a; }
 
         /* ===== КЛАНЫ ===== */
         .clan-wrap {
@@ -1077,11 +1047,14 @@
         }
         .clan-wrap .clan-info .clan-name { font-size: 20px; font-weight: bold; }
         .clan-wrap .clan-info .clan-level { font-size: 16px; }
+        .clan-wrap .clan-info .clan-members-count { font-size: 14px; color: #666; }
         .clan-wrap .clan-members {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
             margin-bottom: 12px;
+            max-height: 120px;
+            overflow-y: auto;
         }
         .clan-wrap .clan-members .member {
             border: 1px solid #a0b0c0;
@@ -1497,7 +1470,7 @@
         .captcha-box button:hover { background: #1a3a8a; }
     </style>
 </head>
-<body class="theme-windows_xp">
+<body class="theme-windows7">
 
 <div id="loadingStatus"><div class="spinner"></div><div id="loadingText">Загрузка...</div></div>
 <audio id="bg-music" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
@@ -1510,7 +1483,7 @@
     <div class="login-box">
         <h2>Крутая игра про ттп</h2>
         <div class="sub">Вход / Регистрация</div>
-        <div class="promo">версия 1.2 — Сезон 1</div>
+        <div class="promo">версия 1.2</div>
         <input type="text" id="loginNick" placeholder="Ник" value="spK">
         <input type="password" id="loginPass" placeholder="Пароль">
         <div class="error" id="loginError"></div>
@@ -1529,7 +1502,7 @@
     <div class="header">
         <h1>Крутая игра про ттп</h1>
         <div class="version">версия 1.2</div>
-        <div class="subtitle">Сезон 1</div>
+        <div class="subtitle">игра создана @arbz7 \ xxspk \ made by AI</div>
         <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
     </div>
     <div class="top-bar">
@@ -1544,7 +1517,7 @@
         <span>Опыт: <span id="expDisplay">0</span></span>
         <span>До Pro: <span id="proProgressDisplay">0%</span></span>
     </div>
-    <div class="update-announce">🔥 Обновление 1.2 — Соц сеть, Paint, новый самолёт, улучшения!</div>
+    <div class="update-announce">🔥 Обновление 1.2 — Упрощённый чат, исправленные кланы, логи, Windows 7!</div>
 
     <!-- НАВИГАЦИЯ -->
     <nav class="nav" id="mainNav">
@@ -1556,7 +1529,7 @@
         <button data-section="clicker">🖱️ Кликер</button>
         <button data-section="achievements">🏅 Достижения</button>
         <button data-section="promo">🎁 Промокод</button>
-        <button data-section="social">🌐 Соц сеть</button>
+        <button data-section="chat">💬 Чат</button>
         <button data-section="clans">🏰 Кланы</button>
         <button data-section="account">👤 Аккаунт</button>
         <button data-section="settings">⚙️ Настройки</button>
@@ -1701,48 +1674,21 @@
             </div>
         </section>
 
-        <!-- СОЦ СЕТЬ -->
-        <section id="section-social" class="section">
-            <div class="title">Соц сеть <span class="badge">посты, чаты, общение</span></div>
-            <div class="social-wrap">
-                <div class="tab-bar" id="socialTabs">
-                    <button class="active" data-social-tab="feed">📰 Лента</button>
-                    <button data-social-tab="chats">💬 Сообщения</button>
+        <!-- ЧАТ (упрощённый) -->
+        <section id="section-chat" class="section">
+            <div class="title">Чат <span class="badge">просто введи ник и пиши</span></div>
+            <div class="chat-wrap">
+                <div class="chat-target">
+                    <label>Собеседник:</label>
+                    <input type="text" id="chatTargetInput" placeholder="Введите ник игрока">
+                    <button id="chatConnectBtn">Начать чат</button>
                 </div>
-                <!-- Лента -->
-                <div class="tab-content active" id="social-feed">
-                    <div class="social-create-post">
-                        <textarea id="postContent" placeholder="Что у вас нового? (можно рисовать в Paint и вставить ссылку)"></textarea>
-                        <div class="row">
-                            <button id="postSubmitBtn" class="social-post-btn">Опубликовать</button>
-                            <button id="paintBtn">🎨 Paint</button>
-                        </div>
-                    </div>
-                    <div class="social-feed" id="feedContainer">
-                        <div style="color:#999; text-align:center; padding:20px;">Загрузка постов...</div>
-                    </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div style="color:#999;">Введите ник собеседника и нажмите «Начать чат»</div>
                 </div>
-                <!-- Сообщения -->
-                <div class="tab-content" id="social-chats">
-                    <div class="social-chats">
-                        <div class="chat-list" id="chatList"></div>
-                        <div class="chat-messages" id="chatMessages"><div style="color:#999;">Выберите собеседника</div></div>
-                        <div class="chat-input-row">
-                            <input type="text" id="chatInput" placeholder="Введите сообщение..." disabled>
-                            <button class="chat-send-btn" id="chatSendBtn" disabled>Отправить</button>
-                        </div>
-                        <div class="chat-settings">
-                            <span style="font-size:14px;">Статус:</span>
-                            <select class="status-select" id="chatStatusSelect">
-                                <option value="all">Все могут писать</option>
-                                <option value="friends">Только друзья</option>
-                                <option value="none">Не беспокоить</option>
-                            </select>
-                            <button id="clearChatBtn">🗑️ Очистить чат</button>
-                            <button id="removeFriendBtn">❌ Удалить из друзей</button>
-                            <button id="addFriendBtn">➕ Добавить друга</button>
-                        </div>
-                    </div>
+                <div class="chat-input-row">
+                    <input type="text" id="chatInput" placeholder="Введите сообщение..." disabled>
+                    <button class="chat-send-btn" id="chatSendBtn" disabled>Отправить</button>
                 </div>
             </div>
         </section>
@@ -1829,18 +1775,13 @@
             <div style="padding:20px; border:1px solid #0a246a; border-radius:6px; background:#ece9d8; text-align:left; color:#1a2a3a;">
                 <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2</div>
                 <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                    <li>🆕 Новый кейс «Города 2» (150 ₽)</li>
-                    <li>✈️ Самолёт переделан: управление вверх/вниз, препятствия-круги</li>
-                    <li>🌐 Соц сеть: посты, лайки, комментарии, чаты без друзей</li>
-                    <li>🛒 На рынке можно выставлять до 50 предметов за раз</li>
-                    <li>📦 Ограничение инвентаря: 1000 предметов</li>
-                    <li>🔴 Кнопки «Игры», «Кейсы», «Рейтинг» стали большими и красными</li>
-                    <li>🔄 Капча теперь каждые 25 кликов</li>
-                    <li>🔐 Сброс прогресса с паролем и капчей</li>
-                    <li>🕒 Часы Windows в шапке</li>
-                    <li>🎨 Paint в соцсети (рисование и публикация)</li>
-                    <li>🏅 Новые достижения</li>
-                    <li>💰 Валюта переименована в рубли</li>
+                    <li>💬 Упрощённый чат: введи ник и пиши</li>
+                    <li>🏰 Исправлены кланы: участники, опыт, чат</li>
+                    <li>📋 Исправлены логи</li>
+                    <li>🎵 Музыка по умолчанию — мелодичная</li>
+                    <li>🖥️ Тема по умолчанию — Windows 7</li>
+                    <li>📝 Подпись об авторах</li>
+                    <li>🗑️ Убрана лента (оставлен только мессенджер)</li>
                 </ul>
             </div>
         </section>
@@ -1889,10 +1830,9 @@
 
 <div class="log-popup" id="logPopup"></div>
 
-<!-- ===== ВЕСЬ JS ЗДЕСЬ ===== -->
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ИСПРАВЛЕННАЯ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ИСПРАВЛЕННАЯ: ЧАТ, КЛАНЫ, ЛОГИ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1914,7 +1854,7 @@ let STATE = {
     balance: 500, totalEarned: 0, totalSpent: 0, maxBalance: 500,
     elo: 1000, maxElo: 1000, casesOpened: 0, maxCasesOpened: 0,
     totalClicks: 0, clicksSinceCaptcha: 0, inventory: [], itemsCount: {},
-    settings: { theme: 'windows_xp', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+    settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
     morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 },
     plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
     achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
@@ -1923,16 +1863,11 @@ let STATE = {
     marketBuys: 0, marketSells: 0, nickChanged: false, easterFound: false, topElo: false,
     eloInitialized: false, muzhikiRestored: false, eloPromoUsed: false,
     welcomeShown: false, season: 1,
-    friends: [],
-    blocked: [],
     clanId: null,
     clanRole: null,
     messages: {},
-    trades: [],
-    clanWar: null,
-    posts: [],
-    userStatus: 'all',
-    chatStatus: {}
+    // Чат: сообщения хранятся по ключу chat_{uid1}_{uid2}
+    // Кланы: отдельная структура в Firebase /clans/
 };
 
 let logMessages = [];
@@ -2221,16 +2156,8 @@ const ACHIEVEMENTS = [
     { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
     { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
     { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
-    { id: 'first_post', name: 'Опубликовать первый пост', check: s => s.posts && s.posts.length >= 1 },
-    { id: 'five_posts', name: 'Опубликовать 5 постов', check: s => s.posts && s.posts.length >= 5 },
-    { id: 'first_like', name: 'Поставить лайк', check: s => s.totalLikes && s.totalLikes >= 1 },
-    { id: 'ten_likes', name: 'Поставить 10 лайков', check: s => s.totalLikes && s.totalLikes >= 10 },
-    { id: 'first_comment', name: 'Написать комментарий', check: s => s.totalComments && s.totalComments >= 1 },
-    { id: 'ten_comments', name: 'Написать 10 комментариев', check: s => s.totalComments && s.totalComments >= 10 },
     { id: 'first_message', name: 'Отправить сообщение', check: s => s.totalMessages && s.totalMessages >= 1 },
     { id: 'ten_messages', name: 'Отправить 10 сообщений', check: s => s.totalMessages && s.totalMessages >= 10 },
-    { id: 'add_friend', name: 'Добавить друга', check: s => s.friends && s.friends.length >= 1 },
-    { id: 'five_friends', name: 'Иметь 5 друзей', check: s => s.friends && s.friends.length >= 5 },
     { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
 ];
 
@@ -2376,7 +2303,7 @@ function registerUser(nick, password) {
                     inventory: [],
                     achievements: [],
                     registrationDate: Date.now(),
-                    settings: { theme: 'windows_xp', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+                    settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
                     morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 },
                     plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
                     exp: 0,
@@ -2395,18 +2322,8 @@ function registerUser(nick, password) {
                     eloPromoUsed: false,
                     welcomeShown: false,
                     season: 1,
-                    friends: [],
-                    blocked: [],
                     clanId: null,
                     clanRole: null,
-                    messages: {},
-                    trades: [],
-                    clanWar: null,
-                    posts: [],
-                    userStatus: 'all',
-                    chatStatus: {},
-                    totalLikes: 0,
-                    totalComments: 0,
                     totalMessages: 0
                 };
                 const updates = {};
@@ -2440,7 +2357,6 @@ function registerUser(nick, password) {
         });
 }
 
-// ===== ОСНОВНАЯ ФУНКЦИЯ ВХОДА =====
 function onAuthSuccess() {
     const status = document.getElementById('loadingStatus');
     if (status) status.classList.add('hidden');
@@ -2483,18 +2399,8 @@ function onAuthSuccess() {
         STATE.eloPromoUsed = data.eloPromoUsed || false;
         STATE.welcomeShown = data.welcomeShown || false;
         STATE.season = data.season || 1;
-        STATE.friends = data.friends || [];
-        STATE.blocked = data.blocked || [];
         STATE.clanId = data.clanId || null;
         STATE.clanRole = data.clanRole || null;
-        STATE.messages = data.messages || {};
-        STATE.trades = data.trades || [];
-        STATE.clanWar = data.clanWar || null;
-        STATE.posts = data.posts || [];
-        STATE.userStatus = data.userStatus || 'all';
-        STATE.chatStatus = data.chatStatus || {};
-        STATE.totalLikes = data.totalLikes || 0;
-        STATE.totalComments = data.totalComments || 0;
         STATE.totalMessages = data.totalMessages || 0;
 
         if (!STATE.eloInitialized || STATE.elo < 1000) {
@@ -2512,7 +2418,7 @@ function onAuthSuccess() {
         const app = document.getElementById('app');
         if (app) app.style.display = 'block';
 
-        applyTheme(STATE.settings.theme || 'windows_xp');
+        applyTheme(STATE.settings.theme || 'windows7');
 
         showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
         STATE.welcomeShown = true;
@@ -2528,8 +2434,6 @@ function onAuthSuccess() {
             try { renderInventory(); } catch(e) { addLog('⚠️ renderInventory: ' + e.message); }
             try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
             try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
-            try { renderSocialFeed(); } catch(e) { addLog('⚠️ renderSocialFeed: ' + e.message); }
-            try { renderSocialChats(); } catch(e) { addLog('⚠️ renderSocialChats: ' + e.message); }
             try { renderClans(); } catch(e) { addLog('⚠️ renderClans: ' + e.message); }
         }, 50);
 
@@ -2590,18 +2494,8 @@ function saveStateToFirebase() {
         eloPromoUsed: STATE.eloPromoUsed,
         welcomeShown: STATE.welcomeShown,
         season: STATE.season,
-        friends: STATE.friends,
-        blocked: STATE.blocked,
         clanId: STATE.clanId,
         clanRole: STATE.clanRole,
-        messages: STATE.messages,
-        trades: STATE.trades,
-        clanWar: STATE.clanWar,
-        posts: STATE.posts,
-        userStatus: STATE.userStatus,
-        chatStatus: STATE.chatStatus,
-        totalLikes: STATE.totalLikes,
-        totalComments: STATE.totalComments,
         totalMessages: STATE.totalMessages
     };
     return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
@@ -3366,8 +3260,6 @@ function renderAccount() {
         <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
         <div class="row"><span class="label">XP Самолёт</span><span class="value">${STATE.plane.xp.toFixed(1)}</span></div>
         <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
-        <div class="row"><span class="label">Друзей</span><span class="value">${STATE.friends.length}</span></div>
-        <div class="row"><span class="label">Заблокированных</span><span class="value">${STATE.blocked.length}</span></div>
     `;
 
     const clanDisplay = document.getElementById('clanDisplay');
@@ -3531,8 +3423,6 @@ function renderAccount() {
                     renderInventory();
                     renderAccount();
                     renderClans();
-                    renderSocialFeed();
-                    renderSocialChats();
                     checkAllAchievements();
                 });
             })
@@ -4157,7 +4047,7 @@ function showCaptcha() {
 }
 
 // ===== НАСТРОЙКИ =====
-const THEMES = { 'windows_xp': 'Windows XP', 'windows7': 'Windows 7', 'windows11': 'Windows 11', 'dark': 'Тёмная', 'light': 'Светлая', 'vk2010': 'VK2010', 'red': 'Красная', 'blue': 'Синяя' };
+const THEMES = { 'windows7': 'Windows 7', 'windows_xp': 'Windows XP', 'windows11': 'Windows 11', 'dark': 'Тёмная', 'light': 'Светлая', 'vk2010': 'VK2010', 'red': 'Красная', 'blue': 'Синяя' };
 
 function renderSettings() {
     try {
@@ -4167,7 +4057,7 @@ function renderSettings() {
         for (const [key, label] of Object.entries(THEMES)) {
             const btn = document.createElement('div');
             btn.className = 'color-btn' + (key === STATE.settings.theme ? ' active' : '');
-            const colors = { 'windows_xp': '#3a6ea5', 'windows7': '#2a6a9a', 'windows11': '#f0f0f0', 'dark': '#0a0a0a', 'light': '#f5f5f5', 'vk2010': '#c8d0d8', 'red': '#2a0a0a', 'blue': '#0a1a3a' };
+            const colors = { 'windows7': '#2a6a9a', 'windows_xp': '#3a6ea5', 'windows11': '#f0f0f0', 'dark': '#0a0a0a', 'light': '#f5f5f5', 'vk2010': '#c8d0d8', 'red': '#2a0a0a', 'blue': '#0a1a3a' };
             btn.style.background = colors[key] || '#c8d0d8';
             btn.title = label;
             btn.dataset.theme = key;
@@ -4447,10 +4337,6 @@ function navigateTo(sectionId) {
     if (sectionId === 'cases') renderCases();
     if (sectionId === 'achievements') renderAchievements();
     if (sectionId === 'account') renderAccount();
-    if (sectionId === 'social') {
-        renderSocialFeed();
-        renderSocialChats();
-    }
     if (sectionId === 'clans') renderClans();
     if (sectionId === 'clicker') {
         document.getElementById('clickerBalance').textContent = STATE.balance;
@@ -4459,374 +4345,7 @@ function navigateTo(sectionId) {
     addLog('📂 Переход в раздел: ' + sectionId);
 }
 
-// ===== СОЦСЕТЬ =====
-function renderSocialFeed() {
-    const container = document.getElementById('feedContainer');
-    if (!container) { addLog('⚠️ feedContainer не найден'); return; }
-
-    fetch(DB_URL + '/posts.json?auth=' + (currentUser?.idToken || ''))
-        .then(res => res.json())
-        .then(data => {
-            let posts = [];
-            if (data) {
-                for (const key in data) {
-                    const post = data[key];
-                    post._id = key;
-                    posts.push(post);
-                }
-            }
-            posts.sort((a, b) => b.timestamp - a.timestamp);
-            if (posts.length === 0) {
-                container.innerHTML = '<div style="color:#999; text-align:center; padding:20px;">Пока нет постов. Будьте первым!</div>';
-                return;
-            }
-            let html = '';
-            for (const post of posts) {
-                const likeCount = post.likes ? post.likes.length : 0;
-                const comments = post.comments || [];
-                html += `<div class="social-post" data-post-id="${post._id}">
-                    <div class="post-header">
-                        <span>${post.author} (${post.authorId ? post.authorId.slice(0,8) : ''})</span>
-                        <span style="font-size:12px; color:#999;">${new Date(post.timestamp).toLocaleString()}</span>
-                    </div>
-                    <div class="post-content">${post.text}</div>
-                    ${post.image ? `<img src="${post.image}" style="max-width:100%; max-height:200px; margin:6px 0;" />` : ''}
-                    <div class="post-actions">
-                        <button class="like-btn" data-post-id="${post._id}">❤️ ${likeCount}</button>
-                        <button class="comment-toggle-btn" data-post-id="${post._id}">💬 ${comments.length}</button>
-                    </div>
-                    <div class="comments" id="comments-${post._id}" style="display:none;">
-                        ${comments.map(c => `<div class="comment"><span class="comment-author">${c.author}:</span><span class="comment-text">${c.text}</span></div>`).join('')}
-                        <div class="comment-form">
-                            <input type="text" placeholder="Ваш комментарий..." class="comment-input" data-post-id="${post._id}">
-                            <button class="comment-submit" data-post-id="${post._id}">→</button>
-                        </div>
-                    </div>
-                </div>`;
-            }
-            container.innerHTML = html;
-
-            container.querySelectorAll('.like-btn').forEach(btn => {
-                btn.onclick = function() { toggleLike(this.dataset.postId); };
-            });
-            container.querySelectorAll('.comment-toggle-btn').forEach(btn => {
-                btn.onclick = function() {
-                    const pid = this.dataset.postId;
-                    const commentsDiv = document.getElementById('comments-' + pid);
-                    if (commentsDiv) commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
-                };
-            });
-            container.querySelectorAll('.comment-submit').forEach(btn => {
-                btn.onclick = function() {
-                    const pid = this.dataset.postId;
-                    const input = document.querySelector(`.comment-input[data-post-id="${pid}"]`);
-                    if (input && input.value.trim()) {
-                        addComment(pid, input.value.trim());
-                    }
-                };
-            });
-            container.querySelectorAll('.comment-input').forEach(input => {
-                input.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const pid = this.dataset.postId;
-                        const text = this.value.trim();
-                        if (text) addComment(pid, text);
-                    }
-                });
-            });
-        })
-        .catch(err => {
-            container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки постов</div>';
-            addLog('❌ Ошибка загрузки постов: ' + err.message);
-        });
-}
-
-function publishPost() {
-    const textarea = document.getElementById('postContent');
-    const text = textarea.value.trim();
-    if (!text) { showToast('Введите текст поста'); return; }
-    const post = {
-        author: STATE.nickname,
-        authorId: STATE.uid,
-        text: text,
-        image: '',
-        timestamp: Date.now(),
-        likes: [],
-        comments: []
-    };
-    fetch(DB_URL + '/posts.json?auth=' + currentUser.idToken, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(post)
-    })
-    .then(res => res.json())
-    .then(() => {
-        showToast('✅ Пост опубликован!');
-        textarea.value = '';
-        if (!STATE.posts) STATE.posts = [];
-        STATE.posts.push(post);
-        STATE.totalMessages = (STATE.totalMessages || 0) + 1;
-        checkAllAchievements();
-        saveStateToFirebase();
-        renderSocialFeed();
-        addLog('📝 Опубликован пост: ' + text.substring(0, 30) + '...');
-    })
-    .catch(err => showToast('❌ Ошибка: ' + err.message));
-}
-
-function toggleLike(postId) {
-    if (!currentUser) { showToast('Войдите'); return; }
-    fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
-        .then(res => res.json())
-        .then(post => {
-            if (!post) { showToast('Пост не найден'); return; }
-            let likes = post.likes || [];
-            const index = likes.indexOf(STATE.uid);
-            if (index !== -1) {
-                likes.splice(index, 1);
-            } else {
-                likes.push(STATE.uid);
-                STATE.totalLikes = (STATE.totalLikes || 0) + 1;
-                checkAllAchievements();
-            }
-            return fetch(DB_URL + '/posts/' + postId + '/likes.json?auth=' + currentUser.idToken, {
-                method: 'PUT',
-                body: JSON.stringify(likes)
-            });
-        })
-        .then(() => {
-            saveStateToFirebase();
-            renderSocialFeed();
-            addLog('❤️ Лайк поставлен/удалён');
-        })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
-}
-
-function addComment(postId, text) {
-    if (!currentUser) { showToast('Войдите'); return; }
-    if (!text.trim()) return;
-    const comment = {
-        author: STATE.nickname,
-        text: text.trim(),
-        timestamp: Date.now()
-    };
-    fetch(DB_URL + '/posts/' + postId + '/comments.json?auth=' + currentUser.idToken)
-        .then(res => res.json())
-        .then(existing => {
-            let comments = existing ? Object.values(existing) : [];
-            comments.push(comment);
-            return fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
-                .then(res => res.json())
-                .then(post => {
-                    if (!post) return;
-                    const newComments = post.comments || [];
-                    newComments.push(comment);
-                    return fetch(DB_URL + '/posts/' + postId + '/comments.json?auth=' + currentUser.idToken, {
-                        method: 'PUT',
-                        body: JSON.stringify(newComments)
-                    });
-                });
-        })
-        .then(() => {
-            STATE.totalComments = (STATE.totalComments || 0) + 1;
-            checkAllAchievements();
-            saveStateToFirebase();
-            renderSocialFeed();
-            addLog('💬 Комментарий добавлен');
-        })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
-}
-
-function renderSocialChats() {
-    const chatList = document.getElementById('chatList');
-    const messagesDiv = document.getElementById('chatMessages');
-    const input = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSendBtn');
-    if (!chatList || !messagesDiv) { addLog('⚠️ Элементы чата не найдены'); return; }
-
-    fetch(DB_URL + '/users.json?auth=' + (currentUser?.idToken || ''))
-        .then(res => res.json())
-        .then(data => {
-            let users = [];
-            if (data) {
-                for (const uid in data) {
-                    if (uid !== STATE.uid) {
-                        users.push({ uid, nickname: data[uid].nickname, status: data[uid].userStatus || 'all' });
-                    }
-                }
-            }
-            let html = '';
-            if (users.length === 0) {
-                html = '<div style="color:#999;">Нет других игроков</div>';
-            } else {
-                for (const u of users) {
-                    const isActive = (currentChatPartner === u.uid);
-                    html += `<button class="${isActive ? 'active' : ''}" data-uid="${u.uid}">${u.nickname} (${u.status})</button>`;
-                }
-            }
-            chatList.innerHTML = html;
-
-            chatList.querySelectorAll('button').forEach(btn => {
-                btn.onclick = function() {
-                    const uid = this.dataset.uid;
-                    currentChatPartner = uid;
-                    renderSocialChats();
-                    loadChatMessages(uid);
-                    if (input) input.disabled = false;
-                    if (sendBtn) sendBtn.disabled = false;
-                };
-            });
-
-            if (currentChatPartner) {
-                loadChatMessages(currentChatPartner);
-                if (input) input.disabled = false;
-                if (sendBtn) sendBtn.disabled = false;
-            } else {
-                messagesDiv.innerHTML = '<div style="color:#999;">Выберите собеседника</div>';
-                if (input) input.disabled = true;
-                if (sendBtn) sendBtn.disabled = true;
-            }
-        })
-        .catch(err => {
-            messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки списка пользователей</div>';
-            addLog('❌ Ошибка загрузки чатов: ' + err.message);
-        });
-}
-
-let currentChatPartner = null;
-
-function loadChatMessages(partnerUid) {
-    const messagesDiv = document.getElementById('chatMessages');
-    if (!messagesDiv) return;
-    const chatId = [STATE.uid, partnerUid].sort().join('_');
-    const msgs = STATE.messages[chatId] || [];
-    let updated = false;
-    for (const msg of msgs) {
-        if (msg.sender !== STATE.uid && !msg.read) {
-            msg.read = true;
-            updated = true;
-        }
-    }
-    if (updated) saveStateToFirebase();
-
-    const now = Date.now();
-    const filtered = msgs.filter(msg => {
-        if (!msg.read) return true;
-        return (now - msg.timestamp) < 10 * 60 * 1000;
-    });
-    if (filtered.length !== msgs.length) {
-        STATE.messages[chatId] = filtered;
-        saveStateToFirebase();
-    }
-
-    let html = '';
-    if (filtered.length === 0) {
-        html = '<div style="color:#999;">Нет сообщений</div>';
-    } else {
-        for (const msg of filtered) {
-            const sender = (msg.sender === STATE.uid) ? 'Вы' : 'Собеседник';
-            const time = new Date(msg.timestamp).toLocaleTimeString();
-            html += `<div class="msg"><span class="time">${time}</span><span class="sender">${sender}:</span> ${msg.text}</div>`;
-        }
-    }
-    messagesDiv.innerHTML = html;
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
-// ---- Paint ----
-function openPaint() {
-    const overlay = document.createElement('div');
-    overlay.id = 'paintOverlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
-    const box = document.createElement('div');
-    box.style.cssText = 'background:#fff;padding:20px;border-radius:12px;max-width:500px;width:100%;';
-    box.innerHTML = `
-        <h3>Paint</h3>
-        <canvas id="paintCanvas" width="400" height="300" style="border:1px solid #000;width:100%;height:auto;cursor:crosshair;"></canvas>
-        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-            <input type="color" id="paintColor" value="#000000">
-            <button id="paintClearBtn">Очистить</button>
-            <button id="paintCopyBtn">📋 Копировать в пост</button>
-            <button id="paintCloseBtn">Закрыть</button>
-        </div>
-    `;
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
-
-    const canvas = document.getElementById('paintCanvas');
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, 400, 300);
-    let drawing = false;
-
-    canvas.addEventListener('mousedown', (e) => {
-        drawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) * (400 / rect.width);
-        const y = (e.clientY - rect.top) * (300 / rect.height);
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    });
-    canvas.addEventListener('mousemove', (e) => {
-        if (!drawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX - rect.left) * (400 / rect.width);
-        const y = (e.clientY - rect.top) * (300 / rect.height);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = document.getElementById('paintColor').value;
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-    });
-    canvas.addEventListener('mouseup', () => { drawing = false; });
-    canvas.addEventListener('mouseleave', () => { drawing = false; });
-
-    canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        drawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        const x = (touch.clientX - rect.left) * (400 / rect.width);
-        const y = (touch.clientY - rect.top) * (300 / rect.height);
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    });
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        if (!drawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        const x = (touch.clientX - rect.left) * (400 / rect.width);
-        const y = (touch.clientY - rect.top) * (300 / rect.height);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = document.getElementById('paintColor').value;
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-    });
-    canvas.addEventListener('touchend', () => { drawing = false; });
-
-    document.getElementById('paintClearBtn').onclick = function() {
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, 400, 300);
-    };
-    document.getElementById('paintCopyBtn').onclick = function() {
-        const dataUrl = canvas.toDataURL('image/png');
-        const postText = document.getElementById('postContent');
-        postText.value += `\n[Картинка: ${dataUrl}]`;
-        navigator.clipboard.writeText(dataUrl).then(() => {
-            showToast('✅ Ссылка на картинку скопирована, вставьте её в пост');
-        }).catch(() => {
-            showToast('⚠️ Скопируйте картинку вручную');
-        });
-        document.getElementById('paintOverlay').remove();
-    };
-    document.getElementById('paintCloseBtn').onclick = function() {
-        document.getElementById('paintOverlay').remove();
-    };
-}
-
-// ===== КЛАНЫ =====
+// ===== КЛАНЫ (ИСПРАВЛЕННЫЕ) =====
 function renderClans() {
     const container = document.getElementById('clanContent');
     if (!container) return;
@@ -4865,31 +4384,133 @@ function renderClans() {
                 `<div class="member ${m.role === 'leader' ? 'leader' : ''}">${m.name} ${m.role === 'leader' ? '👑' : ''}</div>`
             ).join('');
 
+            const exp = clanData.exp || 0;
+            const expNext = clanData.expNext || 100;
+            const progress = Math.min(100, (exp / expNext) * 100);
+
             container.innerHTML = `
                 <div class="clan-info">
                     <span class="clan-name">${clanData.name}</span>
                     <span class="clan-level">Уровень: ${clanData.level || 1}</span>
+                    <span class="clan-members-count">Участников: ${members.length} / 30</span>
                 </div>
                 <div class="progress-bar" style="max-width:300px; margin:8px 0;">
-                    <div class="fill" id="clanProgressFill" style="width:${Math.min(100, ((clanData.exp || 0) / (clanData.expNext || 100) * 100))}%;"></div>
+                    <div class="fill" id="clanProgressFill" style="width:${progress}%;"></div>
                 </div>
-                <div style="font-size:14px; margin-bottom:8px;">Опыт клана: ${clanData.exp || 0} / ${clanData.expNext || 100}</div>
+                <div style="font-size:14px; margin-bottom:8px;">Опыт клана: ${exp} / ${expNext}</div>
                 <div class="clan-members">${memberListHtml}</div>
                 ${isLeader ? `<button class="clan-war-btn" id="deleteClanBtn" style="background:#cc3333;">🗑️ Удалить клан</button>` : ''}
                 <div class="clan-chat">
-                    <div style="font-weight:bold; margin-bottom:6px;">Клановый чат (заглушка)</div>
-                    <div class="chat-messages" id="clanChatMessages" style="height:150px;"><div style="color:#999;">Чат будет доступен в следующей версии</div></div>
+                    <div style="font-weight:bold; margin-bottom:6px;">Клановый чат</div>
+                    <div class="chat-messages" id="clanChatMessages" style="height:150px;">
+                        <div style="color:#999;">Загрузка сообщений...</div>
+                    </div>
+                    <div class="chat-input-row">
+                        <input type="text" id="clanChatInput" placeholder="Сообщение в клан...">
+                        <button class="chat-send-btn" id="clanChatSendBtn">Отправить</button>
+                    </div>
                 </div>
             `;
 
             if (isLeader) {
                 document.getElementById('deleteClanBtn')?.addEventListener('click', deleteClan);
             }
+
+            // Загрузка кланового чата
+            loadClanChat(clanId);
+
+            // Отправка сообщения в клан
+            document.getElementById('clanChatSendBtn')?.addEventListener('click', function() {
+                const input = document.getElementById('clanChatInput');
+                if (!input || !input.value.trim()) return;
+                const text = input.value.trim();
+                sendClanMessage(clanId, text);
+                input.value = '';
+            });
+
+            document.getElementById('clanChatInput')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('clanChatSendBtn')?.click();
+                }
+            });
         })
         .catch(err => {
             container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки клана</div>';
             addLog('❌ Ошибка загрузки клана: ' + err.message);
         });
+}
+
+function loadClanChat(clanId) {
+    const chatContainer = document.getElementById('clanChatMessages');
+    if (!chatContainer) return;
+
+    fetch(DB_URL + '/clanChat/' + clanId + '.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(data => {
+            let messages = [];
+            if (data) {
+                for (const key in data) {
+                    const msg = data[key];
+                    msg._id = key;
+                    messages.push(msg);
+                }
+            }
+            // Фильтруем сообщения старше 48 часов
+            const now = Date.now();
+            const filtered = messages.filter(msg => (now - msg.timestamp) < 48 * 60 * 60 * 1000);
+            if (filtered.length !== messages.length) {
+                // Удаляем старые сообщения
+                const updates = {};
+                for (const msg of messages) {
+                    if ((now - msg.timestamp) >= 48 * 60 * 60 * 1000) {
+                        updates[msg._id] = null;
+                    }
+                }
+                if (Object.keys(updates).length > 0) {
+                    fetch(DB_URL + '/clanChat/' + clanId + '.json?auth=' + currentUser.idToken, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updates)
+                    }).catch(() => {});
+                }
+            }
+
+            let html = '';
+            if (filtered.length === 0) {
+                html = '<div style="color:#999;">Нет сообщений</div>';
+            } else {
+                filtered.sort((a, b) => a.timestamp - b.timestamp);
+                for (const msg of filtered) {
+                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    html += `<div class="msg"><span class="time">${time}</span><span class="sender">${msg.author}:</span> ${msg.text}</div>`;
+                }
+            }
+            chatContainer.innerHTML = html;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        })
+        .catch(err => {
+            chatContainer.innerHTML = '<div style="color:#999;">Ошибка загрузки чата</div>';
+            addLog('❌ Ошибка загрузки кланового чата: ' + err.message);
+        });
+}
+
+function sendClanMessage(clanId, text) {
+    if (!currentUser) return;
+    const message = {
+        author: STATE.nickname,
+        text: text,
+        timestamp: Date.now()
+    };
+    fetch(DB_URL + '/clanChat/' + clanId + '.json?auth=' + currentUser.idToken, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+    })
+    .then(() => {
+        loadClanChat(clanId);
+        addLog('💬 Сообщение в клан: ' + text);
+    })
+    .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
 function createClan() {
@@ -4950,6 +4571,10 @@ function deleteClan() {
         method: 'DELETE'
     })
     .then(() => {
+        // Удаляем и клановый чат
+        fetch(DB_URL + '/clanChat/' + clanId + '.json?auth=' + currentUser.idToken, {
+            method: 'DELETE'
+        }).catch(() => {});
         STATE.clanId = null;
         STATE.clanRole = null;
         STATE.clan = '';
@@ -4959,6 +4584,131 @@ function deleteClan() {
         addLog('🗑️ Клан удалён');
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+// ===== ЧАТ (УПРОЩЁННЫЙ) =====
+let chatTargetUid = null;
+
+function initChat() {
+    const connectBtn = document.getElementById('chatConnectBtn');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSendBtn');
+
+    if (!connectBtn || !input || !sendBtn) return;
+
+    connectBtn.onclick = function() {
+        const targetNick = document.getElementById('chatTargetInput').value.trim();
+        if (!targetNick) { showToast('Введите ник собеседника'); return; }
+        // Ищем UID по нику
+        fetch(DB_URL + '/nicknames/' + targetNick + '.json')
+            .then(res => res.json())
+            .then(uid => {
+                if (!uid) {
+                    showToast('❌ Игрок не найден');
+                    return;
+                }
+                chatTargetUid = uid;
+                input.disabled = false;
+                sendBtn.disabled = false;
+                showToast('✅ Чат с ' + targetNick + ' начат');
+                loadChatMessages(uid);
+                addLog('💬 Чат с ' + targetNick + ' (UID: ' + uid + ')');
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    sendBtn.onclick = function() {
+        if (!chatTargetUid) { showToast('Сначала выберите собеседника'); return; }
+        const text = input.value.trim();
+        if (!text) return;
+        sendPrivateMessage(chatTargetUid, text);
+        input.value = '';
+    };
+
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+}
+
+function sendPrivateMessage(targetUid, text) {
+    if (!currentUser) return;
+    const chatId = [STATE.uid, targetUid].sort().join('_');
+    const message = {
+        sender: STATE.uid,
+        senderName: STATE.nickname,
+        text: text,
+        timestamp: Date.now()
+    };
+    fetch(DB_URL + '/chats/' + chatId + '.json?auth=' + currentUser.idToken, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+    })
+    .then(() => {
+        STATE.totalMessages = (STATE.totalMessages || 0) + 1;
+        saveStateToFirebase();
+        loadChatMessages(targetUid);
+        checkAllAchievements();
+        addLog('💬 Отправлено сообщение: ' + text);
+    })
+    .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+function loadChatMessages(targetUid) {
+    const container = document.getElementById('chatMessages');
+    if (!container) return;
+    const chatId = [STATE.uid, targetUid].sort().join('_');
+
+    fetch(DB_URL + '/chats/' + chatId + '.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(data => {
+            let messages = [];
+            if (data) {
+                for (const key in data) {
+                    const msg = data[key];
+                    msg._id = key;
+                    messages.push(msg);
+                }
+            }
+            // Фильтруем сообщения старше 48 часов
+            const now = Date.now();
+            const filtered = messages.filter(msg => (now - msg.timestamp) < 48 * 60 * 60 * 1000);
+            if (filtered.length !== messages.length) {
+                const updates = {};
+                for (const msg of messages) {
+                    if ((now - msg.timestamp) >= 48 * 60 * 60 * 1000) {
+                        updates[msg._id] = null;
+                    }
+                }
+                if (Object.keys(updates).length > 0) {
+                    fetch(DB_URL + '/chats/' + chatId + '.json?auth=' + currentUser.idToken, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updates)
+                    }).catch(() => {});
+                }
+            }
+
+            let html = '';
+            if (filtered.length === 0) {
+                html = '<div style="color:#999;">Нет сообщений</div>';
+            } else {
+                filtered.sort((a, b) => a.timestamp - b.timestamp);
+                for (const msg of filtered) {
+                    const sender = (msg.sender === STATE.uid) ? 'Вы' : msg.senderName || 'Собеседник';
+                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    html += `<div class="msg"><span class="time">${time}</span><span class="sender">${sender}:</span> ${msg.text}</div>`;
+                }
+            }
+            container.innerHTML = html;
+            container.scrollTop = container.scrollHeight;
+        })
+        .catch(err => {
+            container.innerHTML = '<div style="color:#999;">Ошибка загрузки сообщений</div>';
+            addLog('❌ Ошибка загрузки чата: ' + err.message);
+        });
 }
 
 // ===== ЧАСЫ =====
@@ -4973,9 +4723,8 @@ function startClock() {
     setInterval(updateClock, 1000);
 }
 
-// ===== ПРИВЯЗКА КНОПОК ВХОДА (ГЛОБАЛЬНО) =====
+// ===== ПРИВЯЗКА КНОПОК ВХОДА =====
 document.getElementById('loginBtn').onclick = function() {
-    console.log('🔵 Клик по Войти');
     const nick = document.getElementById('loginNick').value.trim();
     const pass = document.getElementById('loginPass').value;
     if (!nick || !pass) {
@@ -4989,7 +4738,6 @@ document.getElementById('loginBtn').onclick = function() {
 };
 
 document.getElementById('registerBtn').onclick = function() {
-    console.log('🟢 Клик по Регистрация');
     const nick = document.getElementById('loginNick').value.trim();
     const pass = document.getElementById('loginPass').value;
     if (!nick || !pass || pass.length < 6) {
@@ -5003,7 +4751,6 @@ document.getElementById('registerBtn').onclick = function() {
 };
 
 document.getElementById('logToggleBtn').onclick = function() {
-    console.log('📋 Клик по Логи');
     const area = document.getElementById('logArea');
     if (!area) return;
     area.classList.toggle('show');
@@ -5013,6 +4760,21 @@ document.getElementById('logToggleBtn').onclick = function() {
         this.textContent = '📋 Скрыть логи';
     } else {
         this.textContent = '📋 Показать логи';
+    }
+};
+
+document.getElementById('headerLogBtn').onclick = function() {
+    const popup = document.getElementById('logPopup');
+    if (!popup) return;
+    popup.classList.toggle('show');
+    if (popup.classList.contains('show')) {
+        popup.textContent = logMessages.join('\n');
+        popup.scrollTop = popup.scrollHeight;
+        this.classList.add('active');
+        this.textContent = '📋 Скрыть';
+    } else {
+        this.classList.remove('active');
+        this.textContent = '📋 Логи';
     }
 };
 
@@ -5048,21 +4810,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    document.querySelectorAll('#socialTabs button').forEach(btn => {
-        btn.onclick = function() {
-            document.querySelectorAll('#socialTabs button').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const tab = this.dataset.socialTab;
-            document.querySelectorAll('#section-social .tab-content').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById('social-' + tab);
-            if (target) target.classList.add('active');
-            if (tab === 'feed') renderSocialFeed();
-            if (tab === 'chats') renderSocialChats();
-        };
-    });
-
-    document.getElementById('postSubmitBtn').onclick = publishPost;
-    document.getElementById('paintBtn').onclick = openPaint;
+    document.getElementById('postSubmitBtn')?.onclick = publishPost;
+    document.getElementById('paintBtn')?.onclick = openPaint;
 
     document.getElementById('ratingModeNow').onclick = function() {
         this.style.background = '#0a246a'; this.style.color = '#fff';
@@ -5080,7 +4829,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loginOverlay').classList.remove('hidden');
     document.getElementById('app').style.display = 'none';
     addLog('🚀 Игра загружена, ожидание входа.');
+
+    // Инициализация чата
+    initChat();
 });
+
+function publishPost() {
+    showToast('📰 Лента удалена. Используйте чат для общения!');
+}
+
+function openPaint() {
+    showToast('🎨 Paint удалён. Используйте чат!');
+}
 </script>
 </body>
 </html>
