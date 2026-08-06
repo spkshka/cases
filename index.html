@@ -3921,7 +3921,7 @@ function startPlane() {
     planeAnimId = requestAnimationFrame(planeLoop);
 }
 
-function planeLoop(timestamp) {
+async function planeLoop(timestamp) {
     const dt = Math.min((timestamp - planeState.lastTime) / 1000, 0.05);
     planeState.lastTime = timestamp;
     if (!planeRunning || planeState.gameOver) { drawPlane(); return; }
