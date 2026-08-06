@@ -2448,64 +2448,118 @@ function registerUser(nick, password) {
 }
 
 function onAuthSuccess() {
-    addLog('🔄 Загрузка профиля в STATE...');
-    const data = currentUser.data;
-    STATE.balance = data.balance ?? 500;
-    STATE.totalEarned = data.totalEarned || 0;
-    STATE.totalSpent = data.totalSpent || 0;
-    STATE.maxBalance = data.maxBalance ?? 500;
-    STATE.elo = data.elo ?? 1000;
-    STATE.maxElo = data.maxElo ?? 1000;
-    STATE.casesOpened = data.casesOpened || 0;
-    STATE.maxCasesOpened = data.maxCasesOpened || 0;
-    STATE.totalClicks = data.totalClicks || 0;
-    STATE.inventory = data.inventory || [];
-    STATE.achievements = data.achievements || [];
-    STATE.registrationDate = data.registrationDate || Date.now();
-    if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
-    if (data.morols) STATE.morols = { ...STATE.morols, ...data.morols };
-    if (data.plane) STATE.plane = { ...STATE.plane, ...data.plane };
-    STATE.userId = data.userId;
-    STATE.nickname = data.nickname;
-    STATE.uid = currentUser.uid;
-    STATE.exp = data.exp || 0;
-    STATE.level = data.level || 1;
-    STATE.clan = data.clan || '';
-    STATE.freeOpens = data.freeOpens || 0;
-    STATE.promoUsed = data.promoUsed || false;
-    STATE.eloBoosted = data.eloBoosted || false;
-    STATE.marketBuys = data.marketBuys || 0;
-    STATE.marketSells = data.marketSells || 0;
-    STATE.nickChanged = data.nickChanged || false;
-    STATE.easterFound = data.easterFound || false;
-    STATE.topElo = data.topElo || false;
-    STATE.eloInitialized = data.eloInitialized || false;
-    STATE.muzhikiRestored = data.muzhikiRestored || false;
-    STATE.eloPromoUsed = data.eloPromoUsed || false;
-    STATE.welcomeShown = data.welcomeShown || false;
-    STATE.season = data.season || 1;
-    STATE.friends = data.friends || [];
-    STATE.blocked = data.blocked || [];
-    STATE.clanId = data.clanId || null;
-    STATE.clanRole = data.clanRole || null;
-    STATE.messages = data.messages || {};
-    STATE.trades = data.trades || [];
-    STATE.clanWar = data.clanWar || null;
-    STATE.posts = data.posts || [];
-    STATE.userStatus = data.userStatus || 'all';
-    STATE.chatStatus = data.chatStatus || {};
-    STATE.totalLikes = data.totalLikes || 0;
-    STATE.totalComments = data.totalComments || 0;
-    STATE.totalMessages = data.totalMessages || 0;
+    try {
+        addLog('🔄 Загрузка профиля в STATE...');
+        const data = currentUser.data;
+        STATE.balance = data.balance ?? 500;
+        STATE.totalEarned = data.totalEarned || 0;
+        STATE.totalSpent = data.totalSpent || 0;
+        STATE.maxBalance = data.maxBalance ?? 500;
+        STATE.elo = data.elo ?? 1000;
+        STATE.maxElo = data.maxElo ?? 1000;
+        STATE.casesOpened = data.casesOpened || 0;
+        STATE.maxCasesOpened = data.maxCasesOpened || 0;
+        STATE.totalClicks = data.totalClicks || 0;
+        STATE.inventory = data.inventory || [];
+        STATE.achievements = data.achievements || [];
+        STATE.registrationDate = data.registrationDate || Date.now();
+        if (data.settings) STATE.settings = { ...STATE.settings, ...data.settings };
+        if (data.morols) STATE.morols = { ...STATE.morols, ...data.morols };
+        if (data.plane) STATE.plane = { ...STATE.plane, ...data.plane };
+        STATE.userId = data.userId;
+        STATE.nickname = data.nickname;
+        STATE.uid = currentUser.uid;
+        STATE.exp = data.exp || 0;
+        STATE.level = data.level || 1;
+        STATE.clan = data.clan || '';
+        STATE.freeOpens = data.freeOpens || 0;
+        STATE.promoUsed = data.promoUsed || false;
+        STATE.eloBoosted = data.eloBoosted || false;
+        STATE.marketBuys = data.marketBuys || 0;
+        STATE.marketSells = data.marketSells || 0;
+        STATE.nickChanged = data.nickChanged || false;
+        STATE.easterFound = data.easterFound || false;
+        STATE.topElo = data.topElo || false;
+        STATE.eloInitialized = data.eloInitialized || false;
+        STATE.muzhikiRestored = data.muzhikiRestored || false;
+        STATE.eloPromoUsed = data.eloPromoUsed || false;
+        STATE.welcomeShown = data.welcomeShown || false;
+        STATE.season = data.season || 1;
+        STATE.friends = data.friends || [];
+        STATE.blocked = data.blocked || [];
+        STATE.clanId = data.clanId || null;
+        STATE.clanRole = data.clanRole || null;
+        STATE.messages = data.messages || {};
+        STATE.trades = data.trades || [];
+        STATE.clanWar = data.clanWar || null;
+        STATE.posts = data.posts || [];
+        STATE.userStatus = data.userStatus || 'all';
+        STATE.chatStatus = data.chatStatus || {};
+        STATE.totalLikes = data.totalLikes || 0;
+        STATE.totalComments = data.totalComments || 0;
+        STATE.totalMessages = data.totalMessages || 0;
 
-    if (!STATE.eloInitialized || STATE.elo < 1000) {
-        STATE.elo = 1000;
-        STATE.maxElo = Math.max(STATE.maxElo, 1000);
-        STATE.eloInitialized = true;
-        addLog('⭐ Выдано 1000 Эло новичку');
+        if (!STATE.eloInitialized || STATE.elo < 1000) {
+            STATE.elo = 1000;
+            STATE.maxElo = Math.max(STATE.maxElo, 1000);
+            STATE.eloInitialized = true;
+            addLog('⭐ Выдано 1000 Эло новичку');
+            saveStateToFirebase();
+        }
+
+        rebuildItemsCount();
+
+        // СКРЫВАЕМ ЗАГРУЗКУ В ЛЮБОМ СЛУЧАЕ
+        const status = document.getElementById('loadingStatus');
+        if (status) status.classList.add('hidden');
+
+        const overlay = document.getElementById('loginOverlay');
+        if (overlay) overlay.classList.add('hidden');
+        const app = document.getElementById('app');
+        if (app) app.style.display = 'block';
+
+        applyTheme(STATE.settings.theme || 'windows_xp');
+
+        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
+        STATE.welcomeShown = true;
         saveStateToFirebase();
-    }
+        addLog('💬 Показано приветствие');
 
+        // Рендерим всё асинхронно, не блокируя UI
+        setTimeout(() => {
+            try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
+            try { renderSettings(); } catch(e) { addLog('⚠️ renderSettings: ' + e.message); }
+            try { renderMarket(); } catch(e) { addLog('⚠️ renderMarket: ' + e.message); }
+            try { renderRating('elo'); } catch(e) { addLog('⚠️ renderRating: ' + e.message); }
+            try { renderCases(); } catch(e) { addLog('⚠️ renderCases: ' + e.message); }
+            try { renderInventory(); } catch(e) { addLog('⚠️ renderInventory: ' + e.message); }
+            try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
+            try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
+            try { renderSocialFeed(); } catch(e) { addLog('⚠️ renderSocialFeed: ' + e.message); }
+            try { renderSocialChats(); } catch(e) { addLog('⚠️ renderSocialChats: ' + e.message); }
+            try { renderClans(); } catch(e) { addLog('⚠️ renderClans: ' + e.message); }
+        }, 50);
+
+        const idEl = document.getElementById('idDisplay');
+        if (idEl) idEl.textContent = '#' + STATE.userId;
+
+        updateMusic();
+        showToast('Добро пожаловать, ' + STATE.nickname);
+        updateRankAndLevel();
+        checkAllAchievements();
+        initMorols();
+        initPlane();
+        initClicker();
+        startClock();
+        addLog('✅ Игра полностью загружена');
+    } catch (e) {
+        addLog('❌ КРИТИЧЕСКАЯ ОШИБКА при загрузке: ' + e.message);
+        showToast('❌ Ошибка: ' + e.message, 5000);
+        const status = document.getElementById('loadingStatus');
+        if (status) status.classList.add('hidden');
+        throw e;
+    }
+}
     rebuildItemsCount();
     document.getElementById('loginOverlay').classList.add('hidden');
     document.getElementById('app').style.display = 'block';
