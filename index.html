@@ -506,6 +506,23 @@
             transition: 0.2s;
         }
         .inv-clear-all:hover { background: #aa2222; }
+        .inv-toggle-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .inv-toggle-group button {
+            padding: 6px 14px;
+            border: 1px solid #1a3a6a;
+            border-radius: 4px;
+            background: #d8e0e8;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .inv-toggle-group button.active {
+            background: #1a3a6a;
+            color: #fff;
+        }
 
         /* ===== РЫНОК ===== */
         .market-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -1029,83 +1046,18 @@
             margin-top: 4px;
         }
 
-        /* ===== КЛАНЫ ===== */
-        .clan-wrap {
+        /* ===== КЛАНЫ (упрощённые) ===== */
+        .clan-simple {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
             padding: 12px;
             background: #f0f4f8;
         }
-        .clan-wrap .clan-info {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .clan-wrap .clan-info .clan-name { font-size: 20px; font-weight: bold; }
-        .clan-wrap .clan-info .clan-level { font-size: 16px; }
-        .clan-wrap .clan-members {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .clan-wrap .clan-members .member {
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            padding: 4px 10px;
-            font-size: 14px;
-            background: #d8e0e8;
-        }
-        .clan-wrap .clan-members .member.leader { background: #f0d070; }
-        .clan-wrap .clan-chat {
-            border-top: 1px solid #a0b0c0;
-            padding-top: 12px;
-            margin-top: 12px;
-        }
-        .clan-wrap .clan-chat .chat-messages {
-            height: 150px;
-        }
-        .clan-war-btn {
-            margin-top: 8px;
-            padding: 8px 16px;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            background: #4a8aba;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .clan-war-btn:hover { background: #3a7aaa; }
-        .clan-create-form {
-            margin-top: 12px;
-            padding: 12px;
-            border: 1px solid #a0b0c0;
-            border-radius: 6px;
-            background: #ece9d8;
-        }
-        .clan-create-form .row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .clan-create-form input {
-            padding: 8px;
-            border-radius: 4px;
-            font-size: 15px;
-            background: #d8e0e8;
-            border: 1px solid #a0b0c0;
-            color: #1a2a3a;
-        }
-        .clan-create-form button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
+        .clan-simple .clan-name { font-weight: bold; font-size: 18px; }
+        .clan-simple .clan-input-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+        .clan-simple .clan-input-row input { padding: 6px 10px; border: 1px solid #a0b0c0; border-radius: 4px; background: #d8e0e8; flex:1; max-width:200px; }
+        .clan-simple .clan-input-row button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; background: #4a8aba; color: #fff; }
+        .clan-simple .clan-input-row button.clear { background: #cc3333; }
 
         /* ===== ВХОД ===== */
         #loginOverlay {
@@ -1484,7 +1436,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* event rewards list */
         .event-rewards {
             font-size: 13px;
             text-align: left;
@@ -1553,7 +1504,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2 — Чат, кланы, улучшения!</div>
+        <div class="update-announce">🔥 Обновление 1.2 — Исправления: мессенджер, самолёт, цены, кланы упрощены, инвентарь группировка, эло фикс!</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1566,7 +1517,7 @@
                 <button data-section="inventory">Инвентарь</button>
                 <button data-section="market">Торговля</button>
                 <button data-section="achievements">Достижения</button>
-                <button data-section="clans">Кланы</button>
+                <button data-section="clans">Клан</button>
             </div>
             <div class="nav-row">
                 <button data-section="account">Аккаунт</button>
@@ -1592,6 +1543,10 @@
             <!-- ИНВЕНТАРЬ -->
             <section id="section-inventory" class="section">
                 <div class="title">Инвентарь <span class="badge" id="invCount">0</span> <span style="font-size:12px; color:#666;">(макс. 1000)</span></div>
+                <div class="inv-toggle-group">
+                    <button id="invGroupBtn" class="active">Группировать</button>
+                    <button id="invUngroupBtn">Разгруппировать</button>
+                </div>
                 <button class="inv-clear-all" id="clearAllInventoryBtn">Очистить весь инвентарь</button>
                 <div id="inventoryGrid" class="inv-grid"></div>
             </section>
@@ -1641,7 +1596,7 @@
                 <div id="ratingContent"></div>
             </section>
 
-            <!-- ИГРЫ (теперь с тремя вкладками: Моролс, Самолёт, Кликер) -->
+            <!-- ИГРЫ (три вкладки) -->
             <section id="section-games" class="section">
                 <div class="title">Мини-игры <span class="badge">выбери вкладку</span></div>
                 <div class="tab-bar" id="gamesTabs">
@@ -1685,7 +1640,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Кликер (новая вкладка) -->
+                <!-- Кликер -->
                 <div class="tab-content" id="tab-clicker">
                     <div class="clicker-wrap">
                         <div class="clicker-stats">Рубли: <span id="clickerBalance">0</span> ₽ | Кликов: <span id="clickerTotalClicks">0</span></div>
@@ -1740,11 +1695,16 @@
                 </div>
             </section>
 
-            <!-- КЛАНЫ -->
+            <!-- КЛАНЫ (упрощённые) -->
             <section id="section-clans" class="section">
-                <div class="title">Кланы <span class="badge">объединяйся и воюй</span></div>
-                <div class="clan-wrap" id="clanWrap">
-                    <div id="clanContent"></div>
+                <div class="title">Клан <span class="badge">твой клан</span></div>
+                <div class="clan-simple" id="clanSimple">
+                    <div class="clan-name" id="clanDisplaySimple">—</div>
+                    <div class="clan-input-row">
+                        <input type="text" id="clanInputSimple" placeholder="Название клана" maxlength="10">
+                        <button id="setClanSimple">Установить</button>
+                        <button id="clearClanSimple" class="clear">✕</button>
+                    </div>
                 </div>
             </section>
 
@@ -1760,16 +1720,8 @@
                         <div style="font-size:13px; color:#666;" id="progressLabel">Уровень 1 → 2</div>
                     </div>
                 </div>
-                <div style="margin-top:12px; border-top:1px solid #1a3a6a; padding-top:12px;">
-                    <div style="font-size:16px; font-weight:bold;">Клан</div>
-                    <div class="clan-input">
-                        <input type="text" id="clanInput" placeholder="Название клана" maxlength="10">
-                        <button id="setClanBtn">Установить</button>
-                        <button id="clearClanBtn" class="clear-clan">✕</button>
-                    </div>
-                </div>
                 <div class="account-actions">
-                    <button id="changeNickBtnAccount">Сменить ник</button>
+                    <button id="changeNickBtnAccount">Сменить ник (100 ₽)</button>
                     <button id="changePassBtnAccount">Сменить пароль</button>
                     <button id="resetProgressBtnAccount" class="reset-progress-btn">🔄 Сбросить прогресс</button>
                     <button id="deleteAccountBtn" class="delete-account">Удалить аккаунт</button>
@@ -1820,20 +1772,17 @@
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2</div>
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2 (фикс)</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>💬 Полноценный мессенджер (выбор собеседника, история)</li>
-                        <li>🏰 Кланы: отображение участников, опыта, чата</li>
-                        <li>🎵 Музыка по умолчанию – мелодичная</li>
-                        <li>🖥️ Тема по умолчанию – Windows 7</li>
-                        <li>📋 Логи работают</li>
-                        <li>🔔 Уведомления о новых сообщениях</li>
-                        <li>📦 Сообщения хранятся 48 часов</li>
-                        <li>🧭 Навигация перестроена в ровные ряды</li>
-                        <li>✈️ Самолёт: управление ↑↓ Пробел клик мышкой, колючки теперь по всей высоте</li>
-                        <li>🖱️ Кликер возвращён в Игры (третья вкладка)</li>
-                        <li>📈 Уровни пересчитаны по новой шкале до Pro (3000 exp)</li>
-                        <li>🏁 Ивент скорости: набери скорость в Моролс и получи награды!</li>
+                        <li>📬 Мессенджер: исправлена отправка, теперь сообщения хранятся в общем узле /messages</li>
+                        <li>✈️ Самолёт: колючки уменьшены, зазор увеличен, скорость появления снижена</li>
+                        <li>💰 Цены кейсов: Города 100, Блоки 75</li>
+                        <li>🏷️ Смена ника: стоит 100 ₽, проверка занятости исправлена</li>
+                        <li>📦 Инвентарь: кнопки "Группировать" / "Разгруппировать" для отображения стаков</li>
+                        <li>🏁 Ивент скорости: награды выдаются корректно (каждый уровень отдельно)</li>
+                        <li>⚡ Эло на главном экране теперь обновляется</li>
+                        <li>🏰 Кланы упрощены: теперь просто текстовое поле "Клан" в отдельной вкладке</li>
+                        <li>🐌 Скорость препятствий в Моролс уменьшена на 15%</li>
                     </ul>
                 </div>
             </section>
@@ -1919,7 +1868,8 @@
         friends: [], blocked: [], clanId: null, clanRole: null,
         messages: {}, trades: [], clanWar: null,
         posts: [], userStatus: 'all', chatStatus: {},
-        speedEvent: { claimed: {} } // отслеживаем какие награды за скорость уже получены
+        speedEvent: { claimed: {} },
+        inventoryGrouped: true // режим отображения инвентаря: true = группировать
     };
 
     let logMessages = [];
@@ -2051,7 +2001,7 @@
                 { name: '2 золотых мужика в космосе', emoji: '✨👨👨🚀', weight: 0.3, rarity: 'эксклюзив' }
             ]
         },
-        { id: 'cities', name: 'Города', emoji: '🏙️', price: 75,
+        { id: 'cities', name: 'Города', emoji: '🏙️', price: 100,
             items: [
                 { name: 'восторг', emoji: '😍', weight: 30, rarity: 'ширп' },
                 { name: 'kazan', emoji: '🏟️', weight: 30, rarity: 'ширп' },
@@ -2090,7 +2040,7 @@
                 { name: 'wertipopik', emoji: '🌀', weight: 0.5, rarity: 'эпическое' }
             ]
         },
-        { id: 'blocks', name: 'Блоки', emoji: '🧱', price: 50,
+        { id: 'blocks', name: 'Блоки', emoji: '🧱', price: 75,
             items: [
                 { name: 'земля', emoji: '🟫', weight: 30, rarity: 'ширп' },
                 { name: 'камень', emoji: '🪨', weight: 30, rarity: 'ширп' },
@@ -2485,6 +2435,7 @@
             STATE.totalComments = data.totalComments || 0;
             STATE.totalMessages = data.totalMessages || 0;
             STATE.speedEvent = data.speedEvent || { claimed: {} };
+            STATE.inventoryGrouped = true;
 
             if (!STATE.eloInitialized || STATE.elo < 1000) {
                 STATE.elo = 1000;
@@ -2518,7 +2469,7 @@
                 try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
                 try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
                 try { renderMessenger(); } catch(e) { addLog('⚠️ renderMessenger: ' + e.message); }
-                try { renderClans(); } catch(e) { addLog('⚠️ renderClans: ' + e.message); }
+                try { renderClanSimple(); } catch(e) { addLog('⚠️ renderClanSimple: ' + e.message); }
                 try { renderSpeedEvent(); } catch(e) { addLog('⚠️ renderSpeedEvent: ' + e.message); }
             }, 50);
 
@@ -2825,56 +2776,82 @@
         sfxClick();
     }
 
-    // ===== ИНВЕНТАРЬ =====
+    // ===== ИНВЕНТАРЬ (с группировкой) =====
     function renderInventory() {
         try {
             const grid = document.getElementById('inventoryGrid');
             if (!grid) return;
             const countEl = document.getElementById('invCount');
-            const entries = Object.entries(STATE.itemsCount);
-            if (entries.length === 0) {
+            const grouped = STATE.inventoryGrouped;
+
+            let itemsToShow = [];
+            if (grouped) {
+                const entries = Object.entries(STATE.itemsCount);
+                for (const [key, count] of entries) {
+                    const [name, emoji] = key.split('|||');
+                    const found = STATE.inventory.find(it => it.name === name && it.emoji === emoji);
+                    const rarity = found ? found.rarity : 'обычное';
+                    const caseId = found ? found.caseId : null;
+                    let sellPrice = 20;
+                    if (caseId && caseId !== 'market' && caseId !== 'unknown') {
+                        const caseData = getCaseById(caseId);
+                        if (caseData) sellPrice = Math.floor(caseData.price * 0.5);
+                    }
+                    itemsToShow.push({ key, name, emoji, count, rarity, sellPrice, caseId });
+                }
+            } else {
+                // разгруппировано: показываем каждый предмет отдельно
+                for (const item of STATE.inventory) {
+                    const key = item.name + '|||' + item.emoji;
+                    const caseId = item.caseId;
+                    let sellPrice = 20;
+                    if (caseId && caseId !== 'market' && caseId !== 'unknown') {
+                        const caseData = getCaseById(caseId);
+                        if (caseData) sellPrice = Math.floor(caseData.price * 0.5);
+                    }
+                    itemsToShow.push({ key, name: item.name, emoji: item.emoji, count: 1, rarity: item.rarity || 'обычное', sellPrice, caseId, id: item.id });
+                }
+            }
+
+            if (itemsToShow.length === 0) {
                 grid.innerHTML = `<div class="inv-empty">Инвентарь пуст</div>`;
                 if (countEl) countEl.textContent = '0';
                 return;
             }
+
             let html = '', total = 0;
-            for (const [key, count] of entries) {
-                const [name, emoji] = key.split('|||');
-                const found = STATE.inventory.find(it => it.name === name && it.emoji === emoji);
-                const rarity = found ? found.rarity : 'обычное';
-                const caseId = found ? found.caseId : null;
-                let sellPrice = 20;
-                if (caseId && caseId !== 'market' && caseId !== 'unknown') {
-                    const caseData = getCaseById(caseId);
-                    if (caseData) sellPrice = Math.floor(caseData.price * 0.5);
-                }
+            for (const item of itemsToShow) {
+                total += item.count;
                 html += `<div class="inv-item">
-                    <span class="item-emoji">${emoji}</span>
-                    <div class="item-name">${name}</div>
-                    <div class="item-count">×${count}</div>
-                    <div class="item-rarity">${rarity}</div>
+                    <span class="item-emoji">${item.emoji}</span>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-count">×${item.count}</div>
+                    <div class="item-rarity">${item.rarity}</div>
                     <div class="btn-group">
-                        <button class="sell-btn" data-item-key="${key}" data-sell-price="${sellPrice}">Продать за ${sellPrice} ₽</button>
-                        <button class="trash-btn" data-item-key="${key}">Выбросить</button>
-                        <button class="clear-all-btn" data-item-key="${key}">Очистить все</button>
+                        <button class="sell-btn" data-item-key="${item.key}" data-sell-price="${item.sellPrice}" data-id="${item.id || ''}">Продать за ${item.sellPrice} ₽</button>
+                        <button class="trash-btn" data-item-key="${item.key}" data-id="${item.id || ''}">Выбросить</button>
+                        <button class="clear-all-btn" data-item-key="${item.key}">Очистить все</button>
                     </div>
                 </div>`;
-                total += count;
             }
             grid.innerHTML = html;
-            if (countEl) countEl.textContent = total;
+            if (countEl) countEl.textContent = STATE.inventory.length;
 
+            // Обработчики кнопок
             grid.querySelectorAll('.sell-btn').forEach(btn => {
                 btn.onclick = function() {
                     const key = this.dataset.itemKey;
                     const price = parseInt(this.dataset.sellPrice);
+                    const id = this.dataset.id;
                     const [name, emoji] = key.split('|||');
-                    if ((STATE.itemsCount[key] || 0) < 1) {
-                        showToast('Нет предмета');
-                        return;
+                    let idx;
+                    if (id) {
+                        idx = STATE.inventory.findIndex(item => item.id === id);
+                    } else {
+                        idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
                     }
-                    const idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
-                    if (idx === -1) { showToast('Ошибка'); return; }
+                    if (idx === -1) { showToast('Нет предмета'); return; }
+                    const item = STATE.inventory[idx];
                     STATE.inventory.splice(idx, 1);
                     STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
                     if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
@@ -2894,13 +2871,15 @@
             grid.querySelectorAll('.trash-btn').forEach(btn => {
                 btn.onclick = function() {
                     const key = this.dataset.itemKey;
+                    const id = this.dataset.id;
                     const [name, emoji] = key.split('|||');
-                    if ((STATE.itemsCount[key] || 0) < 1) {
-                        showToast('Нет предмета');
-                        return;
+                    let idx;
+                    if (id) {
+                        idx = STATE.inventory.findIndex(item => item.id === id);
+                    } else {
+                        idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
                     }
-                    const idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
-                    if (idx === -1) { showToast('Ошибка'); return; }
+                    if (idx === -1) { showToast('Нет предмета'); return; }
                     STATE.inventory.splice(idx, 1);
                     STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
                     if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
@@ -3360,24 +3339,8 @@
             <div class="row"><span class="label">Заблокированных</span><span class="value">${STATE.blocked.length}</span></div>
         `;
 
-        const clanDisplay = document.getElementById('clanDisplay');
-        if (clanDisplay) {
-            clanDisplay.style.cursor = 'pointer';
-            clanDisplay.title = 'Нажмите, чтобы изменить клан';
-            clanDisplay.onclick = function() {
-                const newClan = prompt('Введите название клана (макс. 10 символов):', STATE.clan);
-                if (newClan !== null) {
-                    STATE.clan = newClan.trim().slice(0, 10);
-                    saveStateToFirebase();
-                    renderAccount();
-                    renderClans();
-                    showToast('Клан обновлён');
-                    addLog('🏷️ Клан изменён: ' + STATE.clan);
-                }
-            };
-        }
-
-        document.getElementById('setClanBtn').onclick = function() {
+        // Клан в аккаунте
+        document.getElementById('setClanBtn')?.addEventListener('click', function() {
             const input = document.getElementById('clanInput');
             if (!input) return;
             const clan = input.value.trim().slice(0, 10);
@@ -3385,29 +3348,35 @@
             STATE.clan = clan;
             saveStateToFirebase();
             renderAccount();
-            renderClans();
+            renderClanSimple();
             showToast('✅ Клан установлен: ' + clan);
             input.value = '';
             addLog('🏷️ Клан установлен: ' + clan);
-        };
-        document.getElementById('clearClanBtn').onclick = function() {
+        });
+        document.getElementById('clearClanBtn')?.addEventListener('click', function() {
             STATE.clan = '';
             saveStateToFirebase();
             renderAccount();
-            renderClans();
+            renderClanSimple();
             showToast('Клан удалён');
             addLog('🏷️ Клан удалён');
-        };
+        });
 
+        // Смена ника (100 ₽)
         document.getElementById('changeNickBtnAccount').onclick = function() {
-            const newNick = prompt('Введите новый ник:', STATE.nickname);
+            const newNick = prompt('Введите новый ник (стоимость 100 ₽):', STATE.nickname);
             if (!newNick || newNick === STATE.nickname) return;
+            if (STATE.balance < 100) { showToast('❌ Недостаточно средств, нужно 100 ₽'); return; }
             fetch(DB_URL + '/nicknames/' + newNick + '.json')
                 .then(res => res.json())
                 .then(data => {
                     if (data) { showToast('❌ Ник занят'); return; }
+                    STATE.balance -= 100;
+                    STATE.totalSpent += 100;
                     const updates = {};
                     updates['/users/' + STATE.uid + '/nickname'] = newNick;
+                    updates['/users/' + STATE.uid + '/balance'] = STATE.balance;
+                    updates['/users/' + STATE.uid + '/totalSpent'] = STATE.totalSpent;
                     updates['/nicknames/' + STATE.nickname] = null;
                     updates['/nicknames/' + newNick] = STATE.uid;
                     return fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
@@ -3521,7 +3490,7 @@
                         updateUI();
                         renderInventory();
                         renderAccount();
-                        renderClans();
+                        renderClanSimple();
                         renderMessenger();
                         checkAllAchievements();
                         renderSpeedEvent();
@@ -3695,7 +3664,9 @@
         if (morolsState.speed > 50) spawnRate *= 1.5;
         if (Math.random() < spawnRate * dt * 60) {
             const x = Math.random() * 560 + 20;
-            morolsState.obstacles.push({ x, y: 0, width: 30, height: 20, speed: (100 + morolsState.speed * 3) * 1.0 });
+            // Скорость препятствий уменьшена на 15%
+            const obstacleSpeed = (100 + morolsState.speed * 3) * 0.85;
+            morolsState.obstacles.push({ x, y: 0, width: 30, height: 20, speed: obstacleSpeed });
         }
         if (Math.random() < 0.03 * dt * 60) {
             const x = Math.random() * 560 + 20;
@@ -3730,7 +3701,6 @@
                 if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
                 STATE.morols.totalCoins += morolsState.totalCoins;
                 STATE.morols.gamesPlayed = (STATE.morols.gamesPlayed || 0) + 1;
-                // Проверяем ивент скорости
                 checkSpeedEvent(morolsState.maxSpeedReached);
                 await saveStateToFirebase();
                 updateUI();
@@ -3807,7 +3777,7 @@
         document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
     }
 
-    // ---- САМОЛЁТ (ИСПРАВЛЕННЫЙ) ----
+    // ---- САМОЛЁТ (исправленный: колючки, легче) ----
     let planeRunning = false;
     let planeAnimId = null;
     let planeState = {
@@ -3829,7 +3799,6 @@
             document.getElementById('planeStart').onclick = startPlane;
             document.getElementById('planeReset').onclick = resetPlane;
 
-            // Клавиатура: стрелки + пробел
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowUp' || e.key === ' ' || e.key === 'Space') {
                     e.preventDefault();
@@ -3841,7 +3810,6 @@
                 }
             });
 
-            // Клик мышкой по канвасу (поднимаем)
             canvas.addEventListener('click', (e) => {
                 e.preventDefault();
                 planeMoveUp();
@@ -3944,52 +3912,47 @@
             planeState.vy = 0;
         }
 
-        // --- НОВЫЕ ОБСТАВИЯ: колючки по всей высоте с разрывами ---
-        // Спавним "трубы" (верхняя и нижняя колючка) с зазором
-        if (Math.random() < 0.01 * dt * 60) {
-            const gapSize = 70 + Math.random() * 30; // зазор 70-100 пикселей
+        // Спавним колючки с большим зазором и меньшей шириной
+        if (Math.random() < 0.008 * dt * 60) { // реже
+            const gapSize = 90 + Math.random() * 40; // 90-130
             const gapY = 30 + Math.random() * (280 - 30 - gapSize);
-            // верхняя колючка (от верха до зазора)
             planeState.obstacles.push({
                 x: 600,
                 y: 0,
-                width: 30,
+                width: 20,
                 height: gapY,
                 type: 'spike_top'
             });
-            // нижняя колючка (от зазора до низа)
             planeState.obstacles.push({
                 x: 600,
                 y: gapY + gapSize,
-                width: 30,
+                width: 20,
                 height: 300 - (gapY + gapSize),
                 type: 'spike_bottom'
             });
         }
 
-        // монетки
-        if (Math.random() < 0.01 * dt * 60) {
+        if (Math.random() < 0.012 * dt * 60) {
             planeState.coins.push({
                 x: 600,
                 y: 20 + Math.random() * 260,
                 radius: 10,
-                speed: 180 + planeState.time * 1.0,
+                speed: 160 + planeState.time * 0.8,
                 collected: false,
                 value: rand(1, 2)
             });
         }
 
-        // обновляем препятствия
+        // Обновляем препятствия
         for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
             const o = planeState.obstacles[i];
-            o.x -= 200 * dt;
+            o.x -= 180 * dt;
             if (o.x + o.width < 0) { planeState.obstacles.splice(i, 1); continue; }
-            // коллизия с самолётом
+            // коллизия
             if (o.x < planeState.planeX + planeState.width &&
                 o.x + o.width > planeState.planeX &&
                 o.y < planeState.planeY + planeState.height &&
                 o.y + o.height > planeState.planeY) {
-                // столкновение
                 planeState.gameOver = true;
                 planeRunning = false;
                 document.getElementById('planeStart').textContent = 'Старт';
@@ -4047,43 +4010,39 @@
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 600, 300);
 
-        // рисуем препятствия (колючки)
+        // рисуем колючки
         for (const o of planeState.obstacles) {
-            if (o.type === 'spike_top' || o.type === 'spike_bottom') {
-                // рисуем как колючки (зубчатый край)
-                ctx.fillStyle = '#cc3333';
-                ctx.fillRect(o.x, o.y, o.width, o.height);
-                // рисуем шипы
-                const spikeCount = Math.floor(o.height / 15) + 1;
-                const step = o.height / spikeCount;
-                for (let s = 0; s < spikeCount; s++) {
-                    const sy = o.y + s * step;
-                    const spikeLen = 8 + Math.random() * 6;
-                    const dx = (o.type === 'spike_top') ? 0 : 0;
-                    const dy = (o.type === 'spike_top') ? 1 : -1;
-                    ctx.beginPath();
-                    ctx.moveTo(o.x, sy);
-                    ctx.lineTo(o.x - spikeLen, sy + step / 2 * dy);
-                    ctx.lineTo(o.x, sy + step * dy);
-                    ctx.fillStyle = '#ff5555';
-                    ctx.fill();
-                }
-                // глаза
-                ctx.fillStyle = '#ffdd00';
+            ctx.fillStyle = '#cc3333';
+            ctx.fillRect(o.x, o.y, o.width, o.height);
+            // шипы
+            const spikeCount = Math.floor(o.height / 15) + 1;
+            const step = o.height / spikeCount;
+            for (let s = 0; s < spikeCount; s++) {
+                const sy = o.y + s * step;
+                const spikeLen = 8 + Math.random() * 4;
+                const dy = (o.type === 'spike_top') ? 1 : -1;
                 ctx.beginPath();
-                ctx.arc(o.x + 10, o.y + 15, 6, 0, Math.PI*2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(o.x + 10, o.y + o.height - 15, 6, 0, Math.PI*2);
-                ctx.fill();
-                ctx.fillStyle = '#000';
-                ctx.beginPath();
-                ctx.arc(o.x + 12, o.y + 15, 3, 0, Math.PI*2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(o.x + 12, o.y + o.height - 15, 3, 0, Math.PI*2);
+                ctx.moveTo(o.x, sy);
+                ctx.lineTo(o.x - spikeLen, sy + step / 2 * dy);
+                ctx.lineTo(o.x, sy + step * dy);
+                ctx.fillStyle = '#ff5555';
                 ctx.fill();
             }
+            // глаза
+            ctx.fillStyle = '#ffdd00';
+            ctx.beginPath();
+            ctx.arc(o.x + 6, o.y + 12, 4, 0, Math.PI*2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(o.x + 6, o.y + o.height - 12, 4, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(o.x + 8, o.y + 12, 2, 0, Math.PI*2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(o.x + 8, o.y + o.height - 12, 2, 0, Math.PI*2);
+            ctx.fill();
         }
 
         for (const c of planeState.coins) {
@@ -4125,7 +4084,7 @@
         document.getElementById('planeTime').textContent = Math.floor(planeState.time);
     }
 
-    // ===== КЛИКЕР (возвращён в игры) =====
+    // ===== КЛИКЕР =====
     const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
     let captchaActive = false;
     let captchaAnswer = '';
@@ -4401,7 +4360,7 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР (исправленный) =====
+    // ===== МЕССЕНДЖЕР (исправленный, общий узел /messages) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
 
@@ -4419,50 +4378,54 @@
         }
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        const msgs = STATE.messages[chatId] || [];
-        const now = Date.now();
-        const cutoff = now - 48 * 60 * 60 * 1000;
-        const validMsgs = msgs.filter(m => m.timestamp > cutoff);
-        if (validMsgs.length !== msgs.length) {
-            STATE.messages[chatId] = validMsgs;
-            saveStateToFirebase();
-        }
+        // загружаем из общего узла
+        fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(data => {
+                let msgs = [];
+                if (data) {
+                    for (const key in data) {
+                        const msg = data[key];
+                        msg._id = key;
+                        msgs.push(msg);
+                    }
+                }
+                msgs.sort((a, b) => a.timestamp - b.timestamp);
+                const now = Date.now();
+                const cutoff = now - 48 * 60 * 60 * 1000;
+                msgs = msgs.filter(m => m.timestamp > cutoff);
+                // сохраняем в STATE для быстрого доступа
+                STATE.messages[chatId] = msgs;
 
-        let html = '';
-        if (validMsgs.length === 0) {
-            html = '<div style="color:#999; text-align:center; padding:20px;">Нет сообщений</div>';
-        } else {
-            for (const msg of validMsgs) {
-                const isSelf = (msg.sender === STATE.uid);
-                const time = new Date(msg.timestamp).toLocaleTimeString();
-                const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
-                html += `<div class="msg ${isSelf ? 'self' : ''}">
-                    <span class="time">${time}</span>
-                    <span class="sender">${senderName}:</span> ${msg.text}
-                </div>`;
-            }
-        }
-        messagesDiv.innerHTML = html;
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        input.disabled = false;
-        sendBtn.disabled = false;
+                let html = '';
+                if (msgs.length === 0) {
+                    html = '<div style="color:#999; text-align:center; padding:20px;">Нет сообщений</div>';
+                } else {
+                    for (const msg of msgs) {
+                        const isSelf = (msg.sender === STATE.uid);
+                        const time = new Date(msg.timestamp).toLocaleTimeString();
+                        const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
+                        html += `<div class="msg ${isSelf ? 'self' : ''}">
+                            <span class="time">${time}</span>
+                            <span class="sender">${senderName}:</span> ${msg.text}
+                        </div>`;
+                    }
+                }
+                messagesDiv.innerHTML = html;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                input.disabled = false;
+                sendBtn.disabled = false;
+            })
+            .catch(err => {
+                messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки сообщений</div>';
+                input.disabled = true;
+                sendBtn.disabled = true;
+            });
     }
 
     function loadChatPartner(partnerUid) {
         currentChatPartner = partnerUid;
         renderMessenger();
-        // Загружаем свежие сообщения из Firebase
-        const chatId = [STATE.uid, partnerUid].sort().join('_');
-        fetch(DB_URL + '/users/' + STATE.uid + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(data => {
-                if (data) {
-                    const msgs = Object.values(data);
-                    STATE.messages[chatId] = msgs;
-                    renderMessenger();
-                }
-            })
-            .catch(err => {});
     }
 
     function sendMessage() {
@@ -4475,37 +4438,30 @@
         if (!text) return;
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
         const msg = {
             sender: STATE.uid,
             senderName: STATE.nickname,
             text: text,
             timestamp: Date.now()
         };
-        STATE.messages[chatId].push(msg);
-        STATE.totalMessages = (STATE.totalMessages || 0) + 1;
-
-        // Сохраняем в Firebase
-        const updates = {};
-        updates['/users/' + STATE.uid + '/messages/' + chatId] = STATE.messages[chatId];
-        fetch(DB_URL + '.json?auth=' + currentUser.idToken, {
-            method: 'PATCH',
+        // Сохраняем в общий узел /messages/chatId
+        fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken, {
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updates)
+            body: JSON.stringify(msg)
         })
+        .then(res => res.json())
         .then(() => {
-            // также сохраняем в профиль собеседника (если он есть)
-            fetch(DB_URL + '/users/' + currentChatPartner + '/messages/' + chatId + '.json?auth=' + currentUser.idToken, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(STATE.messages[chatId])
-            }).catch(() => {});
+            input.value = '';
+            STATE.totalMessages = (STATE.totalMessages || 0) + 1;
+            saveStateToFirebase();
+            renderMessenger();
+            addLog('💬 Сообщение отправлено');
         })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
-
-        input.value = '';
-        renderMessenger();
-        addLog('💬 Сообщение отправлено ' + currentChatPartner);
+        .catch(err => {
+            showToast('❌ Ошибка отправки: ' + err.message);
+            addLog('❌ Ошибка отправки сообщения: ' + err.message);
+        });
     }
 
     function startMessengerPolling() {
@@ -4513,227 +4469,99 @@
         messengerPollingInterval = setInterval(() => {
             const section = document.getElementById('section-messenger');
             if (section && section.classList.contains('active') && currentUser && currentChatPartner) {
-                const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-                fetch(DB_URL + '/users/' + STATE.uid + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data) {
-                            const msgs = Object.values(data);
-                            const oldMsgs = STATE.messages[chatId] || [];
-                            const newFromOthers = msgs.filter(m => m.sender !== STATE.uid && !oldMsgs.some(o => o.timestamp === m.timestamp && o.text === m.text));
-                            if (newFromOthers.length > 0) {
-                                const lastMsg = newFromOthers[newFromOthers.length - 1];
-                                showNotification('✉️ Новое сообщение от ' + (lastMsg.senderName || 'неизвестного'));
-                                STATE.messages[chatId] = msgs;
-                                renderMessenger();
-                            }
-                        }
-                    })
-                    .catch(err => {});
+                renderMessenger(); // просто обновляем
             }
         }, 5000);
     }
 
-    // ===== КЛАНЫ (исправленные) =====
-    function renderClans() {
-        const container = document.getElementById('clanContent');
-        if (!container) return;
-
-        if (!STATE.clanId) {
-            container.innerHTML = `
-                <div style="text-align:center; padding:20px;">
-                    <div style="font-size:18px;">Вы не состоите в клане</div>
-                    <div class="clan-create-form">
-                        <h3>Создать клан</h3>
-                        <div class="row">
-                            <input type="text" id="newClanName" placeholder="Название клана" maxlength="10">
-                            <button class="clan-create-btn" id="createClanBtn">Создать</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('createClanBtn')?.addEventListener('click', createClan);
-            return;
-        }
-
-        const clanId = STATE.clanId;
-        fetch(DB_URL + '/clans/' + clanId + '.json?auth=' + currentUser.idToken)
+    // Обработчики для мессенджера
+    document.getElementById('chatSearchBtn').onclick = function() {
+        const input = document.getElementById('chatSearchInput');
+        const nick = input.value.trim();
+        if (!nick) { showToast('Введите ник'); return; }
+        fetch(DB_URL + '/nicknames/' + nick + '.json?auth=' + currentUser.idToken)
             .then(res => res.json())
-            .then(clanData => {
-                if (!clanData) {
-                    STATE.clanId = null;
-                    STATE.clanRole = null;
-                    saveStateToFirebase();
-                    renderClans();
-                    return;
-                }
-                const isLeader = STATE.clanRole === 'leader';
-                const members = clanData.members || [];
-                const displayMembers = members.slice(0, 30);
-                const memberListHtml = displayMembers.map(m =>
-                    `<div class="member ${m.role === 'leader' ? 'leader' : ''}">${m.name} ${m.role === 'leader' ? '👑' : ''}</div>`
-                ).join('');
-                const moreCount = members.length - 30;
-                const moreHtml = moreCount > 0 ? `<div class="member" style="background:#ccc;">+${moreCount}</div>` : '';
-
-                const exp = clanData.exp || 0;
-                const expNext = clanData.expNext || 100;
-                const progress = Math.min(100, (exp / expNext) * 100);
-
-                const clanChatId = 'clan_' + clanId;
-                fetch(DB_URL + '/clan_messages/' + clanChatId + '.json?auth=' + currentUser.idToken)
-                    .then(res => res.json())
-                    .then(chatData => {
-                        let msgs = [];
-                        if (chatData) {
-                            for (const key in chatData) {
-                                const msg = chatData[key];
-                                msg._id = key;
-                                msgs.push(msg);
-                            }
-                        }
-                        msgs.sort((a, b) => a.timestamp - b.timestamp);
-                        const now = Date.now();
-                        const cutoff = now - 48 * 60 * 60 * 1000;
-                        msgs = msgs.filter(m => m.timestamp > cutoff);
-                        let chatHtml = '';
-                        if (msgs.length === 0) {
-                            chatHtml = '<div style="color:#999;">Нет сообщений</div>';
-                        } else {
-                            for (const msg of msgs) {
-                                const time = new Date(msg.timestamp).toLocaleTimeString();
-                                chatHtml += `<div class="msg"><span class="time">${time}</span><span class="sender">${msg.sender}:</span> ${msg.text}</div>`;
-                            }
-                        }
-
-                        container.innerHTML = `
-                            <div class="clan-info">
-                                <span class="clan-name">${clanData.name}</span>
-                                <span class="clan-level">Уровень: ${clanData.level || 1}</span>
-                            </div>
-                            <div class="progress-bar" style="max-width:300px; margin:8px 0;">
-                                <div class="fill" id="clanProgressFill" style="width:${progress}%;"></div>
-                            </div>
-                            <div style="font-size:14px; margin-bottom:8px;">Опыт клана: ${exp} / ${expNext}</div>
-                            <div class="clan-members">${memberListHtml} ${moreHtml}</div>
-                            ${isLeader ? `<button class="clan-war-btn" id="deleteClanBtn" style="background:#cc3333;">🗑️ Удалить клан</button>` : ''}
-                            <div class="clan-chat">
-                                <div style="font-weight:bold; margin-bottom:6px;">Клановый чат</div>
-                                <div class="chat-messages" id="clanChatMessages" style="height:150px;">${chatHtml}</div>
-                                <div class="chat-input-row" style="margin-top:6px;">
-                                    <input type="text" id="clanChatInput" placeholder="Сообщение в клан">
-                                    <button class="chat-send-btn" id="clanChatSendBtn">Отправить</button>
-                                </div>
-                            </div>
-                        `;
-
-                        document.getElementById('clanChatSendBtn')?.addEventListener('click', function() {
-                            if (!currentUser) { showToast('Войдите'); return; }
-                            const input = document.getElementById('clanChatInput');
-                            const text = input.value.trim();
-                            if (!text) return;
-                            const msg = {
-                                sender: STATE.nickname,
-                                text: text,
-                                timestamp: Date.now()
-                            };
-                            fetch(DB_URL + '/clan_messages/' + clanChatId + '.json?auth=' + currentUser.idToken, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(msg)
-                            })
-                            .then(res => res.json())
-                            .then(() => {
-                                input.value = '';
-                                renderClans();
-                                addLog('💬 Клановое сообщение');
-                            })
-                            .catch(err => showToast('❌ Ошибка: ' + err.message));
-                        });
-
-                        if (isLeader) {
-                            document.getElementById('deleteClanBtn')?.addEventListener('click', deleteClan);
-                        }
-                    })
-                    .catch(err => {
-                        container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки кланового чата</div>';
-                        addLog('❌ Ошибка загрузки кланового чата: ' + err.message);
-                    });
-            })
-            .catch(err => {
-                container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки клана</div>';
-                addLog('❌ Ошибка загрузки клана: ' + err.message);
-            });
-    }
-
-    function createClan() {
-        const input = document.getElementById('newClanName');
-        if (!input) return;
-        const name = input.value.trim().slice(0, 10);
-        if (!name) { showToast('Введите название клана'); return; }
-
-        fetch(DB_URL + '/clans.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(data => {
-                if (data) {
-                    for (const key in data) {
-                        if (data[key].name === name) {
-                            showToast('❌ Клан с таким именем уже существует');
-                            return;
-                        }
-                    }
-                }
-                const clanData = {
-                    name: name,
-                    level: 1,
-                    exp: 0,
-                    expNext: 100,
-                    members: [
-                        { uid: STATE.uid, name: STATE.nickname, role: 'leader' }
-                    ],
-                    createdAt: Date.now()
-                };
-                fetch(DB_URL + '/clans.json?auth=' + currentUser.idToken, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(clanData)
-                })
-                .then(res => res.json())
-                .then(result => {
-                    const clanId = result.name;
-                    STATE.clanId = clanId;
-                    STATE.clanRole = 'leader';
-                    STATE.clan = name;
-                    saveStateToFirebase();
-                    // Принудительно обновляем интерфейс кланов
-                    renderClans();
-                    showToast('✅ Клан "' + name + '" создан!');
-                    addLog('🏰 Создан клан: ' + name);
-                })
-                .catch(err => showToast('❌ Ошибка: ' + err.message));
+            .then(uid => {
+                if (!uid) { showToast('❌ Пользователь не найден'); return; }
+                if (uid === STATE.uid) { showToast('Это вы'); return; }
+                loadChatPartner(uid);
+                input.value = '';
+                document.getElementById('chatUsersList').style.display = 'none';
             })
             .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('chatShowAllBtn').onclick = function() {
+        const list = document.getElementById('chatUsersList');
+        if (list.style.display === 'none') {
+            list.style.display = 'block';
+            loadUsersList();
+        } else {
+            list.style.display = 'none';
+        }
+    };
+
+    document.getElementById('chatSendBtn').onclick = sendMessage;
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    function loadUsersList() {
+        const listDiv = document.getElementById('chatUsersList');
+        if (!listDiv) return;
+        fetch(DB_URL + '/users.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(data => {
+                let users = [];
+                for (const uid in data) {
+                    if (uid !== STATE.uid) {
+                        users.push({ uid, nickname: data[uid].nickname });
+                    }
+                }
+                let html = '';
+                for (const u of users) {
+                    html += `<div class="user-item" data-uid="${u.uid}">${u.nickname}</div>`;
+                }
+                listDiv.innerHTML = html;
+                listDiv.querySelectorAll('.user-item').forEach(item => {
+                    item.onclick = function() {
+                        const uid = this.dataset.uid;
+                        loadChatPartner(uid);
+                        listDiv.style.display = 'none';
+                        document.getElementById('chatSearchInput').value = '';
+                    };
+                });
+            })
+            .catch(err => {});
     }
 
-    function deleteClan() {
-        if (!confirm('Вы уверены, что хотите удалить клан? Это действие необратимо.')) return;
-        const clanId = STATE.clanId;
-        if (!clanId) return;
-        if (STATE.clanRole !== 'leader') { showToast('❌ Только лидер может удалить клан'); return; }
-
-        fetch(DB_URL + '/clans/' + clanId + '.json?auth=' + currentUser.idToken, {
-            method: 'DELETE'
-        })
-        .then(() => {
-            STATE.clanId = null;
-            STATE.clanRole = null;
+    // ===== КЛАНЫ (упрощённые) =====
+    function renderClanSimple() {
+        const display = document.getElementById('clanDisplaySimple');
+        if (!display) return;
+        display.textContent = STATE.clan || '—';
+        document.getElementById('setClanSimple').onclick = function() {
+            const input = document.getElementById('clanInputSimple');
+            const clan = input.value.trim().slice(0, 10);
+            if (!clan) { showToast('Введите название клана'); return; }
+            STATE.clan = clan;
+            saveStateToFirebase();
+            renderClanSimple();
+            renderAccount();
+            showToast('✅ Клан установлен: ' + clan);
+            input.value = '';
+            addLog('🏷️ Клан установлен: ' + clan);
+        };
+        document.getElementById('clearClanSimple').onclick = function() {
             STATE.clan = '';
             saveStateToFirebase();
-            renderClans();
-            showToast('🗑️ Клан удалён');
-            addLog('🗑️ Клан удалён');
-        })
-        .catch(err => showToast('❌ Ошибка: ' + err.message));
+            renderClanSimple();
+            renderAccount();
+            showToast('Клан удалён');
+            addLog('🏷️ Клан удалён');
+        };
     }
 
     // ===== ИВЕНТ СКОРОСТИ =====
@@ -4780,7 +4608,6 @@
             if (maxSpeed >= reward.speed && !STATE.speedEvent.claimed[reward.speed]) {
                 STATE.speedEvent.claimed[reward.speed] = true;
                 anyClaimed = true;
-                // выдаём награду
                 STATE.balance += reward.coins;
                 STATE.totalEarned += reward.coins;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
@@ -4915,161 +4742,11 @@
             renderMessenger();
             loadUsersList();
         }
-        if (sectionId === 'clans') renderClans();
+        if (sectionId === 'clans') renderClanSimple();
         addLog('📂 Переход в раздел: ' + sectionId);
     }
 
-    function loadUsersList() {
-        const listDiv = document.getElementById('chatUsersList');
-        if (!listDiv) return;
-        fetch(DB_URL + '/users.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(data => {
-                let users = [];
-                for (const uid in data) {
-                    if (uid !== STATE.uid) {
-                        users.push({ uid, nickname: data[uid].nickname });
-                    }
-                }
-                let html = '';
-                for (const u of users) {
-                    html += `<div class="user-item" data-uid="${u.uid}">${u.nickname}</div>`;
-                }
-                listDiv.innerHTML = html;
-                listDiv.querySelectorAll('.user-item').forEach(item => {
-                    item.onclick = function() {
-                        const uid = this.dataset.uid;
-                        loadChatPartner(uid);
-                        listDiv.style.display = 'none';
-                        document.getElementById('chatSearchInput').value = '';
-                    };
-                });
-            })
-            .catch(err => {});
-    }
-
-    // Обработчики для мессенджера
-    document.getElementById('chatSearchBtn').onclick = function() {
-        const input = document.getElementById('chatSearchInput');
-        const nick = input.value.trim();
-        if (!nick) { showToast('Введите ник'); return; }
-        fetch(DB_URL + '/nicknames/' + nick + '.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(uid => {
-                if (!uid) { showToast('❌ Пользователь не найден'); return; }
-                if (uid === STATE.uid) { showToast('Это вы'); return; }
-                loadChatPartner(uid);
-                input.value = '';
-                document.getElementById('chatUsersList').style.display = 'none';
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
-
-    document.getElementById('chatShowAllBtn').onclick = function() {
-        const list = document.getElementById('chatUsersList');
-        if (list.style.display === 'none') {
-            list.style.display = 'block';
-            loadUsersList();
-        } else {
-            list.style.display = 'none';
-        }
-    };
-
-    document.getElementById('chatSendBtn').onclick = sendMessage;
-    document.getElementById('chatInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-
-    // ===== ИВЕНТ СКОРОСТИ КНОПКА =====
-    document.getElementById('speedEventBtn').onclick = function() {
-        const list = document.getElementById('eventRewardsList');
-        if (list) {
-            list.classList.toggle('show');
-            if (list.classList.contains('show')) {
-                renderSpeedEvent();
-                this.textContent = '🏁 Скрыть награды';
-            } else {
-                this.textContent = '🏁 Ивент: Кто больше наберёт скорость!';
-            }
-        }
-    };
-
-    // ===== ПРИВЯЗКА КНОПОК ВХОДА =====
-    document.getElementById('loginBtn').onclick = function() {
-        console.log('🔵 Клик по Войти');
-        const nick = document.getElementById('loginNick').value.trim();
-        const pass = document.getElementById('loginPass').value;
-        if (!nick || !pass) {
-            document.getElementById('loginError').textContent = '❌ Заполните все поля';
-            return;
-        }
-        document.getElementById('loginError').textContent = '';
-        document.getElementById('loadingStatus').classList.remove('hidden');
-        document.getElementById('loadingText').textContent = '⏳ Вход...';
-        loginUser(nick, pass);
-    };
-
-    document.getElementById('registerBtn').onclick = function() {
-        console.log('🟢 Клик по Регистрация');
-        const nick = document.getElementById('loginNick').value.trim();
-        const pass = document.getElementById('loginPass').value;
-        if (!nick || !pass || pass.length < 6) {
-            document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
-            return;
-        }
-        document.getElementById('loginError').textContent = '';
-        document.getElementById('loadingStatus').classList.remove('hidden');
-        document.getElementById('loadingText').textContent = '⏳ Регистрация...';
-        registerUser(nick, pass);
-    };
-
-    document.getElementById('logToggleBtn').onclick = function() {
-        console.log('📋 Клик по Логи');
-        const area = document.getElementById('logArea');
-        if (!area) return;
-        area.classList.toggle('show');
-        if (area.classList.contains('show')) {
-            area.textContent = logMessages.join('\n');
-            area.scrollTop = area.scrollHeight;
-            this.textContent = '📋 Скрыть логи';
-        } else {
-            this.textContent = '📋 Показать логи';
-        }
-    };
-
-    document.getElementById('headerLogBtn').onclick = function() {
-        const popup = document.getElementById('logPopup');
-        if (!popup) return;
-        popup.classList.toggle('show');
-        if (popup.classList.contains('show')) {
-            popup.textContent = logMessages.join('\n');
-            popup.scrollTop = popup.scrollHeight;
-            this.classList.add('active');
-            this.textContent = '📋 Скрыть';
-        } else {
-            this.classList.remove('active');
-            this.textContent = '📋 Логи';
-        }
-    };
-
-    // ===== ОБНОВЛЕНИЕ РЕЙТИНГА И АЧИВОК =====
-    document.getElementById('refreshRatingBtn').onclick = function() {
-        this.disabled = true;
-        showToast('🔄 Обновление...');
-        renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
-        setTimeout(() => { this.disabled = false; showToast('✅ Обновлено'); }, 3000);
-        addLog('🔄 Рейтинг обновлён');
-    };
-    document.getElementById('recheckAchievementsBtn').onclick = function() {
-        showToast('🔄 Обновление достижений...');
-        checkAllAchievements();
-        showToast('✅ Проверка завершена!');
-        addLog('🔄 Достижения обновлены');
-    };
-
-    // ===== ИНИЦИАЛИЗАЦИЯ =====
+    // ===== ИНИЦИАЛИЗАЦИЯ И СОБЫТИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('loadingStatus').classList.add('hidden');
 
@@ -5117,6 +4794,34 @@
             document.getElementById('ratingModeNow').style.background = '#d8e0e8';
             document.getElementById('ratingModeNow').style.color = '#000';
             renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
+        };
+
+        // Кнопки группировки инвентаря
+        document.getElementById('invGroupBtn').onclick = function() {
+            STATE.inventoryGrouped = true;
+            this.classList.add('active');
+            document.getElementById('invUngroupBtn').classList.remove('active');
+            renderInventory();
+        };
+        document.getElementById('invUngroupBtn').onclick = function() {
+            STATE.inventoryGrouped = false;
+            this.classList.add('active');
+            document.getElementById('invGroupBtn').classList.remove('active');
+            renderInventory();
+        };
+
+        // Ивент скорости
+        document.getElementById('speedEventBtn').onclick = function() {
+            const list = document.getElementById('eventRewardsList');
+            if (list) {
+                list.classList.toggle('show');
+                if (list.classList.contains('show')) {
+                    renderSpeedEvent();
+                    this.textContent = '🏁 Скрыть награды';
+                } else {
+                    this.textContent = '🏁 Ивент: Кто больше наберёт скорость!';
+                }
+            }
         };
 
         document.getElementById('loginOverlay').classList.remove('hidden');
