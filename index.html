@@ -2511,55 +2511,6 @@ function onAuthSuccess() {
             addLog('⭐ Выдано 1000 Эло новичку');
             saveStateToFirebase();
         }
-
-        rebuildItemsCount();
-
-        const overlay = document.getElementById('loginOverlay');
-        if (overlay) overlay.classList.add('hidden');
-        const app = document.getElementById('app');
-        if (app) app.style.display = 'block';
-
-        applyTheme(STATE.settings.theme || 'windows_xp');
-
-        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
-        STATE.welcomeShown = true;
-        saveStateToFirebase();
-        addLog('💬 Показано приветствие');
-
-        setTimeout(() => {
-            try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
-            try { renderSettings(); } catch(e) { addLog('⚠️ renderSettings: ' + e.message); }
-            try { renderMarket(); } catch(e) { addLog('⚠️ renderMarket: ' + e.message); }
-            try { renderRating('elo'); } catch(e) { addLog('⚠️ renderRating: ' + e.message); }
-            try { renderCases(); } catch(e) { addLog('⚠️ renderCases: ' + e.message); }
-            try { renderInventory(); } catch(e) { addLog('⚠️ renderInventory: ' + e.message); }
-            try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
-            try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
-            try { renderSocialFeed(); } catch(e) { addLog('⚠️ renderSocialFeed: ' + e.message); }
-            try { renderSocialChats(); } catch(e) { addLog('⚠️ renderSocialChats: ' + e.message); }
-            try { renderClans(); } catch(e) { addLog('⚠️ renderClans: ' + e.message); }
-        }, 50);
-
-        const idEl = document.getElementById('idDisplay');
-        if (idEl) idEl.textContent = '#' + STATE.userId;
-
-        updateMusic();
-        showToast('Добро пожаловать, ' + STATE.nickname);
-        updateRankAndLevel();
-        checkAllAchievements();
-        initMorols();
-        initPlane();
-        initClicker();
-        startClock();
-        addLog('✅ Игра полностью загружена');
-    } catch (e) {
-        addLog('❌ Ошибка в onAuthSuccess: ' + e.message);
-        showToast('❌ Ошибка: ' + e.message, 5000);
-        const status2 = document.getElementById('loadingStatus');
-        if (status2) status2.classList.add('hidden');
-        console.error(e);
-    }
-}
 function saveStateToFirebase() {
     if (!currentUser || !currentUser.idToken) return Promise.resolve();
     const uid = currentUser.uid;
