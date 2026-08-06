@@ -2560,42 +2560,6 @@ function onAuthSuccess() {
         console.error(e);
     }
 }
-    rebuildItemsCount();
-    document.getElementById('loginOverlay').classList.add('hidden');
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('loadingStatus').classList.add('hidden');
-
-    applyTheme(STATE.settings.theme || 'windows_xp');
-
-    showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
-    STATE.welcomeShown = true;
-    saveStateToFirebase();
-    addLog('💬 Показано приветствие');
-
-    updateUI();
-    renderSettings();
-    renderMarket();
-    renderRating('elo');
-    renderCases();
-    renderInventory();
-    renderAchievements();
-    renderAccount();
-    renderSocialFeed();
-    renderSocialChats();
-    renderClans();
-    const idEl = document.getElementById('idDisplay');
-    if (idEl) idEl.textContent = '#' + STATE.userId;
-    updateMusic();
-    showToast('Добро пожаловать, ' + STATE.nickname);
-    updateRankAndLevel();
-    checkAllAchievements();
-    initMorols();
-    initPlane();
-    initClicker();
-    startClock();
-    addLog('✅ Игра полностью загружена');
-}
-
 function saveStateToFirebase() {
     if (!currentUser || !currentUser.idToken) return Promise.resolve();
     const uid = currentUser.uid;
