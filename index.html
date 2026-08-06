@@ -2448,6 +2448,12 @@ function registerUser(nick, password) {
 }
 
 function onAuthSuccess() {
+    // ===== ПРИНУДИТЕЛЬНО СКРЫВАЕМ ЗАГРУЗКУ =====
+    const status = document.getElementById('loadingStatus');
+    if (status) status.classList.add('hidden');
+    console.log('✅ onAuthSuccess запущен, загрузка скрыта');
+    // =============================================
+
     try {
         addLog('🔄 Загрузка профиля в STATE...');
         const data = currentUser.data;
@@ -2509,10 +2515,6 @@ function onAuthSuccess() {
 
         rebuildItemsCount();
 
-        // СКРЫВАЕМ ЗАГРУЗКУ В ЛЮБОМ СЛУЧАЕ
-        const status = document.getElementById('loadingStatus');
-        if (status) status.classList.add('hidden');
-
         const overlay = document.getElementById('loginOverlay');
         if (overlay) overlay.classList.add('hidden');
         const app = document.getElementById('app');
@@ -2520,12 +2522,11 @@ function onAuthSuccess() {
 
         applyTheme(STATE.settings.theme || 'windows_xp');
 
-        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
+        showToast('👋 Приветствую! ...', 8000);
         STATE.welcomeShown = true;
         saveStateToFirebase();
         addLog('💬 Показано приветствие');
 
-        // Рендерим всё асинхронно, не блокируя UI
         setTimeout(() => {
             try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
             try { renderSettings(); } catch(e) { addLog('⚠️ renderSettings: ' + e.message); }
@@ -2553,11 +2554,11 @@ function onAuthSuccess() {
         startClock();
         addLog('✅ Игра полностью загружена');
     } catch (e) {
-        addLog('❌ КРИТИЧЕСКАЯ ОШИБКА при загрузке: ' + e.message);
+        addLog('❌ Ошибка в onAuthSuccess: ' + e.message);
         showToast('❌ Ошибка: ' + e.message, 5000);
-        const status = document.getElementById('loadingStatus');
-        if (status) status.classList.add('hidden');
-        throw e;
+        const status2 = document.getElementById('loadingStatus');
+        if (status2) status2.classList.add('hidden');
+        console.error(e);
     }
 }
     rebuildItemsCount();
