@@ -4716,9 +4716,8 @@ function renderSocialChats() {
     const messagesDiv = document.getElementById('chatMessages');
     const input = document.getElementById('chatInput');
     const sendBtn = document.getElementById('chatSendBtn');
-    if (!chatList || !messagesDiv) return;
+    if (!chatList || !messagesDiv) { addLog('⚠️ Элементы чата не найдены'); return; }
 
-    // Загружаем список пользователей для чатов
     fetch(DB_URL + '/users.json?auth=' + (currentUser?.idToken || ''))
         .then(res => res.json())
         .then(data => {
@@ -4730,7 +4729,6 @@ function renderSocialChats() {
                     }
                 }
             }
-            // Отображаем список пользователей (всех, не только друзей)
             let html = '';
             if (users.length === 0) {
                 html = '<div style="color:#999;">Нет других игроков</div>';
@@ -4748,110 +4746,25 @@ function renderSocialChats() {
                     currentChatPartner = uid;
                     renderSocialChats();
                     loadChatMessages(uid);
-                    input.disabled = false;
-                    sendBtn.disabled = false;
+                    if (input) input.disabled = false;
+                    if (sendBtn) sendBtn.disabled = false;
                 };
             });
-        })
-        .catch(err => addLog('⚠️ Ошибка загрузки списка чатов: ' + err.message));
 
-    // Если есть активный чат, загружаем сообщения
-    if (currentChatPartner) {
-        loadChatMessages(currentChatPartner);
-        input.disabled = false;
-        sendBtn.disabled = false;
-    } else {
-        messagesDiv.innerHTML = '<div style="color:#999;">Выберите собеседника</div>';
-        input.disabled = true;
-        sendBtn.disabled = true;
-    }
-
-    // Отправка сообщения (без проверки на дружбу, только статус получателя)
-    sendBtn.onclick = function() {
-        if (!currentChatPartner) return;
-        // Проверяем статус получателя
-        fetch(DB_URL + '/users/' + currentChatPartner + '/userStatus.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(status => {
-                status = status || 'all';
-                if (status === 'none') {
-                    showToast('❌ Пользователь не принимает сообщения');
-                    return;
-                }
-                if (status === 'friends') {
-                    // Проверяем, есть ли он в друзьях
-                    if (!STATE.friends.includes(currentChatPartner)) {
-                        showToast('❌ Пользователь принимает сообщения только от друзей');
-                        return;
-                    }
-                }
-                // Отправляем
-                const text = input.value.trim();
-                if (!text) return;
-                const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-                if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
-                STATE.messages[chatId].push({
-                    sender: STATE.uid,
-                    text: text,
-                    timestamp: Date.now(),
-                    read: false
-                });
-                input.value = '';
-                STATE.totalMessages = (STATE.totalMessages || 0) + 1;
-                checkAllAchievements();
-                saveStateToFirebase();
+            if (currentChatPartner) {
                 loadChatMessages(currentChatPartner);
-                addLog('💬 Отправлено сообщение пользователю ' + currentChatPartner);
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
-
-    // Удалить из друзей
-    document.getElementById('removeFriendBtn').onclick = function() {
-        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        if (!STATE.friends.includes(currentChatPartner)) { showToast('Не в друзьях'); return; }
-        STATE.friends = STATE.friends.filter(uid => uid !== currentChatPartner);
-        saveStateToFirebase();
-        renderSocialChats();
-        showToast('✅ Удалён из друзей');
-        addLog('❌ Удалён из друзей: ' + currentChatPartner);
-    };
-
-    // Добавить в друзья
-    document.getElementById('addFriendBtn').onclick = function() {
-        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        if (STATE.friends.includes(currentChatPartner)) { showToast('Уже в друзьях'); return; }
-        STATE.friends.push(currentChatPartner);
-        saveStateToFirebase();
-        renderSocialChats();
-        showToast('✅ Добавлен в друзья');
-        checkAllAchievements();
-        addLog('➕ Добавлен друг: ' + currentChatPartner);
-    };
-
-    // Очистить чат
-    document.getElementById('clearChatBtn').onclick = function() {
-        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        if (confirm('Очистить весь чат?')) {
-            STATE.messages[chatId] = [];
-            saveStateToFirebase();
-            loadChatMessages(currentChatPartner);
-            showToast('✅ Чат очищен');
-            addLog('🗑️ Чат очищен');
-        }
-    };
-
-    // Статус (для себя)
-    const statusSelect = document.getElementById('chatStatusSelect');
-    if (statusSelect) {
-        statusSelect.value = STATE.userStatus || 'all';
-        statusSelect.onchange = function() {
-            STATE.userStatus = this.value;
-            saveStateToFirebase();
-            showToast('✅ Статус обновлён: ' + this.value);
-            addLog('🔕 Статус изменён: ' + this.value);
-        };
+                if (input) input.disabled = false;
+                if (sendBtn) sendBtn.disabled = false;
+            } else {
+                messagesDiv.innerHTML = '<div style="color:#999;">Выберите собеседника</div>';
+                if (input) input.disabled = true;
+                if (sendBtn) sendBtn.disabled = true;
+            }
+        })
+        .catch(err => {
+            messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки списка пользователей</div>';
+            addLog('❌ Ошибка загрузки чатов: ' + err.message);
+        });
 }
 
 let currentChatPartner = null;
