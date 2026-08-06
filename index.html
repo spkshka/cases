@@ -39,17 +39,22 @@
             border: 1px solid #1a3a6a;
             color: #000;
             border-radius: 4px;
+            font-size: 14px;
+            padding: 8px 12px;
+            flex: 1 0 auto;
+            min-width: 80px;
+            text-align: center;
         }
         body.theme-windows7 .nav button.active {
             background: #1a3a6a;
             color: #fff;
         }
-        body.theme-windows7 .nav button.important {
-            font-size: 20px;
-            padding: 14px 24px;
-            background: #cc3333;
-            color: #fff;
-            border-color: #aa2222;
+        body.theme-windows7 .nav-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 4px;
         }
         body.theme-windows7 .top-bar {
             background: #d8e0e8;
@@ -77,6 +82,7 @@
             color: #fff;
             border: none;
             border-radius: 4px;
+            padding: 6px 16px;
         }
         body.theme-windows7 .open-btn:hover,
         body.theme-windows7 .market-listing .price button:hover,
@@ -86,7 +92,7 @@
         body.theme-windows7 .clan-create-btn:hover {
             background: #2a5a8a;
         }
-        /* остальные темы (опущены для краткости, но они есть в полной версии) */
+        /* остальные темы (сокращены для краткости, но они есть в полной версии) */
         body.theme-windows_xp { background: #3a6ea5; color: #000; }
         body.theme-windows_xp #app { background: #d4d0c8; border: 3px solid #0a246a; border-style: inset; }
         body.theme-windows_xp .header { border-bottom: 2px solid #0a246a; }
@@ -94,8 +100,6 @@
         body.theme-windows_xp .header .version { color: #000 !important; text-shadow: none; }
         body.theme-windows_xp .nav button { background: #ece9d8; border: 2px solid #0a246a; border-style: outset; color: #000; }
         body.theme-windows_xp .nav button.active { background: #0a246a; color: #fff; border-style: inset; }
-        body.theme-windows_xp .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; font-weight: bold; }
-        body.theme-windows_xp .nav button.important.active { background: #aa2222; border-style: inset; }
         body.theme-windows_xp .top-bar { background: #ece9d8; border: 1px solid #0a246a; }
         body.theme-windows_xp .case-card, body.theme-windows_xp .inv-item,
         body.theme-windows_xp .market-listing, body.theme-windows_xp .account-info,
@@ -113,7 +117,6 @@
         body.theme-windows11 .header h1 { color: #0a0a0a; }
         body.theme-windows11 .nav button { background: #f5f5f5; border: 1px solid #ddd; color: #000; border-radius: 6px; }
         body.theme-windows11 .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
-        body.theme-windows11 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-windows11 .top-bar { background: #f8f8f8; border-color: #ddd; }
         body.theme-windows11 .case-card, body.theme-windows11 .inv-item,
         body.theme-windows11 .market-listing, body.theme-windows11 .account-info,
@@ -131,7 +134,6 @@
         body.theme-dark .header h1 { color: #fff; }
         body.theme-dark .nav button { background: #222; border: 1px solid #444; color: #ccc; }
         body.theme-dark .nav button.active { background: #444; color: #fff; }
-        body.theme-dark .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-dark .top-bar { background: #222; border-color: #444; }
         body.theme-dark .case-card, body.theme-dark .inv-item,
         body.theme-dark .market-listing, body.theme-dark .account-info,
@@ -149,7 +151,6 @@
         body.theme-light .header h1 { color: #000; }
         body.theme-light .nav button { background: #f0f0f0; border: 1px solid #ccc; color: #000; }
         body.theme-light .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
-        body.theme-light .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-light .top-bar { background: #f8f8f8; border-color: #ddd; }
         body.theme-light .case-card, body.theme-light .inv-item,
         body.theme-light .market-listing, body.theme-light .account-info,
@@ -164,7 +165,6 @@
         body.theme-vk2010 .header h1 { color: #1a2a3a; }
         body.theme-vk2010 .nav button { background: #d8e0e8; border: 1px solid #a0b0c0; color: #4a6a8a; }
         body.theme-vk2010 .nav button.active { background: #4a8aba; color: #fff; border-color: #4a8aba; }
-        body.theme-vk2010 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-vk2010 .top-bar { background: #d8e0e8; border-color: #a0b0c0; }
         body.theme-red { background: #2a0a0a; color: #f0d0d0; }
         body.theme-red #app { background: #3a1010; border: 1px solid #6a2020; }
@@ -172,7 +172,6 @@
         body.theme-red .header h1 { color: #ff6666; }
         body.theme-red .nav button { background: #4a1818; border: 1px solid #6a2020; color: #f0d0d0; }
         body.theme-red .nav button.active { background: #8a2a2a; color: #fff; }
-        body.theme-red .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-red .top-bar { background: #3a1010; border-color: #6a2020; }
         body.theme-blue { background: #0a1a3a; color: #c0d8f0; }
         body.theme-blue #app { background: #102050; border: 1px solid #2a4a8a; }
@@ -180,7 +179,6 @@
         body.theme-blue .header h1 { color: #66aaff; }
         body.theme-blue .nav button { background: #1a2a5a; border: 1px solid #2a4a8a; color: #c0d8f0; }
         body.theme-blue .nav button.active { background: #2a5a9a; color: #fff; }
-        body.theme-blue .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
         body.theme-blue .top-bar { background: #102050; border-color: #2a4a8a; }
 
         /* ===== ОБЩИЕ СТИЛИ ===== */
@@ -263,30 +261,42 @@
             color: #1a2a3a;
             background: #d4d0c8;
             padding: 4px 12px;
-            border: 1px solid #0a246a;
+            border: 1px solid #1a3a6a;
             border-radius: 4px;
             font-family: monospace;
         }
         .nav {
             display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 10px 0;
+        }
+        .nav-row {
+            display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin: 10px 0;
             justify-content: center;
         }
         .nav button {
-            padding: 10px 16px;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
-            flex: 0 1 auto;
+            flex: 1 0 auto;
+            min-width: 70px;
+            text-align: center;
+            border: 1px solid #a0b0c0;
+            background: #d8e0e8;
+            color: #000;
         }
         .nav button:hover {
             opacity: 0.8;
         }
         .nav button.active {
             font-weight: bold;
+            background: #1a3a6a;
+            color: #fff;
         }
         .main-content {
             margin-top: 12px;
@@ -895,37 +905,55 @@
             border-radius: 10px;
         }
 
-        /* ===== МЕССЕНДЖЕР (упрощённый, без ленты) ===== */
+        /* ===== МЕССЕНДЖЕР ===== */
         .chat-wrap {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
             padding: 12px;
             background: #f0f4f8;
         }
-        .chat-wrap .chat-input-row {
+        .chat-wrap .chat-selector {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        .chat-wrap .chat-input-row input {
+        .chat-wrap .chat-selector input {
             flex: 1;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid #a0b0c0;
             border-radius: 4px;
-            font-size: 15px;
+            font-size: 14px;
             background: #d8e0e8;
             color: #1a2a3a;
             min-width: 120px;
         }
-        .chat-wrap .chat-input-row button {
-            padding: 8px 16px;
+        .chat-wrap .chat-selector button {
+            padding: 6px 14px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
+            background: #1a3a6a;
+            color: #fff;
         }
+        .chat-wrap .chat-selector button:hover { background: #2a5a8a; }
+        .chat-users-list {
+            max-height: 120px;
+            overflow-y: auto;
+            border: 1px solid #a0b0c0;
+            border-radius: 4px;
+            padding: 4px;
+            margin-bottom: 10px;
+            background: #fff;
+            display: none;
+        }
+        .chat-users-list .user-item {
+            padding: 4px 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .chat-users-list .user-item:hover { background: #d8e0e8; }
         .chat-messages {
             height: 250px;
             overflow-y: auto;
@@ -942,7 +970,36 @@
         }
         .chat-messages .msg .time { color: #999; font-size: 11px; margin-right: 8px; }
         .chat-messages .msg .sender { font-weight: bold; }
-        .chat-messages .msg .self { background: #e8f0fe; }
+        .chat-messages .msg.self { background: #e8f0fe; }
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #a0b0c0;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #d8e0e8;
+            color: #1a2a3a;
+        }
+        .chat-input-row button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #1a3a6a;
+            color: #fff;
+        }
+        .chat-input-row button:hover { background: #2a5a8a; }
+        .chat-info {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 4px;
+        }
 
         /* ===== КЛАНЫ ===== */
         .clan-wrap {
@@ -1451,22 +1508,27 @@
         </div>
         <div class="update-announce">🔥 Обновление 1.2 — Чат, кланы, улучшения!</div>
 
-        <!-- НАВИГАЦИЯ -->
-        <nav class="nav" id="mainNav">
-            <button class="active important" data-section="cases">🎲 Кейсы</button>
-            <button data-section="inventory">📦 Инвентарь</button>
-            <button data-section="market">🏪 Торговля</button>
-            <button class="important" data-section="rating">🏆 Рейтинг</button>
-            <button class="important" data-section="games">🎮 Игры</button>
-            <button data-section="clicker">🖱️ Кликер</button>
-            <button data-section="achievements">🏅 Достижения</button>
-            <button data-section="promo">🎁 Промокод</button>
-            <button data-section="messenger">💬 Мессенджер</button>
-            <button data-section="clans">🏰 Кланы</button>
-            <button data-section="account">👤 Аккаунт</button>
-            <button data-section="settings">⚙️ Настройки</button>
-            <button data-section="updates">📢 Обновления</button>
-        </nav>
+        <!-- НАВИГАЦИЯ (три ряда) -->
+        <div class="nav" id="mainNav">
+            <div class="nav-row">
+                <button class="active" data-section="cases">Кейсы</button>
+                <button data-section="rating">Рейтинг</button>
+                <button data-section="games">Игры</button>
+            </div>
+            <div class="nav-row">
+                <button data-section="inventory">Инвентарь</button>
+                <button data-section="market">Торговля</button>
+                <button data-section="achievements">Достижения</button>
+                <button data-section="clans">Кланы</button>
+            </div>
+            <div class="nav-row">
+                <button data-section="account">Аккаунт</button>
+                <button data-section="promo">Промокоды</button>
+                <button data-section="messenger">Мессенджер</button>
+                <button data-section="settings">Настройки</button>
+                <button data-section="updates">Обновления</button>
+            </div>
+        </div>
 
         <div class="main-content">
             <!-- КЕЙСЫ -->
@@ -1572,7 +1634,7 @@
                 </div>
             </section>
 
-            <!-- КЛИКЕР -->
+            <!-- КЛИКЕР (теперь внутри Игр? Но по просьбе оставим отдельно) -->
             <section id="section-clicker" class="section">
                 <div class="title">Кликер <span class="badge">зарабатывай рубли</span></div>
                 <div class="clicker-wrap">
@@ -1606,19 +1668,24 @@
                 </div>
             </section>
 
-            <!-- МЕССЕНДЖЕР (упрощённый) -->
+            <!-- МЕССЕНДЖЕР (ПОЛНОЦЕННЫЙ) -->
             <section id="section-messenger" class="section">
-                <div class="title">Мессенджер <span class="badge">введи ник и пиши</span></div>
+                <div class="title">Мессенджер <span class="badge">выбери собеседника</span></div>
                 <div class="chat-wrap">
-                    <div class="chat-input-row">
-                        <input type="text" id="chatRecipient" placeholder="Кому (ник)">
-                        <input type="text" id="chatMessage" placeholder="Сообщение">
-                        <button class="chat-send-btn" id="chatSendBtn">Отправить</button>
+                    <div class="chat-selector">
+                        <input type="text" id="chatSearchInput" placeholder="Введите ник собеседника">
+                        <button id="chatSearchBtn">Найти / Открыть чат</button>
+                        <button id="chatShowAllBtn">Все игроки</button>
                     </div>
+                    <div class="chat-users-list" id="chatUsersList"></div>
                     <div class="chat-messages" id="chatMessages">
-                        <div style="color:#999;">Введите ник получателя и сообщение</div>
+                        <div style="color:#999; text-align:center; padding:20px;">Выберите собеседника</div>
                     </div>
-                    <div style="font-size:12px; color:#666; text-align:center;">Сообщения хранятся 48 часов</div>
+                    <div class="chat-input-row">
+                        <input type="text" id="chatInput" placeholder="Введите сообщение..." disabled>
+                        <button id="chatSendBtn" disabled>Отправить</button>
+                    </div>
+                    <div class="chat-info">Сообщения хранятся 48 часов</div>
                 </div>
             </section>
 
@@ -1704,13 +1771,14 @@
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
                     <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>💬 Упрощённый мессенджер (введи ник – пиши)</li>
+                        <li>💬 Полноценный мессенджер (выбор собеседника, история)</li>
                         <li>🏰 Кланы: отображение участников, опыта, чата</li>
                         <li>🎵 Музыка по умолчанию – мелодичная</li>
                         <li>🖥️ Тема по умолчанию – Windows 7</li>
                         <li>📋 Логи работают</li>
                         <li>🔔 Уведомления о новых сообщениях</li>
                         <li>📦 Сообщения хранятся 48 часов</li>
+                        <li>🧭 Навигация перестроена в ровные ряды</li>
                     </ul>
                 </div>
             </section>
@@ -1759,10 +1827,10 @@
 
     <div class="log-popup" id="logPopup"></div>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ===== JAVASCRIPT (ИСПРАВЛЕННЫЙ) ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ФИНАЛЬНАЯ)
+    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ФИНАЛЬНАЯ, ИСПРАВЛЕННАЯ)
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1826,7 +1894,6 @@
         toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
     }
 
-    // Показ уведомления о новом сообщении
     function showNotification(text) {
         const el = document.getElementById('notification');
         if (!el) return;
@@ -1836,7 +1903,7 @@
         el._timeout = setTimeout(() => el.classList.remove('show'), 5000);
     }
 
-    // ===== СИСТЕМА УРОВНЕЙ =====
+    // ===== УРОВНИ =====
     function getLevelForExp(exp) {
         if (exp < 100) return 1;
         if (exp < 200) return 2;
@@ -2144,7 +2211,7 @@
     function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
     function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
 
-    // ===== ВХОД И РЕГИСТРАЦИЯ =====
+    // ===== ВХОД =====
     function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
     function loginUser(nick, password) {
@@ -2308,10 +2375,10 @@
     function onAuthSuccess() {
         const status = document.getElementById('loadingStatus');
         if (status) status.classList.add('hidden');
-        console.log('✅ onAuthSuccess запущен, загрузка скрыта');
+        console.log('✅ onAuthSuccess');
 
         try {
-            addLog('🔄 Загрузка профиля в STATE...');
+            addLog('🔄 Загрузка профиля...');
             const data = currentUser.data;
             STATE.balance = data.balance ?? 500;
             STATE.totalEarned = data.totalEarned || 0;
@@ -2407,6 +2474,8 @@
             initPlane();
             initClicker();
             startClock();
+            // Запускаем проверку сообщений для мессенджера
+            startMessengerPolling();
             addLog('✅ Игра полностью загружена');
         } catch (e) {
             addLog('❌ Ошибка в onAuthSuccess: ' + e.message);
@@ -2417,7 +2486,6 @@
         }
     }
 
-    // ===== СОХРАНЕНИЕ В FIREBASE =====
     function saveStateToFirebase() {
         if (!currentUser || !currentUser.idToken) return Promise.resolve();
         const uid = currentUser.uid;
@@ -2498,7 +2566,7 @@
         showToast('Вы вышли');
     }
 
-    // ===== КЕЙСЫ =====
+    // ===== КЕЙСЫ (открытие) =====
     function getCaseById(id) { return CASES.find(c => c.id === id); }
     function rollItem(caseData) {
         const total = caseData.items.reduce((s, i) => s + i.weight, 0);
@@ -4133,7 +4201,6 @@
 
     function applyTheme(theme) {
         document.body.className = 'theme-' + theme;
-        // Если это не windows7 и не windows_xp, то подставляем общие стили, но они уже есть в CSS
     }
 
     function updateMusic() {
@@ -4232,133 +4299,120 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР (УПРОЩЁННЫЙ) =====
+    // ===== МЕССЕНДЖЕР (ПОЛНОЦЕННЫЙ) =====
+    let currentChatPartner = null;
+    let messengerPollingInterval = null;
+
     function renderMessenger() {
         const messagesDiv = document.getElementById('chatMessages');
+        const input = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('chatSendBtn');
         if (!messagesDiv) return;
-        // Загружаем все сообщения (глобально) для текущего пользователя
-        // Сообщения хранятся в Firebase в /messages/{chatId}
-        // Но для простоты будем хранить в STATE.messages (локально, но синхронизируем с Firebase при входе)
-        // Поскольку у нас нет понятия "чат" между двумя, мы будем использовать глобальный чат с выбором получателя по нику.
-        // Однако пользователь хочет писать конкретному игроку, поэтому мы будем использовать структуру:
-        // STATE.messages[recipientUid] = [ { sender, text, timestamp } ]
-        // Но у нас нет UID получателя, только ник. Поэтому будем искать UID по нику.
-        // Для простоты реализуем так: при отправке ищем ник в базе, получаем UID, сохраняем сообщение.
-        // При получении сообщений мы будем подписываться на изменения или просто перезагружать при каждом рендере.
-        // Так как мы не используем realtime, будем просто загружать при входе и при каждом открытии раздела.
-        // Но для упрощения сделаем так: при нажатии "Отправить" сохраняем сообщение в /messages/{recipientUid}/{senderUid} и наоборот.
-        // А при загрузке мессенджера показываем все сообщения, где пользователь является отправителем или получателем.
-        // Но проще: сделать глобальный чат, где сообщения видны всем, но с фильтром по нику получателя.
-        // Я сделаю так: каждый может отправить сообщение любому пользователю, указав ник. Сообщение сохраняется в /public_messages с полями from, to, text, timestamp.
-        // При загрузке мессенджера показываем все сообщения, где to = ник текущего пользователя или from = текущий пользователь.
-        // Это самый простой способ.
 
-        // Загружаем сообщения из Firebase
-        fetch(DB_URL + '/public_messages.json?auth=' + (currentUser?.idToken || ''))
-            .then(res => res.json())
-            .then(data => {
-                let msgs = [];
-                if (data) {
-                    for (const key in data) {
-                        const msg = data[key];
-                        msg._id = key;
-                        msgs.push(msg);
-                    }
-                }
-                // Фильтруем по текущему пользователю (ник) – показываем те, где to = его ник или from = его ник
-                const myNick = STATE.nickname;
-                msgs = msgs.filter(m => m.to === myNick || m.from === myNick);
-                // Сортируем по времени
-                msgs.sort((a, b) => a.timestamp - b.timestamp);
-                // Удаляем сообщения старше 48 часов
-                const now = Date.now();
-                const cutoff = now - 48 * 60 * 60 * 1000;
-                const validMsgs = msgs.filter(m => m.timestamp > cutoff);
-                // Если есть удалённые, обновляем Firebase (удаляем старые)
-                if (validMsgs.length !== msgs.length) {
-                    // Удаляем старые сообщения из БД (для простоты просто перезаписываем)
-                    // Можно оставить как есть, но для чистоты удалим.
-                    // Так как у нас нет прямого доступа к ключам, мы перезапишем все сообщения.
-                    // Но это опасно, лучше просто оставить, они не отображаются.
-                    // Оставим как есть.
-                }
-                // Отображаем
-                let html = '';
-                if (validMsgs.length === 0) {
-                    html = '<div style="color:#999;">Нет сообщений</div>';
-                } else {
-                    for (const msg of validMsgs) {
-                        const sender = msg.from;
-                        const isSelf = (sender === myNick);
-                        const time = new Date(msg.timestamp).toLocaleTimeString();
-                        html += `<div class="msg ${isSelf ? 'self' : ''}">
-                            <span class="time">${time}</span>
-                            <span class="sender">${sender}:</span> ${msg.text}
-                        </div>`;
-                    }
-                }
-                messagesDiv.innerHTML = html;
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            })
-            .catch(err => {
-                messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки сообщений</div>';
-                addLog('❌ Ошибка загрузки сообщений: ' + err.message);
-            });
+        if (!currentChatPartner) {
+            messagesDiv.innerHTML = '<div style="color:#999; text-align:center; padding:20px;">Выберите собеседника</div>';
+            input.disabled = true;
+            sendBtn.disabled = true;
+            return;
+        }
+
+        // Загружаем сообщения с этим собеседником
+        const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+        const msgs = STATE.messages[chatId] || [];
+        // Фильтруем по времени (48 часов)
+        const now = Date.now();
+        const cutoff = now - 48 * 60 * 60 * 1000;
+        const validMsgs = msgs.filter(m => m.timestamp > cutoff);
+        if (validMsgs.length !== msgs.length) {
+            STATE.messages[chatId] = validMsgs;
+            saveStateToFirebase();
+        }
+
+        let html = '';
+        if (validMsgs.length === 0) {
+            html = '<div style="color:#999; text-align:center; padding:20px;">Нет сообщений</div>';
+        } else {
+            for (const msg of validMsgs) {
+                const isSelf = (msg.sender === STATE.uid);
+                const time = new Date(msg.timestamp).toLocaleTimeString();
+                const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
+                html += `<div class="msg ${isSelf ? 'self' : ''}">
+                    <span class="time">${time}</span>
+                    <span class="sender">${senderName}:</span> ${msg.text}
+                </div>`;
+            }
+        }
+        messagesDiv.innerHTML = html;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        input.disabled = false;
+        sendBtn.disabled = false;
     }
 
-    // Отправка сообщения
-    document.getElementById('chatSendBtn').onclick = function() {
-        if (!currentUser) { showToast('Войдите'); return; }
-        const recipientNick = document.getElementById('chatRecipient').value.trim();
-        const text = document.getElementById('chatMessage').value.trim();
-        if (!recipientNick || !text) { showToast('Введите получателя и текст'); return; }
-        if (recipientNick === STATE.nickname) { showToast('Нельзя отправлять себе'); return; }
+    function loadChatPartner(partnerUid) {
+        currentChatPartner = partnerUid;
+        renderMessenger();
+        // Загружаем сообщения из Firebase (если они есть в БД) – но они уже в STATE, так как мы загружаем при входе
+        // Дополнительно можно подписаться на обновления, но для простоты периодический polling
+    }
 
-        // Проверяем, существует ли получатель
-        fetch(DB_URL + '/nicknames/' + recipientNick + '.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(uid => {
-                if (!uid) {
-                    showToast('❌ Пользователь не найден');
-                    return;
-                }
-                // Сохраняем сообщение
-                const msg = {
-                    from: STATE.nickname,
-                    to: recipientNick,
-                    text: text,
-                    timestamp: Date.now()
-                };
-                fetch(DB_URL + '/public_messages.json?auth=' + currentUser.idToken, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(msg)
-                })
-                .then(res => res.json())
-                .then(() => {
-                    showToast('✅ Сообщение отправлено');
-                    document.getElementById('chatMessage').value = '';
-                    renderMessenger();
-                    addLog('💬 Отправлено сообщение пользователю ' + recipientNick);
-                    // Уведомление (но только если получатель не мы)
-                    if (recipientNick !== STATE.nickname) {
-                        showNotification('✉️ Новое сообщение от ' + STATE.nickname);
-                    }
-                })
-                .catch(err => showToast('❌ Ошибка: ' + err.message));
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-    };
+    function sendMessage() {
+        if (!currentUser || !currentChatPartner) {
+            showToast('Выберите собеседника');
+            return;
+        }
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text) return;
 
-    // Периодическое обновление сообщений (каждые 5 секунд)
-    let messengerInterval = null;
+        const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+        if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
+        const msg = {
+            sender: STATE.uid,
+            senderName: STATE.nickname,
+            text: text,
+            timestamp: Date.now()
+        };
+        STATE.messages[chatId].push(msg);
+        STATE.totalMessages = (STATE.totalMessages || 0) + 1;
+        saveStateToFirebase();
+        input.value = '';
+        renderMessenger();
+        // Уведомление получателю (если он не мы)
+        // В реальности уведомление должно приходить только если получатель онлайн, но мы сделаем упрощённо: уведомление видит только отправитель, но мы можем показывать уведомление всем, но для простоты оставим так.
+        // Покажем уведомление только если получатель – не мы (но мы сами отправили, так что не надо)
+        // Мы будем показывать уведомление только когда кто-то другой написал нам – это отслеживается через polling.
+        addLog('💬 Сообщение отправлено ' + currentChatPartner);
+    }
+
     function startMessengerPolling() {
-        if (messengerInterval) clearInterval(messengerInterval);
-        messengerInterval = setInterval(() => {
-            // Обновляем только если раздел активен
+        if (messengerPollingInterval) clearInterval(messengerPollingInterval);
+        messengerPollingInterval = setInterval(() => {
+            // Проверяем, есть ли новые сообщения для текущего пользователя (от других)
+            // Если есть – обновляем интерфейс и показываем уведомление.
+            // Для простоты будем перезагружать сообщения только если раздел активен.
             const section = document.getElementById('section-messenger');
-            if (section && section.classList.contains('active') && currentUser) {
-                renderMessenger();
+            if (section && section.classList.contains('active') && currentUser && currentChatPartner) {
+                // Загружаем свежие сообщения из Firebase
+                const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+                fetch(DB_URL + '/users/' + STATE.uid + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data) {
+                            const msgs = Object.values(data);
+                            const oldMsgs = STATE.messages[chatId] || [];
+                            // Проверяем, есть ли новые сообщения от других
+                            const newFromOthers = msgs.filter(m => m.sender !== STATE.uid && !oldMsgs.some(o => o.timestamp === m.timestamp && o.text === m.text));
+                            if (newFromOthers.length > 0) {
+                                // Показываем уведомление
+                                const lastMsg = newFromOthers[newFromOthers.length - 1];
+                                showNotification('✉️ Новое сообщение от ' + (lastMsg.senderName || 'неизвестного'));
+                                // Обновляем STATE
+                                STATE.messages[chatId] = msgs;
+                                renderMessenger();
+                            }
+                        }
+                    })
+                    .catch(err => {});
             }
         }, 5000);
     }
@@ -4386,7 +4440,6 @@
         }
 
         const clanId = STATE.clanId;
-        // Загружаем данные клана из Firebase
         fetch(DB_URL + '/clans/' + clanId + '.json?auth=' + currentUser.idToken)
             .then(res => res.json())
             .then(clanData => {
@@ -4399,7 +4452,6 @@
                 }
                 const isLeader = STATE.clanRole === 'leader';
                 const members = clanData.members || [];
-                // Ограничим отображение до 30 участников
                 const displayMembers = members.slice(0, 30);
                 const memberListHtml = displayMembers.map(m =>
                     `<div class="member ${m.role === 'leader' ? 'leader' : ''}">${m.name} ${m.role === 'leader' ? '👑' : ''}</div>`
@@ -4407,12 +4459,10 @@
                 const moreCount = members.length - 30;
                 const moreHtml = moreCount > 0 ? `<div class="member" style="background:#ccc;">+${moreCount}</div>` : '';
 
-                // Опыт клана
                 const exp = clanData.exp || 0;
                 const expNext = clanData.expNext || 100;
                 const progress = Math.min(100, (exp / expNext) * 100);
 
-                // Клановый чат – загружаем сообщения клана
                 const clanChatId = 'clan_' + clanId;
                 fetch(DB_URL + '/clan_messages/' + clanChatId + '.json?auth=' + currentUser.idToken)
                     .then(res => res.json())
@@ -4425,9 +4475,7 @@
                                 msgs.push(msg);
                             }
                         }
-                        // Сортируем по времени
                         msgs.sort((a, b) => a.timestamp - b.timestamp);
-                        // Фильтруем по времени (48 часов)
                         const now = Date.now();
                         const cutoff = now - 48 * 60 * 60 * 1000;
                         msgs = msgs.filter(m => m.timestamp > cutoff);
@@ -4462,7 +4510,6 @@
                             </div>
                         `;
 
-                        // Обработка отправки сообщения в клановый чат
                         document.getElementById('clanChatSendBtn')?.addEventListener('click', function() {
                             if (!currentUser) { showToast('Войдите'); return; }
                             const input = document.getElementById('clanChatInput');
@@ -4678,7 +4725,11 @@
         if (sectionId === 'cases') renderCases();
         if (sectionId === 'achievements') renderAchievements();
         if (sectionId === 'account') renderAccount();
-        if (sectionId === 'messenger') renderMessenger();
+        if (sectionId === 'messenger') {
+            renderMessenger();
+            // Загружаем список игроков для выбора
+            loadUsersList();
+        }
         if (sectionId === 'clans') renderClans();
         if (sectionId === 'clicker') {
             document.getElementById('clickerBalance').textContent = STATE.balance;
@@ -4686,6 +4737,71 @@
         }
         addLog('📂 Переход в раздел: ' + sectionId);
     }
+
+    // Загрузка списка игроков для мессенджера
+    function loadUsersList() {
+        const listDiv = document.getElementById('chatUsersList');
+        if (!listDiv) return;
+        fetch(DB_URL + '/users.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(data => {
+                let users = [];
+                for (const uid in data) {
+                    if (uid !== STATE.uid) {
+                        users.push({ uid, nickname: data[uid].nickname });
+                    }
+                }
+                let html = '';
+                for (const u of users) {
+                    html += `<div class="user-item" data-uid="${u.uid}">${u.nickname}</div>`;
+                }
+                listDiv.innerHTML = html;
+                listDiv.querySelectorAll('.user-item').forEach(item => {
+                    item.onclick = function() {
+                        const uid = this.dataset.uid;
+                        loadChatPartner(uid);
+                        listDiv.style.display = 'none';
+                        document.getElementById('chatSearchInput').value = '';
+                    };
+                });
+            })
+            .catch(err => {});
+    }
+
+    // Обработчики для мессенджера
+    document.getElementById('chatSearchBtn').onclick = function() {
+        const input = document.getElementById('chatSearchInput');
+        const nick = input.value.trim();
+        if (!nick) { showToast('Введите ник'); return; }
+        // Ищем пользователя
+        fetch(DB_URL + '/nicknames/' + nick + '.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(uid => {
+                if (!uid) { showToast('❌ Пользователь не найден'); return; }
+                if (uid === STATE.uid) { showToast('Это вы'); return; }
+                loadChatPartner(uid);
+                input.value = '';
+                document.getElementById('chatUsersList').style.display = 'none';
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    document.getElementById('chatShowAllBtn').onclick = function() {
+        const list = document.getElementById('chatUsersList');
+        if (list.style.display === 'none') {
+            list.style.display = 'block';
+            loadUsersList();
+        } else {
+            list.style.display = 'none';
+        }
+    };
+
+    document.getElementById('chatSendBtn').onclick = sendMessage;
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
 
     // ===== ПРИВЯЗКА КНОПОК ВХОДА =====
     document.getElementById('loginBtn').onclick = function() {
@@ -4808,9 +4924,6 @@
         document.getElementById('loginOverlay').classList.remove('hidden');
         document.getElementById('app').style.display = 'none';
         addLog('🚀 Игра загружена, ожидание входа.');
-
-        // Запускаем polling для мессенджера
-        startMessengerPolling();
     });
     </script>
 </body>
