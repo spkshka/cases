@@ -4529,8 +4529,8 @@ function navigateTo(sectionId) {
 // ---- Лента ----
 function renderSocialFeed() {
     const container = document.getElementById('feedContainer');
-    if (!container) return;
-    // Загружаем все посты из Firebase (для всех пользователей)
+    if (!container) { addLog('⚠️ feedContainer не найден'); return; }
+
     fetch(DB_URL + '/posts.json?auth=' + (currentUser?.idToken || ''))
         .then(res => res.json())
         .then(data => {
@@ -4542,7 +4542,6 @@ function renderSocialFeed() {
                     posts.push(post);
                 }
             }
-            // Сортируем по времени (новые сверху)
             posts.sort((a, b) => b.timestamp - a.timestamp);
             if (posts.length === 0) {
                 container.innerHTML = '<div style="color:#999; text-align:center; padding:20px;">Пока нет постов. Будьте первым!</div>';
@@ -4550,7 +4549,6 @@ function renderSocialFeed() {
             }
             let html = '';
             for (const post of posts) {
-                const isLiked = post.likes && post.likes.includes(STATE.uid);
                 const likeCount = post.likes ? post.likes.length : 0;
                 const comments = post.comments || [];
                 html += `<div class="social-post" data-post-id="${post._id}">
@@ -4575,44 +4573,31 @@ function renderSocialFeed() {
             }
             container.innerHTML = html;
 
-            // Обработчики лайков
             container.querySelectorAll('.like-btn').forEach(btn => {
-                btn.onclick = function() {
-                    const postId = this.dataset.postId;
-                    toggleLike(postId);
-                };
+                btn.onclick = function() { toggleLike(this.dataset.postId); };
             });
-
-            // Обработчики показа/скрытия комментариев
             container.querySelectorAll('.comment-toggle-btn').forEach(btn => {
                 btn.onclick = function() {
-                    const postId = this.dataset.postId;
-                    const commentsDiv = document.getElementById('comments-' + postId);
-                    if (commentsDiv) {
-                        commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
+                    const pid = this.dataset.postId;
+                    const commentsDiv = document.getElementById('comments-' + pid);
+                    if (commentsDiv) commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
+                };
+            });
+            container.querySelectorAll('.comment-submit').forEach(btn => {
+                btn.onclick = function() {
+                    const pid = this.dataset.postId;
+                    const input = document.querySelector(`.comment-input[data-post-id="${pid}"]`);
+                    if (input && input.value.trim()) {
+                        addComment(pid, input.value.trim());
                     }
                 };
             });
-
-            // Обработчики отправки комментариев
-            container.querySelectorAll('.comment-submit').forEach(btn => {
-                btn.onclick = function() {
-                    const postId = this.dataset.postId;
-                    const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
-                    if (!input) return;
-                    const text = input.value.trim();
-                    if (!text) return;
-                    addComment(postId, text);
-                };
-            });
-            // Enter для комментариев
             container.querySelectorAll('.comment-input').forEach(input => {
                 input.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
-                        const postId = this.dataset.postId;
+                        const pid = this.dataset.postId;
                         const text = this.value.trim();
-                        if (!text) return;
-                        addComment(postId, text);
+                        if (text) addComment(pid, text);
                     }
                 });
             });
