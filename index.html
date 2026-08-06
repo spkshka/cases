@@ -2446,7 +2446,6 @@ function registerUser(nick, password) {
             document.getElementById('loadingStatus').classList.add('hidden');
         });
 }
-
 function onAuthSuccess() {
     // ===== ПРИНУДИТЕЛЬНО СКРЫВАЕМ ЗАГРУЗКУ =====
     const status = document.getElementById('loadingStatus');
@@ -2522,7 +2521,7 @@ function onAuthSuccess() {
 
         applyTheme(STATE.settings.theme || 'windows_xp');
 
-        showToast('👋 Приветствую! ...', 8000);
+        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
         STATE.welcomeShown = true;
         saveStateToFirebase();
         addLog('💬 Показано приветствие');
@@ -2559,6 +2558,7 @@ function onAuthSuccess() {
         const status2 = document.getElementById('loadingStatus');
         if (status2) status2.classList.add('hidden');
         console.error(e);
+    }
 }
     rebuildItemsCount();
     document.getElementById('loginOverlay').classList.add('hidden');
