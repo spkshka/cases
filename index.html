@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Крутая игра про ттп 1.1.3</title>
+    <title>Крутая игра про ттп 1.2</title>
     <style>
         /* ===== ОБЩИЕ СБРОСЫ ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,6 +50,18 @@
             color: #fff;
             border-style: inset;
         }
+        body.theme-windows_xp .nav button.important {
+            font-size: 20px;
+            padding: 14px 24px;
+            background: #cc3333;
+            color: #fff;
+            border-color: #aa2222;
+            font-weight: bold;
+        }
+        body.theme-windows_xp .nav button.important.active {
+            background: #aa2222;
+            border-style: inset;
+        }
         body.theme-windows_xp .top-bar {
             background: #ece9d8;
             border: 1px solid #0a246a;
@@ -61,7 +73,8 @@
         body.theme-windows_xp .game-wrap,
         body.theme-windows_xp .clicker-wrap,
         body.theme-windows_xp .chat-wrap,
-        body.theme-windows_xp .clan-wrap {
+        body.theme-windows_xp .clan-wrap,
+        body.theme-windows_xp .social-wrap {
             background: #ece9d8;
             border: 2px solid #0a246a;
             border-style: outset;
@@ -71,7 +84,8 @@
         body.theme-windows_xp .click-btn,
         body.theme-windows_xp .modal-buttons button,
         body.theme-windows_xp .chat-send-btn,
-        body.theme-windows_xp .clan-create-btn {
+        body.theme-windows_xp .clan-create-btn,
+        body.theme-windows_xp .social-post-btn {
             background: #0a246a;
             color: #fff;
             border: 2px solid #0a246a;
@@ -82,7 +96,8 @@
         body.theme-windows_xp .click-btn:hover,
         body.theme-windows_xp .modal-buttons button:hover,
         body.theme-windows_xp .chat-send-btn:hover,
-        body.theme-windows_xp .clan-create-btn:hover {
+        body.theme-windows_xp .clan-create-btn:hover,
+        body.theme-windows_xp .social-post-btn:hover {
             background: #1a3a8a;
         }
         /* остальные темы аналогичны предыдущей версии – для краткости опущены, но в полном коде они есть */
@@ -92,6 +107,7 @@
         body.theme-windows7 .header h1 { color: #1a3a6a; text-shadow: none; }
         body.theme-windows7 .nav button { background: #d0d8e0; border: 1px solid #1a3a6a; color: #000; border-radius: 4px; }
         body.theme-windows7 .nav button.active { background: #1a3a6a; color: #fff; }
+        body.theme-windows7 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-windows11 { background: #f0f0f0; color: #000; }
         body.theme-windows11 #app { background: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
@@ -99,17 +115,7 @@
         body.theme-windows11 .header h1 { color: #0a0a0a; }
         body.theme-windows11 .nav button { background: #f5f5f5; border: 1px solid #ddd; color: #000; border-radius: 6px; }
         body.theme-windows11 .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
-        body.theme-windows11 .top-bar { background: #f8f8f8; border-color: #ddd; }
-        body.theme-windows11 .case-card, body.theme-windows11 .inv-item,
-        body.theme-windows11 .market-listing, body.theme-windows11 .account-info,
-        body.theme-windows11 .game-wrap, body.theme-windows11 .clicker-wrap,
-        body.theme-windows11 .chat-wrap, body.theme-windows11 .clan-wrap { background: #fafafa; border-color: #ddd; }
-        body.theme-windows11 .open-btn, body.theme-windows11 .market-listing .price button,
-        body.theme-windows11 .click-btn, body.theme-windows11 .modal-buttons button,
-        body.theme-windows11 .chat-send-btn, body.theme-windows11 .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
-        body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover,
-        body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover,
-        body.theme-windows11 .chat-send-btn:hover, body.theme-windows11 .clan-create-btn:hover { background: #106ebe; }
+        body.theme-windows11 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-dark { background: #0a0a0a; color: #c0c0c0; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
@@ -117,17 +123,7 @@
         body.theme-dark .header h1 { color: #fff; }
         body.theme-dark .nav button { background: #222; border: 1px solid #444; color: #ccc; }
         body.theme-dark .nav button.active { background: #444; color: #fff; }
-        body.theme-dark .top-bar { background: #222; border-color: #444; }
-        body.theme-dark .case-card, body.theme-dark .inv-item,
-        body.theme-dark .market-listing, body.theme-dark .account-info,
-        body.theme-dark .game-wrap, body.theme-dark .clicker-wrap,
-        body.theme-dark .chat-wrap, body.theme-dark .clan-wrap { background: #222; border-color: #444; }
-        body.theme-dark .open-btn, body.theme-dark .market-listing .price button,
-        body.theme-dark .click-btn, body.theme-dark .modal-buttons button,
-        body.theme-dark .chat-send-btn, body.theme-dark .clan-create-btn { background: #444; color: #fff; border: 1px solid #666; }
-        body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover,
-        body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover,
-        body.theme-dark .chat-send-btn:hover, body.theme-dark .clan-create-btn:hover { background: #555; }
+        body.theme-dark .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
@@ -135,14 +131,7 @@
         body.theme-light .header h1 { color: #000; }
         body.theme-light .nav button { background: #f0f0f0; border: 1px solid #ccc; color: #000; }
         body.theme-light .nav button.active { background: #0078d4; color: #fff; border-color: #0078d4; }
-        body.theme-light .top-bar { background: #f8f8f8; border-color: #ddd; }
-        body.theme-light .case-card, body.theme-light .inv-item,
-        body.theme-light .market-listing, body.theme-light .account-info,
-        body.theme-light .game-wrap, body.theme-light .clicker-wrap,
-        body.theme-light .chat-wrap, body.theme-light .clan-wrap { background: #fafafa; border-color: #ddd; }
-        body.theme-light .open-btn, body.theme-light .market-listing .price button,
-        body.theme-light .click-btn, body.theme-light .modal-buttons button,
-        body.theme-light .chat-send-btn, body.theme-light .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-light .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
@@ -150,6 +139,7 @@
         body.theme-vk2010 .header h1 { color: #1a2a3a; }
         body.theme-vk2010 .nav button { background: #d8e0e8; border: 1px solid #a0b0c0; color: #4a6a8a; }
         body.theme-vk2010 .nav button.active { background: #4a8aba; color: #fff; border-color: #4a8aba; }
+        body.theme-vk2010 .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-red { background: #2a0a0a; color: #f0d0d0; }
         body.theme-red #app { background: #3a1010; border: 1px solid #6a2020; }
@@ -157,6 +147,7 @@
         body.theme-red .header h1 { color: #ff6666; }
         body.theme-red .nav button { background: #4a1818; border: 1px solid #6a2020; color: #f0d0d0; }
         body.theme-red .nav button.active { background: #8a2a2a; color: #fff; }
+        body.theme-red .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         body.theme-blue { background: #0a1a3a; color: #c0d8f0; }
         body.theme-blue #app { background: #102050; border: 1px solid #2a4a8a; }
@@ -164,6 +155,7 @@
         body.theme-blue .header h1 { color: #66aaff; }
         body.theme-blue .nav button { background: #1a2a5a; border: 1px solid #2a4a8a; color: #c0d8f0; }
         body.theme-blue .nav button.active { background: #2a5a9a; color: #fff; }
+        body.theme-blue .nav button.important { font-size: 20px; padding: 14px 24px; background: #cc3333; color: #fff; border-color: #aa2222; }
 
         /* ===== ОБЩИЕ СТИЛИ ===== */
         #app {
@@ -223,6 +215,7 @@
         .top-bar {
             display: flex;
             justify-content: space-around;
+            align-items: center;
             border-radius: 6px;
             padding: 10px 4px;
             margin: 10px 0;
@@ -237,6 +230,16 @@
             font-weight: bold;
             font-size: 17px;
             color: #1a2a3a;
+        }
+        .top-bar .clock {
+            font-weight: bold;
+            font-size: 17px;
+            color: #1a2a3a;
+            background: #d4d0c8;
+            padding: 4px 12px;
+            border: 1px solid #0a246a;
+            border-radius: 4px;
+            font-family: monospace;
         }
         .nav {
             display: flex;
@@ -503,7 +506,12 @@
             border: 1px solid #a0b0c0;
             color: #1a2a3a;
         }
-        .market-sell-form .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .market-sell-form .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
         .market-sell-form .row button {
             padding: 8px 16px;
             border: none;
@@ -861,20 +869,129 @@
             border-radius: 10px;
         }
 
-        /* ===== МЕССЕНДЖЕР ===== */
-        .chat-wrap {
+        /* ===== СОЦ СЕТЬ (вместо мессенджера) ===== */
+        .social-wrap {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
             padding: 12px;
             background: #f0f4f8;
         }
-        .chat-friends {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .social-feed {
+            max-height: 400px;
+            overflow-y: auto;
             margin-bottom: 12px;
         }
-        .chat-friends button {
+        .social-post {
+            border: 1px solid #a0b0c0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+        .social-post .post-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+        .social-post .post-content {
+            font-size: 15px;
+            margin: 6px 0;
+            white-space: pre-wrap;
+        }
+        .social-post .post-actions {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+        .social-post .post-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #4a8aba;
+        }
+        .social-post .post-actions button:hover { text-decoration: underline; }
+        .social-post .comments {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px solid #ddd;
+            font-size: 13px;
+        }
+        .social-post .comments .comment {
+            padding: 2px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .social-post .comments .comment .comment-author { font-weight: bold; }
+        .social-post .comments .comment .comment-text { margin-left: 6px; }
+        .social-post .comments .comment-form {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .social-post .comments .comment-form input {
+            flex: 1;
+            padding: 4px 8px;
+            border: 1px solid #a0b0c0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .social-post .comments .comment-form button {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #4a8aba;
+            color: #fff;
+        }
+        .social-create-post {
+            margin-bottom: 12px;
+            border: 1px solid #a0b0c0;
+            border-radius: 6px;
+            padding: 12px;
+            background: #d8e0e8;
+        }
+        .social-create-post textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #a0b0c0;
+            border-radius: 4px;
+            font-size: 15px;
+            background: #fff;
+            resize: vertical;
+            min-height: 60px;
+        }
+        .social-create-post .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            align-items: center;
+        }
+        .social-create-post .row button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        /* Чаты (сообщения) внутри соцсети */
+        .social-chats {
+            margin-top: 12px;
+            border-top: 1px solid #a0b0c0;
+            padding-top: 12px;
+        }
+        .social-chats .chat-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .social-chats .chat-list button {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
             padding: 6px 14px;
@@ -882,53 +999,12 @@
             background: #d8e0e8;
             transition: 0.2s;
         }
-        .chat-friends button.active {
+        .social-chats .chat-list button.active {
             background: #4a8aba;
             color: #fff;
             border-color: #4a8aba;
         }
-        .chat-friends button:hover { background: #c8d0d8; }
-        .chat-search {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .chat-search input {
-            flex: 1;
-            padding: 6px 10px;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            font-size: 14px;
-            background: #d8e0e8;
-            color: #1a2a3a;
-            min-width: 120px;
-        }
-        .chat-search button {
-            padding: 6px 14px;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            cursor: pointer;
-            background: #d8e0e8;
-            transition: 0.2s;
-        }
-        .chat-search button:hover { background: #c8d0d8; }
-        .chat-players-list {
-            max-height: 120px;
-            overflow-y: auto;
-            border: 1px solid #a0b0c0;
-            border-radius: 4px;
-            padding: 6px;
-            margin-bottom: 12px;
-            background: #fff;
-        }
-        .chat-players-list .player-item {
-            padding: 4px 8px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-        }
-        .chat-players-list .player-item:hover { background: #d8e0e8; }
-        .chat-messages {
+        .social-chats .chat-messages {
             height: 200px;
             overflow-y: auto;
             border: 1px solid #a0b0c0;
@@ -938,17 +1014,17 @@
             margin-bottom: 8px;
             font-size: 14px;
         }
-        .chat-messages .msg {
+        .social-chats .chat-messages .msg {
             padding: 4px 0;
             border-bottom: 1px solid #eee;
         }
-        .chat-messages .msg .time { color: #999; font-size: 11px; margin-right: 8px; }
-        .chat-messages .msg .sender { font-weight: bold; }
-        .chat-input-row {
+        .social-chats .chat-messages .msg .time { color: #999; font-size: 11px; margin-right: 8px; }
+        .social-chats .chat-messages .msg .sender { font-weight: bold; }
+        .social-chats .chat-input-row {
             display: flex;
             gap: 8px;
         }
-        .chat-input-row input {
+        .social-chats .chat-input-row input {
             flex: 1;
             padding: 8px 12px;
             border: 1px solid #a0b0c0;
@@ -957,7 +1033,7 @@
             background: #d8e0e8;
             color: #1a2a3a;
         }
-        .chat-input-row button {
+        .social-chats .chat-input-row button {
             padding: 8px 16px;
             border: none;
             border-radius: 4px;
@@ -965,13 +1041,13 @@
             font-weight: bold;
             transition: 0.2s;
         }
-        .chat-actions {
+        .social-chats .chat-settings {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
             margin-top: 8px;
         }
-        .chat-actions button {
+        .social-chats .chat-settings button {
             border: 1px solid #a0b0c0;
             border-radius: 4px;
             padding: 4px 12px;
@@ -980,7 +1056,13 @@
             background: #d8e0e8;
             transition: 0.2s;
         }
-        .chat-actions button:hover { background: #c8d0d8; }
+        .social-chats .chat-settings button:hover { background: #c8d0d8; }
+        .social-chats .chat-settings .status-select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #a0b0c0;
+            background: #d8e0e8;
+        }
 
         /* ===== КЛАНЫ ===== */
         .clan-wrap {
@@ -1352,6 +1434,70 @@
             word-break: break-all;
         }
         .log-popup.show { display: block; }
+
+        /* Кнопка сброса прогресса в аккаунте */
+        .reset-progress-btn {
+            background: #cc3333 !important;
+            color: #fff !important;
+            border-color: #aa2222 !important;
+        }
+        .reset-progress-btn:hover {
+            background: #aa2222 !important;
+        }
+        .captcha-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+        }
+        .captcha-overlay.hidden { display: none; }
+        .captcha-box {
+            background: #ece9d8;
+            border: 2px solid #0a246a;
+            border-style: inset;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+        .captcha-box .captcha-text {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            background: #222;
+            color: #0f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 12px 0;
+            font-family: monospace;
+        }
+        .captcha-box input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #0a246a;
+            border-radius: 4px;
+            font-size: 18px;
+            background: #d8e0e8;
+            color: #000;
+            text-align: center;
+        }
+        .captcha-box button {
+            margin-top: 12px;
+            padding: 8px 24px;
+            border: 2px solid #0a246a;
+            border-style: outset;
+            border-radius: 6px;
+            background: #0a246a;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .captcha-box button:hover { background: #1a3a8a; }
     </style>
 </head>
 <body class="theme-windows_xp">
@@ -1367,7 +1513,7 @@
     <div class="login-box">
         <h2>Крутая игра про ттп</h2>
         <div class="sub">Вход / Регистрация</div>
-        <div class="promo">версия 1.1.3 — Сезон 1</div>
+        <div class="promo">версия 1.2 — Сезон 1</div>
         <input type="text" id="loginNick" placeholder="Ник" value="spK">
         <input type="password" id="loginPass" placeholder="Пароль">
         <div class="error" id="loginError"></div>
@@ -1385,38 +1531,39 @@
 <div id="app">
     <div class="header">
         <h1>Крутая игра про ттп</h1>
-        <div class="version">версия 1.1.3</div>
+        <div class="version">версия 1.2</div>
         <div class="subtitle">Сезон 1</div>
         <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
     </div>
     <div class="top-bar">
-        <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span></div>
+        <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span> ₽</div>
         <div class="stat">⚡ <span class="value" id="eloDisplay">0</span></div>
         <div class="stat">🏆 <span class="value" id="rankDisplay">—</span></div>
         <div class="stat">⭐ <span class="value" id="levelDisplay">1</span></div>
         <div class="stat">🆔 <span class="value" id="idDisplay">—</span></div>
+        <div class="clock" id="clockDisplay">--:--:--</div>
     </div>
     <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#ece9d8; padding:6px 12px; border-radius:4px; border:1px solid #0a246a;">
         <span>Опыт: <span id="expDisplay">0</span></span>
         <span>До Pro: <span id="proProgressDisplay">0%</span></span>
     </div>
-    <div class="update-announce">🔥 Обновление 1.1.3 — Новый кейс, улучшенный самолёт, выбор собеседника!</div>
+    <div class="update-announce">🔥 Обновление 1.2 — Соц сеть, Paint, новый самолёт, улучшения!</div>
 
     <!-- НАВИГАЦИЯ -->
     <nav class="nav" id="mainNav">
-        <button class="active" data-section="cases">Кейсы</button>
-        <button data-section="inventory">Инвентарь</button>
-        <button data-section="market">Торговля</button>
-        <button data-section="rating">Рейтинг</button>
-        <button data-section="games">Игры</button>
-        <button data-section="clicker">Кликер</button>
-        <button data-section="achievements">Достижения</button>
-        <button data-section="promo">Промокод</button>
-        <button data-section="messenger">Мессенджер</button>
-        <button data-section="clans">Кланы</button>
-        <button data-section="account">Аккаунт</button>
-        <button data-section="settings">Настройки</button>
-        <button data-section="updates">Обновления</button>
+        <button class="active important" data-section="cases">🎲 Кейсы</button>
+        <button data-section="inventory">📦 Инвентарь</button>
+        <button data-section="market">🏪 Торговля</button>
+        <button class="important" data-section="rating">🏆 Рейтинг</button>
+        <button class="important" data-section="games">🎮 Игры</button>
+        <button data-section="clicker">🖱️ Кликер</button>
+        <button data-section="achievements">🏅 Достижения</button>
+        <button data-section="promo">🎁 Промокод</button>
+        <button data-section="social">🌐 Соц сеть</button>
+        <button data-section="clans">🏰 Кланы</button>
+        <button data-section="account">👤 Аккаунт</button>
+        <button data-section="settings">⚙️ Настройки</button>
+        <button data-section="updates">📢 Обновления</button>
     </nav>
 
     <div class="main-content">
@@ -1428,7 +1575,7 @@
 
         <!-- ИНВЕНТАРЬ -->
         <section id="section-inventory" class="section">
-            <div class="title">Инвентарь <span class="badge" id="invCount">0</span></div>
+            <div class="title">Инвентарь <span class="badge" id="invCount">0</span> <span style="font-size:12px; color:#666;">(макс. 1000)</span></div>
             <button class="inv-clear-all" id="clearAllInventoryBtn">Очистить весь инвентарь</button>
             <div id="inventoryGrid" class="inv-grid"></div>
         </section>
@@ -1503,7 +1650,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Самолёт (с новым управлением) -->
+            <!-- Самолёт (новая механика) -->
             <div class="tab-content" id="tab-plane">
                 <div class="game-wrap">
                     <div class="game-stats">
@@ -1514,7 +1661,7 @@
                         <button id="planeStart">Старт</button>
                         <button id="planeReset">Сброс</button>
                     </div>
-                    <div style="margin-top:6px; font-size:14px; color:#666;">Пробел или клик — взлёт/снижение, уклоняйся от препятствий!</div>
+                    <div style="margin-top:6px; font-size:14px; color:#666;">Управление: <kbd>↑</kbd> <kbd>↓</kbd> или кнопки на телефоне</div>
                     <div class="game-touch-controls">
                         <button id="planeTouchUp">⬆</button>
                         <button id="planeTouchDown">⬇</button>
@@ -1525,9 +1672,9 @@
 
         <!-- КЛИКЕР -->
         <section id="section-clicker" class="section">
-            <div class="title">Кликер <span class="badge">зарабатывай монеты</span></div>
+            <div class="title">Кликер <span class="badge">зарабатывай рубли</span></div>
             <div class="clicker-wrap">
-                <div class="clicker-stats">Монет: <span id="clickerBalance">0</span> | Кликов: <span id="clickerTotalClicks">0</span></div>
+                <div class="clicker-stats">Рубли: <span id="clickerBalance">0</span> ₽ | Кликов: <span id="clickerTotalClicks">0</span></div>
                 <button class="click-btn" id="clickBtn">Кликнуть</button>
                 <div class="click-timer" id="clickTimer">Готово!</div>
                 <div id="clickerCaptcha" style="display:none; margin-top:12px;">
@@ -1540,7 +1687,7 @@
 
         <!-- ДОСТИЖЕНИЯ -->
         <section id="section-achievements" class="section">
-            <div class="title">Достижения <span class="badge" id="achCount">0 / 80+</span></div>
+            <div class="title">Достижения <span class="badge" id="achCount">0 / 90+</span></div>
             <div id="achievementsGrid" class="achieve-grid"></div>
         </section>
 
@@ -1553,32 +1700,52 @@
                     <input type="text" id="promoInput" placeholder="Введите промокод" style="max-width:200px;">
                     <button id="applyPromoBtn">Активировать</button>
                 </div>
-                <div style="margin-top:12px; font-size:14px; color:#666;">Промокоды: <strong>ARBZ</strong> (по 1 открытию каждого кейса) | <strong>MOROLS</strong> (4 кейса игроков + 2 кейса городов + 100 монет)</div>
+                <div style="margin-top:12px; font-size:14px; color:#666;">Промокоды: <strong>ARBZ</strong> (по 1 открытию каждого кейса) | <strong>MOROLS</strong> (4 кейса игроков + 2 кейса городов + 100 ₽)</div>
             </div>
         </section>
 
-        <!-- МЕССЕНДЖЕР (с поиском по нику и списком игроков) -->
-        <section id="section-messenger" class="section">
-            <div class="title">Мессенджер <span class="badge">чат, друзья, трейд</span></div>
-            <div class="chat-wrap">
-                <div class="chat-search">
-                    <input type="text" id="chatSearchInput" placeholder="Введите ник для поиска...">
-                    <button id="chatSearchBtn">Найти</button>
-                    <button id="chatShowAllBtn">Все игроки</button>
+        <!-- СОЦ СЕТЬ (вместо мессенджера) -->
+        <section id="section-social" class="section">
+            <div class="title">Соц сеть <span class="badge">посты, чаты, общение</span></div>
+            <div class="social-wrap">
+                <div class="tab-bar" id="socialTabs">
+                    <button class="active" data-social-tab="feed">📰 Лента</button>
+                    <button data-social-tab="chats">💬 Сообщения</button>
                 </div>
-                <div class="chat-players-list" id="chatPlayersList"></div>
-                <div class="chat-friends" id="chatFriends"></div>
-                <div class="chat-messages" id="chatMessages">
-                    <div style="color:#999;">Выберите собеседника</div>
+                <!-- Лента -->
+                <div class="tab-content active" id="social-feed">
+                    <div class="social-create-post">
+                        <textarea id="postContent" placeholder="Что у вас нового? (можно рисовать в Paint и вставить ссылку)"></textarea>
+                        <div class="row">
+                            <button id="postSubmitBtn" class="social-post-btn">Опубликовать</button>
+                            <button id="paintBtn">🎨 Paint</button>
+                        </div>
+                    </div>
+                    <div class="social-feed" id="feedContainer">
+                        <div style="color:#999; text-align:center; padding:20px;">Загрузка постов...</div>
+                    </div>
                 </div>
-                <div class="chat-input-row">
-                    <input type="text" id="chatInput" placeholder="Введите сообщение..." disabled>
-                    <button class="chat-send-btn" id="chatSendBtn" disabled>Отправить</button>
-                </div>
-                <div class="chat-actions">
-                    <button id="chatAddFriendBtn">➕ Добавить друга</button>
-                    <button id="chatBlockBtn">🚫 Заблокировать</button>
-                    <button id="chatTradeBtn">🔄 Предложить обмен</button>
+                <!-- Сообщения -->
+                <div class="tab-content" id="social-chats">
+                    <div class="social-chats">
+                        <div class="chat-list" id="chatList"></div>
+                        <div class="chat-messages" id="chatMessages"><div style="color:#999;">Выберите собеседника</div></div>
+                        <div class="chat-input-row">
+                            <input type="text" id="chatInput" placeholder="Введите сообщение..." disabled>
+                            <button class="chat-send-btn" id="chatSendBtn" disabled>Отправить</button>
+                        </div>
+                        <div class="chat-settings">
+                            <span style="font-size:14px;">Статус:</span>
+                            <select class="status-select" id="chatStatusSelect">
+                                <option value="all">Все могут писать</option>
+                                <option value="friends">Только друзья</option>
+                                <option value="none">Не беспокоить</option>
+                            </select>
+                            <button id="clearChatBtn">🗑️ Очистить чат</button>
+                            <button id="removeFriendBtn">❌ Удалить из друзей</button>
+                            <button id="addFriendBtn">➕ Добавить друга</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1614,6 +1781,7 @@
             <div class="account-actions">
                 <button id="changeNickBtnAccount">Сменить ник</button>
                 <button id="changePassBtnAccount">Сменить пароль</button>
+                <button id="resetProgressBtnAccount" class="reset-progress-btn">🔄 Сбросить прогресс</button>
                 <button id="deleteAccountBtn" class="delete-account">Удалить аккаунт</button>
                 <button id="logoutBtnAccount" class="danger">Выйти</button>
             </div>
@@ -1662,15 +1830,20 @@
         <section id="section-updates" class="section">
             <div class="title">Обновления</div>
             <div style="padding:20px; border:1px solid #0a246a; border-radius:6px; background:#ece9d8; text-align:left; color:#1a2a3a;">
-                <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.1.3</div>
+                <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2</div>
                 <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                    <li>🆕 Новый кейс «Игроки 2»</li>
-                    <li>✈️ Улучшенный самолёт: препятствия посередине, управление для телефона</li>
-                    <li>👥 Мессенджер: выбор собеседника из рейтинга или по нику</li>
-                    <li>🏰 Кланы: создание, управление, удаление</li>
-                    <li>🛠 Исправлена продажа на рынке (поштучно)</li>
-                    <li>🔄 Вайп обнуляет всё</li>
-                    <li>🧠 Опыт начисляется в 2 раза медленнее</li>
+                    <li>🆕 Новый кейс «Города 2» (150 ₽)</li>
+                    <li>✈️ Самолёт переделан: управление вверх/вниз, препятствия-круги</li>
+                    <li>🌐 Соц сеть: посты, лайки, комментарии, чаты без друзей</li>
+                    <li>🛒 На рынке можно выставлять до 50 предметов за раз</li>
+                    <li>📦 Ограничение инвентаря: 1000 предметов</li>
+                    <li>🔴 Кнопки «Игры», «Кейсы», «Рейтинг» стали большими и красными</li>
+                    <li>🔄 Капча теперь каждые 25 кликов</li>
+                    <li>🔐 Сброс прогресса с паролем и капчей</li>
+                    <li>🕒 Часы Windows в шапке</li>
+                    <li>🎨 Paint в соцсети (рисование и публикация)</li>
+                    <li>🏅 Новые достижения</li>
+                    <li>💰 Валюта переименована в рубли</li>
                 </ul>
             </div>
         </section>
@@ -1705,10 +1878,22 @@
     </div>
 </div>
 
+<!-- Капча для сброса прогресса -->
+<div class="captcha-overlay hidden" id="resetCaptchaOverlay">
+    <div class="captcha-box">
+        <h3>Подтверждение сброса</h3>
+        <p>Введите код с картинки:</p>
+        <div class="captcha-text" id="resetCaptchaText">ABCD</div>
+        <input type="text" id="resetCaptchaInput" placeholder="Введите код" maxlength="4">
+        <button id="resetCaptchaSubmit">Подтвердить</button>
+        <button id="resetCaptchaCancel" style="background:#666; margin-left:10px;">Отмена</button>
+    </div>
+</div>
+
 <div class="log-popup" id="logPopup"></div>
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.1.3 (РАСШИРЕННАЯ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (СОЦСЕТЬ, PAINT, НОВЫЙ САМОЛЁТ, ИСПРАВЛЕНИЯ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1745,7 +1930,11 @@ let STATE = {
     clanRole: null,
     messages: {},
     trades: [],
-    clanWar: null
+    clanWar: null,
+    // Соцсеть
+    posts: [],
+    userStatus: 'all', // 'all', 'friends', 'none'
+    chatStatus: {} // { uid: 'all'|'friends'|'none' } - для каждого собеседника
 };
 
 let logMessages = [];
@@ -1776,7 +1965,7 @@ function showToast(text, duration = 2500) {
     toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
 }
 
-// ===== СИСТЕМА УРОВНЕЙ (старые пороги) =====
+// ===== СИСТЕМА УРОВНЕЙ =====
 function getLevelForExp(exp) {
     if (exp < 100) return 1;
     if (exp < 200) return 2;
@@ -1788,7 +1977,7 @@ function getLevelForExp(exp) {
     if (exp < 1500) return 8;
     if (exp < 2000) return 9;
     if (exp < 3000) return 10;
-    return 11; // Pro
+    return 11;
 }
 function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
 
@@ -1805,7 +1994,6 @@ function updateProProgress() {
     if (progEl) progEl.textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
 }
 
-// Опыт начисляется в 2 раза медленнее
 function addExp(amount) {
     if (!currentUser) return;
     const reduced = Math.floor(amount / 2);
@@ -1849,13 +2037,13 @@ function giveLevelReward(level) {
     }
     STATE.balance += reward.coins;
     STATE.totalEarned += reward.coins;
-    showToast(`💰 +${reward.coins} монет!`);
+    showToast(`💰 +${reward.coins} ₽!`);
     updateUI();
     saveStateToFirebase();
     addLog('🎁 Награда за уровень ' + level);
 }
 
-// ===== КЕЙСЫ (добавлен новый "Игроки 2") =====
+// ===== КЕЙСЫ (добавлен "Города 2") =====
 const CASES = [
     { id: 'muzhiki1', name: 'Мужики 1', emoji: '💪', price: 100,
         items: [
@@ -1931,7 +2119,6 @@ const CASES = [
             { name: 'два мужика космонавты', emoji: '🚀👨👨', weight: 0.5, rarity: 'эпическое' }
         ]
     },
-    // НОВЫЙ КЕЙС "Игроки 2"
     { id: 'players2', name: 'Игроки 2', emoji: '🎮', price: 120,
         items: [
             { name: 'salixV', emoji: '🦊', weight: 30, rarity: 'ширп' },
@@ -1944,11 +2131,28 @@ const CASES = [
             { name: 'Nedon1', emoji: '👾', weight: 4, rarity: 'редкое' },
             { name: 'Tasis', emoji: '🌟', weight: 1, rarity: 'эпическое' }
         ]
+    },
+    // НОВЫЙ КЕЙС "Города 2"
+    { id: 'cities2', name: 'Города 2', emoji: '🌆', price: 150,
+        items: [
+            { name: 'симбирск', emoji: '🏙️', weight: 20, rarity: 'ширп' },
+            { name: 'шмаледонск', emoji: '🏚️', weight: 20, rarity: 'ширп' },
+            { name: 'район свободы', emoji: '🏘️', weight: 20, rarity: 'ширп' },
+            { name: 'нижний новгород', emoji: '🏛️', weight: 10, rarity: 'обычное' },
+            { name: 'republic_of_red_bullies', emoji: '🔴', weight: 10, rarity: 'обычное' },
+            { name: 'фукуока', emoji: '🗾', weight: 5, rarity: 'обычное' },
+            { name: 'хаммам', emoji: '🛁', weight: 5, rarity: 'обычное' },
+            { name: 'кельн', emoji: '⛪', weight: 5, rarity: 'необычное' },
+            { name: 'испания', emoji: '🇪🇸', weight: 3, rarity: 'редкое' },
+            { name: 'chernomoria', emoji: '🌊', weight: 1.9, rarity: 'сверхредкое' },
+            { name: 'SWR', emoji: '⚡', weight: 0.1, rarity: 'эпическое' }
+        ]
     }
 ];
 
-// Достижения (полный список – для краткости оставлены основные, но можно дополнить)
+// ===== ДОСТИЖЕНИЯ (добавлены новые) =====
 const ACHIEVEMENTS = [
+    // старые (сокращённо)
     { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
     { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
     { id: 'click100', name: 'Кликнуть 100 раз', check: s => s.totalClicks >= 100 },
@@ -2023,6 +2227,17 @@ const ACHIEVEMENTS = [
     { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
     { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
     { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
+    // НОВЫЕ ДОСТИЖЕНИЯ
+    { id: 'first_post', name: 'Опубликовать первый пост', check: s => s.posts && s.posts.length >= 1 },
+    { id: 'five_posts', name: 'Опубликовать 5 постов', check: s => s.posts && s.posts.length >= 5 },
+    { id: 'first_like', name: 'Поставить лайк', check: s => s.totalLikes && s.totalLikes >= 1 },
+    { id: 'ten_likes', name: 'Поставить 10 лайков', check: s => s.totalLikes && s.totalLikes >= 10 },
+    { id: 'first_comment', name: 'Написать комментарий', check: s => s.totalComments && s.totalComments >= 1 },
+    { id: 'ten_comments', name: 'Написать 10 комментариев', check: s => s.totalComments && s.totalComments >= 10 },
+    { id: 'first_message', name: 'Отправить сообщение', check: s => s.totalMessages && s.totalMessages >= 1 },
+    { id: 'ten_messages', name: 'Отправить 10 сообщений', check: s => s.totalMessages && s.totalMessages >= 10 },
+    { id: 'add_friend', name: 'Добавить друга', check: s => s.friends && s.friends.length >= 1 },
+    { id: 'five_friends', name: 'Иметь 5 друзей', check: s => s.friends && s.friends.length >= 5 },
     { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
 ];
 
@@ -2193,7 +2408,13 @@ function registerUser(nick, password) {
                     clanRole: null,
                     messages: {},
                     trades: [],
-                    clanWar: null
+                    clanWar: null,
+                    posts: [],
+                    userStatus: 'all',
+                    chatStatus: {},
+                    totalLikes: 0,
+                    totalComments: 0,
+                    totalMessages: 0
                 };
                 const updates = {};
                 updates['/users/' + uid] = profile;
@@ -2270,6 +2491,12 @@ function onAuthSuccess() {
     STATE.messages = data.messages || {};
     STATE.trades = data.trades || [];
     STATE.clanWar = data.clanWar || null;
+    STATE.posts = data.posts || [];
+    STATE.userStatus = data.userStatus || 'all';
+    STATE.chatStatus = data.chatStatus || {};
+    STATE.totalLikes = data.totalLikes || 0;
+    STATE.totalComments = data.totalComments || 0;
+    STATE.totalMessages = data.totalMessages || 0;
 
     if (!STATE.eloInitialized || STATE.elo < 1000) {
         STATE.elo = 1000;
@@ -2299,7 +2526,8 @@ function onAuthSuccess() {
     renderInventory();
     renderAchievements();
     renderAccount();
-    renderMessenger();
+    renderSocialFeed();
+    renderSocialChats();
     renderClans();
     const idEl = document.getElementById('idDisplay');
     if (idEl) idEl.textContent = '#' + STATE.userId;
@@ -2310,6 +2538,7 @@ function onAuthSuccess() {
     initMorols();
     initPlane();
     initClicker();
+    startClock();
     addLog('✅ Игра полностью загружена');
 }
 
@@ -2354,7 +2583,13 @@ function saveStateToFirebase() {
         clanRole: STATE.clanRole,
         messages: STATE.messages,
         trades: STATE.trades,
-        clanWar: STATE.clanWar
+        clanWar: STATE.clanWar,
+        posts: STATE.posts,
+        userStatus: STATE.userStatus,
+        chatStatus: STATE.chatStatus,
+        totalLikes: STATE.totalLikes,
+        totalComments: STATE.totalComments,
+        totalMessages: STATE.totalMessages
     };
     return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
         method: 'PATCH',
@@ -2387,7 +2622,7 @@ function logout() {
     showToast('Вы вышли');
 }
 
-// ===== КЕЙСЫ (без изменений) =====
+// ===== КЕЙСЫ =====
 function getCaseById(id) { return CASES.find(c => c.id === id); }
 function rollItem(caseData) {
     const total = caseData.items.reduce((s, i) => s + i.weight, 0);
@@ -2399,7 +2634,7 @@ function rollItem(caseData) {
     return { ...caseData.items[0] };
 }
 
-function openCase(caseId) {
+async function openCase(caseId) {
     if (STATE.isOpening) return;
     const caseData = getCaseById(caseId);
     if (!caseData) return;
@@ -2410,7 +2645,7 @@ function openCase(caseId) {
         STATE.freeOpens--;
         price = 0;
     } else if (STATE.balance < price) {
-        showToast('Недостаточно монет! Нужно ' + price + ' ₽');
+        showToast('Недостаточно рублей! Нужно ' + price + ' ₽');
         return;
     }
     STATE.isOpening = true;
@@ -2495,6 +2730,13 @@ function openCase(caseId) {
                 caseId: caseData.id,
                 acquired: Date.now(),
             };
+            // Проверка лимита инвентаря (1000)
+            if (STATE.inventory.length >= 1000) {
+                showToast('❌ Инвентарь переполнен (макс. 1000)!');
+                STATE.isOpening = false;
+                closeCaseModal();
+                return;
+            }
             STATE.inventory.push(entry);
             const key = finalResult.name + '|||' + finalResult.emoji;
             STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
@@ -2503,6 +2745,8 @@ function openCase(caseId) {
             checkAllAchievements();
             sfxCaseOpenFinish();
             STATE.isOpening = false;
+            // ДОЖИДАЕМСЯ СОХРАНЕНИЯ ПЕРЕД РАЗРЕШЕНИЕМ ПОВТОРНОГО ОТКРЫТИЯ
+            await saveStateToFirebase();
             reopenBtn.style.display = 'block';
             sellResultBtn.style.display = 'block';
             sellResultBtn.textContent = 'Продать за ' + (Math.floor(caseData.price * 0.5)) + ' ₽';
@@ -2528,7 +2772,6 @@ function openCase(caseId) {
                 closeCaseModal();
                 setTimeout(() => openCase(caseId), 100);
             };
-            saveStateToFirebase();
             addLog('📦 Открыт кейс ' + caseData.name + ', выпало: ' + finalResult.name);
         }
     }
@@ -2580,7 +2823,7 @@ function showChances(caseData) {
     sfxClick();
 }
 
-// ===== ИНВЕНТАРЬ (без изменений) =====
+// ===== ИНВЕНТАРЬ =====
 function renderInventory() {
     try {
         const grid = document.getElementById('inventoryGrid');
@@ -2642,7 +2885,7 @@ function renderInventory() {
                 updateUI();
                 saveStateToFirebase();
                 renderInventory();
-                addLog('💰 Продано: ' + name + ' за ' + price + ' монет');
+                addLog('💰 Продано: ' + name + ' за ' + price + ' рублей');
             };
         });
 
@@ -2717,7 +2960,7 @@ async function clearAllInventory() {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== РЫНОК (исправлены вкладки, продажа поштучно) =====
+// ===== РЫНОК (с количеством от 1 до 50) =====
 function renderMarket() {
     const container = document.getElementById('marketContent');
     if (!container) return;
@@ -2754,7 +2997,7 @@ function renderMarket() {
             let html = '';
             if (activeTab === 'sell') {
                 html += `<div class="market-sell-form">
-                    <h3>Выставить лот (поштучно)</h3>
+                    <h3>Выставить лот (от 1 до 50 шт.)</h3>
                     <div class="row">
                         <select id="sellItemSelect">
                             <option value="">Выберите предмет</option>
@@ -2764,8 +3007,9 @@ function renderMarket() {
                                 return `<option value="${key}">${emoji} ${name} (${count} шт.)</option>`;
                             }).join('')}
                         </select>
-                        <input type="number" id="sellPriceInput" placeholder="Цена" min="1" value="50">
-                        <button id="sellSubmitBtn">Выставить 1 шт.</button>
+                        <input type="number" id="sellQuantity" placeholder="Кол-во" min="1" max="50" value="1" style="width:70px;">
+                        <input type="number" id="sellPriceInput" placeholder="Цена за шт." min="1" value="50" style="width:100px;">
+                        <button id="sellSubmitBtn">Выставить</button>
                     </div>
                 </div>`;
             }
@@ -2781,10 +3025,11 @@ function renderMarket() {
                             <div class="details">
                                 <div class="name">${lot.name}</div>
                                 <div class="seller">${isMine ? 'Вы' : lot.sellerName || 'Игрок'}</div>
+                                ${lot.quantity > 1 ? `<div class="quantity">×${lot.quantity}</div>` : ''}
                             </div>
                         </div>
                         <div class="price">
-                            ${lot.price} ₽
+                            ${lot.price * (lot.quantity || 1)} ₽ (${lot.price} ₽/шт.)
                             ${!isMine && activeTab !== 'my' ? `<button data-lot-id="${lot._id}" class="buy-lot-btn">Купить</button>` : ''}
                             ${isMine ? `<button data-lot-id="${lot._id}" class="remove-lot-btn">✕</button>` : ''}
                         </div>
@@ -2813,25 +3058,38 @@ function renderMarket() {
                     const select = document.getElementById('sellItemSelect');
                     const key = select.value;
                     if (!key) { showToast('Выберите предмет'); return; }
+                    const quantity = parseInt(document.getElementById('sellQuantity').value);
+                    if (isNaN(quantity) || quantity < 1 || quantity > 50) { showToast('Количество от 1 до 50'); return; }
                     const price = parseInt(document.getElementById('sellPriceInput').value);
                     if (isNaN(price) || price < 1) { showToast('Укажите цену'); return; }
                     const [name, emoji] = key.split('|||');
                     const count = STATE.itemsCount[key] || 0;
-                    if (count < 1) { showToast('Нет предмета'); return; }
+                    if (count < quantity) { showToast('Недостаточно предметов'); return; }
 
-                    const idx = STATE.inventory.findIndex(item => item.name === name && item.emoji === emoji);
-                    if (idx === -1) { showToast('Ошибка'); return; }
-                    const item = STATE.inventory[idx];
+                    // Находим индексы предметов для удаления
+                    let removed = 0;
+                    for (let i = STATE.inventory.length - 1; i >= 0 && removed < quantity; i--) {
+                        if (STATE.inventory[i].name === name && STATE.inventory[i].emoji === emoji) {
+                            STATE.inventory.splice(i, 1);
+                            removed++;
+                        }
+                    }
+                    if (removed !== quantity) { showToast('Ошибка'); return; }
+                    STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - quantity;
+                    if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
 
                     const lot = {
-                        name: item.name,
-                        emoji: item.emoji,
-                        rarity: item.rarity || 'обычное',
+                        name: name,
+                        emoji: emoji,
+                        rarity: STATE.inventory.find(it => it.name === name && it.emoji === emoji)?.rarity || 'обычное',
                         price: price,
+                        quantity: quantity,
                         sellerUid: STATE.uid,
                         sellerName: STATE.nickname,
                         timestamp: Date.now(),
-                        rarityWeight: ['ширп','обычное','необычное','редкое','сверхредкое','эпическое','эксклюзив'].indexOf(item.rarity) || 0
+                        rarityWeight: ['ширп','обычное','необычное','редкое','сверхредкое','эпическое','эксклюзив'].indexOf(
+                            STATE.inventory.find(it => it.name === name && it.emoji === emoji)?.rarity || 'обычное'
+                        ) || 0
                     };
                     fetch(DB_URL + '/market.json?auth=' + currentUser.idToken, {
                         method: 'POST',
@@ -2840,17 +3098,14 @@ function renderMarket() {
                     })
                     .then(res => res.json())
                     .then(() => {
-                        STATE.inventory.splice(idx, 1);
-                        STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
-                        if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
                         STATE.marketSells++;
-                        showToast('✅ Лот выставлен!');
+                        showToast(`✅ Лот (${quantity} шт.) выставлен!`);
                         sfxMarketSell();
                         updateUI();
                         saveStateToFirebase();
                         renderInventory();
                         renderMarket();
-                        addLog('📈 Выставлен лот: ' + name + ' за ' + price + ' монет');
+                        addLog(`📈 Выставлен лот: ${name} x${quantity} за ${price} ₽/шт.`);
                     })
                     .catch(err => showToast('❌ Ошибка: ' + err.message));
                 };
@@ -2872,35 +3127,43 @@ function buyLot(lotId) {
     const lot = STATE.marketListings.find(l => l._id === lotId);
     if (!lot) { showToast('Лот не найден'); return; }
     if (lot.sellerUid === STATE.uid) { showToast('Это ваш лот'); return; }
-    if (STATE.balance < lot.price) { showToast('Недостаточно монет'); return; }
+    const totalPrice = lot.price * (lot.quantity || 1);
+    if (STATE.balance < totalPrice) { showToast('Недостаточно рублей'); return; }
 
-    STATE.balance -= lot.price;
-    STATE.totalSpent += lot.price;
+    STATE.balance -= totalPrice;
+    STATE.totalSpent += totalPrice;
 
-    const entry = {
-        id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
-        name: lot.name,
-        emoji: lot.emoji,
-        rarity: lot.rarity || 'обычное',
-        caseId: 'market',
-        acquired: Date.now()
-    };
-    STATE.inventory.push(entry);
-    const key = lot.name + '|||' + lot.emoji;
-    STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+    const quantity = lot.quantity || 1;
+    for (let i = 0; i < quantity; i++) {
+        const entry = {
+            id: Date.now() + '_' + Math.random().toString(36).slice(2,6) + '_' + i,
+            name: lot.name,
+            emoji: lot.emoji,
+            rarity: lot.rarity || 'обычное',
+            caseId: 'market',
+            acquired: Date.now()
+        };
+        if (STATE.inventory.length >= 1000) {
+            showToast('❌ Инвентарь переполнен (макс. 1000)! Часть предметов не добавлена.');
+            break;
+        }
+        STATE.inventory.push(entry);
+        const key = lot.name + '|||' + lot.emoji;
+        STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
+    }
     STATE.marketBuys++;
 
     fetch(DB_URL + '/market/' + lotId + '.json?auth=' + currentUser.idToken, {
         method: 'DELETE'
     })
     .then(() => {
-        showToast('✅ Покупка успешна!');
+        showToast(`✅ Покупка (${quantity} шт.) успешна!`);
         sfxMarketBuy();
         updateUI();
         saveStateToFirebase();
         renderInventory();
         renderMarket();
-        addLog('🛒 Куплен лот: ' + lot.name + ' за ' + lot.price + ' монет');
+        addLog(`🛒 Куплен лот: ${lot.name} x${quantity} за ${totalPrice} ₽`);
     })
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
@@ -2918,7 +3181,7 @@ function removeLot(lotId) {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== РЕЙТИНГ (с отображением кланов) =====
+// ===== РЕЙТИНГ =====
 function renderRating(sortBy = 'elo') {
     const container = document.getElementById('ratingContent');
     if (!container) return;
@@ -3076,7 +3339,7 @@ function checkAllAchievements() {
     }
 }
 
-// ===== АККАУНТ (с вайпом) =====
+// ===== АККАУНТ (сброс прогресса с паролем и капчей) =====
 function renderAccount() {
     const container = document.getElementById('accountInfo');
     if (!container) return;
@@ -3187,6 +3450,93 @@ function renderAccount() {
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     };
 
+    // Кнопка сброса прогресса
+    document.getElementById('resetProgressBtnAccount').onclick = function() {
+        // Показываем капчу
+        const overlay = document.getElementById('resetCaptchaOverlay');
+        overlay.classList.remove('hidden');
+        const captchaText = document.getElementById('resetCaptchaText');
+        const code = Math.random().toString(36).substring(2, 6).toUpperCase();
+        captchaText.textContent = code;
+        document.getElementById('resetCaptchaInput').value = '';
+        document.getElementById('resetCaptchaInput').focus();
+
+        document.getElementById('resetCaptchaSubmit').onclick = function() {
+            const input = document.getElementById('resetCaptchaInput').value.trim().toUpperCase();
+            if (input !== code) {
+                showToast('❌ Неверный код');
+                return;
+            }
+            overlay.classList.add('hidden');
+            // Теперь запрашиваем пароль
+            const password = prompt('Введите пароль для подтверждения сброса:');
+            if (!password) return;
+            const email = getEmail(STATE.nickname);
+            fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, returnSecureToken: true })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) { showToast('❌ Неверный пароль'); return; }
+                // Сброс всех полей
+                STATE.balance = 500;
+                STATE.totalEarned = 0;
+                STATE.totalSpent = 0;
+                STATE.maxBalance = 500;
+                STATE.elo = 1000;
+                STATE.maxElo = 1000;
+                STATE.casesOpened = 0;
+                STATE.maxCasesOpened = 0;
+                STATE.totalClicks = 0;
+                STATE.inventory = [];
+                STATE.itemsCount = {};
+                STATE.achievements = [];
+                STATE.exp = 0;
+                STATE.level = 1;
+                STATE.freeOpens = 0;
+                STATE.promoUsed = false;
+                STATE.muzhikiRestored = false;
+                STATE.eloPromoUsed = false;
+                STATE.morols = { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 };
+                STATE.plane = { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 };
+                STATE.season = 1;
+                STATE.welcomeShown = false;
+                STATE.friends = [];
+                STATE.blocked = [];
+                STATE.clanId = null;
+                STATE.clanRole = null;
+                STATE.messages = {};
+                STATE.trades = [];
+                STATE.clanWar = null;
+                STATE.clan = '';
+                STATE.posts = [];
+                STATE.userStatus = 'all';
+                STATE.chatStatus = {};
+                STATE.totalLikes = 0;
+                STATE.totalComments = 0;
+                STATE.totalMessages = 0;
+                saveStateToFirebase().then(() => {
+                    showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
+                    addLog('🔄 Сброс прогресса выполнен');
+                    updateUI();
+                    renderInventory();
+                    renderAccount();
+                    renderClans();
+                    renderSocialFeed();
+                    renderSocialChats();
+                    checkAllAchievements();
+                });
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+        };
+
+        document.getElementById('resetCaptchaCancel').onclick = function() {
+            overlay.classList.add('hidden');
+        };
+    };
+
     document.getElementById('deleteAccountBtn').onclick = function() {
         if (!confirm('Удалить аккаунт?')) return;
         const password = prompt('Введите пароль:');
@@ -3231,71 +3581,6 @@ function renderAccount() {
             container.style.display = 'none';
         }
     };
-
-    const actions = document.querySelector('.account-actions');
-    if (actions && !document.getElementById('resetProgressBtn')) {
-        const resetBtn = document.createElement('button');
-        resetBtn.id = 'resetProgressBtn';
-        resetBtn.className = 'delete-account';
-        resetBtn.textContent = '🔄 Сбросить прогресс (сезон 1)';
-        resetBtn.onclick = function() {
-            if (!confirm('ВНИМАНИЕ! Это удалит весь ваш прогресс: баланс, эло, инвентарь, опыт, достижения, кланы, друзей, сообщения. Продолжить?')) return;
-            const pass = prompt('Введите пароль для подтверждения:');
-            if (!pass) return;
-            const email = getEmail(STATE.nickname);
-            fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password: pass, returnSecureToken: true })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) { showToast('❌ Неверный пароль'); return; }
-                STATE.balance = 500;
-                STATE.totalEarned = 0;
-                STATE.totalSpent = 0;
-                STATE.maxBalance = 500;
-                STATE.elo = 1000;
-                STATE.maxElo = 1000;
-                STATE.casesOpened = 0;
-                STATE.maxCasesOpened = 0;
-                STATE.totalClicks = 0;
-                STATE.inventory = [];
-                STATE.itemsCount = {};
-                STATE.achievements = [];
-                STATE.exp = 0;
-                STATE.level = 1;
-                STATE.freeOpens = 0;
-                STATE.promoUsed = false;
-                STATE.muzhikiRestored = false;
-                STATE.eloPromoUsed = false;
-                STATE.morols = { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 };
-                STATE.plane = { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 };
-                STATE.season = 1;
-                STATE.welcomeShown = false;
-                STATE.friends = [];
-                STATE.blocked = [];
-                STATE.clanId = null;
-                STATE.clanRole = null;
-                STATE.messages = {};
-                STATE.trades = [];
-                STATE.clanWar = null;
-                STATE.clan = '';
-                saveStateToFirebase().then(() => {
-                    showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
-                    addLog('🔄 Сброс прогресса выполнен');
-                    updateUI();
-                    renderInventory();
-                    renderAccount();
-                    renderClans();
-                    renderMessenger();
-                    checkAllAchievements();
-                });
-            })
-            .catch(err => showToast('❌ Ошибка: ' + err.message));
-        };
-        actions.appendChild(resetBtn);
-    }
 }
 
 function updateProgressDisplay() {
@@ -3440,7 +3725,7 @@ async function morolsLoop(timestamp) {
                 STATE.balance += rewardSteps * 2;
                 STATE.totalEarned += rewardSteps * 2;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                showToast('🏆 +' + rewardSteps + ' Эло, +' + (rewardSteps * 2) + ' монет');
+                showToast('🏆 +' + rewardSteps + ' Эло, +' + (rewardSteps * 2) + ' ₽');
                 addExp(Math.floor(rewardSteps / 2));
             }
             if (morolsState.maxSpeedReached > STATE.morols.maxSpeed) STATE.morols.maxSpeed = morolsState.maxSpeedReached;
@@ -3522,15 +3807,16 @@ function updateMorolsUI() {
     document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
 }
 
-// ---- САМОЛЁТ (исправлен: препятствия посередине, управление для телефона) ----
+// ---- САМОЛЁТ (новая механика: управление вверх/вниз, препятствия-круги) ----
 let planeRunning = false;
 let planeAnimId = null;
 let planeState = {
-    planeX: 80, planeY: 150, width: 40, height: 30, vy: 0,
+    planeX: 80, planeY: 150, width: 40, height: 40, // квадратный кораблик
+    vy: 0,
     obstacles: [], coins: [], score: 0, xp: 0, time: 0,
     lastTime: 0, gameOver: false,
-    gravity: 0.12, jumpPower: -4.5,
-    groundY: 270, ceilingY: 20,
+    gravity: 0.05, // слабая гравитация
+    groundY: 280, ceilingY: 20,
     // Для сенсорного управления
     touchUp: false,
     touchDown: false
@@ -3543,12 +3829,12 @@ function initPlane() {
         canvas.width = 600; canvas.height = 300;
         document.getElementById('planeStart').onclick = startPlane;
         document.getElementById('planeReset').onclick = resetPlane;
-        // Клавиатура
+        // Клавиатура: стрелки вверх/вниз
         document.addEventListener('keydown', (e) => {
-            if (e.key === ' ' || e.key === 'Space') { e.preventDefault(); planeJump(); }
+            if (e.key === 'ArrowUp') { e.preventDefault(); planeMoveUp(); }
+            if (e.key === 'ArrowDown') { e.preventDefault(); planeMoveDown(); }
         });
-        canvas.addEventListener('click', planeJump);
-        // Сенсорные кнопки для телефона
+        // Сенсорные кнопки
         const upBtn = document.getElementById('planeTouchUp');
         const downBtn = document.getElementById('planeTouchDown');
         if (upBtn && downBtn) {
@@ -3588,9 +3874,15 @@ function resetPlane() {
     drawPlane();
 }
 
-function planeJump() {
+function planeMoveUp() {
     if (planeState.gameOver || !planeRunning) return;
-    planeState.vy = planeState.jumpPower;
+    planeState.vy = -3; // поднимаемся
+    sfxPlaneJump();
+}
+
+function planeMoveDown() {
+    if (planeState.gameOver || !planeRunning) return;
+    planeState.vy = 3; // опускаемся
     sfxPlaneJump();
 }
 
@@ -3620,15 +3912,14 @@ function planeLoop(timestamp) {
     planeState.xp += dt * 3;
     planeState.score += dt;
 
-    // Обработка сенсорного управления: при нажатии вверх – прыжок, вниз – прижимаемся (увеличиваем гравитацию)
-    if (planeState.touchUp) {
-        planeState.vy = planeState.jumpPower;
+    // Гравитация
+    if (!planeState.touchUp && !planeState.touchDown) {
+        planeState.vy += planeState.gravity;
+    } else {
+        // Если нажата кнопка, удерживаем скорость
+        if (planeState.touchUp) planeState.vy = -3;
+        if (planeState.touchDown) planeState.vy = 3;
     }
-    if (planeState.touchDown) {
-        planeState.vy += 0.3; // ускоренное падение
-    }
-
-    planeState.vy += planeState.gravity;
     planeState.planeY += planeState.vy;
     if (planeState.planeY < planeState.ceilingY) planeState.planeY = planeState.ceilingY;
     if (planeState.planeY > planeState.groundY) {
@@ -3636,36 +3927,24 @@ function planeLoop(timestamp) {
         planeState.vy = 0;
     }
 
-    // Генерация препятствий: теперь они появляются с проходом посередине
-    // Создаём "столбы" сверху и снизу, оставляя зазор
-    if (Math.random() < 0.015 * dt * 60) {
-        const gap = 70 + Math.random() * 50; // размер прохода
-        const topHeight = 20 + Math.random() * (planeState.groundY - planeState.ceilingY - gap - 30);
-        const bottomY = topHeight + gap;
-        const bottomHeight = planeState.groundY - bottomY;
-        // Верхнее препятствие
+    // Генерация препятствий (круги с шипами)
+    if (Math.random() < 0.02 * dt * 60) {
+        const radius = 15 + Math.random() * 20;
+        const y = 20 + Math.random() * (280 - 40 - radius*2);
         planeState.obstacles.push({
             x: 600,
-            y: planeState.ceilingY,
-            width: 20,
-            height: topHeight,
-            speed: 200 + planeState.time * 1.2
-        });
-        // Нижнее препятствие
-        planeState.obstacles.push({
-            x: 600,
-            y: bottomY,
-            width: 20,
-            height: bottomHeight,
-            speed: 200 + planeState.time * 1.2
+            y: y,
+            radius: radius,
+            speed: 200 + planeState.time * 1.0,
+            type: 'spike'
         });
     }
 
     // Монетки
-    if (Math.random() < 0.008 * dt * 60) {
+    if (Math.random() < 0.01 * dt * 60) {
         planeState.coins.push({
             x: 600,
-            y: 50 + Math.random() * 180,
+            y: 20 + Math.random() * 260,
             radius: 10,
             speed: 180 + planeState.time * 1.0,
             collected: false,
@@ -3677,12 +3956,12 @@ function planeLoop(timestamp) {
     for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
         const o = planeState.obstacles[i];
         o.x -= o.speed * dt;
-        if (o.x + o.width < 0) { planeState.obstacles.splice(i, 1); continue; }
-        // Проверка столкновения
-        if (o.x < planeState.planeX + planeState.width &&
-            o.x + o.width > planeState.planeX &&
-            o.y < planeState.planeY + planeState.height &&
-            o.y + o.height > planeState.planeY) {
+        if (o.x + o.radius < 0) { planeState.obstacles.splice(i, 1); continue; }
+        // Столкновение с кругом (простая проверка расстояния)
+        const dx = (planeState.planeX + planeState.width/2) - (o.x + o.radius);
+        const dy = (planeState.planeY + planeState.height/2) - (o.y + o.radius);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < o.radius + planeState.width/2) {
             // Крах
             planeState.gameOver = true;
             planeRunning = false;
@@ -3741,14 +4020,48 @@ function drawPlane() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 600, 300);
 
-    // Препятствия
+    // Препятствия (круги с шипами)
     for (const o of planeState.obstacles) {
+        // Рисуем красный круг с шипами
+        ctx.beginPath();
+        ctx.arc(o.x + o.radius, o.y + o.radius, o.radius, 0, Math.PI*2);
         ctx.fillStyle = '#cc3333';
-        ctx.fillRect(o.x, o.y, o.width, o.height);
-        ctx.fillStyle = '#aa2222';
-        ctx.fillRect(o.x-2, o.y+2, o.width+4, 4);
-        ctx.fillRect(o.x-2, o.y+o.height-6, o.width+4, 4);
+        ctx.fill();
+        ctx.strokeStyle = '#aa2222';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        // Шипы (зубчики)
+        for (let j = 0; j < 8; j++) {
+            const angle = j * Math.PI / 4;
+            const spikeLen = o.radius * 0.5;
+            const x1 = o.x + o.radius + Math.cos(angle) * o.radius;
+            const y1 = o.y + o.radius + Math.sin(angle) * o.radius;
+            const x2 = o.x + o.radius + Math.cos(angle) * (o.radius + spikeLen);
+            const y2 = o.y + o.radius + Math.sin(angle) * (o.radius + spikeLen);
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = '#ff6666';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        // Глаза
+        ctx.fillStyle = '#ffdd00';
+        ctx.beginPath();
+        ctx.arc(o.x + o.radius - 4, o.y + o.radius - 4, 4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(o.x + o.radius + 4, o.y + o.radius - 4, 4, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(o.x + o.radius - 4, o.y + o.radius - 4, 2, 0, Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(o.x + o.radius + 4, o.y + o.radius - 4, 2, 0, Math.PI*2);
+        ctx.fill();
     }
+
     // Монетки
     for (const c of planeState.coins) {
         ctx.beginPath();
@@ -3759,7 +4072,8 @@ function drawPlane() {
         ctx.lineWidth = 1;
         ctx.stroke();
     }
-    // Самолёт
+
+    // Кораблик (квадратный)
     const p = planeState;
     ctx.fillStyle = '#ece9d8';
     ctx.fillRect(p.planeX, p.planeY, p.width, p.height);
@@ -3768,6 +4082,12 @@ function drawPlane() {
     ctx.fillRect(p.planeX - 6, p.planeY + 6, 8, 6);
     ctx.fillStyle = '#4a8aba';
     ctx.fillRect(p.planeX + 4, p.planeY + 4, 6, 6);
+    // Окно
+    ctx.fillStyle = '#88ccff';
+    ctx.fillRect(p.planeX + 8, p.planeY + 6, 10, 10);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(p.planeX + 10, p.planeY + 8, 2, 2);
+
     if (planeState.gameOver) {
         ctx.fillStyle = 'rgba(255,0,0,0.3)';
         ctx.fillRect(0, 0, 600, 300);
@@ -3784,7 +4104,7 @@ function updatePlaneUI() {
     document.getElementById('planeTime').textContent = Math.floor(planeState.time);
 }
 
-// ===== КЛИКЕР (без изменений) =====
+// ===== КЛИКЕР (капча каждые 25 кликов) =====
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
 let captchaAnswer = '';
@@ -3813,7 +4133,8 @@ function initClicker() {
             document.getElementById('clickerBalance').textContent = STATE.balance;
             document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
             checkAllAchievements();
-            if (STATE.clicksSinceCaptcha >= 50) showCaptcha();
+            // Капча каждые 25 кликов
+            if (STATE.clicksSinceCaptcha >= 25) showCaptcha();
             saveStateToFirebase();
             addLog('🖱️ Клик #' + STATE.totalClicks);
         };
@@ -3956,7 +4277,7 @@ function updateMusic() {
     else { if (audio2) { audio2.volume = vol; audio2.play().catch(() => {}); } }
 }
 
-// ===== ПРОМОКОДЫ (без изменений) =====
+// ===== ПРОМОКОДЫ =====
 document.getElementById('applyPromoBtn').onclick = function() {
     const input = document.getElementById('promoInput');
     if (!input) return;
@@ -3970,7 +4291,7 @@ document.getElementById('applyPromoBtn').onclick = function() {
         STATE.totalEarned += 200;
         STATE.promoUsed = true;
         addExp(5);
-        showToast('🎉 Промокод активирован! +200 монет и по 1 открытию каждого кейса!');
+        showToast('🎉 Промокод активирован! +200 ₽ и по 1 открытию каждого кейса!');
         input.value = '';
         updateUI();
         saveStateToFirebase();
@@ -3992,7 +4313,7 @@ document.getElementById('applyPromoBtn').onclick = function() {
         STATE.totalEarned += 100;
         STATE.muzhikiRestored = true;
         addExp(5);
-        showToast('🎉 Промокод MOROLS активирован! +4 кейса игроков, +2 кейса городов, +100 монет!');
+        showToast('🎉 Промокод MOROLS активирован! +4 кейса игроков, +2 кейса городов, +100 ₽!');
         input.value = '';
         updateUI();
         saveStateToFirebase();
@@ -4138,7 +4459,10 @@ function navigateTo(sectionId) {
     if (sectionId === 'cases') renderCases();
     if (sectionId === 'achievements') renderAchievements();
     if (sectionId === 'account') renderAccount();
-    if (sectionId === 'messenger') renderMessenger();
+    if (sectionId === 'social') {
+        renderSocialFeed();
+        renderSocialChats();
+    }
     if (sectionId === 'clans') renderClans();
     if (sectionId === 'clicker') {
         document.getElementById('clickerBalance').textContent = STATE.balance;
@@ -4147,73 +4471,249 @@ function navigateTo(sectionId) {
     addLog('📂 Переход в раздел: ' + sectionId);
 }
 
-// ===== МЕССЕНДЖЕР (с выбором собеседника из рейтинга и по нику) =====
-let currentChatPartner = null;
-let allPlayersCache = [];
+// ===== СОЦСЕТЬ (посты, лайки, комментарии, чаты) =====
+// ---- Лента ----
+function renderSocialFeed() {
+    const container = document.getElementById('feedContainer');
+    if (!container) return;
+    // Загружаем все посты из Firebase (для всех пользователей)
+    fetch(DB_URL + '/posts.json?auth=' + (currentUser?.idToken || ''))
+        .then(res => res.json())
+        .then(data => {
+            let posts = [];
+            if (data) {
+                for (const key in data) {
+                    const post = data[key];
+                    post._id = key;
+                    posts.push(post);
+                }
+            }
+            // Сортируем по времени (новые сверху)
+            posts.sort((a, b) => b.timestamp - a.timestamp);
+            if (posts.length === 0) {
+                container.innerHTML = '<div style="color:#999; text-align:center; padding:20px;">Пока нет постов. Будьте первым!</div>';
+                return;
+            }
+            let html = '';
+            for (const post of posts) {
+                const isLiked = post.likes && post.likes.includes(STATE.uid);
+                const likeCount = post.likes ? post.likes.length : 0;
+                const comments = post.comments || [];
+                html += `<div class="social-post" data-post-id="${post._id}">
+                    <div class="post-header">
+                        <span>${post.author} (${post.authorId ? post.authorId.slice(0,8) : ''})</span>
+                        <span style="font-size:12px; color:#999;">${new Date(post.timestamp).toLocaleString()}</span>
+                    </div>
+                    <div class="post-content">${post.text}</div>
+                    ${post.image ? `<img src="${post.image}" style="max-width:100%; max-height:200px; margin:6px 0;" />` : ''}
+                    <div class="post-actions">
+                        <button class="like-btn" data-post-id="${post._id}">❤️ ${likeCount}</button>
+                        <button class="comment-toggle-btn" data-post-id="${post._id}">💬 ${comments.length}</button>
+                    </div>
+                    <div class="comments" id="comments-${post._id}" style="display:none;">
+                        ${comments.map(c => `<div class="comment"><span class="comment-author">${c.author}:</span><span class="comment-text">${c.text}</span></div>`).join('')}
+                        <div class="comment-form">
+                            <input type="text" placeholder="Ваш комментарий..." class="comment-input" data-post-id="${post._id}">
+                            <button class="comment-submit" data-post-id="${post._id}">→</button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html;
 
-function renderMessenger() {
-    const friendsDiv = document.getElementById('chatFriends');
-    const playersList = document.getElementById('chatPlayersList');
+            // Обработчики лайков
+            container.querySelectorAll('.like-btn').forEach(btn => {
+                btn.onclick = function() {
+                    const postId = this.dataset.postId;
+                    toggleLike(postId);
+                };
+            });
+
+            // Обработчики показа/скрытия комментариев
+            container.querySelectorAll('.comment-toggle-btn').forEach(btn => {
+                btn.onclick = function() {
+                    const postId = this.dataset.postId;
+                    const commentsDiv = document.getElementById('comments-' + postId);
+                    if (commentsDiv) {
+                        commentsDiv.style.display = commentsDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                };
+            });
+
+            // Обработчики отправки комментариев
+            container.querySelectorAll('.comment-submit').forEach(btn => {
+                btn.onclick = function() {
+                    const postId = this.dataset.postId;
+                    const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
+                    if (!input) return;
+                    const text = input.value.trim();
+                    if (!text) return;
+                    addComment(postId, text);
+                };
+            });
+            // Enter для комментариев
+            container.querySelectorAll('.comment-input').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const postId = this.dataset.postId;
+                        const text = this.value.trim();
+                        if (!text) return;
+                        addComment(postId, text);
+                    }
+                });
+            });
+        })
+        .catch(err => {
+            container.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки постов</div>';
+            addLog('❌ Ошибка загрузки постов: ' + err.message);
+        });
+}
+
+function publishPost() {
+    const textarea = document.getElementById('postContent');
+    const text = textarea.value.trim();
+    if (!text) { showToast('Введите текст поста'); return; }
+    const post = {
+        author: STATE.nickname,
+        authorId: STATE.uid,
+        text: text,
+        image: '', // можно добавить картинку из Paint позже
+        timestamp: Date.now(),
+        likes: [],
+        comments: []
+    };
+    // Сохраняем в Firebase
+    fetch(DB_URL + '/posts.json?auth=' + currentUser.idToken, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(post)
+    })
+    .then(res => res.json())
+    .then(() => {
+        showToast('✅ Пост опубликован!');
+        textarea.value = '';
+        // Добавляем в локальный STATE для достижений
+        if (!STATE.posts) STATE.posts = [];
+        STATE.posts.push(post);
+        STATE.totalMessages = (STATE.totalMessages || 0) + 1;
+        checkAllAchievements();
+        saveStateToFirebase();
+        renderSocialFeed();
+        addLog('📝 Опубликован пост: ' + text.substring(0, 30) + '...');
+    })
+    .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+function toggleLike(postId) {
+    if (!currentUser) { showToast('Войдите'); return; }
+    // Получаем пост из Firebase
+    fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(post => {
+            if (!post) { showToast('Пост не найден'); return; }
+            let likes = post.likes || [];
+            const index = likes.indexOf(STATE.uid);
+            if (index !== -1) {
+                likes.splice(index, 1);
+            } else {
+                likes.push(STATE.uid);
+                STATE.totalLikes = (STATE.totalLikes || 0) + 1;
+                checkAllAchievements();
+            }
+            return fetch(DB_URL + '/posts/' + postId + '/likes.json?auth=' + currentUser.idToken, {
+                method: 'PUT',
+                body: JSON.stringify(likes)
+            });
+        })
+        .then(() => {
+            saveStateToFirebase();
+            renderSocialFeed();
+            addLog('❤️ Лайк поставлен/удалён');
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+function addComment(postId, text) {
+    if (!currentUser) { showToast('Войдите'); return; }
+    if (!text.trim()) return;
+    const comment = {
+        author: STATE.nickname,
+        text: text.trim(),
+        timestamp: Date.now()
+    };
+    fetch(DB_URL + '/posts/' + postId + '/comments.json?auth=' + currentUser.idToken)
+        .then(res => res.json())
+        .then(existing => {
+            let comments = existing ? Object.values(existing) : [];
+            comments.push(comment);
+            // Сохраняем как массив, но Firebase не поддерживает прямой push массива, поэтому используем POST
+            // Проще: получаем весь пост и обновляем
+            return fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
+                .then(res => res.json())
+                .then(post => {
+                    if (!post) return;
+                    const newComments = post.comments || [];
+                    newComments.push(comment);
+                    return fetch(DB_URL + '/posts/' + postId + '/comments.json?auth=' + currentUser.idToken, {
+                        method: 'PUT',
+                        body: JSON.stringify(newComments)
+                    });
+                });
+        })
+        .then(() => {
+            STATE.totalComments = (STATE.totalComments || 0) + 1;
+            checkAllAchievements();
+            saveStateToFirebase();
+            renderSocialFeed();
+            addLog('💬 Комментарий добавлен');
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+}
+
+// ---- Чаты (сообщения) ----
+function renderSocialChats() {
+    const chatList = document.getElementById('chatList');
     const messagesDiv = document.getElementById('chatMessages');
     const input = document.getElementById('chatInput');
     const sendBtn = document.getElementById('chatSendBtn');
-    if (!friendsDiv || !messagesDiv) return;
+    if (!chatList || !messagesDiv) return;
 
-    // Отображаем друзей
-    let friendsHtml = '';
-    if (STATE.friends.length === 0) {
-        friendsHtml = '<div style="color:#999; padding:8px;">У вас пока нет друзей.</div>';
-    } else {
-        for (const uid of STATE.friends) {
-            if (STATE.blocked.includes(uid)) continue;
-            const isActive = (currentChatPartner === uid);
-            // Пытаемся получить ник из кэша или из БД (загрузим позже)
-            friendsHtml += `<button class="${isActive ? 'active' : ''}" data-uid="${uid}">${uid.slice(0,8)}</button>`;
-        }
-    }
-    friendsDiv.innerHTML = friendsHtml;
-
-    // Привязываем клик по другу
-    friendsDiv.querySelectorAll('button').forEach(btn => {
-        btn.onclick = function() {
-            const uid = this.dataset.uid;
-            currentChatPartner = uid;
-            renderMessenger();
-            loadChatMessages(uid);
-            input.disabled = false;
-            sendBtn.disabled = false;
-        };
-    });
-
-    // Загрузка всех игроков для выбора
-    if (!currentUser) return;
-    fetch(DB_URL + '/users.json?auth=' + currentUser.idToken)
+    // Загружаем список пользователей для чатов
+    fetch(DB_URL + '/users.json?auth=' + (currentUser?.idToken || ''))
         .then(res => res.json())
         .then(data => {
-            if (!data) return;
-            allPlayersCache = [];
-            for (const uid in data) {
-                const p = data[uid];
-                if (p.nickname && uid !== STATE.uid) {
-                    allPlayersCache.push({ uid, nickname: p.nickname });
+            let users = [];
+            if (data) {
+                for (const uid in data) {
+                    if (uid !== STATE.uid) {
+                        users.push({ uid, nickname: data[uid].nickname, status: data[uid].userStatus || 'all' });
+                    }
                 }
             }
-            // Обновляем список игроков
-            updatePlayersList(allPlayersCache);
-        })
-        .catch(err => addLog('⚠️ Ошибка загрузки списка игроков: ' + err.message));
+            // Отображаем список пользователей (всех, не только друзей)
+            let html = '';
+            if (users.length === 0) {
+                html = '<div style="color:#999;">Нет других игроков</div>';
+            } else {
+                for (const u of users) {
+                    const isActive = (currentChatPartner === u.uid);
+                    html += `<button class="${isActive ? 'active' : ''}" data-uid="${u.uid}">${u.nickname} (${u.status})</button>`;
+                }
+            }
+            chatList.innerHTML = html;
 
-    // Поиск по нику
-    document.getElementById('chatSearchBtn').onclick = function() {
-        const query = document.getElementById('chatSearchInput').value.trim().toLowerCase();
-        if (!query) { updatePlayersList(allPlayersCache); return; }
-        const filtered = allPlayersCache.filter(p => p.nickname.toLowerCase().includes(query));
-        updatePlayersList(filtered);
-    };
-    document.getElementById('chatShowAllBtn').onclick = function() {
-        document.getElementById('chatSearchInput').value = '';
-        updatePlayersList(allPlayersCache);
-    };
+            chatList.querySelectorAll('button').forEach(btn => {
+                btn.onclick = function() {
+                    const uid = this.dataset.uid;
+                    currentChatPartner = uid;
+                    renderSocialChats();
+                    loadChatMessages(uid);
+                    input.disabled = false;
+                    sendBtn.disabled = false;
+                };
+            });
+        })
+        .catch(err => addLog('⚠️ Ошибка загрузки списка чатов: ' + err.message));
 
     // Если есть активный чат, загружаем сообщения
     if (currentChatPartner) {
@@ -4221,112 +4721,101 @@ function renderMessenger() {
         input.disabled = false;
         sendBtn.disabled = false;
     } else {
-        messagesDiv.innerHTML = '<div style="color:#999;">Выберите собеседника из списка или друзей</div>';
+        messagesDiv.innerHTML = '<div style="color:#999;">Выберите собеседника</div>';
         input.disabled = true;
         sendBtn.disabled = true;
     }
 
-    // Отправка сообщения
+    // Отправка сообщения (без проверки на дружбу, только статус получателя)
     sendBtn.onclick = function() {
         if (!currentChatPartner) return;
-        if (!STATE.friends.includes(currentChatPartner)) {
-            showToast('❌ Этот пользователь не в друзьях');
-            return;
-        }
-        const text = input.value.trim();
-        if (!text) return;
+        // Проверяем статус получателя
+        fetch(DB_URL + '/users/' + currentChatPartner + '/userStatus.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(status => {
+                status = status || 'all';
+                if (status === 'none') {
+                    showToast('❌ Пользователь не принимает сообщения');
+                    return;
+                }
+                if (status === 'friends') {
+                    // Проверяем, есть ли он в друзьях
+                    if (!STATE.friends.includes(currentChatPartner)) {
+                        showToast('❌ Пользователь принимает сообщения только от друзей');
+                        return;
+                    }
+                }
+                // Отправляем
+                const text = input.value.trim();
+                if (!text) return;
+                const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+                if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
+                STATE.messages[chatId].push({
+                    sender: STATE.uid,
+                    text: text,
+                    timestamp: Date.now(),
+                    read: false
+                });
+                input.value = '';
+                STATE.totalMessages = (STATE.totalMessages || 0) + 1;
+                checkAllAchievements();
+                saveStateToFirebase();
+                loadChatMessages(currentChatPartner);
+                addLog('💬 Отправлено сообщение пользователю ' + currentChatPartner);
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    };
+
+    // Удалить из друзей
+    document.getElementById('removeFriendBtn').onclick = function() {
+        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
+        if (!STATE.friends.includes(currentChatPartner)) { showToast('Не в друзьях'); return; }
+        STATE.friends = STATE.friends.filter(uid => uid !== currentChatPartner);
+        saveStateToFirebase();
+        renderSocialChats();
+        showToast('✅ Удалён из друзей');
+        addLog('❌ Удалён из друзей: ' + currentChatPartner);
+    };
+
+    // Добавить в друзья
+    document.getElementById('addFriendBtn').onclick = function() {
+        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
+        if (STATE.friends.includes(currentChatPartner)) { showToast('Уже в друзьях'); return; }
+        STATE.friends.push(currentChatPartner);
+        saveStateToFirebase();
+        renderSocialChats();
+        showToast('✅ Добавлен в друзья');
+        checkAllAchievements();
+        addLog('➕ Добавлен друг: ' + currentChatPartner);
+    };
+
+    // Очистить чат
+    document.getElementById('clearChatBtn').onclick = function() {
+        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
-        STATE.messages[chatId].push({
-            sender: STATE.uid,
-            text: text,
-            timestamp: Date.now(),
-            read: false
-        });
-        input.value = '';
-        saveStateToFirebase();
-        loadChatMessages(currentChatPartner);
-        addLog('💬 Отправлено сообщение пользователю ' + currentChatPartner);
-    };
-
-    document.getElementById('chatAddFriendBtn').onclick = function() {
-        const friendUid = prompt('Введите UID друга:');
-        if (!friendUid) return;
-        if (friendUid === STATE.uid) { showToast('Нельзя добавить себя'); return; }
-        if (STATE.friends.includes(friendUid)) { showToast('Уже в друзьях'); return; }
-        STATE.friends.push(friendUid);
-        saveStateToFirebase();
-        renderMessenger();
-        showToast('✅ Друг добавлен');
-        addLog('➕ Добавлен друг: ' + friendUid);
-    };
-
-    document.getElementById('chatBlockBtn').onclick = function() {
-        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        if (STATE.blocked.includes(currentChatPartner)) {
-            showToast('Уже заблокирован');
-            return;
+        if (confirm('Очистить весь чат?')) {
+            STATE.messages[chatId] = [];
+            saveStateToFirebase();
+            loadChatMessages(currentChatPartner);
+            showToast('✅ Чат очищен');
+            addLog('🗑️ Чат очищен');
         }
-        STATE.blocked.push(currentChatPartner);
-        saveStateToFirebase();
-        renderMessenger();
-        showToast('🚫 Пользователь заблокирован');
-        addLog('🚫 Заблокирован: ' + currentChatPartner);
     };
 
-    document.getElementById('chatTradeBtn').onclick = function() {
-        if (!currentChatPartner) { showToast('Выберите собеседника'); return; }
-        if (!STATE.friends.includes(currentChatPartner)) {
-            showToast('❌ Можно торговать только с друзьями');
-            return;
-        }
-        const itemKey = prompt('Введите ключ предмета для обмена (например, "дефолтные мужики|||👨"):');
-        if (!itemKey) return;
-        const [name, emoji] = itemKey.split('|||');
-        const count = STATE.itemsCount[itemKey] || 0;
-        if (count < 1) { showToast('У вас нет такого предмета'); return; }
-        const trade = {
-            id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
-            from: STATE.uid,
-            to: currentChatPartner,
-            fromItem: itemKey,
-            toItem: null,
-            status: 'pending',
-            timestamp: Date.now()
+    // Статус (для себя)
+    const statusSelect = document.getElementById('chatStatusSelect');
+    if (statusSelect) {
+        statusSelect.value = STATE.userStatus || 'all';
+        statusSelect.onchange = function() {
+            STATE.userStatus = this.value;
+            saveStateToFirebase();
+            showToast('✅ Статус обновлён: ' + this.value);
+            addLog('🔕 Статус изменён: ' + this.value);
         };
-        STATE.trades.push(trade);
-        saveStateToFirebase();
-        showToast('✅ Заявка на обмен отправлена');
-        addLog('🔄 Предложен обмен пользователю ' + currentChatPartner);
-    };
+    }
 }
 
-function updatePlayersList(players) {
-    const listDiv = document.getElementById('chatPlayersList');
-    if (!listDiv) return;
-    if (!players || players.length === 0) {
-        listDiv.innerHTML = '<div style="color:#999; padding:4px;">Нет игроков</div>';
-        return;
-    }
-    let html = '';
-    for (const p of players) {
-        html += `<div class="player-item" data-uid="${p.uid}">${p.nickname} (${p.uid.slice(0,8)})</div>`;
-    }
-    listDiv.innerHTML = html;
-    listDiv.querySelectorAll('.player-item').forEach(el => {
-        el.onclick = function() {
-            const uid = this.dataset.uid;
-            // Если уже в друзьях или заблокирован – можно выбрать, но писать только если друг
-            // Добавляем в друзья автоматически? Нет, только выбор собеседника.
-            currentChatPartner = uid;
-            renderMessenger();
-            loadChatMessages(uid);
-            document.getElementById('chatInput').disabled = false;
-            document.getElementById('chatSendBtn').disabled = false;
-            showToast('Выбран собеседник: ' + (allPlayersCache.find(p => p.uid === uid)?.nickname || uid));
-        };
-    });
-}
+let currentChatPartner = null;
 
 function loadChatMessages(partnerUid) {
     const messagesDiv = document.getElementById('chatMessages');
@@ -4366,7 +4855,108 @@ function loadChatMessages(partnerUid) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-// ===== КЛАНЫ (создание, управление, удаление) =====
+// ---- Paint ----
+let paintCanvas, paintCtx, isDrawing = false, paintColor = '#000000';
+function openPaint() {
+    // Создаём модалку с canvas
+    const overlay = document.createElement('div');
+    overlay.id = 'paintOverlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
+    const box = document.createElement('div');
+    box.style.cssText = 'background:#fff;padding:20px;border-radius:12px;max-width:500px;width:100%;';
+    box.innerHTML = `
+        <h3>Paint</h3>
+        <canvas id="paintCanvas" width="400" height="300" style="border:1px solid #000;width:100%;height:auto;cursor:crosshair;"></canvas>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="color" id="paintColor" value="#000000">
+            <button id="paintClearBtn">Очистить</button>
+            <button id="paintCopyBtn">📋 Копировать в пост</button>
+            <button id="paintCloseBtn">Закрыть</button>
+        </div>
+    `;
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    const canvas = document.getElementById('paintCanvas');
+    paintCanvas = canvas;
+    const ctx = canvas.getContext('2d');
+    paintCtx = ctx;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, 400, 300);
+    let drawing = false;
+
+    canvas.addEventListener('mousedown', (e) => {
+        drawing = true;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX - rect.left) * (400 / rect.width);
+        const y = (e.clientY - rect.top) * (300 / rect.height);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    });
+    canvas.addEventListener('mousemove', (e) => {
+        if (!drawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX - rect.left) * (400 / rect.width);
+        const y = (e.clientY - rect.top) * (300 / rect.height);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = document.getElementById('paintColor').value;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    });
+    canvas.addEventListener('mouseup', () => { drawing = false; });
+    canvas.addEventListener('mouseleave', () => { drawing = false; });
+
+    // Для тачей
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        drawing = true;
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        const x = (touch.clientX - rect.left) * (400 / rect.width);
+        const y = (touch.clientY - rect.top) * (300 / rect.height);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    });
+    canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (!drawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        const x = (touch.clientX - rect.left) * (400 / rect.width);
+        const y = (touch.clientY - rect.top) * (300 / rect.height);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = document.getElementById('paintColor').value;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    });
+    canvas.addEventListener('touchend', () => { drawing = false; });
+
+    document.getElementById('paintClearBtn').onclick = function() {
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, 400, 300);
+    };
+    document.getElementById('paintCopyBtn').onclick = function() {
+        const dataUrl = canvas.toDataURL('image/png');
+        // Вставляем в поле поста
+        const postText = document.getElementById('postContent');
+        postText.value += `\n[Картинка: ${dataUrl}]`; // или можно вставить как img, но текстовое поле не поддерживает HTML
+        // Можно просто скопировать в буфер обмена
+        navigator.clipboard.writeText(dataUrl).then(() => {
+            showToast('✅ Ссылка на картинку скопирована, вставьте её в пост');
+        }).catch(() => {
+            showToast('⚠️ Скопируйте картинку вручную');
+        });
+        // Закрываем paint
+        document.getElementById('paintOverlay').remove();
+    };
+    document.getElementById('paintCloseBtn').onclick = function() {
+        document.getElementById('paintOverlay').remove();
+    };
+}
+
+// ===== КЛАНЫ (без изменений) =====
 function renderClans() {
     const container = document.getElementById('clanContent');
     if (!container) return;
@@ -4501,71 +5091,30 @@ function deleteClan() {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== КНОПКИ ВХОДА =====
-document.getElementById('loginBtn').onclick = function() {
-    const nick = document.getElementById('loginNick').value.trim();
-    const pass = document.getElementById('loginPass').value;
-    if (!nick || !pass) {
-        document.getElementById('loginError').textContent = '❌ Заполните все поля';
-        return;
+// ===== ЧАСЫ =====
+function startClock() {
+    function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString('ru-RU', { hour12: false });
+        const clockEl = document.getElementById('clockDisplay');
+        if (clockEl) clockEl.textContent = time;
     }
-    document.getElementById('loginError').textContent = '';
-    document.getElementById('loadingStatus').classList.remove('hidden');
-    document.getElementById('loadingText').textContent = '⏳ Вход...';
-    loginUser(nick, pass);
-};
+    updateClock();
+    setInterval(updateClock, 1000);
+}
 
-document.getElementById('registerBtn').onclick = function() {
-    const nick = document.getElementById('loginNick').value.trim();
-    const pass = document.getElementById('loginPass').value;
-    if (!nick || !pass || pass.length < 6) {
-        document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
-        return;
-    }
-    document.getElementById('loginError').textContent = '';
-    document.getElementById('loadingStatus').classList.remove('hidden');
-    document.getElementById('loadingText').textContent = '⏳ Регистрация...';
-    registerUser(nick, pass);
-};
-
-document.getElementById('logToggleBtn').onclick = function() {
-    const area = document.getElementById('logArea');
-    if (!area) return;
-    area.classList.toggle('show');
-    if (area.classList.contains('show')) {
-        area.textContent = logMessages.join('\n');
-        area.scrollTop = area.scrollHeight;
-        this.textContent = '📋 Скрыть логи';
-    } else {
-        this.textContent = '📋 Показать логи';
-    }
-};
-
-document.getElementById('headerLogBtn').onclick = function() {
-    const popup = document.getElementById('logPopup');
-    if (!popup) return;
-    popup.classList.toggle('show');
-    if (popup.classList.contains('show')) {
-        popup.textContent = logMessages.join('\n');
-        popup.scrollTop = popup.scrollHeight;
-        this.classList.add('active');
-        this.textContent = '📋 Скрыть';
-    } else {
-        this.classList.remove('active');
-        this.textContent = '📋 Логи';
-    }
-};
-
-// ===== ИНИЦИАЛИЗАЦИЯ =====
+// ===== ИНИЦИАЛИЗАЦИЯ СОБЫТИЙ =====
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loadingStatus').classList.add('hidden');
 
+    // Навигация
     document.querySelectorAll('#mainNav button').forEach(btn => {
         btn.onclick = function() {
             navigateTo(this.dataset.section);
         };
     });
 
+    // Вкладки рейтинга
     document.querySelectorAll('#ratingTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#ratingTabs button').forEach(b => b.classList.remove('active'));
@@ -4575,6 +5124,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
+    // Вкладки игр
     document.querySelectorAll('#gamesTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#gamesTabs button').forEach(b => b.classList.remove('active'));
@@ -4588,6 +5138,27 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
+    // Вкладки соцсети
+    document.querySelectorAll('#socialTabs button').forEach(btn => {
+        btn.onclick = function() {
+            document.querySelectorAll('#socialTabs button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const tab = this.dataset.socialTab;
+            document.querySelectorAll('#section-social .tab-content').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('social-' + tab);
+            if (target) target.classList.add('active');
+            if (tab === 'feed') renderSocialFeed();
+            if (tab === 'chats') renderSocialChats();
+        };
+    });
+
+    // Кнопка публикации поста
+    document.getElementById('postSubmitBtn').onclick = publishPost;
+
+    // Кнопка Paint
+    document.getElementById('paintBtn').onclick = openPaint;
+
+    // Режимы рейтинга
     document.getElementById('ratingModeNow').onclick = function() {
         this.style.background = '#0a246a'; this.style.color = '#fff';
         document.getElementById('ratingModeEver').style.background = '#ece9d8';
