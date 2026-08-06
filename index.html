@@ -1888,6 +1888,8 @@
 </div>
 
 <div class="log-popup" id="logPopup"></div>
+
+<!-- ===== ВЕСЬ JS ЗДЕСЬ ===== -->
 <script>
 // ============================================================
 //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ИСПРАВЛЕННАЯ)
@@ -2438,9 +2440,8 @@ function registerUser(nick, password) {
         });
 }
 
-// ===== ОСНОВНАЯ ФУНКЦИЯ ВХОДА (ИСПРАВЛЕННАЯ) =====
+// ===== ОСНОВНАЯ ФУНКЦИЯ ВХОДА =====
 function onAuthSuccess() {
-    // ПРИНУДИТЕЛЬНО СКРЫВАЕМ ЗАГРУЗКУ
     const status = document.getElementById('loadingStatus');
     if (status) status.classList.add('hidden');
     console.log('✅ onAuthSuccess запущен, загрузка скрыта');
@@ -2756,7 +2757,6 @@ async function openCase(caseId) {
             checkAllAchievements();
             sfxCaseOpenFinish();
             STATE.isOpening = false;
-            // Используем .then() вместо await внутри обычной функции
             saveStateToFirebase().then(() => {
                 reopenBtn.style.display = 'block';
                 sellResultBtn.style.display = 'block';
@@ -4972,6 +4972,49 @@ function startClock() {
     updateClock();
     setInterval(updateClock, 1000);
 }
+
+// ===== ПРИВЯЗКА КНОПОК ВХОДА (ГЛОБАЛЬНО) =====
+document.getElementById('loginBtn').onclick = function() {
+    console.log('🔵 Клик по Войти');
+    const nick = document.getElementById('loginNick').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!nick || !pass) {
+        document.getElementById('loginError').textContent = '❌ Заполните все поля';
+        return;
+    }
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loadingStatus').classList.remove('hidden');
+    document.getElementById('loadingText').textContent = '⏳ Вход...';
+    loginUser(nick, pass);
+};
+
+document.getElementById('registerBtn').onclick = function() {
+    console.log('🟢 Клик по Регистрация');
+    const nick = document.getElementById('loginNick').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    if (!nick || !pass || pass.length < 6) {
+        document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
+        return;
+    }
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loadingStatus').classList.remove('hidden');
+    document.getElementById('loadingText').textContent = '⏳ Регистрация...';
+    registerUser(nick, pass);
+};
+
+document.getElementById('logToggleBtn').onclick = function() {
+    console.log('📋 Клик по Логи');
+    const area = document.getElementById('logArea');
+    if (!area) return;
+    area.classList.toggle('show');
+    if (area.classList.contains('show')) {
+        area.textContent = logMessages.join('\n');
+        area.scrollTop = area.scrollHeight;
+        this.textContent = '📋 Скрыть логи';
+    } else {
+        this.textContent = '📋 Показать логи';
+    }
+};
 
 // ===== ИНИЦИАЛИЗАЦИЯ =====
 document.addEventListener('DOMContentLoaded', function() {
