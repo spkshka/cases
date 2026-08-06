@@ -18,7 +18,7 @@
             font-size: 16px;
             transition: background 0.3s, color 0.3s;
         }
-        /* ===== ТЕМЫ (только Windows XP по умолчанию, остальные аналогично) ===== */
+        /* ===== ТЕМЫ ===== */
         body.theme-windows_xp {
             background: #3a6ea5;
             color: #000;
@@ -868,7 +868,7 @@
             border-radius: 10px;
         }
 
-        /* ===== СОЦ СЕТЬ (вместо мессенджера) ===== */
+        /* ===== СОЦ СЕТЬ ===== */
         .social-wrap {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
@@ -978,7 +978,6 @@
             transition: 0.2s;
         }
 
-        /* Чаты (сообщения) внутри соцсети */
         .social-chats {
             margin-top: 12px;
             border-top: 1px solid #a0b0c0;
@@ -1434,7 +1433,6 @@
         }
         .log-popup.show { display: block; }
 
-        /* Кнопка сброса прогресса в аккаунте */
         .reset-progress-btn {
             background: #cc3333 !important;
             color: #fff !important;
@@ -1649,7 +1647,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Самолёт (новая механика) -->
+            <!-- Самолёт -->
             <div class="tab-content" id="tab-plane">
                 <div class="game-wrap">
                     <div class="game-stats">
@@ -1703,7 +1701,7 @@
             </div>
         </section>
 
-        <!-- СОЦ СЕТЬ (вместо мессенджера) -->
+        <!-- СОЦ СЕТЬ -->
         <section id="section-social" class="section">
             <div class="title">Соц сеть <span class="badge">посты, чаты, общение</span></div>
             <div class="social-wrap">
@@ -2555,7 +2553,7 @@ function onAuthSuccess() {
     }
 }
 
-// ===== СОХРАНЕНИЕ В FIREBASE (ВЫНЕСЕНО ИЗ onAuthSuccess) =====
+// ===== СОХРАНЕНИЕ В FIREBASE =====
 function saveStateToFirebase() {
     if (!currentUser || !currentUser.idToken) return Promise.resolve();
     const uid = currentUser.uid;
@@ -2758,7 +2756,7 @@ async function openCase(caseId) {
             checkAllAchievements();
             sfxCaseOpenFinish();
             STATE.isOpening = false;
-            // ИСПРАВЛЕНИЕ: используем .then() вместо await внутри обычной функции
+            // Используем .then() вместо await внутри обычной функции
             saveStateToFirebase().then(() => {
                 reopenBtn.style.display = 'block';
                 sellResultBtn.style.display = 'block';
