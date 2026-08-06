@@ -100,7 +100,6 @@
         body.theme-windows_xp .social-post-btn:hover {
             background: #1a3a8a;
         }
-        /* остальные темы аналогичны предыдущей версии – для краткости опущены, но в полном коде они есть */
         body.theme-windows7 { background: #2a6a9a; color: #000; }
         body.theme-windows7 #app { background: #e8e8e8; border: 2px solid #1a3a6a; border-radius: 8px; }
         body.theme-windows7 .header { border-bottom-color: #1a3a6a; }
@@ -1893,7 +1892,7 @@
 <div class="log-popup" id="logPopup"></div>
 <script>
 // ============================================================
-//  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (СОЦСЕТЬ, PAINT, НОВЫЙ САМОЛЁТ, ИСПРАВЛЕНИЯ)
+//  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ИСПРАВЛЕННАЯ)
 // ============================================================
 
 document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1931,10 +1930,9 @@ let STATE = {
     messages: {},
     trades: [],
     clanWar: null,
-    // Соцсеть
     posts: [],
-    userStatus: 'all', // 'all', 'friends', 'none'
-    chatStatus: {} // { uid: 'all'|'friends'|'none' } - для каждого собеседника
+    userStatus: 'all',
+    chatStatus: {}
 };
 
 let logMessages = [];
@@ -2043,7 +2041,6 @@ function giveLevelReward(level) {
     addLog('🎁 Награда за уровень ' + level);
 }
 
-// ===== КЕЙСЫ (добавлен "Города 2") =====
 const CASES = [
     { id: 'muzhiki1', name: 'Мужики 1', emoji: '💪', price: 100,
         items: [
@@ -2132,7 +2129,6 @@ const CASES = [
             { name: 'Tasis', emoji: '🌟', weight: 1, rarity: 'эпическое' }
         ]
     },
-    // НОВЫЙ КЕЙС "Города 2"
     { id: 'cities2', name: 'Города 2', emoji: '🌆', price: 150,
         items: [
             { name: 'симбирск', emoji: '🏙️', weight: 20, rarity: 'ширп' },
@@ -2150,9 +2146,7 @@ const CASES = [
     }
 ];
 
-// ===== ДОСТИЖЕНИЯ (добавлены новые) =====
 const ACHIEVEMENTS = [
-    // старые (сокращённо)
     { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
     { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
     { id: 'click100', name: 'Кликнуть 100 раз', check: s => s.totalClicks >= 100 },
@@ -2227,7 +2221,6 @@ const ACHIEVEMENTS = [
     { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
     { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
     { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
-    // НОВЫЕ ДОСТИЖЕНИЯ
     { id: 'first_post', name: 'Опубликовать первый пост', check: s => s.posts && s.posts.length >= 1 },
     { id: 'five_posts', name: 'Опубликовать 5 постов', check: s => s.posts && s.posts.length >= 5 },
     { id: 'first_like', name: 'Поставить лайк', check: s => s.totalLikes && s.totalLikes >= 1 },
@@ -2241,7 +2234,7 @@ const ACHIEVEMENTS = [
     { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
 ];
 
-// ===== ЗВУКИ (без изменений) =====
+// ===== ЗВУКИ =====
 let audioCtx = null;
 function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2446,12 +2439,13 @@ function registerUser(nick, password) {
             document.getElementById('loadingStatus').classList.add('hidden');
         });
 }
+
+// ===== ОСНОВНАЯ ФУНКЦИЯ ВХОДА (ИСПРАВЛЕННАЯ) =====
 function onAuthSuccess() {
-    // ===== ПРИНУДИТЕЛЬНО СКРЫВАЕМ ЗАГРУЗКУ =====
+    // ПРИНУДИТЕЛЬНО СКРЫВАЕМ ЗАГРУЗКУ
     const status = document.getElementById('loadingStatus');
     if (status) status.classList.add('hidden');
     console.log('✅ onAuthSuccess запущен, загрузка скрыта');
-    // =============================================
 
     try {
         addLog('🔄 Загрузка профиля в STATE...');
@@ -2511,6 +2505,57 @@ function onAuthSuccess() {
             addLog('⭐ Выдано 1000 Эло новичку');
             saveStateToFirebase();
         }
+
+        rebuildItemsCount();
+
+        const overlay = document.getElementById('loginOverlay');
+        if (overlay) overlay.classList.add('hidden');
+        const app = document.getElementById('app');
+        if (app) app.style.display = 'block';
+
+        applyTheme(STATE.settings.theme || 'windows_xp');
+
+        showToast('👋 Приветствую! Игра шутка и не несет ничего оскорбительного. Надеюсь, ты будешь активен хотя бы 10 минут. Есть рынок, мини-игры, торговля и рейтинг! Удачи!', 8000);
+        STATE.welcomeShown = true;
+        saveStateToFirebase();
+        addLog('💬 Показано приветствие');
+
+        setTimeout(() => {
+            try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
+            try { renderSettings(); } catch(e) { addLog('⚠️ renderSettings: ' + e.message); }
+            try { renderMarket(); } catch(e) { addLog('⚠️ renderMarket: ' + e.message); }
+            try { renderRating('elo'); } catch(e) { addLog('⚠️ renderRating: ' + e.message); }
+            try { renderCases(); } catch(e) { addLog('⚠️ renderCases: ' + e.message); }
+            try { renderInventory(); } catch(e) { addLog('⚠️ renderInventory: ' + e.message); }
+            try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
+            try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
+            try { renderSocialFeed(); } catch(e) { addLog('⚠️ renderSocialFeed: ' + e.message); }
+            try { renderSocialChats(); } catch(e) { addLog('⚠️ renderSocialChats: ' + e.message); }
+            try { renderClans(); } catch(e) { addLog('⚠️ renderClans: ' + e.message); }
+        }, 50);
+
+        const idEl = document.getElementById('idDisplay');
+        if (idEl) idEl.textContent = '#' + STATE.userId;
+
+        updateMusic();
+        showToast('Добро пожаловать, ' + STATE.nickname);
+        updateRankAndLevel();
+        checkAllAchievements();
+        initMorols();
+        initPlane();
+        initClicker();
+        startClock();
+        addLog('✅ Игра полностью загружена');
+    } catch (e) {
+        addLog('❌ Ошибка в onAuthSuccess: ' + e.message);
+        showToast('❌ Ошибка: ' + e.message, 5000);
+        const status2 = document.getElementById('loadingStatus');
+        if (status2) status2.classList.add('hidden');
+        console.error(e);
+    }
+}
+
+// ===== СОХРАНЕНИЕ В FIREBASE (ВЫНЕСЕНО ИЗ onAuthSuccess) =====
 function saveStateToFirebase() {
     if (!currentUser || !currentUser.idToken) return Promise.resolve();
     const uid = currentUser.uid;
@@ -2699,7 +2744,6 @@ async function openCase(caseId) {
                 caseId: caseData.id,
                 acquired: Date.now(),
             };
-            // Проверка лимита инвентаря (1000)
             if (STATE.inventory.length >= 1000) {
                 showToast('❌ Инвентарь переполнен (макс. 1000)!');
                 STATE.isOpening = false;
@@ -2714,34 +2758,35 @@ async function openCase(caseId) {
             checkAllAchievements();
             sfxCaseOpenFinish();
             STATE.isOpening = false;
-            // ДОЖИДАЕМСЯ СОХРАНЕНИЯ ПЕРЕД РАЗРЕШЕНИЕМ ПОВТОРНОГО ОТКРЫТИЯ
-            await saveStateToFirebase();
-            reopenBtn.style.display = 'block';
-            sellResultBtn.style.display = 'block';
-            sellResultBtn.textContent = 'Продать за ' + (Math.floor(caseData.price * 0.5)) + ' ₽';
-            sellResultBtn.onclick = function() {
-                const price = Math.floor(caseData.price * 0.5);
-                const idx = STATE.inventory.findIndex(item => item.id === entry.id);
-                if (idx !== -1) {
-                    STATE.inventory.splice(idx, 1);
-                    STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
-                    if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
-                    STATE.balance += price;
-                    STATE.totalEarned += price;
-                    if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                    showToast('✅ Продано: ' + finalResult.emoji + ' ' + finalResult.name + ' за ' + price + ' ₽');
-                    sfxMarketSell();
-                    updateUI();
-                    saveStateToFirebase();
-                    renderInventory();
+            // ИСПРАВЛЕНИЕ: используем .then() вместо await внутри обычной функции
+            saveStateToFirebase().then(() => {
+                reopenBtn.style.display = 'block';
+                sellResultBtn.style.display = 'block';
+                sellResultBtn.textContent = 'Продать за ' + (Math.floor(caseData.price * 0.5)) + ' ₽';
+                sellResultBtn.onclick = function() {
+                    const price = Math.floor(caseData.price * 0.5);
+                    const idx = STATE.inventory.findIndex(item => item.id === entry.id);
+                    if (idx !== -1) {
+                        STATE.inventory.splice(idx, 1);
+                        STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) - 1;
+                        if (STATE.itemsCount[key] <= 0) delete STATE.itemsCount[key];
+                        STATE.balance += price;
+                        STATE.totalEarned += price;
+                        if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                        showToast('✅ Продано: ' + finalResult.emoji + ' ' + finalResult.name + ' за ' + price + ' ₽');
+                        sfxMarketSell();
+                        updateUI();
+                        saveStateToFirebase();
+                        renderInventory();
+                        closeCaseModal();
+                    }
+                };
+                reopenBtn.onclick = function() {
                     closeCaseModal();
-                }
-            };
-            reopenBtn.onclick = function() {
-                closeCaseModal();
-                setTimeout(() => openCase(caseId), 100);
-            };
-            addLog('📦 Открыт кейс ' + caseData.name + ', выпало: ' + finalResult.name);
+                    setTimeout(() => openCase(caseId), 100);
+                };
+                addLog('📦 Открыт кейс ' + caseData.name + ', выпало: ' + finalResult.name);
+            });
         }
     }
     requestAnimationFrame(animateScroll);
@@ -2929,7 +2974,7 @@ async function clearAllInventory() {
     .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ===== РЫНОК (с количеством от 1 до 50) =====
+// ===== РЫНОК =====
 function renderMarket() {
     const container = document.getElementById('marketContent');
     if (!container) return;
@@ -3035,7 +3080,6 @@ function renderMarket() {
                     const count = STATE.itemsCount[key] || 0;
                     if (count < quantity) { showToast('Недостаточно предметов'); return; }
 
-                    // Находим индексы предметов для удаления
                     let removed = 0;
                     for (let i = STATE.inventory.length - 1; i >= 0 && removed < quantity; i--) {
                         if (STATE.inventory[i].name === name && STATE.inventory[i].emoji === emoji) {
@@ -3308,7 +3352,7 @@ function checkAllAchievements() {
     }
 }
 
-// ===== АККАУНТ (сброс прогресса с паролем и капчей) =====
+// ===== АККАУНТ =====
 function renderAccount() {
     const container = document.getElementById('accountInfo');
     if (!container) return;
@@ -3419,9 +3463,7 @@ function renderAccount() {
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     };
 
-    // Кнопка сброса прогресса
     document.getElementById('resetProgressBtnAccount').onclick = function() {
-        // Показываем капчу
         const overlay = document.getElementById('resetCaptchaOverlay');
         overlay.classList.remove('hidden');
         const captchaText = document.getElementById('resetCaptchaText');
@@ -3437,7 +3479,6 @@ function renderAccount() {
                 return;
             }
             overlay.classList.add('hidden');
-            // Теперь запрашиваем пароль
             const password = prompt('Введите пароль для подтверждения сброса:');
             if (!password) return;
             const email = getEmail(STATE.nickname);
@@ -3449,7 +3490,6 @@ function renderAccount() {
             .then(res => res.json())
             .then(data => {
                 if (data.error) { showToast('❌ Неверный пароль'); return; }
-                // Сброс всех полей
                 STATE.balance = 500;
                 STATE.totalEarned = 0;
                 STATE.totalSpent = 0;
@@ -3571,7 +3611,7 @@ function updateProgressDisplay() {
 }
 
 // ===== ИГРЫ =====
-// ---- МОРОЛС (без изменений) ----
+// ---- МОРОЛС ----
 let morolsRunning = false;
 let morolsAnimId = null;
 let morolsState = {
@@ -3776,17 +3816,16 @@ function updateMorolsUI() {
     document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
 }
 
-// ---- САМОЛЁТ (новая механика: управление вверх/вниз, препятствия-круги) ----
+// ---- САМОЛЁТ ----
 let planeRunning = false;
 let planeAnimId = null;
 let planeState = {
-    planeX: 80, planeY: 150, width: 40, height: 40, // квадратный кораблик
+    planeX: 80, planeY: 150, width: 40, height: 40,
     vy: 0,
     obstacles: [], coins: [], score: 0, xp: 0, time: 0,
     lastTime: 0, gameOver: false,
-    gravity: 0.05, // слабая гравитация
+    gravity: 0.05,
     groundY: 280, ceilingY: 20,
-    // Для сенсорного управления
     touchUp: false,
     touchDown: false
 };
@@ -3798,12 +3837,10 @@ function initPlane() {
         canvas.width = 600; canvas.height = 300;
         document.getElementById('planeStart').onclick = startPlane;
         document.getElementById('planeReset').onclick = resetPlane;
-        // Клавиатура: стрелки вверх/вниз
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowUp') { e.preventDefault(); planeMoveUp(); }
             if (e.key === 'ArrowDown') { e.preventDefault(); planeMoveDown(); }
         });
-        // Сенсорные кнопки
         const upBtn = document.getElementById('planeTouchUp');
         const downBtn = document.getElementById('planeTouchDown');
         if (upBtn && downBtn) {
@@ -3845,13 +3882,13 @@ function resetPlane() {
 
 function planeMoveUp() {
     if (planeState.gameOver || !planeRunning) return;
-    planeState.vy = -3; // поднимаемся
+    planeState.vy = -3;
     sfxPlaneJump();
 }
 
 function planeMoveDown() {
     if (planeState.gameOver || !planeRunning) return;
-    planeState.vy = 3; // опускаемся
+    planeState.vy = 3;
     sfxPlaneJump();
 }
 
@@ -3881,11 +3918,9 @@ async function planeLoop(timestamp) {
     planeState.xp += dt * 3;
     planeState.score += dt;
 
-    // Гравитация
     if (!planeState.touchUp && !planeState.touchDown) {
         planeState.vy += planeState.gravity;
     } else {
-        // Если нажата кнопка, удерживаем скорость
         if (planeState.touchUp) planeState.vy = -3;
         if (planeState.touchDown) planeState.vy = 3;
     }
@@ -3896,7 +3931,6 @@ async function planeLoop(timestamp) {
         planeState.vy = 0;
     }
 
-    // Генерация препятствий (круги с шипами)
     if (Math.random() < 0.02 * dt * 60) {
         const radius = 15 + Math.random() * 20;
         const y = 20 + Math.random() * (280 - 40 - radius*2);
@@ -3909,7 +3943,6 @@ async function planeLoop(timestamp) {
         });
     }
 
-    // Монетки
     if (Math.random() < 0.01 * dt * 60) {
         planeState.coins.push({
             x: 600,
@@ -3921,17 +3954,14 @@ async function planeLoop(timestamp) {
         });
     }
 
-    // Обновление препятствий
     for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
         const o = planeState.obstacles[i];
         o.x -= o.speed * dt;
         if (o.x + o.radius < 0) { planeState.obstacles.splice(i, 1); continue; }
-        // Столкновение с кругом (простая проверка расстояния)
         const dx = (planeState.planeX + planeState.width/2) - (o.x + o.radius);
         const dy = (planeState.planeY + planeState.height/2) - (o.y + o.radius);
         const dist = Math.sqrt(dx*dx + dy*dy);
         if (dist < o.radius + planeState.width/2) {
-            // Крах
             planeState.gameOver = true;
             planeRunning = false;
             document.getElementById('planeStart').textContent = 'Старт';
@@ -3954,7 +3984,6 @@ async function planeLoop(timestamp) {
         }
     }
 
-    // Монетки
     for (let i = planeState.coins.length - 1; i >= 0; i--) {
         const c = planeState.coins[i];
         c.x -= c.speed * dt;
@@ -3989,9 +4018,7 @@ function drawPlane() {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 600, 300);
 
-    // Препятствия (круги с шипами)
     for (const o of planeState.obstacles) {
-        // Рисуем красный круг с шипами
         ctx.beginPath();
         ctx.arc(o.x + o.radius, o.y + o.radius, o.radius, 0, Math.PI*2);
         ctx.fillStyle = '#cc3333';
@@ -3999,7 +4026,6 @@ function drawPlane() {
         ctx.strokeStyle = '#aa2222';
         ctx.lineWidth = 2;
         ctx.stroke();
-        // Шипы (зубчики)
         for (let j = 0; j < 8; j++) {
             const angle = j * Math.PI / 4;
             const spikeLen = o.radius * 0.5;
@@ -4014,7 +4040,6 @@ function drawPlane() {
             ctx.lineWidth = 2;
             ctx.stroke();
         }
-        // Глаза
         ctx.fillStyle = '#ffdd00';
         ctx.beginPath();
         ctx.arc(o.x + o.radius - 4, o.y + o.radius - 4, 4, 0, Math.PI*2);
@@ -4031,7 +4056,6 @@ function drawPlane() {
         ctx.fill();
     }
 
-    // Монетки
     for (const c of planeState.coins) {
         ctx.beginPath();
         ctx.arc(c.x, c.y, c.radius, 0, Math.PI*2);
@@ -4042,7 +4066,6 @@ function drawPlane() {
         ctx.stroke();
     }
 
-    // Кораблик (квадратный)
     const p = planeState;
     ctx.fillStyle = '#ece9d8';
     ctx.fillRect(p.planeX, p.planeY, p.width, p.height);
@@ -4051,7 +4074,6 @@ function drawPlane() {
     ctx.fillRect(p.planeX - 6, p.planeY + 6, 8, 6);
     ctx.fillStyle = '#4a8aba';
     ctx.fillRect(p.planeX + 4, p.planeY + 4, 6, 6);
-    // Окно
     ctx.fillStyle = '#88ccff';
     ctx.fillRect(p.planeX + 8, p.planeY + 6, 10, 10);
     ctx.fillStyle = '#000';
@@ -4073,7 +4095,7 @@ function updatePlaneUI() {
     document.getElementById('planeTime').textContent = Math.floor(planeState.time);
 }
 
-// ===== КЛИКЕР (капча каждые 25 кликов) =====
+// ===== КЛИКЕР =====
 const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
 let captchaActive = false;
 let captchaAnswer = '';
@@ -4102,7 +4124,6 @@ function initClicker() {
             document.getElementById('clickerBalance').textContent = STATE.balance;
             document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
             checkAllAchievements();
-            // Капча каждые 25 кликов
             if (STATE.clicksSinceCaptcha >= 25) showCaptcha();
             saveStateToFirebase();
             addLog('🖱️ Клик #' + STATE.totalClicks);
@@ -4440,8 +4461,7 @@ function navigateTo(sectionId) {
     addLog('📂 Переход в раздел: ' + sectionId);
 }
 
-// ===== СОЦСЕТЬ (посты, лайки, комментарии, чаты) =====
-// ---- Лента ----
+// ===== СОЦСЕТЬ =====
 function renderSocialFeed() {
     const container = document.getElementById('feedContainer');
     if (!container) { addLog('⚠️ feedContainer не найден'); return; }
@@ -4531,12 +4551,11 @@ function publishPost() {
         author: STATE.nickname,
         authorId: STATE.uid,
         text: text,
-        image: '', // можно добавить картинку из Paint позже
+        image: '',
         timestamp: Date.now(),
         likes: [],
         comments: []
     };
-    // Сохраняем в Firebase
     fetch(DB_URL + '/posts.json?auth=' + currentUser.idToken, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -4546,7 +4565,6 @@ function publishPost() {
     .then(() => {
         showToast('✅ Пост опубликован!');
         textarea.value = '';
-        // Добавляем в локальный STATE для достижений
         if (!STATE.posts) STATE.posts = [];
         STATE.posts.push(post);
         STATE.totalMessages = (STATE.totalMessages || 0) + 1;
@@ -4560,7 +4578,6 @@ function publishPost() {
 
 function toggleLike(postId) {
     if (!currentUser) { showToast('Войдите'); return; }
-    // Получаем пост из Firebase
     fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
         .then(res => res.json())
         .then(post => {
@@ -4600,8 +4617,6 @@ function addComment(postId, text) {
         .then(existing => {
             let comments = existing ? Object.values(existing) : [];
             comments.push(comment);
-            // Сохраняем как массив, но Firebase не поддерживает прямой push массива, поэтому используем POST
-            // Проще: получаем весь пост и обновляем
             return fetch(DB_URL + '/posts/' + postId + '.json?auth=' + currentUser.idToken)
                 .then(res => res.json())
                 .then(post => {
@@ -4624,7 +4639,6 @@ function addComment(postId, text) {
         .catch(err => showToast('❌ Ошибка: ' + err.message));
 }
 
-// ---- Чаты (сообщения) ----
 function renderSocialChats() {
     const chatList = document.getElementById('chatList');
     const messagesDiv = document.getElementById('chatMessages');
@@ -4722,9 +4736,7 @@ function loadChatMessages(partnerUid) {
 }
 
 // ---- Paint ----
-let paintCanvas, paintCtx, isDrawing = false, paintColor = '#000000';
 function openPaint() {
-    // Создаём модалку с canvas
     const overlay = document.createElement('div');
     overlay.id = 'paintOverlay';
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
@@ -4744,9 +4756,7 @@ function openPaint() {
     document.body.appendChild(overlay);
 
     const canvas = document.getElementById('paintCanvas');
-    paintCanvas = canvas;
     const ctx = canvas.getContext('2d');
-    paintCtx = ctx;
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, 400, 300);
     let drawing = false;
@@ -4773,7 +4783,6 @@ function openPaint() {
     canvas.addEventListener('mouseup', () => { drawing = false; });
     canvas.addEventListener('mouseleave', () => { drawing = false; });
 
-    // Для тачей
     canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
         drawing = true;
@@ -4805,16 +4814,13 @@ function openPaint() {
     };
     document.getElementById('paintCopyBtn').onclick = function() {
         const dataUrl = canvas.toDataURL('image/png');
-        // Вставляем в поле поста
         const postText = document.getElementById('postContent');
-        postText.value += `\n[Картинка: ${dataUrl}]`; // или можно вставить как img, но текстовое поле не поддерживает HTML
-        // Можно просто скопировать в буфер обмена
+        postText.value += `\n[Картинка: ${dataUrl}]`;
         navigator.clipboard.writeText(dataUrl).then(() => {
             showToast('✅ Ссылка на картинку скопирована, вставьте её в пост');
         }).catch(() => {
             showToast('⚠️ Скопируйте картинку вручную');
         });
-        // Закрываем paint
         document.getElementById('paintOverlay').remove();
     };
     document.getElementById('paintCloseBtn').onclick = function() {
@@ -4822,7 +4828,7 @@ function openPaint() {
     };
 }
 
-// ===== КЛАНЫ (без изменений) =====
+// ===== КЛАНЫ =====
 function renderClans() {
     const container = document.getElementById('clanContent');
     if (!container) return;
@@ -4969,18 +4975,16 @@ function startClock() {
     setInterval(updateClock, 1000);
 }
 
-// ===== ИНИЦИАЛИЗАЦИЯ СОБЫТИЙ =====
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loadingStatus').classList.add('hidden');
 
-    // Навигация
     document.querySelectorAll('#mainNav button').forEach(btn => {
         btn.onclick = function() {
             navigateTo(this.dataset.section);
         };
     });
 
-    // Вкладки рейтинга
     document.querySelectorAll('#ratingTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#ratingTabs button').forEach(b => b.classList.remove('active'));
@@ -4990,7 +4994,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Вкладки игр
     document.querySelectorAll('#gamesTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#gamesTabs button').forEach(b => b.classList.remove('active'));
@@ -5004,7 +5007,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Вкладки соцсети
     document.querySelectorAll('#socialTabs button').forEach(btn => {
         btn.onclick = function() {
             document.querySelectorAll('#socialTabs button').forEach(b => b.classList.remove('active'));
@@ -5018,13 +5020,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Кнопка публикации поста
     document.getElementById('postSubmitBtn').onclick = publishPost;
-
-    // Кнопка Paint
     document.getElementById('paintBtn').onclick = openPaint;
 
-    // Режимы рейтинга
     document.getElementById('ratingModeNow').onclick = function() {
         this.style.background = '#0a246a'; this.style.color = '#fff';
         document.getElementById('ratingModeEver').style.background = '#ece9d8';
