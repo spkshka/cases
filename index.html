@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Крутая игра про ттп 1.2.1</title>
     <style>
-        /* ===== ОБЩИЕ СБРОСЫ ===== */
+        /* ===== ОБЩИЕ СБРОСЫ (без изменений) ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Tahoma','Arial',sans-serif;
@@ -95,7 +95,7 @@
         body.theme-windows7 .shop-buy-btn:hover {
             background: #2a5a8a;
         }
-        /* остальные темы (сокращены для краткости, но они есть в полной версии) */
+        /* остальные темы (сокращены) */
         body.theme-windows_xp { background: #3a6ea5; color: #000; }
         body.theme-windows_xp #app { background: #d4d0c8; border: 3px solid #0a246a; border-style: inset; }
         body.theme-windows_xp .header { border-bottom: 2px solid #0a246a; }
@@ -195,7 +195,7 @@
         body.theme-blue .nav button.active { background: #2a5a9a; color: #fff; }
         body.theme-blue .top-bar { background: #102050; border-color: #2a4a8a; }
 
-        /* ===== ОБЩИЕ СТИЛИ ===== */
+        /* ===== ОБЩИЕ СТИЛИ (без изменений) ===== */
         #app {
             width: 100%;
             max-width: 700px;
@@ -1097,6 +1097,14 @@
             text-align: center;
             margin-top: 4px;
         }
+        .chat-header {
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            background: #d8e0e8;
+            border-radius: 4px;
+            border: 1px solid #a0b0c0;
+        }
 
         /* ===== КЛАНЫ (упрощённые) ===== */
         .clan-simple {
@@ -1557,7 +1565,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2.1 — Магазин, титулы, рубины, исправления!</div>
+        <div class="update-announce">🔥 Обновление 1.2.1 — исправления ивента, промокодов, магазина, чата, самолёта</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1742,6 +1750,7 @@
                         <button id="chatShowAllBtn">Все игроки</button>
                     </div>
                     <div class="chat-users-list" id="chatUsersList"></div>
+                    <div id="chatHeader" class="chat-header" style="display:none;">Чат с: <span id="chatPartnerName"></span></div>
                     <div class="chat-messages" id="chatMessages">
                         <div style="color:#999; text-align:center; padding:20px;">Выберите собеседника</div>
                     </div>
@@ -1841,21 +1850,18 @@
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (bugfix & новые фичи)</div>
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (исправления)</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>📬 Мессенджер: исправлена отправка и получение сообщений</li>
-                        <li>🏆 Рейтинг расширен до топ-50, добавлены категории: рубины, заработанные рубины, достижения, открыто кейсов</li>
-                        <li>✈️ Самолёт: убраны столбы, добавлены круглые шипастые колючки (сверху, снизу, посередине)</li>
-                        <li>🔄 Рынок: исправлено снятие лотов</li>
-                        <li>🐌 Моролс: препятствия ещё на 10% медленнее (общий коэффициент 0.765)</li>
-                        <li>🎁 Ивент и промокоды: теперь выдают только указанные кейсы, а не все</li>
-                        <li>🔍 Шансы: исправлена кнопка просмотра</li>
-                        <li>⚡ Эло: снижено получение на 30% в целом, и после 2000 — в 2 раза меньше</li>
-                        <li>⌨️ Управление в Моролс: добавлены клавиши A и D</li>
-                        <li>📊 Рейтинг: максимальная скорость теперь сохраняется корректно, километры накапливаются суммарно</li>
-                        <li>💎 Новая валюта — рубины (в 10 раз реже монет)</li>
-                        <li>🏪 Магазин: титулы (со скидкой 20%), скины для Моролса за рубли и рубины</li>
-                        <li>👑 Титулы: дворянин, барон, граф, герцог, князь, король, император, эксклюзив (радужный) — меняют цвет ника в рейтинге</li>
+                        <li>🐛 Исправлен ивент скорости – теперь выдаются ТОЛЬКО указанные кейсы</li>
+                        <li>🐛 Исправлен промокод MOROLS – теперь даёт 4 кейса игроков и 2 кейса городов (не все)</li>
+                        <li>🛠️ Самолёт: уменьшена награда за монеты на 50%</li>
+                        <li>🛠️ Исправлены шансы в кейсе "Мужики 1" – первые два 40% и 35%, редкое 0.5%</li>
+                        <li>🗑️ Удалены недостижимые достижения (посты, лайки, комментарии)</li>
+                        <li>⌨️ Управление A и D в Моролс теперь точно работает</li>
+                        <li>🛒 Магазин: скины теперь продаются за рубли (вкладка "Монеты"), рубины пока без скинов</li>
+                        <li>🪑 В Моролс вместо машины теперь стул (базовый транспорт)</li>
+                        <li>💬 Чат: исправлено отображение сообщений, добавлено имя собеседника в заголовок</li>
+                        <li>⚡ Эло: уменьшено получение на 30% в целом, после 2000 — в 2 раза меньше</li>
                     </ul>
                 </div>
             </section>
@@ -1904,10 +1910,10 @@
 
     <div class="log-popup" id="logPopup"></div>
 
-    <!-- ===== JAVASCRIPT (ПОЛНАЯ ВЕРСИЯ С ИСПРАВЛЕНИЯМИ) ===== -->
+    <!-- ===== JAVASCRIPT (исправленный) ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2.1 (ФИНАЛЬНАЯ)
+    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2.1 (исправления)
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1930,7 +1936,7 @@
         elo: 1000, maxElo: 1000, casesOpened: 0, maxCasesOpened: 0,
         totalClicks: 0, clicksSinceCaptcha: 0, inventory: [], itemsCount: {},
         settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
-        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 }, // totalDistance для рейтинга
+        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
         achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
         isOpening: false, clickCooldown: false, registrationDate: null, currentCaseId: null,
@@ -1943,14 +1949,13 @@
         posts: [], userStatus: 'all', chatStatus: {},
         speedEvent: { claimed: {} },
         inventoryGrouped: true,
-        rubies: 0, totalRubies: 0, // новая валюта
-        titles: [], // массив купленных титулов
-        currentTitle: null, // активный титул
-        morolsSkins: [], // купленные скины для моролса
+        rubies: 0, totalRubies: 0,
+        titles: [],
+        currentTitle: null,
+        morolsSkins: [],
         currentMorolsSkin: null,
-        // скины для моролса (список)
         morolsSkinList: [
-            { id: 'default', name: 'Стандартный', price: 0, emoji: '🚗' },
+            { id: 'default', name: 'Стандартный', price: 0, emoji: '🪑' },
             { id: 'marshmallow', name: 'Маршмелоу', price: 200, emoji: '☁️' },
             { id: 'tea', name: 'Чай с сахаром', price: 300, emoji: '🍵' },
             { id: 'fan', name: 'Вентилятор', price: 500, emoji: '🌀' },
@@ -1960,7 +1965,6 @@
             { id: 'chupa_chups', name: 'Чупа-чупс', price: 600, emoji: '🍭' },
             { id: 'candy', name: 'Конфета', price: 2000, emoji: '🍬' }
         ],
-        // титулы
         titleList: [
             { id: 'nobleman', name: 'Дворянин', price: 100, color: 'brown' },
             { id: 'baron', name: 'Барон', price: 200, color: 'gray' },
@@ -2088,7 +2092,7 @@
         addLog('🎁 Награда за уровень ' + level);
     }
 
-    // ===== КЕЙСЫ =====
+    // ===== КЕЙСЫ (исправлены веса для мужиков1) =====
     const CASES = [
         { id: 'muzhiki1', name: 'Мужики 1', emoji: '💪', price: 100,
             items: [
@@ -2099,7 +2103,7 @@
                 { name: '2 мужика но у красного круглая жопа', emoji: '🔴👨👨', weight: 5, rarity: 'необычное' },
                 { name: '2 мужика татуировка', emoji: '💉👨👨', weight: 3, rarity: 'редкое' },
                 { name: '2 мужика черные на фоне эволюции', emoji: '🌑👨👨', weight: 1.5, rarity: 'сверхредкое' },
-                { name: '2 золотых мужика в космосе', emoji: '✨👨👨🚀', weight: 0.3, rarity: 'эксклюзив' }
+                { name: '2 золотых мужика в космосе', emoji: '✨👨👨🚀', weight: 0.5, rarity: 'эксклюзив' }
             ]
         },
         { id: 'cities', name: 'Города', emoji: '🏙️', price: 100,
@@ -2194,6 +2198,7 @@
         }
     ];
 
+    // ===== ДОСТИЖЕНИЯ (убраны недостижимые) =====
     const ACHIEVEMENTS = [
         { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
         { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
@@ -2269,20 +2274,10 @@
         { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
         { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
         { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
-        { id: 'first_post', name: 'Опубликовать первый пост', check: s => s.posts && s.posts.length >= 1 },
-        { id: 'five_posts', name: 'Опубликовать 5 постов', check: s => s.posts && s.posts.length >= 5 },
-        { id: 'first_like', name: 'Поставить лайк', check: s => s.totalLikes && s.totalLikes >= 1 },
-        { id: 'ten_likes', name: 'Поставить 10 лайков', check: s => s.totalLikes && s.totalLikes >= 10 },
-        { id: 'first_comment', name: 'Написать комментарий', check: s => s.totalComments && s.totalComments >= 1 },
-        { id: 'ten_comments', name: 'Написать 10 комментариев', check: s => s.totalComments && s.totalComments >= 10 },
-        { id: 'first_message', name: 'Отправить сообщение', check: s => s.totalMessages && s.totalMessages >= 1 },
-        { id: 'ten_messages', name: 'Отправить 10 сообщений', check: s => s.totalMessages && s.totalMessages >= 10 },
-        { id: 'add_friend', name: 'Добавить друга', check: s => s.friends && s.friends.length >= 1 },
-        { id: 'five_friends', name: 'Иметь 5 друзей', check: s => s.friends && s.friends.length >= 5 },
         { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
     ];
 
-    // ===== ЗВУКИ =====
+    // ===== ЗВУКИ (без изменений) =====
     let audioCtx = null;
     function getAudioCtx() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2895,7 +2890,7 @@
         sfxClick();
     }
 
-    // ===== ИНВЕНТАРЬ (с группировкой) =====
+    // ===== ИНВЕНТАРЬ (без изменений) =====
     function renderInventory() {
         try {
             const grid = document.getElementById('inventoryGrid');
@@ -3047,7 +3042,7 @@
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    // ===== РЫНОК =====
+    // ===== РЫНОК (без изменений) =====
     function renderMarket() {
         const container = document.getElementById('marketContent');
         if (!container) return;
@@ -3270,7 +3265,7 @@
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    // ===== РЕЙТИНГ (топ-50, новые категории) =====
+    // ===== РЕЙТИНГ (топ-50, без изменений) =====
     function renderRating(sortBy = 'elo') {
         const container = document.getElementById('ratingContent');
         if (!container) return;
@@ -3355,7 +3350,6 @@
                     else if (rank === 3) posClass = 'bronze';
                     const isPro = p.level >= 11;
                     let nameClass = isPro ? 'gold-nick' : '';
-                    // Добавляем цвет ника от титула
                     if (p.title) {
                         const titleInfo = STATE.titleList.find(t => t.id === p.title);
                         if (titleInfo) {
@@ -3462,7 +3456,7 @@
         }
     }
 
-    // ===== АККАУНТ =====
+    // ===== АККАУНТ (без изменений) =====
     function renderAccount() {
         const container = document.getElementById('accountInfo');
         if (!container) return;
@@ -3484,7 +3478,6 @@
             <div class="row"><span class="label">Титул</span><span class="value">${STATE.currentTitle ? STATE.titleList.find(t=>t.id===STATE.currentTitle)?.name || '—' : '—'}</span></div>
         `;
 
-        // Клан в аккаунте
         document.getElementById('setClanBtn')?.addEventListener('click', function() {
             const input = document.getElementById('clanInput');
             if (!input) return;
@@ -3507,7 +3500,6 @@
             addLog('🏷️ Клан удалён');
         });
 
-        // Смена ника (100 ₽)
         document.getElementById('changeNickBtnAccount').onclick = function() {
             const newNick = prompt('Введите новый ник (стоимость 100 ₽):', STATE.nickname);
             if (!newNick || newNick === STATE.nickname) return;
@@ -3721,7 +3713,7 @@
     }
 
     // ===== ИГРЫ =====
-    // ---- МОРОЛС (с управлением A и D, замедление препятствий) ----
+    // ---- МОРОЛС (с управлением A и D, стул вместо машины) ----
     let morolsRunning = false;
     let morolsAnimId = null;
     let morolsState = {
@@ -3806,7 +3798,6 @@
 
         morolsState.distance += morolsState.speed * dt / 10;
         if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
-        // накапливаем общую дистанцию для рейтинга
         STATE.morols.totalDistance = (STATE.morols.totalDistance || 0) + morolsState.speed * dt / 10;
 
         const moveSpeed = 300 * dt;
@@ -3816,7 +3807,6 @@
 
         let spawnRate = 0.03;
         if (morolsState.speed > 50) spawnRate *= 1.5;
-        // скорость препятствий: было *0.85, теперь ещё *0.9 -> *0.765
         const obstacleSpeedMult = 0.765;
         if (Math.random() < spawnRate * dt * 60) {
             const x = Math.random() * 560 + 20;
@@ -3842,7 +3832,6 @@
                 sfxMorolsCrash();
                 const maxSpeed = morolsState.maxSpeedReached;
                 showToast('💥 Авария! Скорость: ' + maxSpeed.toFixed(1) + ' км/ч');
-                // Эло: общий множитель 0.7, после 2000 ещё 0.5
                 let eloGain = Math.floor(maxSpeed / 5);
                 if (eloGain > 0) {
                     let multiplier = 0.7;
@@ -3854,7 +3843,6 @@
                     STATE.balance += eloGain * 2;
                     STATE.totalEarned += eloGain * 2;
                     if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                    // рубины: 1 рубин за каждые 10 монет (eloGain*2 / 10)
                     const rubiesGain = Math.floor((eloGain * 2) / 10);
                     if (rubiesGain > 0) {
                         STATE.rubies += rubiesGain;
@@ -3889,7 +3877,6 @@
                 STATE.balance += value;
                 STATE.totalEarned += value;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                // рубины: 1 за каждые 10 монет
                 if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - value) / 10)) {
                     STATE.rubies += 1;
                     STATE.totalRubies += 1;
@@ -3916,13 +3903,12 @@
         ctx.setLineDash([20, 20]);
         ctx.beginPath(); ctx.moveTo(0, 280); ctx.lineTo(600, 280); ctx.stroke();
         ctx.setLineDash([]);
-        // скин для машины
-        let carEmoji = '🚗';
+        // скин для стула (по умолчанию стул)
+        let carEmoji = '🪑';
         if (STATE.currentMorolsSkin) {
             const skin = STATE.morolsSkinList.find(s => s.id === STATE.currentMorolsSkin);
             if (skin) carEmoji = skin.emoji;
         }
-        // Рисуем машину как эмодзи
         ctx.font = '30px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -3955,7 +3941,7 @@
         document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
     }
 
-    // ---- САМОЛЁТ (круглые шипастые колючки) ----
+    // ---- САМОЛЁТ (уменьшена награда на 50%) ----
     let planeRunning = false;
     let planeAnimId = null;
     let planeState = {
@@ -4090,7 +4076,7 @@
             planeState.vy = 0;
         }
 
-        // Круглые шипастые колючки (появляются сверху, снизу, посередине)
+        // Круглые шипастые колючки
         if (Math.random() < 0.01 * dt * 60) {
             const radius = 15 + Math.random() * 15;
             const y = 20 + Math.random() * (280 - 40);
@@ -4114,12 +4100,10 @@
             });
         }
 
-        // Обновляем препятствия
         for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
             const o = planeState.obstacles[i];
             o.x -= o.speed * dt;
             if (o.x + o.radius < 0) { planeState.obstacles.splice(i, 1); continue; }
-            // коллизия с самолётом
             const dx = (planeState.planeX + planeState.width/2) - (o.x + o.radius);
             const dy = (planeState.planeY + planeState.height/2) - (o.y + o.radius);
             const dist = Math.sqrt(dx*dx + dy*dy);
@@ -4131,28 +4115,28 @@
                 STATE.plane.xp += planeState.xp;
                 STATE.plane.totalCoins += planeState.score;
                 if (planeState.time > STATE.plane.bestTime) STATE.plane.bestTime = planeState.time;
-                STATE.balance += Math.floor(planeState.score);
-                STATE.totalEarned += Math.floor(planeState.score);
-                // рубины: 1 за каждые 10 монет
-                const rubiesGain = Math.floor(Math.floor(planeState.score) / 10);
+                // Уменьшаем награду на 50%
+                const reward = Math.floor(planeState.score * 0.5);
+                STATE.balance += reward;
+                STATE.totalEarned += reward;
+                const rubiesGain = Math.floor(reward / 10);
                 if (rubiesGain > 0) {
                     STATE.rubies += rubiesGain;
                     STATE.totalRubies += rubiesGain;
                 }
                 addExp(Math.floor(planeState.xp / 15) + Math.floor(planeState.time / 2));
                 STATE.plane.gamesPlayed = (STATE.plane.gamesPlayed || 0) + 1;
-                showToast('💥 Крах! XP: ' + Math.floor(planeState.xp) + ', монет: ' + Math.floor(planeState.score) + (rubiesGain > 0 ? ', +' + rubiesGain + ' 💎' : ''));
+                showToast('💥 Крах! XP: ' + Math.floor(planeState.xp) + ', монет: ' + reward + (rubiesGain > 0 ? ', +' + rubiesGain + ' 💎' : ''));
                 saveStateToFirebase();
                 updateUI();
                 checkAllAchievements();
                 drawPlane();
                 updatePlaneUI();
-                addLog('✈️ Самолёт разбился, время: ' + Math.floor(planeState.time) + 'с, монет: ' + Math.floor(planeState.score));
+                addLog('✈️ Самолёт разбился, время: ' + Math.floor(planeState.time) + 'с, монет: ' + reward);
                 return;
             }
         }
 
-        // монетки
         for (let i = planeState.coins.length - 1; i >= 0; i--) {
             const c = planeState.coins[i];
             c.x -= c.speed * dt;
@@ -4163,10 +4147,12 @@
                 planeState.coins.splice(i, 1);
                 const value = c.value || 1;
                 planeState.score += value;
-                STATE.balance += value;
-                STATE.totalEarned += value;
+                // награда за монету тоже уменьшена на 50%
+                const reward = Math.floor(value * 0.5);
+                STATE.balance += reward;
+                STATE.totalEarned += reward;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - value) / 10)) {
+                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - reward) / 10)) {
                     STATE.rubies += 1;
                     STATE.totalRubies += 1;
                 }
@@ -4191,11 +4177,9 @@
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 600, 300);
 
-        // Рисуем круглые шипастые колючки
         for (const o of planeState.obstacles) {
             ctx.save();
             ctx.translate(o.x + o.radius, o.y + o.radius);
-            // тело
             ctx.beginPath();
             ctx.arc(0, 0, o.radius, 0, Math.PI*2);
             ctx.fillStyle = '#cc3333';
@@ -4203,7 +4187,6 @@
             ctx.strokeStyle = '#aa2222';
             ctx.lineWidth = 2;
             ctx.stroke();
-            // шипы
             const spikeCount = 12;
             for (let i = 0; i < spikeCount; i++) {
                 const angle = (i / spikeCount) * Math.PI * 2;
@@ -4219,7 +4202,6 @@
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
-            // глаза
             ctx.fillStyle = '#ffdd00';
             ctx.beginPath();
             ctx.arc(-o.radius*0.3, -o.radius*0.3, o.radius*0.25, 0, Math.PI*2);
@@ -4276,7 +4258,7 @@
         document.getElementById('planeTime').textContent = Math.floor(planeState.time);
     }
 
-    // ===== КЛИКЕР =====
+    // ===== КЛИКЕР (без изменений) =====
     const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
     let captchaActive = false;
     let captchaAnswer = '';
@@ -4291,7 +4273,6 @@
                 STATE.balance += 5;
                 STATE.totalEarned += 5;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                // рубины: 1 за каждые 10 монет
                 if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - 5) / 10)) {
                     STATE.rubies += 1;
                     STATE.totalRubies += 1;
@@ -4344,7 +4325,7 @@
         document.getElementById('captchaInput').focus();
     }
 
-    // ===== НАСТРОЙКИ =====
+    // ===== НАСТРОЙКИ (без изменений) =====
     const THEMES = {
         'windows7': 'Windows 7',
         'windows_xp': 'Windows XP',
@@ -4482,7 +4463,7 @@
         }
     }
 
-    // ===== ПРОМОКОДЫ (ИСПРАВЛЕНЫ) =====
+    // ===== ПРОМОКОДЫ (исправлены) =====
     document.getElementById('applyPromoBtn').onclick = function() {
         const input = document.getElementById('promoInput');
         if (!input) return;
@@ -4491,7 +4472,6 @@
 
         if (code === 'ARBZ') {
             if (STATE.promoUsed) { showToast('❌ Промокод уже использован'); return; }
-            // Даём по 1 открытию КАЖДОГО кейса (все виды)
             for (const c of CASES) {
                 STATE.freeOpens += 1;
             }
@@ -4515,7 +4495,7 @@
                 showToast('❌ Промокод уже использован');
                 return;
             }
-            // Только 4 кейса игроков и 2 кейса городов
+            // Даём 4 кейса игроков и 2 кейса городов
             STATE.freeOpens += 4; // players
             STATE.freeOpens += 2; // cities
             STATE.balance += 100;
@@ -4561,21 +4541,30 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР (исправлен) =====
+    // ===== МЕССЕНДЖЕР (исправлен: отображение сообщений, имя собеседника) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
+    let chatPartnerName = '';
 
     function renderMessenger() {
         const messagesDiv = document.getElementById('chatMessages');
         const input = document.getElementById('chatInput');
         const sendBtn = document.getElementById('chatSendBtn');
+        const header = document.getElementById('chatHeader');
+        const partnerNameSpan = document.getElementById('chatPartnerName');
         if (!messagesDiv) return;
 
         if (!currentChatPartner) {
             messagesDiv.innerHTML = '<div style="color:#999; text-align:center; padding:20px;">Выберите собеседника</div>';
             input.disabled = true;
             sendBtn.disabled = true;
+            if (header) header.style.display = 'none';
             return;
+        }
+
+        if (header) {
+            header.style.display = 'block';
+            partnerNameSpan.textContent = chatPartnerName || 'Собеседник';
         }
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
@@ -4622,8 +4611,9 @@
             });
     }
 
-    function loadChatPartner(partnerUid) {
+    function loadChatPartner(partnerUid, partnerName) {
         currentChatPartner = partnerUid;
+        chatPartnerName = partnerName || 'Собеседник';
         renderMessenger();
     }
 
@@ -4655,8 +4645,7 @@
             saveStateToFirebase();
             renderMessenger();
             addLog('💬 Сообщение отправлено');
-            // Уведомление собеседнику (в реальном приложении через push, здесь просто показываем)
-            showNotification('✉️ Сообщение отправлено ' + currentChatPartner);
+            showNotification('✉️ Сообщение отправлено ' + chatPartnerName);
         })
         .catch(err => {
             showToast('❌ Ошибка отправки: ' + err.message);
@@ -4683,7 +4672,7 @@
             .then(uid => {
                 if (!uid) { showToast('❌ Пользователь не найден'); return; }
                 if (uid === STATE.uid) { showToast('Это вы'); return; }
-                loadChatPartner(uid);
+                loadChatPartner(uid, nick);
                 input.value = '';
                 document.getElementById('chatUsersList').style.display = 'none';
             })
@@ -4721,13 +4710,14 @@
                 }
                 let html = '';
                 for (const u of users) {
-                    html += `<div class="user-item" data-uid="${u.uid}">${u.nickname}</div>`;
+                    html += `<div class="user-item" data-uid="${u.uid}" data-name="${u.nickname}">${u.nickname}</div>`;
                 }
                 listDiv.innerHTML = html;
                 listDiv.querySelectorAll('.user-item').forEach(item => {
                     item.onclick = function() {
                         const uid = this.dataset.uid;
-                        loadChatPartner(uid);
+                        const name = this.dataset.name;
+                        loadChatPartner(uid, name);
                         listDiv.style.display = 'none';
                         document.getElementById('chatSearchInput').value = '';
                     };
@@ -4763,7 +4753,7 @@
         };
     }
 
-    // ===== ИВЕНТ СКОРОСТИ (ИСПРАВЛЕН) =====
+    // ===== ИВЕНТ СКОРОСТИ (исправлен) =====
     const SPEED_REWARDS = [
         { speed: 10, coins: 50, cases: [{ id: 'animals', count: 1 }] },
         { speed: 25, coins: 75, cases: [{ id: 'muzhiki1', count: 1 }] },
@@ -4810,7 +4800,6 @@
                 STATE.balance += reward.coins;
                 STATE.totalEarned += reward.coins;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                // рубины
                 const rubiesGain = Math.floor(reward.coins / 10);
                 if (rubiesGain > 0) {
                     STATE.rubies += rubiesGain;
@@ -4835,7 +4824,7 @@
         }
     }
 
-    // ===== МАГАЗИН =====
+    // ===== МАГАЗИН (скины за рубли, рубины пока пусто) =====
     function renderShop() {
         const container = document.getElementById('shopContent');
         if (!container) return;
@@ -4847,7 +4836,7 @@
             for (const title of STATE.titleList) {
                 const owned = STATE.titles.includes(title.id);
                 const isActive = STATE.currentTitle === title.id;
-                const priceWithDiscount = Math.floor(title.price * 0.8); // 20% скидка
+                const priceWithDiscount = Math.floor(title.price * 0.8);
                 html += `<div class="shop-item">
                     <div class="shop-item-name">${title.name}</div>
                     <div class="shop-item-price">${priceWithDiscount} ₽</div>
@@ -4860,9 +4849,7 @@
             }
             html += `</div>`;
         } else if (activeTab === 'coins') {
-            // Здесь могли бы быть скины за рубли, но пока просто покажем сообщение
-            html = `<div style="padding:20px; text-align:center; color:#666;">В разработке: скины за рубли появятся позже.</div>`;
-        } else if (activeTab === 'rubies') {
+            // Скины за рубли
             html = `<div class="shop-grid">`;
             for (const skin of STATE.morolsSkinList) {
                 if (skin.id === 'default') continue;
@@ -4870,20 +4857,21 @@
                 const isActive = STATE.currentMorolsSkin === skin.id;
                 html += `<div class="shop-item">
                     <div class="shop-item-name">${skin.emoji} ${skin.name}</div>
-                    <div class="shop-item-price">${skin.price} 💎</div>
+                    <div class="shop-item-price">${skin.price} ₽</div>
                     ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
-                    <button class="shop-buy-btn" data-type="skin" data-id="${skin.id}" ${owned ? 'disabled' : ''}>
+                    <button class="shop-buy-btn" data-type="skin_rubles" data-id="${skin.id}" ${owned ? 'disabled' : ''}>
                         ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
                     </button>
                     ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
                 </div>`;
             }
             html += `</div>`;
+        } else if (activeTab === 'rubies') {
+            html = `<div style="padding:20px; text-align:center; color:#666;">🚧 Скины за рубины появятся в будущих обновлениях.</div>`;
         }
 
         container.innerHTML = html;
 
-        // Обработчики кнопок магазина
         container.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target || !target.classList.contains('shop-buy-btn')) return;
@@ -4912,18 +4900,19 @@
                 renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
                 showToast('✅ Титул активирован');
                 addLog('👑 Активирован титул: ' + id);
-            } else if (type === 'skin') {
+            } else if (type === 'skin_rubles') {
                 const skin = STATE.morolsSkinList.find(s => s.id === id);
                 if (!skin) return;
-                if (STATE.rubies < skin.price) { showToast('❌ Недостаточно рубинов'); return; }
+                if (STATE.balance < skin.price) { showToast('❌ Недостаточно рублей'); return; }
                 if (STATE.morolsSkins.includes(id)) { showToast('Уже куплен'); return; }
-                STATE.rubies -= skin.price;
+                STATE.balance -= skin.price;
+                STATE.totalSpent += skin.price;
                 STATE.morolsSkins.push(id);
                 STATE.currentMorolsSkin = id;
                 saveStateToFirebase();
                 renderShop();
                 showToast('✅ Скин "' + skin.name + '" куплен и активирован!');
-                addLog('🎨 Куплен скин: ' + skin.name);
+                addLog('🎨 Куплен скин за рубли: ' + skin.name);
             } else if (type === 'skin_activate') {
                 STATE.currentMorolsSkin = id;
                 saveStateToFirebase();
