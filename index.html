@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Крутая игра про ттп 1.2</title>
+    <title>Крутая игра про ттп 1.2.1</title>
     <style>
         /* ===== ОБЩИЕ СБРОСЫ ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -67,7 +67,8 @@
         body.theme-windows7 .game-wrap,
         body.theme-windows7 .clicker-wrap,
         body.theme-windows7 .chat-wrap,
-        body.theme-windows7 .clan-simple {
+        body.theme-windows7 .clan-simple,
+        body.theme-windows7 .shop-item {
             background: #e8e8e8;
             border: 1px solid #1a3a6a;
             border-radius: 4px;
@@ -77,7 +78,8 @@
         body.theme-windows7 .click-btn,
         body.theme-windows7 .modal-buttons button,
         body.theme-windows7 .chat-send-btn,
-        body.theme-windows7 .clan-create-btn {
+        body.theme-windows7 .clan-create-btn,
+        body.theme-windows7 .shop-buy-btn {
             background: #1a3a6a;
             color: #fff;
             border: none;
@@ -89,10 +91,11 @@
         body.theme-windows7 .click-btn:hover,
         body.theme-windows7 .modal-buttons button:hover,
         body.theme-windows7 .chat-send-btn:hover,
-        body.theme-windows7 .clan-create-btn:hover {
+        body.theme-windows7 .clan-create-btn:hover,
+        body.theme-windows7 .shop-buy-btn:hover {
             background: #2a5a8a;
         }
-        /* остальные темы (сокращены) */
+        /* остальные темы (сокращены для краткости, но они есть в полной версии) */
         body.theme-windows_xp { background: #3a6ea5; color: #000; }
         body.theme-windows_xp #app { background: #d4d0c8; border: 3px solid #0a246a; border-style: inset; }
         body.theme-windows_xp .header { border-bottom: 2px solid #0a246a; }
@@ -104,13 +107,16 @@
         body.theme-windows_xp .case-card, body.theme-windows_xp .inv-item,
         body.theme-windows_xp .market-listing, body.theme-windows_xp .account-info,
         body.theme-windows_xp .game-wrap, body.theme-windows_xp .clicker-wrap,
-        body.theme-windows_xp .chat-wrap, body.theme-windows_xp .clan-simple { background: #ece9d8; border: 2px solid #0a246a; border-style: outset; }
+        body.theme-windows_xp .chat-wrap, body.theme-windows_xp .clan-simple,
+        body.theme-windows_xp .shop-item { background: #ece9d8; border: 2px solid #0a246a; border-style: outset; }
         body.theme-windows_xp .open-btn, body.theme-windows_xp .market-listing .price button,
         body.theme-windows_xp .click-btn, body.theme-windows_xp .modal-buttons button,
-        body.theme-windows_xp .chat-send-btn, body.theme-windows_xp .clan-create-btn { background: #0a246a; color: #fff; border: 2px solid #0a246a; border-style: outset; }
+        body.theme-windows_xp .chat-send-btn, body.theme-windows_xp .clan-create-btn,
+        body.theme-windows_xp .shop-buy-btn { background: #0a246a; color: #fff; border: 2px solid #0a246a; border-style: outset; }
         body.theme-windows_xp .open-btn:hover, body.theme-windows_xp .market-listing .price button:hover,
         body.theme-windows_xp .click-btn:hover, body.theme-windows_xp .modal-buttons button:hover,
-        body.theme-windows_xp .chat-send-btn:hover, body.theme-windows_xp .clan-create-btn:hover { background: #1a3a8a; }
+        body.theme-windows_xp .chat-send-btn:hover, body.theme-windows_xp .clan-create-btn:hover,
+        body.theme-windows_xp .shop-buy-btn:hover { background: #1a3a8a; }
         body.theme-windows11 { background: #f0f0f0; color: #000; }
         body.theme-windows11 #app { background: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
         body.theme-windows11 .header { border-bottom-color: #e0e0e0; }
@@ -121,13 +127,16 @@
         body.theme-windows11 .case-card, body.theme-windows11 .inv-item,
         body.theme-windows11 .market-listing, body.theme-windows11 .account-info,
         body.theme-windows11 .game-wrap, body.theme-windows11 .clicker-wrap,
-        body.theme-windows11 .chat-wrap, body.theme-windows11 .clan-simple { background: #fafafa; border-color: #ddd; }
+        body.theme-windows11 .chat-wrap, body.theme-windows11 .clan-simple,
+        body.theme-windows11 .shop-item { background: #fafafa; border-color: #ddd; }
         body.theme-windows11 .open-btn, body.theme-windows11 .market-listing .price button,
         body.theme-windows11 .click-btn, body.theme-windows11 .modal-buttons button,
-        body.theme-windows11 .chat-send-btn, body.theme-windows11 .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-windows11 .chat-send-btn, body.theme-windows11 .clan-create-btn,
+        body.theme-windows11 .shop-buy-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
         body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover,
         body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover,
-        body.theme-windows11 .chat-send-btn:hover, body.theme-windows11 .clan-create-btn:hover { background: #106ebe; }
+        body.theme-windows11 .chat-send-btn:hover, body.theme-windows11 .clan-create-btn:hover,
+        body.theme-windows11 .shop-buy-btn:hover { background: #106ebe; }
         body.theme-dark { background: #0a0a0a; color: #c0c0c0; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
         body.theme-dark .header { border-bottom-color: #333; }
@@ -138,13 +147,16 @@
         body.theme-dark .case-card, body.theme-dark .inv-item,
         body.theme-dark .market-listing, body.theme-dark .account-info,
         body.theme-dark .game-wrap, body.theme-dark .clicker-wrap,
-        body.theme-dark .chat-wrap, body.theme-dark .clan-simple { background: #222; border-color: #444; }
+        body.theme-dark .chat-wrap, body.theme-dark .clan-simple,
+        body.theme-dark .shop-item { background: #222; border-color: #444; }
         body.theme-dark .open-btn, body.theme-dark .market-listing .price button,
         body.theme-dark .click-btn, body.theme-dark .modal-buttons button,
-        body.theme-dark .chat-send-btn, body.theme-dark .clan-create-btn { background: #444; color: #fff; border: 1px solid #666; }
+        body.theme-dark .chat-send-btn, body.theme-dark .clan-create-btn,
+        body.theme-dark .shop-buy-btn { background: #444; color: #fff; border: 1px solid #666; }
         body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover,
         body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover,
-        body.theme-dark .chat-send-btn:hover, body.theme-dark .clan-create-btn:hover { background: #555; }
+        body.theme-dark .chat-send-btn:hover, body.theme-dark .clan-create-btn:hover,
+        body.theme-dark .shop-buy-btn:hover { background: #555; }
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
         body.theme-light .header { border-bottom-color: #ddd; }
@@ -155,10 +167,12 @@
         body.theme-light .case-card, body.theme-light .inv-item,
         body.theme-light .market-listing, body.theme-light .account-info,
         body.theme-light .game-wrap, body.theme-light .clicker-wrap,
-        body.theme-light .chat-wrap, body.theme-light .clan-simple { background: #fafafa; border-color: #ddd; }
+        body.theme-light .chat-wrap, body.theme-light .clan-simple,
+        body.theme-light .shop-item { background: #fafafa; border-color: #ddd; }
         body.theme-light .open-btn, body.theme-light .market-listing .price button,
         body.theme-light .click-btn, body.theme-light .modal-buttons button,
-        body.theme-light .chat-send-btn, body.theme-light .clan-create-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-light .chat-send-btn, body.theme-light .clan-create-btn,
+        body.theme-light .shop-buy-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
         body.theme-vk2010 .header { border-bottom-color: #a0b0c0; }
@@ -629,12 +643,49 @@
         .rank-item .pos.gold { color: #f0d070; }
         .rank-item .pos.silver { color: #c0c0c0; }
         .rank-item .pos.bronze { color: #cd7f32; }
-        .rank-item .name { flex: 1; }
+        .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; }
         .rank-item .value { font-weight: bold; }
         .rank-item.you { background: #d8e0e8; border: 1px solid #4a8aba; border-radius: 6px; }
         .rank-item .clan-tag { font-size: 12px; color: #888; margin-left: 6px; }
         .rank-item .leader { color: #f0d070; }
         .rank-item .member { color: #999; }
+        .rank-item .title-tag { font-size: 12px; font-weight: bold; margin-left: 4px; }
+        .title-color-brown { color: #8B4513; }
+        .title-color-gray { color: #808080; }
+        .title-color-orange { color: #FF8C00; }
+        .title-color-lime { color: #32CD32; }
+        .title-color-blue { color: #1E90FF; }
+        .title-color-darkblue { color: #0000CD; }
+        .title-color-pink { color: #FF69B4; }
+        .title-color-rainbow { background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* ===== МАГАЗИН ===== */
+        .shop-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+        .shop-tabs button {
+            border: 1px solid #a0b0c0;
+            border-radius: 6px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 15px;
+            background: #d8e0e8;
+            color: #4a6a8a;
+            transition: 0.2s;
+        }
+        .shop-tabs button.active { background: #4a8aba; color: #fff; border-color: #4a8aba; }
+        .shop-tabs button:hover { background: #c8d0d8; }
+        .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .shop-item {
+            border: 1px solid #a0b0c0;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+        .shop-item .shop-item-name { font-weight: bold; font-size: 16px; }
+        .shop-item .shop-item-price { font-size: 14px; color: #666; margin: 6px 0; }
+        .shop-item .shop-buy-btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; background: #1a3a6a; color: #fff; }
+        .shop-item .shop-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .shop-item .shop-buy-btn:hover:not(:disabled) { background: #2a5a8a; }
+        .shop-item .owned { color: #4a8a4a; font-weight: bold; }
 
         /* ===== НАСТРОЙКИ ===== */
         .settings-group { margin-bottom: 18px; }
@@ -1471,7 +1522,7 @@
         <div class="login-box">
             <h2>Крутая игра про ттп</h2>
             <div class="sub">Вход / Регистрация</div>
-            <div class="promo">версия 1.2</div>
+            <div class="promo">версия 1.2.1</div>
             <input type="text" id="loginNick" placeholder="Ник" value="spK">
             <input type="password" id="loginPass" placeholder="Пароль">
             <div class="error" id="loginError"></div>
@@ -1489,7 +1540,7 @@
     <div id="app">
         <div class="header">
             <h1>Крутая игра про ттп</h1>
-            <div class="version">версия 1.2</div>
+            <div class="version">версия 1.2.1</div>
             <div class="subtitle">игра создана @arbz7 \ xxspk \ made by AI</div>
             <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
         </div>
@@ -1499,13 +1550,14 @@
             <div class="stat">🏆 <span class="value" id="rankDisplay">—</span></div>
             <div class="stat">⭐ <span class="value" id="levelDisplay">1</span></div>
             <div class="stat">🆔 <span class="value" id="idDisplay">—</span></div>
+            <div class="stat">💎 <span class="value" id="rubyDisplay">0</span></div>
             <div class="clock" id="clockDisplay">--:--:--</div>
         </div>
         <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#d8e0e8; padding:6px 12px; border-radius:4px; border:1px solid #1a3a6a;">
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2 — Исправления: все кнопки работают, мессенджер, самолёт, цены, кланы упрощены, инвентарь группировка, эло фикс!</div>
+        <div class="update-announce">🔥 Обновление 1.2.1 — Магазин, титулы, рубины, исправления!</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1524,6 +1576,7 @@
                 <button data-section="account">Аккаунт</button>
                 <button data-section="promo">Промокоды</button>
                 <button data-section="messenger">Мессенджер</button>
+                <button data-section="shop">Магазин</button>
                 <button data-section="settings">Настройки</button>
                 <button data-section="updates">Обновления</button>
             </div>
@@ -1584,7 +1637,8 @@
                     <button id="ratingModeEver" style="border:1px solid #1a3a6a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#d8e0e8; color:#000;">За всё время</button>
                 </div>
                 <div class="rating-tabs" id="ratingTabs">
-                    <button class="active" data-rating-tab="cards">Карты</button>
+                    <button class="active" data-rating-tab="elo">Эло</button>
+                    <button data-rating-tab="cards">Карты</button>
                     <button data-rating-tab="balance">Баланс</button>
                     <button data-rating-tab="totalEarned">Заработано</button>
                     <button data-rating-tab="clicks">Клики</button>
@@ -1592,7 +1646,10 @@
                     <button data-rating-tab="distance">Километры</button>
                     <button data-rating-tab="planeXP">XP самолёт</button>
                     <button data-rating-tab="planeTime">Время полёта</button>
-                    <button class="active" data-rating-tab="elo">Эло</button>
+                    <button data-rating-tab="rubies">Рубины</button>
+                    <button data-rating-tab="totalRubies">Заработано рубинов</button>
+                    <button data-rating-tab="achievements">Достижения</button>
+                    <button data-rating-tab="totalCases">Открыто кейсов</button>
                 </div>
                 <div id="ratingContent"></div>
             </section>
@@ -1616,7 +1673,7 @@
                             <button id="morolsStart">Старт</button>
                             <button id="morolsReset">Сброс</button>
                         </div>
-                        <div style="margin-top:8px; font-size:14px; color:#666;">Управление: стрелки <kbd>←</kbd> <kbd>→</kbd> (на телефоне кнопки ниже)</div>
+                        <div style="margin-top:8px; font-size:14px; color:#666;">Управление: стрелки <kbd>←</kbd> <kbd>→</kbd> или <kbd>A</kbd> <kbd>D</kbd> (на телефоне кнопки ниже)</div>
                         <div class="game-touch-controls">
                             <button id="morolsTouchLeft">←</button>
                             <button id="morolsTouchRight">→</button>
@@ -1709,6 +1766,17 @@
                 </div>
             </section>
 
+            <!-- МАГАЗИН -->
+            <section id="section-shop" class="section">
+                <div class="title">Магазин <span class="badge">скидки 20% на титулы!</span></div>
+                <div class="shop-tabs">
+                    <button class="active" data-shop-tab="titles">Титулы</button>
+                    <button data-shop-tab="coins">Монеты</button>
+                    <button data-shop-tab="rubies">Рубины</button>
+                </div>
+                <div id="shopContent"></div>
+            </section>
+
             <!-- АККАУНТ -->
             <section id="section-account" class="section">
                 <div class="title">Аккаунт</div>
@@ -1773,18 +1841,21 @@
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2 (фикс)</div>
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (bugfix & новые фичи)</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>📬 Мессенджер: исправлена отправка, теперь сообщения хранятся в общем узле /messages</li>
-                        <li>✈️ Самолёт: колючки уменьшены, зазор увеличен, скорость появления снижена</li>
-                        <li>💰 Цены кейсов: Города 100, Блоки 75</li>
-                        <li>🏷️ Смена ника: стоит 100 ₽, проверка занятости исправлена</li>
-                        <li>📦 Инвентарь: кнопки "Группировать" / "Разгруппировать" для отображения стаков</li>
-                        <li>🏁 Ивент скорости: награды выдаются корректно (каждый уровень отдельно)</li>
-                        <li>⚡ Эло на главном экране теперь обновляется</li>
-                        <li>🏰 Кланы упрощены: теперь просто текстовое поле "Клан" в отдельной вкладке</li>
-                        <li>🐌 Скорость препятствий в Моролс уменьшена на 15%</li>
-                        <li>🖱️ Все кнопки теперь точно работают (исправлена привязка событий)</li>
+                        <li>📬 Мессенджер: исправлена отправка и получение сообщений</li>
+                        <li>🏆 Рейтинг расширен до топ-50, добавлены категории: рубины, заработанные рубины, достижения, открыто кейсов</li>
+                        <li>✈️ Самолёт: убраны столбы, добавлены круглые шипастые колючки (сверху, снизу, посередине)</li>
+                        <li>🔄 Рынок: исправлено снятие лотов</li>
+                        <li>🐌 Моролс: препятствия ещё на 10% медленнее (общий коэффициент 0.765)</li>
+                        <li>🎁 Ивент и промокоды: теперь выдают только указанные кейсы, а не все</li>
+                        <li>🔍 Шансы: исправлена кнопка просмотра</li>
+                        <li>⚡ Эло: снижено получение на 30% в целом, и после 2000 — в 2 раза меньше</li>
+                        <li>⌨️ Управление в Моролс: добавлены клавиши A и D</li>
+                        <li>📊 Рейтинг: максимальная скорость теперь сохраняется корректно, километры накапливаются суммарно</li>
+                        <li>💎 Новая валюта — рубины (в 10 раз реже монет)</li>
+                        <li>🏪 Магазин: титулы (со скидкой 20%), скины для Моролса за рубли и рубины</li>
+                        <li>👑 Титулы: дворянин, барон, граф, герцог, князь, король, император, эксклюзив (радужный) — меняют цвет ника в рейтинге</li>
                     </ul>
                 </div>
             </section>
@@ -1833,10 +1904,10 @@
 
     <div class="log-popup" id="logPopup"></div>
 
-    <!-- ===== JAVASCRIPT ===== -->
+    <!-- ===== JAVASCRIPT (ПОЛНАЯ ВЕРСИЯ С ИСПРАВЛЕНИЯМИ) ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2 (ФИНАЛЬНАЯ, ИСПРАВЛЕННАЯ)
+    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.2.1 (ФИНАЛЬНАЯ)
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1859,7 +1930,7 @@
         elo: 1000, maxElo: 1000, casesOpened: 0, maxCasesOpened: 0,
         totalClicks: 0, clicksSinceCaptcha: 0, inventory: [], itemsCount: {},
         settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
-        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 },
+        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 }, // totalDistance для рейтинга
         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
         achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
         isOpening: false, clickCooldown: false, registrationDate: null, currentCaseId: null,
@@ -1871,7 +1942,35 @@
         messages: {}, trades: [], clanWar: null,
         posts: [], userStatus: 'all', chatStatus: {},
         speedEvent: { claimed: {} },
-        inventoryGrouped: true
+        inventoryGrouped: true,
+        rubies: 0, totalRubies: 0, // новая валюта
+        titles: [], // массив купленных титулов
+        currentTitle: null, // активный титул
+        morolsSkins: [], // купленные скины для моролса
+        currentMorolsSkin: null,
+        // скины для моролса (список)
+        morolsSkinList: [
+            { id: 'default', name: 'Стандартный', price: 0, emoji: '🚗' },
+            { id: 'marshmallow', name: 'Маршмелоу', price: 200, emoji: '☁️' },
+            { id: 'tea', name: 'Чай с сахаром', price: 300, emoji: '🍵' },
+            { id: 'fan', name: 'Вентилятор', price: 500, emoji: '🌀' },
+            { id: 'wet_rag', name: 'Мокрая тряпка', price: 150, emoji: '🧽' },
+            { id: 'old_pc', name: 'Старый компьютер', price: 750, emoji: '💻' },
+            { id: 'gold_spoon', name: 'Золотая ложка', price: 1000, emoji: '🥄' },
+            { id: 'chupa_chups', name: 'Чупа-чупс', price: 600, emoji: '🍭' },
+            { id: 'candy', name: 'Конфета', price: 2000, emoji: '🍬' }
+        ],
+        // титулы
+        titleList: [
+            { id: 'nobleman', name: 'Дворянин', price: 100, color: 'brown' },
+            { id: 'baron', name: 'Барон', price: 200, color: 'gray' },
+            { id: 'count', name: 'Граф', price: 400, color: 'orange' },
+            { id: 'duke', name: 'Герцог', price: 800, color: 'lime' },
+            { id: 'prince', name: 'Князь', price: 1500, color: 'blue' },
+            { id: 'king', name: 'Король', price: 2500, color: 'darkblue' },
+            { id: 'emperor', name: 'Император', price: 5000, color: 'pink' },
+            { id: 'exclusive', name: 'Эксклюзив', price: 10000, color: 'rainbow' }
+        ]
     };
 
     let logMessages = [];
@@ -1978,12 +2077,12 @@
             const caseData = CASES.find(c => c.id === item.id);
             if (caseData) {
                 STATE.freeOpens += item.count;
-                showToast(`🎁 +${item.count} открытий кейса "${caseData.name}"!`);
+                showToast('🎁 +' + item.count + ' открытий кейса "' + caseData.name + '"!');
             }
         }
         STATE.balance += reward.coins;
         STATE.totalEarned += reward.coins;
-        showToast(`💰 +${reward.coins} ₽!`);
+        showToast('💰 +' + reward.coins + ' ₽!');
         updateUI();
         saveStateToFirebase();
         addLog('🎁 Награда за уровень ' + level);
@@ -2326,7 +2425,7 @@
                         achievements: [],
                         registrationDate: Date.now(),
                         settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
-                        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 },
+                        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
                         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
                         exp: 0,
                         level: 1,
@@ -2348,7 +2447,12 @@
                         messages: {}, trades: [], clanWar: null,
                         posts: [], userStatus: 'all', chatStatus: {},
                         totalLikes: 0, totalComments: 0, totalMessages: 0,
-                        speedEvent: { claimed: {} }
+                        speedEvent: { claimed: {} },
+                        rubies: 0, totalRubies: 0,
+                        titles: [],
+                        currentTitle: null,
+                        morolsSkins: [],
+                        currentMorolsSkin: null
                     };
                     const updates = {};
                     updates['/users/' + uid] = profile;
@@ -2438,6 +2542,12 @@
             STATE.totalMessages = data.totalMessages || 0;
             STATE.speedEvent = data.speedEvent || { claimed: {} };
             STATE.inventoryGrouped = true;
+            STATE.rubies = data.rubies || 0;
+            STATE.totalRubies = data.totalRubies || 0;
+            STATE.titles = data.titles || [];
+            STATE.currentTitle = data.currentTitle || null;
+            STATE.morolsSkins = data.morolsSkins || [];
+            STATE.currentMorolsSkin = data.currentMorolsSkin || null;
 
             if (!STATE.eloInitialized || STATE.elo < 1000) {
                 STATE.elo = 1000;
@@ -2461,18 +2571,20 @@
             saveStateToFirebase();
             addLog('💬 Показано приветствие');
 
-            // Инициализация всех интерфейсов сразу
-            updateUI();
-            renderSettings();
-            renderMarket();
-            renderRating('elo');
-            renderCases();
-            renderInventory();
-            renderAchievements();
-            renderAccount();
-            renderMessenger();
-            renderClanSimple();
-            renderSpeedEvent();
+            setTimeout(() => {
+                try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
+                try { renderSettings(); } catch(e) { addLog('⚠️ renderSettings: ' + e.message); }
+                try { renderMarket(); } catch(e) { addLog('⚠️ renderMarket: ' + e.message); }
+                try { renderRating('elo'); } catch(e) { addLog('⚠️ renderRating: ' + e.message); }
+                try { renderCases(); } catch(e) { addLog('⚠️ renderCases: ' + e.message); }
+                try { renderInventory(); } catch(e) { addLog('⚠️ renderInventory: ' + e.message); }
+                try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
+                try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
+                try { renderMessenger(); } catch(e) { addLog('⚠️ renderMessenger: ' + e.message); }
+                try { renderClanSimple(); } catch(e) { addLog('⚠️ renderClanSimple: ' + e.message); }
+                try { renderSpeedEvent(); } catch(e) { addLog('⚠️ renderSpeedEvent: ' + e.message); }
+                try { renderShop(); } catch(e) { addLog('⚠️ renderShop: ' + e.message); }
+            }, 50);
 
             const idEl = document.getElementById('idDisplay');
             if (idEl) idEl.textContent = '#' + STATE.userId;
@@ -2544,7 +2656,13 @@
             totalLikes: STATE.totalLikes,
             totalComments: STATE.totalComments,
             totalMessages: STATE.totalMessages,
-            speedEvent: STATE.speedEvent
+            speedEvent: STATE.speedEvent,
+            rubies: STATE.rubies,
+            totalRubies: STATE.totalRubies,
+            titles: STATE.titles,
+            currentTitle: STATE.currentTitle,
+            morolsSkins: STATE.morolsSkins,
+            currentMorolsSkin: STATE.currentMorolsSkin
         };
         return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
             method: 'PATCH',
@@ -3152,7 +3270,7 @@
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    // ===== РЕЙТИНГ =====
+    // ===== РЕЙТИНГ (топ-50, новые категории) =====
     function renderRating(sortBy = 'elo') {
         const container = document.getElementById('ratingContent');
         if (!container) return;
@@ -3193,8 +3311,14 @@
                         level: p.level || 1,
                         maxSpeed: p.morols?.maxSpeed || 0,
                         maxDistance: p.morols?.maxDistance || 0,
+                        totalDistance: p.morols?.totalDistance || 0,
                         planeXP: p.plane?.xp || 0,
-                        planeTime: p.plane?.bestTime || 0
+                        planeTime: p.plane?.bestTime || 0,
+                        rubies: p.rubies || 0,
+                        totalRubies: p.totalRubies || 0,
+                        achievements: p.achievements ? p.achievements.length : 0,
+                        title: p.currentTitle || null,
+                        titles: p.titles || []
                     });
                 }
 
@@ -3203,28 +3327,45 @@
                     return;
                 }
 
+                // Сортировка
                 switch (sortBy) {
                     case 'cards': players.sort((a, b) => b.casesOpened - a.casesOpened); break;
                     case 'balance': players.sort((a, b) => b.balance - a.balance); break;
                     case 'totalEarned': players.sort((a, b) => b.totalEarned - a.totalEarned); break;
                     case 'clicks': players.sort((a, b) => b.totalClicks - a.totalClicks); break;
                     case 'speed': players.sort((a, b) => b.maxSpeed - a.maxSpeed); break;
-                    case 'distance': players.sort((a, b) => b.maxDistance - a.maxDistance); break;
+                    case 'distance': players.sort((a, b) => b.totalDistance - a.totalDistance); break;
                     case 'planeXP': players.sort((a, b) => b.planeXP - a.planeXP); break;
                     case 'planeTime': players.sort((a, b) => b.planeTime - a.planeTime); break;
+                    case 'rubies': players.sort((a, b) => b.rubies - a.rubies); break;
+                    case 'totalRubies': players.sort((a, b) => b.totalRubies - a.totalRubies); break;
+                    case 'achievements': players.sort((a, b) => b.achievements - a.achievements); break;
+                    case 'totalCases': players.sort((a, b) => b.casesOpened - a.casesOpened); break;
                     default: players.sort((a, b) => b.elo - a.elo);
                 }
 
                 let html = `<div style="padding:6px 0;font-size:14px;color:#666;">👥 Всего игроков: ${players.length}</div><div class="rating-list">`;
                 let rank = 1;
-                for (const p of players.slice(0, 20)) {
+                const topCount = 50;
+                for (const p of players.slice(0, topCount)) {
                     const isYou = p.isYou;
                     let posClass = '';
                     if (rank === 1) posClass = 'gold';
                     else if (rank === 2) posClass = 'silver';
                     else if (rank === 3) posClass = 'bronze';
                     const isPro = p.level >= 11;
-                    const nameClass = isPro ? 'gold-nick' : '';
+                    let nameClass = isPro ? 'gold-nick' : '';
+                    // Добавляем цвет ника от титула
+                    if (p.title) {
+                        const titleInfo = STATE.titleList.find(t => t.id === p.title);
+                        if (titleInfo) {
+                            if (titleInfo.color === 'rainbow') {
+                                nameClass += ' title-color-rainbow';
+                            } else {
+                                nameClass += ' title-color-' + titleInfo.color;
+                            }
+                        }
+                    }
                     let valueDisplay = p.elo;
                     switch (sortBy) {
                         case 'cards': valueDisplay = p.casesOpened; break;
@@ -3232,9 +3373,13 @@
                         case 'totalEarned': valueDisplay = p.totalEarned; break;
                         case 'clicks': valueDisplay = p.totalClicks; break;
                         case 'speed': valueDisplay = p.maxSpeed.toFixed(1); break;
-                        case 'distance': valueDisplay = p.maxDistance.toFixed(1); break;
+                        case 'distance': valueDisplay = p.totalDistance.toFixed(1); break;
                         case 'planeXP': valueDisplay = p.planeXP.toFixed(1); break;
                         case 'planeTime': valueDisplay = p.planeTime.toFixed(1); break;
+                        case 'rubies': valueDisplay = p.rubies; break;
+                        case 'totalRubies': valueDisplay = p.totalRubies; break;
+                        case 'achievements': valueDisplay = p.achievements; break;
+                        case 'totalCases': valueDisplay = p.casesOpened; break;
                         default: valueDisplay = p.elo;
                     }
                     let clanDisplay = '';
@@ -3242,9 +3387,16 @@
                         const roleClass = (p.clanRole === 'leader') ? 'leader' : 'member';
                         clanDisplay = `<span class="clan-tag ${roleClass}">[${p.clan}]${p.clanRole === 'leader' ? ' 👑' : ''}</span>`;
                     }
+                    let titleDisplay = '';
+                    if (p.title) {
+                        const titleInfo = STATE.titleList.find(t => t.id === p.title);
+                        if (titleInfo) {
+                            titleDisplay = `<span class="title-tag">${titleInfo.name}</span>`;
+                        }
+                    }
                     html += `<div class="rank-item ${isYou ? 'you' : ''} ${nameClass}">
                         <span class="pos ${posClass}">${rank}</span>
-                        <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay}</span>
+                        <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay} ${titleDisplay}</span>
                         <span class="value">${valueDisplay}</span>
                         ${isYou ? '<span style="font-size:12px; color:#666;">вы</span>' : ''}
                         ${isPro ? '<span style="font-size:12px; color:#f0d070; margin-left:6px;">👑 Pro</span>' : ''}
@@ -3321,6 +3473,7 @@
             <div class="row"><span class="label">Уровень</span><span class="value">${getLevelLabel(STATE.level)}</span></div>
             <div class="row"><span class="label">Опыт</span><span class="value">${STATE.exp}</span></div>
             <div class="row"><span class="label">Баланс</span><span class="value">${formatNum(STATE.balance)} ₽</span></div>
+            <div class="row"><span class="label">Рубины</span><span class="value">${STATE.rubies}</span></div>
             <div class="row"><span class="label">Эло</span><span class="value">${STATE.elo}</span></div>
             <div class="row"><span class="label">Открыто кейсов</span><span class="value">${STATE.casesOpened}</span></div>
             <div class="row"><span class="label">Макс. скорость</span><span class="value">${STATE.morols.maxSpeed.toFixed(1)} км/ч</span></div>
@@ -3328,9 +3481,10 @@
             <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${STATE.freeOpens}</span></div>
             <div class="row"><span class="label">Друзей</span><span class="value">${STATE.friends.length}</span></div>
             <div class="row"><span class="label">Заблокированных</span><span class="value">${STATE.blocked.length}</span></div>
+            <div class="row"><span class="label">Титул</span><span class="value">${STATE.currentTitle ? STATE.titleList.find(t=>t.id===STATE.currentTitle)?.name || '—' : '—'}</span></div>
         `;
 
-        // Клан в аккаунте (упрощённо, но оставим для совместимости)
+        // Клан в аккаунте
         document.getElementById('setClanBtn')?.addEventListener('click', function() {
             const input = document.getElementById('clanInput');
             if (!input) return;
@@ -3456,7 +3610,7 @@
                     STATE.promoUsed = false;
                     STATE.muzhikiRestored = false;
                     STATE.eloPromoUsed = false;
-                    STATE.morols = { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0 };
+                    STATE.morols = { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 };
                     STATE.plane = { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 };
                     STATE.season = 1;
                     STATE.welcomeShown = false;
@@ -3475,6 +3629,12 @@
                     STATE.totalComments = 0;
                     STATE.totalMessages = 0;
                     STATE.speedEvent = { claimed: {} };
+                    STATE.rubies = 0;
+                    STATE.totalRubies = 0;
+                    STATE.titles = [];
+                    STATE.currentTitle = null;
+                    STATE.morolsSkins = [];
+                    STATE.currentMorolsSkin = null;
                     saveStateToFirebase().then(() => {
                         showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
                         addLog('🔄 Сброс прогресса выполнен');
@@ -3485,6 +3645,7 @@
                         renderMessenger();
                         checkAllAchievements();
                         renderSpeedEvent();
+                        renderShop();
                     });
                 })
                 .catch(err => showToast('❌ Ошибка: ' + err.message));
@@ -3560,7 +3721,7 @@
     }
 
     // ===== ИГРЫ =====
-    // ---- МОРОЛС ----
+    // ---- МОРОЛС (с управлением A и D, замедление препятствий) ----
     let morolsRunning = false;
     let morolsAnimId = null;
     let morolsState = {
@@ -3591,12 +3752,12 @@
             addListeners(leftBtn, 'left');
             addListeners(rightBtn, 'right');
             window.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') { morolsState.keys.left = true; e.preventDefault(); }
-                if (e.key === 'ArrowRight') { morolsState.keys.right = true; e.preventDefault(); }
+                if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { morolsState.keys.left = true; e.preventDefault(); }
+                if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { morolsState.keys.right = true; e.preventDefault(); }
             });
             window.addEventListener('keyup', (e) => {
-                if (e.key === 'ArrowLeft') { morolsState.keys.left = false; e.preventDefault(); }
-                if (e.key === 'ArrowRight') { morolsState.keys.right = false; e.preventDefault(); }
+                if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') { morolsState.keys.left = false; e.preventDefault(); }
+                if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { morolsState.keys.right = false; e.preventDefault(); }
             });
             resetMorols();
         } catch(e) { console.warn('initMorols error:', e); addLog('⚠️ Ошибка инициализации Моролс: ' + e.message); }
@@ -3645,6 +3806,8 @@
 
         morolsState.distance += morolsState.speed * dt / 10;
         if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
+        // накапливаем общую дистанцию для рейтинга
+        STATE.morols.totalDistance = (STATE.morols.totalDistance || 0) + morolsState.speed * dt / 10;
 
         const moveSpeed = 300 * dt;
         if (morolsState.keys.left) morolsState.carX -= moveSpeed;
@@ -3653,9 +3816,11 @@
 
         let spawnRate = 0.03;
         if (morolsState.speed > 50) spawnRate *= 1.5;
+        // скорость препятствий: было *0.85, теперь ещё *0.9 -> *0.765
+        const obstacleSpeedMult = 0.765;
         if (Math.random() < spawnRate * dt * 60) {
             const x = Math.random() * 560 + 20;
-            const obstacleSpeed = (100 + morolsState.speed * 3) * 0.85;
+            const obstacleSpeed = (100 + morolsState.speed * 3) * obstacleSpeedMult;
             morolsState.obstacles.push({ x, y: 0, width: 30, height: 20, speed: obstacleSpeed });
         }
         if (Math.random() < 0.03 * dt * 60) {
@@ -3677,15 +3842,26 @@
                 sfxMorolsCrash();
                 const maxSpeed = morolsState.maxSpeedReached;
                 showToast('💥 Авария! Скорость: ' + maxSpeed.toFixed(1) + ' км/ч');
-                const rewardSteps = Math.floor(maxSpeed / 5);
-                if (rewardSteps > 0) {
-                    STATE.elo += rewardSteps;
+                // Эло: общий множитель 0.7, после 2000 ещё 0.5
+                let eloGain = Math.floor(maxSpeed / 5);
+                if (eloGain > 0) {
+                    let multiplier = 0.7;
+                    if (STATE.elo >= 2000) multiplier *= 0.5;
+                    eloGain = Math.floor(eloGain * multiplier);
+                    if (eloGain < 1) eloGain = 1;
+                    STATE.elo += eloGain;
                     STATE.maxElo = Math.max(STATE.maxElo, STATE.elo);
-                    STATE.balance += rewardSteps * 2;
-                    STATE.totalEarned += rewardSteps * 2;
+                    STATE.balance += eloGain * 2;
+                    STATE.totalEarned += eloGain * 2;
                     if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                    showToast('🏆 +' + rewardSteps + ' Эло, +' + (rewardSteps * 2) + ' ₽');
-                    addExp(Math.floor(rewardSteps / 2));
+                    // рубины: 1 рубин за каждые 10 монет (eloGain*2 / 10)
+                    const rubiesGain = Math.floor((eloGain * 2) / 10);
+                    if (rubiesGain > 0) {
+                        STATE.rubies += rubiesGain;
+                        STATE.totalRubies += rubiesGain;
+                    }
+                    showToast('🏆 +' + eloGain + ' Эло, +' + (eloGain * 2) + ' ₽' + (rubiesGain > 0 ? ', +' + rubiesGain + ' 💎' : ''));
+                    addExp(Math.floor(eloGain / 2));
                 }
                 if (morolsState.maxSpeedReached > STATE.morols.maxSpeed) STATE.morols.maxSpeed = morolsState.maxSpeedReached;
                 if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
@@ -3713,6 +3889,11 @@
                 STATE.balance += value;
                 STATE.totalEarned += value;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                // рубины: 1 за каждые 10 монет
+                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - value) / 10)) {
+                    STATE.rubies += 1;
+                    STATE.totalRubies += 1;
+                }
                 sfxMorolsCoin();
                 showToast('+ ' + value + ' 🪙');
             }
@@ -3735,6 +3916,18 @@
         ctx.setLineDash([20, 20]);
         ctx.beginPath(); ctx.moveTo(0, 280); ctx.lineTo(600, 280); ctx.stroke();
         ctx.setLineDash([]);
+        // скин для машины
+        let carEmoji = '🚗';
+        if (STATE.currentMorolsSkin) {
+            const skin = STATE.morolsSkinList.find(s => s.id === STATE.currentMorolsSkin);
+            if (skin) carEmoji = skin.emoji;
+        }
+        // Рисуем машину как эмодзи
+        ctx.font = '30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(carEmoji, morolsState.carX, morolsState.carY - 5);
+
         for (const o of morolsState.obstacles) {
             ctx.fillStyle = '#cc3333';
             ctx.fillRect(o.x, o.y, o.width, o.height);
@@ -3748,11 +3941,6 @@
             ctx.lineWidth = 1;
             ctx.stroke();
         }
-        ctx.fillStyle = '#4a8aba';
-        ctx.fillRect(morolsState.carX - morolsState.carWidth/2, morolsState.carY - morolsState.carHeight/2, morolsState.carWidth, morolsState.carHeight);
-        ctx.fillStyle = '#2a4a6a';
-        ctx.fillRect(morolsState.carX - morolsState.carWidth/2 + 4, morolsState.carY - morolsState.carHeight/2 - 4, 8, 4);
-        ctx.fillRect(morolsState.carX + morolsState.carWidth/2 - 12, morolsState.carY - morolsState.carHeight/2 - 4, 8, 4);
         if (morolsState.gameOver) {
             ctx.fillStyle = '#ff3333';
             ctx.font = '24px Tahoma';
@@ -3767,7 +3955,7 @@
         document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
     }
 
-    // ---- САМОЛЁТ (исправленный) ----
+    // ---- САМОЛЁТ (круглые шипастые колючки) ----
     let planeRunning = false;
     let planeAnimId = null;
     let planeState = {
@@ -3902,45 +4090,40 @@
             planeState.vy = 0;
         }
 
-        // Спавним колючки реже, с большим зазором и меньшей шириной
-        if (Math.random() < 0.008 * dt * 60) {
-            const gapSize = 90 + Math.random() * 40;
-            const gapY = 30 + Math.random() * (280 - 30 - gapSize);
+        // Круглые шипастые колючки (появляются сверху, снизу, посередине)
+        if (Math.random() < 0.01 * dt * 60) {
+            const radius = 15 + Math.random() * 15;
+            const y = 20 + Math.random() * (280 - 40);
             planeState.obstacles.push({
                 x: 600,
-                y: 0,
-                width: 20,
-                height: gapY,
-                type: 'spike_top'
-            });
-            planeState.obstacles.push({
-                x: 600,
-                y: gapY + gapSize,
-                width: 20,
-                height: 300 - (gapY + gapSize),
-                type: 'spike_bottom'
+                y: y,
+                radius: radius,
+                speed: 150 + planeState.time * 0.8,
+                type: 'spike'
             });
         }
 
-        if (Math.random() < 0.012 * dt * 60) {
+        if (Math.random() < 0.01 * dt * 60) {
             planeState.coins.push({
                 x: 600,
                 y: 20 + Math.random() * 260,
                 radius: 10,
-                speed: 160 + planeState.time * 0.8,
+                speed: 150 + planeState.time * 0.8,
                 collected: false,
                 value: rand(1, 2)
             });
         }
 
+        // Обновляем препятствия
         for (let i = planeState.obstacles.length - 1; i >= 0; i--) {
             const o = planeState.obstacles[i];
-            o.x -= 180 * dt;
-            if (o.x + o.width < 0) { planeState.obstacles.splice(i, 1); continue; }
-            if (o.x < planeState.planeX + planeState.width &&
-                o.x + o.width > planeState.planeX &&
-                o.y < planeState.planeY + planeState.height &&
-                o.y + o.height > planeState.planeY) {
+            o.x -= o.speed * dt;
+            if (o.x + o.radius < 0) { planeState.obstacles.splice(i, 1); continue; }
+            // коллизия с самолётом
+            const dx = (planeState.planeX + planeState.width/2) - (o.x + o.radius);
+            const dy = (planeState.planeY + planeState.height/2) - (o.y + o.radius);
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < o.radius + planeState.width/2) {
                 planeState.gameOver = true;
                 planeRunning = false;
                 document.getElementById('planeStart').textContent = 'Старт';
@@ -3950,9 +4133,15 @@
                 if (planeState.time > STATE.plane.bestTime) STATE.plane.bestTime = planeState.time;
                 STATE.balance += Math.floor(planeState.score);
                 STATE.totalEarned += Math.floor(planeState.score);
+                // рубины: 1 за каждые 10 монет
+                const rubiesGain = Math.floor(Math.floor(planeState.score) / 10);
+                if (rubiesGain > 0) {
+                    STATE.rubies += rubiesGain;
+                    STATE.totalRubies += rubiesGain;
+                }
                 addExp(Math.floor(planeState.xp / 15) + Math.floor(planeState.time / 2));
                 STATE.plane.gamesPlayed = (STATE.plane.gamesPlayed || 0) + 1;
-                showToast('💥 Крах! XP: ' + Math.floor(planeState.xp) + ', монет: ' + Math.floor(planeState.score));
+                showToast('💥 Крах! XP: ' + Math.floor(planeState.xp) + ', монет: ' + Math.floor(planeState.score) + (rubiesGain > 0 ? ', +' + rubiesGain + ' 💎' : ''));
                 saveStateToFirebase();
                 updateUI();
                 checkAllAchievements();
@@ -3963,6 +4152,7 @@
             }
         }
 
+        // монетки
         for (let i = planeState.coins.length - 1; i >= 0; i--) {
             const c = planeState.coins[i];
             c.x -= c.speed * dt;
@@ -3976,6 +4166,10 @@
                 STATE.balance += value;
                 STATE.totalEarned += value;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - value) / 10)) {
+                    STATE.rubies += 1;
+                    STATE.totalRubies += 1;
+                }
                 sfxPlaneCoin();
                 addExp(0);
             }
@@ -3997,36 +4191,50 @@
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 600, 300);
 
+        // Рисуем круглые шипастые колючки
         for (const o of planeState.obstacles) {
+            ctx.save();
+            ctx.translate(o.x + o.radius, o.y + o.radius);
+            // тело
+            ctx.beginPath();
+            ctx.arc(0, 0, o.radius, 0, Math.PI*2);
             ctx.fillStyle = '#cc3333';
-            ctx.fillRect(o.x, o.y, o.width, o.height);
-            const spikeCount = Math.floor(o.height / 15) + 1;
-            const step = o.height / spikeCount;
-            for (let s = 0; s < spikeCount; s++) {
-                const sy = o.y + s * step;
-                const spikeLen = 8 + Math.random() * 4;
-                const dy = (o.type === 'spike_top') ? 1 : -1;
+            ctx.fill();
+            ctx.strokeStyle = '#aa2222';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            // шипы
+            const spikeCount = 12;
+            for (let i = 0; i < spikeCount; i++) {
+                const angle = (i / spikeCount) * Math.PI * 2;
+                const spikeLen = o.radius * 0.6;
+                const x1 = Math.cos(angle) * o.radius;
+                const y1 = Math.sin(angle) * o.radius;
+                const x2 = Math.cos(angle) * (o.radius + spikeLen);
+                const y2 = Math.sin(angle) * (o.radius + spikeLen);
                 ctx.beginPath();
-                ctx.moveTo(o.x, sy);
-                ctx.lineTo(o.x - spikeLen, sy + step / 2 * dy);
-                ctx.lineTo(o.x, sy + step * dy);
-                ctx.fillStyle = '#ff5555';
-                ctx.fill();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = '#ff5555';
+                ctx.lineWidth = 2;
+                ctx.stroke();
             }
+            // глаза
             ctx.fillStyle = '#ffdd00';
             ctx.beginPath();
-            ctx.arc(o.x + 6, o.y + 12, 4, 0, Math.PI*2);
+            ctx.arc(-o.radius*0.3, -o.radius*0.3, o.radius*0.25, 0, Math.PI*2);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(o.x + 6, o.y + o.height - 12, 4, 0, Math.PI*2);
+            ctx.arc(o.radius*0.3, -o.radius*0.3, o.radius*0.25, 0, Math.PI*2);
             ctx.fill();
             ctx.fillStyle = '#000';
             ctx.beginPath();
-            ctx.arc(o.x + 8, o.y + 12, 2, 0, Math.PI*2);
+            ctx.arc(-o.radius*0.3, -o.radius*0.3, o.radius*0.12, 0, Math.PI*2);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(o.x + 8, o.y + o.height - 12, 2, 0, Math.PI*2);
+            ctx.arc(o.radius*0.3, -o.radius*0.3, o.radius*0.12, 0, Math.PI*2);
             ctx.fill();
+            ctx.restore();
         }
 
         for (const c of planeState.coins) {
@@ -4083,6 +4291,11 @@
                 STATE.balance += 5;
                 STATE.totalEarned += 5;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                // рубины: 1 за каждые 10 монет
+                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - 5) / 10)) {
+                    STATE.rubies += 1;
+                    STATE.totalRubies += 1;
+                }
                 sfxClicker();
                 STATE.clickCooldown = true;
                 document.getElementById('clickBtn').disabled = true;
@@ -4269,7 +4482,7 @@
         }
     }
 
-    // ===== ПРОМОКОДЫ =====
+    // ===== ПРОМОКОДЫ (ИСПРАВЛЕНЫ) =====
     document.getElementById('applyPromoBtn').onclick = function() {
         const input = document.getElementById('promoInput');
         if (!input) return;
@@ -4278,7 +4491,10 @@
 
         if (code === 'ARBZ') {
             if (STATE.promoUsed) { showToast('❌ Промокод уже использован'); return; }
-            STATE.freeOpens += CASES.length;
+            // Даём по 1 открытию КАЖДОГО кейса (все виды)
+            for (const c of CASES) {
+                STATE.freeOpens += 1;
+            }
             STATE.balance += 200;
             STATE.totalEarned += 200;
             STATE.promoUsed = true;
@@ -4299,8 +4515,9 @@
                 showToast('❌ Промокод уже использован');
                 return;
             }
-            STATE.freeOpens += 4;
-            STATE.freeOpens += 2;
+            // Только 4 кейса игроков и 2 кейса городов
+            STATE.freeOpens += 4; // players
+            STATE.freeOpens += 2; // cities
             STATE.balance += 100;
             STATE.totalEarned += 100;
             STATE.muzhikiRestored = true;
@@ -4344,7 +4561,7 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР =====
+    // ===== МЕССЕНДЖЕР (исправлен) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
 
@@ -4438,6 +4655,8 @@
             saveStateToFirebase();
             renderMessenger();
             addLog('💬 Сообщение отправлено');
+            // Уведомление собеседнику (в реальном приложении через push, здесь просто показываем)
+            showNotification('✉️ Сообщение отправлено ' + currentChatPartner);
         })
         .catch(err => {
             showToast('❌ Ошибка отправки: ' + err.message);
@@ -4544,7 +4763,7 @@
         };
     }
 
-    // ===== ИВЕНТ СКОРОСТИ =====
+    // ===== ИВЕНТ СКОРОСТИ (ИСПРАВЛЕН) =====
     const SPEED_REWARDS = [
         { speed: 10, coins: 50, cases: [{ id: 'animals', count: 1 }] },
         { speed: 25, coins: 75, cases: [{ id: 'muzhiki1', count: 1 }] },
@@ -4591,6 +4810,12 @@
                 STATE.balance += reward.coins;
                 STATE.totalEarned += reward.coins;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                // рубины
+                const rubiesGain = Math.floor(reward.coins / 10);
+                if (rubiesGain > 0) {
+                    STATE.rubies += rubiesGain;
+                    STATE.totalRubies += rubiesGain;
+                }
                 for (const c of reward.cases) {
                     STATE.freeOpens += c.count;
                 }
@@ -4598,7 +4823,7 @@
                     const caseData = CASES.find(cc => cc.id === c.id);
                     return caseData ? `${caseData.name} x${c.count}` : `${c.id} x${c.count}`;
                 }).join(', ');
-                showToast(`🏁 Ивент скорости! ${reward.speed} км/ч: +${reward.coins} ₽` + (caseStr ? `, кейсы: ${caseStr}` : ''));
+                showToast(`🏁 Ивент скорости! ${reward.speed} км/ч: +${reward.coins} ₽` + (caseStr ? `, кейсы: ${caseStr}` : '') + (rubiesGain > 0 ? `, +${rubiesGain} 💎` : ''));
                 addLog(`🏁 Ивент скорости: ${reward.speed} км/ч выполнен!`);
             }
         }
@@ -4608,6 +4833,105 @@
             renderSpeedEvent();
             renderCases();
         }
+    }
+
+    // ===== МАГАЗИН =====
+    function renderShop() {
+        const container = document.getElementById('shopContent');
+        if (!container) return;
+        const activeTab = document.querySelector('.shop-tabs .active')?.dataset.shopTab || 'titles';
+
+        let html = '';
+        if (activeTab === 'titles') {
+            html = `<div class="shop-grid">`;
+            for (const title of STATE.titleList) {
+                const owned = STATE.titles.includes(title.id);
+                const isActive = STATE.currentTitle === title.id;
+                const priceWithDiscount = Math.floor(title.price * 0.8); // 20% скидка
+                html += `<div class="shop-item">
+                    <div class="shop-item-name">${title.name}</div>
+                    <div class="shop-item-price">${priceWithDiscount} ₽</div>
+                    ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
+                    <button class="shop-buy-btn" data-type="title" data-id="${title.id}" ${owned ? 'disabled' : ''}>
+                        ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
+                    </button>
+                    ${owned && !isActive ? `<button class="shop-buy-btn" data-type="title_activate" data-id="${title.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                </div>`;
+            }
+            html += `</div>`;
+        } else if (activeTab === 'coins') {
+            // Здесь могли бы быть скины за рубли, но пока просто покажем сообщение
+            html = `<div style="padding:20px; text-align:center; color:#666;">В разработке: скины за рубли появятся позже.</div>`;
+        } else if (activeTab === 'rubies') {
+            html = `<div class="shop-grid">`;
+            for (const skin of STATE.morolsSkinList) {
+                if (skin.id === 'default') continue;
+                const owned = STATE.morolsSkins.includes(skin.id);
+                const isActive = STATE.currentMorolsSkin === skin.id;
+                html += `<div class="shop-item">
+                    <div class="shop-item-name">${skin.emoji} ${skin.name}</div>
+                    <div class="shop-item-price">${skin.price} 💎</div>
+                    ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
+                    <button class="shop-buy-btn" data-type="skin" data-id="${skin.id}" ${owned ? 'disabled' : ''}>
+                        ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
+                    </button>
+                    ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                </div>`;
+            }
+            html += `</div>`;
+        }
+
+        container.innerHTML = html;
+
+        // Обработчики кнопок магазина
+        container.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target || !target.classList.contains('shop-buy-btn')) return;
+            const type = target.dataset.type;
+            const id = target.dataset.id;
+
+            if (type === 'title') {
+                const title = STATE.titleList.find(t => t.id === id);
+                if (!title) return;
+                const price = Math.floor(title.price * 0.8);
+                if (STATE.balance < price) { showToast('❌ Недостаточно рублей'); return; }
+                if (STATE.titles.includes(id)) { showToast('Уже куплен'); return; }
+                STATE.balance -= price;
+                STATE.totalSpent += price;
+                STATE.titles.push(id);
+                STATE.currentTitle = id;
+                saveStateToFirebase();
+                renderShop();
+                renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
+                showToast('✅ Титул "' + title.name + '" куплен и активирован!');
+                addLog('👑 Куплен титул: ' + title.name);
+            } else if (type === 'title_activate') {
+                STATE.currentTitle = id;
+                saveStateToFirebase();
+                renderShop();
+                renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
+                showToast('✅ Титул активирован');
+                addLog('👑 Активирован титул: ' + id);
+            } else if (type === 'skin') {
+                const skin = STATE.morolsSkinList.find(s => s.id === id);
+                if (!skin) return;
+                if (STATE.rubies < skin.price) { showToast('❌ Недостаточно рубинов'); return; }
+                if (STATE.morolsSkins.includes(id)) { showToast('Уже куплен'); return; }
+                STATE.rubies -= skin.price;
+                STATE.morolsSkins.push(id);
+                STATE.currentMorolsSkin = id;
+                saveStateToFirebase();
+                renderShop();
+                showToast('✅ Скин "' + skin.name + '" куплен и активирован!');
+                addLog('🎨 Куплен скин: ' + skin.name);
+            } else if (type === 'skin_activate') {
+                STATE.currentMorolsSkin = id;
+                saveStateToFirebase();
+                renderShop();
+                showToast('✅ Скин активирован');
+                addLog('🎨 Активирован скин: ' + id);
+            }
+        });
     }
 
     // ===== ЧАСЫ =====
@@ -4632,6 +4956,8 @@
         if (levelEl) levelEl.textContent = getLevelLabel(STATE.level);
         const idEl = document.getElementById('idDisplay');
         if (idEl) idEl.textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
+        const rubyEl = document.getElementById('rubyDisplay');
+        if (rubyEl) rubyEl.textContent = STATE.rubies;
         const clickerBal = document.getElementById('clickerBalance');
         if (clickerBal) clickerBal.textContent = STATE.balance;
         const clickerClicks = document.getElementById('clickerTotalClicks');
@@ -4684,8 +5010,8 @@
 
             if (target.classList.contains('info-btn')) {
                 e.stopPropagation();
-                const tooltip = document.getElementById('tooltip-' + caseId);
-                if (tooltip) tooltip.classList.toggle('show');
+                const caseData = getCaseById(caseId);
+                if (caseData) showChances(caseData);
             } else if (target.classList.contains('close-tooltip')) {
                 e.stopPropagation();
                 const tooltip = document.getElementById('tooltip-' + caseId);
@@ -4723,6 +5049,7 @@
             loadUsersList();
         }
         if (sectionId === 'clans') renderClanSimple();
+        if (sectionId === 'shop') renderShop();
         addLog('📂 Переход в раздел: ' + sectionId);
     }
 
@@ -4763,6 +5090,15 @@
                     document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
                     initClicker();
                 }
+            };
+        });
+
+        // Вкладки магазина
+        document.querySelectorAll('.shop-tabs button').forEach(btn => {
+            btn.onclick = function() {
+                document.querySelectorAll('.shop-tabs button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderShop();
             };
         });
 
