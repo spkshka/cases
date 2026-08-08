@@ -1659,7 +1659,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2.1 — список игроков, исправления ивента и промокодов</div>
+        <div class="update-announce">🔥 Обновление 1.2.1 — исправлены регистрация, мессенджер, события, покупка титулов</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1832,7 +1832,7 @@
                         <input type="text" id="promoInput" placeholder="Введите промокод" style="max-width:200px;">
                         <button id="applyPromoBtn">Активировать</button>
                     </div>
-                    <div style="margin-top:12px; font-size:14px; color:#666;">Промокоды: <strong>ARBZ</strong> (по 1 открытию каждого кейса) | <strong>MOROLS</strong> (4 кейса игроков + 2 кейса городов + 100 ₽)</div>
+                    <div style="margin-top:12px; font-size:14px; color:#666;">Промокод: <strong>ARBZ</strong> (по 1 открытию каждого кейса)</div>
                 </div>
             </section>
 
@@ -1897,7 +1897,7 @@
                     <div id="progressContainer" style="display:none; margin-top:10px;">
                         <div style="font-size:14px;">Опыт: <span id="progressExp">0</span></div>
                         <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
-                        <div style="font-size:13px; color:#666;" id="progressLabel">Уровень 1 → 2</div>
+                        <div style="font-size:13px; color:#666;" id="progressLabel">0% до Pro</div>
                     </div>
                 </div>
                 <div class="account-actions">
@@ -1954,16 +1954,15 @@
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
                     <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (финальные исправления)</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>👥 Добавлен список игроков с онлайн-статусом, последней активностью и просмотром статистики</li>
-                        <li>🎁 Исправлен ивент скорости: теперь выдаются ТОЛЬКО указанные кейсы (без дублей)</li>
-                        <li>🎁 Исправлен промокод MOROLS: теперь даёт 4 кейса игроков и 2 кейса городов</li>
-                        <li>🔄 Бесплатные открытия теперь привязаны к конкретным кейсам (отображаются в инвентаре)</li>
-                        <li>🪑 Моролс: вместо эмодзи стул — прямоугольник, скины меняют цвет (градиент)</li>
-                        <li>💬 Мессенджер: исправлено отображение сообщений (свои и чужие)</li>
-                        <li>✈️ Самолёт: уменьшена награда на 50%</li>
-                        <li>📊 Рейтинг: исправлено отображение максимальной скорости и километров (суммарные)</li>
-                        <li>⚡ Эло: уменьшено получение на 30% в целом, после 2000 — в 2 раза меньше</li>
-                        <li>🔧 Прочие мелкие исправления</li>
+                        <li>🐛 Исправлена регистрация – больше не пишет "ник занят" для новых ников</li>
+                        <li>💬 Мессенджер: сообщения теперь отображаются мгновенно после отправки</li>
+                        <li>🔇 Убран звук при просмотре шансов</li>
+                        <li>🚫 Удалён промокод MOROLS</li>
+                        <li>👑 Покупка титулов: теперь можно доплатить разницу, если уже есть титул</li>
+                        <li>🔄 Список игроков обновляется каждые 10 секунд</li>
+                        <li>📊 Прогресс "До Pro" теперь показывает проценты до 3000 опыта</li>
+                        <li>📢 Добавлены события: достижения игроков выводятся в реальном времени</li>
+                        <li>🏆 Убран пустой "место в топе" в верхней панели</li>
                     </ul>
                 </div>
             </section>
@@ -2051,7 +2050,7 @@
         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
         achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
         isOpening: false, clickCooldown: false, registrationDate: null, currentCaseId: null,
-        exp: 0, level: 1, clan: '', freeOpens: {}, // { caseId: count }
+        exp: 0, level: 1, clan: '', freeOpens: {},
         promoUsed: false, eloBoosted: false,
         marketBuys: 0, marketSells: 0, nickChanged: false, easterFound: false, topElo: false,
         eloInitialized: false, muzhikiRestored: false, eloPromoUsed: false,
@@ -2147,14 +2146,26 @@
     function updateProProgress() {
         const exp = STATE.exp;
         const level = STATE.level;
-        const thresholds = [0, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000];
-        const nextExp = level >= 11 ? Infinity : thresholds[level] || Infinity;
-        const prevExp = level === 1 ? 0 : thresholds[level-1] || 0;
-        const progress = nextExp === Infinity ? 100 : Math.min(100, ((exp - prevExp) / (nextExp - prevExp) * 100));
+        // Прогресс до Pro (3000 опыта)
+        const proExp = 3000;
+        const progress = Math.min(100, (exp / proExp) * 100);
         const expEl = document.getElementById('expDisplay');
         const progEl = document.getElementById('proProgressDisplay');
         if (expEl) expEl.textContent = exp;
-        if (progEl) progEl.textContent = (level >= 11) ? 'Pro' : Math.round(progress) + '%';
+        if (progEl) {
+            if (level >= 11) progEl.textContent = 'Pro';
+            else progEl.textContent = Math.round(progress) + '%';
+        }
+        // обновляем прогресс-бар в аккаунте
+        const progressFill = document.getElementById('progressFill');
+        const progressLabel = document.getElementById('progressLabel');
+        if (progressFill) {
+            progressFill.style.width = Math.min(100, progress) + '%';
+        }
+        if (progressLabel) {
+            if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
+            else progressLabel.textContent = Math.round(progress) + '% до Pro';
+        }
     }
 
     function addExp(amount) {
@@ -2206,7 +2217,7 @@
         addLog('🎁 Награда за уровень ' + level);
     }
 
-    // ===== КЕЙСЫ (исправлены веса) =====
+    // ===== КЕЙСЫ =====
     const CASES = [
         { id: 'muzhiki1', name: 'Мужики 1', emoji: '💪', price: 100,
             items: [
@@ -2430,53 +2441,7 @@
     // ===== ВХОД =====
     function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
-    function loginUser(nick, password) {
-        const status = document.getElementById('loginError');
-        if (!status) return;
-        status.textContent = '';
-        addLog('⏳ Попытка входа для ' + nick);
-        const email = getEmail(nick);
-
-        fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, returnSecureToken: true })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                addLog('❌ Ошибка: ' + data.error.message);
-                status.textContent = '❌ ' + data.error.message;
-                status.className = 'error';
-                document.getElementById('loadingStatus').classList.add('hidden');
-                return;
-            }
-            const uid = data.localId;
-            const idToken = data.idToken;
-            addLog('✅ Аутентификация успешна, UID: ' + uid);
-            return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken)
-                .then(res => res.json())
-                .then(profile => {
-                    if (!profile || profile.nickname !== nick) {
-                        addLog('❌ Профиль не найден или ник не совпадает');
-                        status.textContent = '❌ Неверный ник или пароль';
-                        status.className = 'error';
-                        document.getElementById('loadingStatus').classList.add('hidden');
-                        return;
-                    }
-                    addLog('✅ Профиль загружен, ник: ' + profile.nickname);
-                    currentUser = { uid, data: profile, idToken };
-                    onAuthSuccess();
-                });
-        })
-        .catch(err => {
-            addLog('❌ Исключение: ' + err.message);
-            status.textContent = '❌ ' + err.message;
-            status.className = 'error';
-            document.getElementById('loadingStatus').classList.add('hidden');
-        });
-    }
-
+    // ===== ИСПРАВЛЕННАЯ РЕГИСТРАЦИЯ =====
     function registerUser(nick, password) {
         const status = document.getElementById('loginError');
         if (!status) return;
@@ -2489,36 +2454,60 @@
         }
         const email = getEmail(nick);
 
+        // Сначала проверим ник
         fetch(DB_URL + '/nicknames/' + nick + '.json')
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    addLog('❌ Ник занят');
-                    status.textContent = '❌ Ник уже занят';
-                    status.className = 'error';
-                    document.getElementById('loadingStatus').classList.add('hidden');
-                    return;
+                    // Ник занят, проверим, существует ли пользователь
+                    const uid = data;
+                    return fetch(DB_URL + '/users/' + uid + '.json')
+                        .then(res => res.json())
+                        .then(userData => {
+                            if (userData && userData.nickname) {
+                                // Пользователь существует
+                                addLog('❌ Ник уже занят');
+                                status.textContent = '❌ Ник уже занят';
+                                status.className = 'error';
+                                document.getElementById('loadingStatus').classList.add('hidden');
+                                return null;
+                            } else {
+                                // Пользователь не существует, удаляем запись и продолжаем
+                                addLog('🧹 Найдена мёртвая запись нике, удаляем...');
+                                return fetch(DB_URL + '/nicknames/' + nick + '.json', {
+                                    method: 'DELETE',
+                                    auth: currentUser?.idToken || ''
+                                }).then(() => {
+                                    // Теперь ник свободен
+                                    return true;
+                                });
+                            }
+                        });
+                } else {
+                    return true; // ник свободен
                 }
-                addLog('✅ Ник свободен');
+            })
+            .then(canProceed => {
+                if (!canProceed) return;
+                // Создаём аккаунт
                 return fetch(AUTH_URL + ':signUp?key=' + API_KEY, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, returnSecureToken: true })
-                });
-            })
-            .then(res => {
-                if (!res) return;
-                return res.json().then(data => {
-                    if (data.error) {
-                        addLog('❌ Ошибка Auth: ' + data.error.message);
-                        status.textContent = '❌ ' + data.error.message;
+                })
+                .then(res => res.json())
+                .then(authData => {
+                    if (authData.error) {
+                        addLog('❌ Ошибка Auth: ' + authData.error.message);
+                        status.textContent = '❌ ' + authData.error.message;
                         status.className = 'error';
                         document.getElementById('loadingStatus').classList.add('hidden');
                         return;
                     }
-                    const uid = data.localId;
-                    const idToken = data.idToken;
+                    const uid = authData.localId;
+                    const idToken = authData.idToken;
                     addLog('✅ Аккаунт создан, UID: ' + uid);
+
                     const profile = {
                         nickname: nick,
                         balance: 500,
@@ -2595,6 +2584,55 @@
             });
     }
 
+    // ===== ЛОГИН =====
+    function loginUser(nick, password) {
+        const status = document.getElementById('loginError');
+        if (!status) return;
+        status.textContent = '';
+        addLog('⏳ Попытка входа для ' + nick);
+        const email = getEmail(nick);
+
+        fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, returnSecureToken: true })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                addLog('❌ Ошибка: ' + data.error.message);
+                status.textContent = '❌ ' + data.error.message;
+                status.className = 'error';
+                document.getElementById('loadingStatus').classList.add('hidden');
+                return;
+            }
+            const uid = data.localId;
+            const idToken = data.idToken;
+            addLog('✅ Аутентификация успешна, UID: ' + uid);
+            return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken)
+                .then(res => res.json())
+                .then(profile => {
+                    if (!profile || profile.nickname !== nick) {
+                        addLog('❌ Профиль не найден или ник не совпадает');
+                        status.textContent = '❌ Неверный ник или пароль';
+                        status.className = 'error';
+                        document.getElementById('loadingStatus').classList.add('hidden');
+                        return;
+                    }
+                    addLog('✅ Профиль загружен, ник: ' + profile.nickname);
+                    currentUser = { uid, data: profile, idToken };
+                    onAuthSuccess();
+                });
+        })
+        .catch(err => {
+            addLog('❌ Исключение: ' + err.message);
+            status.textContent = '❌ ' + err.message;
+            status.className = 'error';
+            document.getElementById('loadingStatus').classList.add('hidden');
+        });
+    }
+
+    // ===== УСПЕШНЫЙ ВХОД =====
     function onAuthSuccess() {
         const status = document.getElementById('loadingStatus');
         if (status) status.classList.add('hidden');
@@ -2696,6 +2734,10 @@
                 try { renderSpeedEvent(); } catch(e) { addLog('⚠️ renderSpeedEvent: ' + e.message); }
                 try { renderShop(); } catch(e) { addLog('⚠️ renderShop: ' + e.message); }
                 try { renderPlayers(); } catch(e) { addLog('⚠️ renderPlayers: ' + e.message); }
+                // Подписка на события
+                initEventListeners();
+                // Автообновление игроков
+                startPlayersAutoUpdate();
             }, 50);
 
             const idEl = document.getElementById('idDisplay');
@@ -2724,7 +2766,6 @@
         if (!currentUser || !currentUser.idToken) return Promise.resolve();
         const uid = currentUser.uid;
         const idToken = currentUser.idToken;
-        // update lastActivity
         STATE.lastActivity = Date.now();
         const updates = {
             balance: STATE.balance,
@@ -3008,7 +3049,8 @@
         modal.classList.add('open');
         document.getElementById('chanceClose').onclick = () => modal.classList.remove('open');
         modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
-        sfxClick();
+        // Убираем звук
+        // sfxClick(); // удалено
     }
 
     // ===== ИНВЕНТАРЬ =====
@@ -3573,6 +3615,8 @@
                 sfxAchievement();
                 addExp(5);
                 addLog('🏆 Получено достижение: ' + ach.name);
+                // Проверяем, не пора ли отправить событие
+                checkAndSendEvent(ach.id);
             }
         }
         if (!STATE.achievements.includes('allAchievements')) {
@@ -3584,12 +3628,94 @@
                 sfxAchievement();
                 addExp(20);
                 addLog('🏆 Все достижения выполнены!');
+                checkAndSendEvent('allAchievements');
             }
         }
         if (any) {
             renderAchievements();
             saveStateToFirebase();
         }
+    }
+
+    // ===== СОБЫТИЯ =====
+    function initEventListeners() {
+        // Слушаем новые события в узле /events
+        const eventsRef = DB_URL + '/events.json?auth=' + currentUser.idToken;
+        fetch(eventsRef)
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    for (const key in data) {
+                        const event = data[key];
+                        showEventNotification(event.text);
+                    }
+                }
+            })
+            .catch(err => addLog('⚠️ Ошибка загрузки событий: ' + err.message));
+
+        // Подписываемся на новые события через polling (так как Firebase Realtime не поддерживает on в этом коде)
+        setInterval(() => {
+            fetch(eventsRef)
+                .then(res => res.json())
+                .then(data => {
+                    if (data) {
+                        const lastEvent = Object.values(data).pop();
+                        if (lastEvent && lastEvent.timestamp > (window._lastEventTime || 0)) {
+                            showEventNotification(lastEvent.text);
+                            window._lastEventTime = lastEvent.timestamp;
+                        }
+                    }
+                })
+                .catch(err => {});
+        }, 10000);
+    }
+
+    function checkAndSendEvent(achievementId) {
+        // События для достижений
+        const eventMap = {
+            'elo1500': 'игрок ' + STATE.nickname + ' достиг 1500 Эло! 🎉',
+            'elo2000': 'игрок ' + STATE.nickname + ' достиг 2000 Эло! 🔥',
+            'open100': 'игрок ' + STATE.nickname + ' открыл 100 кейсов! 🎁',
+            'open500': 'игрок ' + STATE.nickname + ' открыл 500 кейсов! 💎',
+            'speed100': 'игрок ' + STATE.nickname + ' набрал 100 км/ч в Моролс! 🚗',
+            'speed200': 'игрок ' + STATE.nickname + ' набрал 200 км/ч в Моролс! ⚡',
+            'speed300': 'игрок ' + STATE.nickname + ' набрал 300 км/ч в Моролс! 🏆',
+            'planeTime60': 'игрок ' + STATE.nickname + ' продержался в самолёте 60 секунд! ✈️',
+            'lvPro': 'игрок ' + STATE.nickname + ' достиг Pro уровня! 👑',
+            'allAchievements': 'игрок ' + STATE.nickname + ' выполнил ВСЕ достижения! 🏅'
+        };
+        const text = eventMap[achievementId];
+        if (text) {
+            sendEvent(text);
+        }
+    }
+
+    function sendEvent(text) {
+        if (!currentUser) return;
+        const eventData = {
+            text: text,
+            timestamp: Date.now()
+        };
+        fetch(DB_URL + '/events.json?auth=' + currentUser.idToken, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(eventData)
+        })
+        .then(res => res.json())
+        .then(() => {
+            addLog('📢 Событие отправлено: ' + text);
+            showEventNotification(text);
+        })
+        .catch(err => addLog('❌ Ошибка отправки события: ' + err.message));
+    }
+
+    function showEventNotification(text) {
+        const el = document.getElementById('notification');
+        if (!el) return;
+        el.textContent = '📢 ' + text;
+        el.classList.add('show');
+        clearTimeout(el._timeout);
+        el._timeout = setTimeout(() => el.classList.remove('show'), 8000);
     }
 
     // ===== АККАУНТ =====
@@ -3824,29 +3950,11 @@
             if (!container) return;
             if (container.style.display === 'none') {
                 container.style.display = 'block';
-                updateProgressDisplay();
+                updateProProgress();
             } else {
                 container.style.display = 'none';
             }
         };
-    }
-
-    function updateProgressDisplay() {
-        const exp = STATE.exp;
-        const level = STATE.level;
-        const thresholds = [0, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000];
-        const nextExp = level >= 11 ? Infinity : thresholds[level] || Infinity;
-        const prevExp = level === 1 ? 0 : thresholds[level-1] || 0;
-        const currentProgress = nextExp === Infinity ? 100 : ((exp - prevExp) / (nextExp - prevExp) * 100);
-        const progressExp = document.getElementById('progressExp');
-        if (progressExp) progressExp.textContent = exp;
-        const progressFill = document.getElementById('progressFill');
-        if (progressFill) progressFill.style.width = Math.min(100, currentProgress) + '%';
-        const progressLabel = document.getElementById('progressLabel');
-        if (progressLabel) {
-            if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
-            else progressLabel.textContent = `Уровень ${level} → ${level+1}`;
-        }
     }
 
     // ===== ИГРЫ =====
@@ -4044,7 +4152,6 @@
         // Рисуем прямоугольник с цветом скина
         const skin = STATE.morolsSkinList.find(s => s.id === (STATE.currentMorolsSkin || 'default'));
         const color = skin ? skin.color : '#4a8aba';
-        // Применяем градиент, если цвет массив
         let fillStyle;
         if (Array.isArray(color)) {
             const grad = ctx.createLinearGradient(morolsState.carX - morolsState.carWidth/2, morolsState.carY - morolsState.carHeight/2,
@@ -4634,29 +4741,6 @@
             return;
         }
 
-        if (code === 'MOROLS') {
-            if (STATE.muzhikiRestored) {
-                showToast('❌ Промокод уже использован');
-                return;
-            }
-            STATE.freeOpens['players'] = (STATE.freeOpens['players'] || 0) + 4;
-            STATE.freeOpens['cities'] = (STATE.freeOpens['cities'] || 0) + 2;
-            STATE.balance += 100;
-            STATE.totalEarned += 100;
-            STATE.muzhikiRestored = true;
-            addExp(5);
-            showToast('🎉 Промокод MOROLS активирован! +4 кейса игроков, +2 кейса городов, +100 ₽!');
-            input.value = '';
-            updateUI();
-            saveStateToFirebase();
-            checkAllAchievements();
-            renderAccount();
-            renderCases();
-            renderInventory();
-            addLog('✅ Промокод MOROLS активирован');
-            return;
-        }
-
         showToast('❌ Неверный промокод');
         addLog('❌ Неверный промокод');
     };
@@ -4685,7 +4769,7 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР =====
+    // ===== МЕССЕНДЖЕР (исправлен: добавлена локальная вставка сообщения) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
     let chatPartnerName = '';
@@ -4712,53 +4796,86 @@
         }
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
-            .then(res => res.json())
-            .then(data => {
-                let msgs = [];
-                if (data) {
-                    for (const key in data) {
-                        const msg = data[key];
-                        msg._id = key;
-                        msgs.push(msg);
+        // Сначала показываем локальные сообщения, если есть
+        let msgs = STATE.messages[chatId] || [];
+        // Если локально пусто, загружаем с сервера
+        if (msgs.length === 0) {
+            fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
+                .then(res => res.json())
+                .then(data => {
+                    let loadedMsgs = [];
+                    if (data) {
+                        for (const key in data) {
+                            const msg = data[key];
+                            msg._id = key;
+                            loadedMsgs.push(msg);
+                        }
                     }
-                }
-                msgs.sort((a, b) => a.timestamp - b.timestamp);
-                const now = Date.now();
-                const cutoff = now - 48 * 60 * 60 * 1000;
-                msgs = msgs.filter(m => m.timestamp > cutoff);
-                STATE.messages[chatId] = msgs;
+                    loadedMsgs.sort((a, b) => a.timestamp - b.timestamp);
+                    const now = Date.now();
+                    const cutoff = now - 48 * 60 * 60 * 1000;
+                    loadedMsgs = loadedMsgs.filter(m => m.timestamp > cutoff);
+                    STATE.messages[chatId] = loadedMsgs;
+                    renderMessages(loadedMsgs);
+                })
+                .catch(err => {
+                    messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки сообщений</div>';
+                    input.disabled = true;
+                    sendBtn.disabled = true;
+                });
+        } else {
+            renderMessages(msgs);
+        }
 
-                let html = '';
-                if (msgs.length === 0) {
-                    html = '<div style="color:#999; text-align:center; padding:20px;">Нет сообщений</div>';
-                } else {
-                    for (const msg of msgs) {
-                        const isSelf = (msg.sender === STATE.uid);
-                        const time = new Date(msg.timestamp).toLocaleTimeString();
-                        const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
-                        html += `<div class="msg ${isSelf ? 'self' : ''}">
-                            <span class="time">${time}</span>
-                            <span class="sender">${senderName}:</span> ${msg.text}
-                        </div>`;
-                    }
+        function renderMessages(msgs) {
+            let html = '';
+            if (msgs.length === 0) {
+                html = '<div style="color:#999; text-align:center; padding:20px;">Нет сообщений</div>';
+            } else {
+                for (const msg of msgs) {
+                    const isSelf = (msg.sender === STATE.uid);
+                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
+                    html += `<div class="msg ${isSelf ? 'self' : ''}">
+                        <span class="time">${time}</span>
+                        <span class="sender">${senderName}:</span> ${msg.text}
+                    </div>`;
                 }
-                messagesDiv.innerHTML = html;
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                input.disabled = false;
-                sendBtn.disabled = false;
-            })
-            .catch(err => {
-                messagesDiv.innerHTML = '<div style="color:#ff6b6b;">Ошибка загрузки сообщений</div>';
-                input.disabled = true;
-                sendBtn.disabled = true;
-            });
+            }
+            messagesDiv.innerHTML = html;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            input.disabled = false;
+            sendBtn.disabled = false;
+        }
     }
 
     function loadChatPartner(partnerUid, partnerName) {
         currentChatPartner = partnerUid;
         chatPartnerName = partnerName || 'Собеседник';
-        renderMessenger();
+        // Загружаем сообщения при открытии
+        const chatId = [STATE.uid, partnerUid].sort().join('_');
+        fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(data => {
+                let loadedMsgs = [];
+                if (data) {
+                    for (const key in data) {
+                        const msg = data[key];
+                        msg._id = key;
+                        loadedMsgs.push(msg);
+                    }
+                }
+                loadedMsgs.sort((a, b) => a.timestamp - b.timestamp);
+                const now = Date.now();
+                const cutoff = now - 48 * 60 * 60 * 1000;
+                loadedMsgs = loadedMsgs.filter(m => m.timestamp > cutoff);
+                STATE.messages[chatId] = loadedMsgs;
+                renderMessenger();
+            })
+            .catch(err => {
+                STATE.messages[chatId] = [];
+                renderMessenger();
+            });
     }
 
     function sendMessage() {
@@ -4777,6 +4894,11 @@
             text: text,
             timestamp: Date.now()
         };
+        // Добавляем локально сразу
+        if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
+        STATE.messages[chatId].push(msg);
+        renderMessenger(); // сразу показываем
+
         fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -4787,6 +4909,7 @@
             input.value = '';
             STATE.totalMessages = (STATE.totalMessages || 0) + 1;
             saveStateToFirebase();
+            // Обновляем, чтобы синхронизировать с сервером (вдруг что-то изменилось)
             renderMessenger();
             addLog('💬 Сообщение отправлено');
             showNotification('✉️ Сообщение отправлено ' + chatPartnerName);
@@ -4802,7 +4925,33 @@
         messengerPollingInterval = setInterval(() => {
             const section = document.getElementById('section-messenger');
             if (section && section.classList.contains('active') && currentUser && currentChatPartner) {
-                renderMessenger();
+                // Обновляем сообщения с сервера, но не перезаписываем локальные, а сливаем
+                const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+                fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
+                    .then(res => res.json())
+                    .then(data => {
+                        let serverMsgs = [];
+                        if (data) {
+                            for (const key in data) {
+                                const msg = data[key];
+                                msg._id = key;
+                                serverMsgs.push(msg);
+                            }
+                        }
+                        serverMsgs.sort((a, b) => a.timestamp - b.timestamp);
+                        // Объединяем с локальными (по timestamp)
+                        const localMsgs = STATE.messages[chatId] || [];
+                        const allMsgs = [...localMsgs];
+                        for (const sm of serverMsgs) {
+                            if (!allMsgs.some(m => m.timestamp === sm.timestamp && m.sender === sm.sender && m.text === sm.text)) {
+                                allMsgs.push(sm);
+                            }
+                        }
+                        allMsgs.sort((a, b) => a.timestamp - b.timestamp);
+                        STATE.messages[chatId] = allMsgs;
+                        renderMessenger();
+                    })
+                    .catch(err => {});
             }
         }, 5000);
     }
@@ -4898,6 +5047,8 @@
     }
 
     // ===== ИГРОКИ (список) =====
+    let playersAutoUpdateInterval = null;
+
     function renderPlayers() {
         const container = document.getElementById('playersList');
         if (!container) return;
@@ -4918,7 +5069,6 @@
                         nickname: p.nickname,
                         lastActivity: p.lastActivity || 0,
                         isYou: uid === STATE.uid,
-                        // stats for modal
                         balance: p.balance,
                         elo: p.elo,
                         casesOpened: p.casesOpened,
@@ -4929,12 +5079,11 @@
                         clan: p.clan || ''
                     });
                 }
-                // sort by lastActivity descending
                 players.sort((a,b) => b.lastActivity - a.lastActivity);
 
                 let html = '';
                 for (const p of players) {
-                    const online = (Date.now() - p.lastActivity) < 5 * 60 * 1000; // 5 min
+                    const online = (Date.now() - p.lastActivity) < 5 * 60 * 1000;
                     const lastTime = p.lastActivity ? new Date(p.lastActivity).toLocaleString() : 'неизвестно';
                     html += `<div class="player-card">
                         <div>
@@ -4950,7 +5099,6 @@
                 }
                 container.innerHTML = html;
 
-                // Обработчики
                 container.querySelectorAll('.profile-btn').forEach(btn => {
                     btn.onclick = function() {
                         const uid = this.dataset.uid;
@@ -4972,7 +5120,17 @@
             });
     }
 
-    // ===== ПРОФИЛЬ ИГРОКА (модалка) =====
+    function startPlayersAutoUpdate() {
+        if (playersAutoUpdateInterval) clearInterval(playersAutoUpdateInterval);
+        playersAutoUpdateInterval = setInterval(() => {
+            const section = document.getElementById('section-players');
+            if (section && section.classList.contains('active')) {
+                renderPlayers();
+            }
+        }, 10000);
+    }
+
+    // ===== ПРОФИЛЬ ИГРОКА =====
     function showPlayerProfile(uid) {
         const modal = document.getElementById('profileModal');
         const content = document.getElementById('profileContent');
@@ -5013,7 +5171,7 @@
         };
     }
 
-    // ===== ИВЕНТ СКОРОСТИ (исправлен) =====
+    // ===== ИВЕНТ СКОРОСТИ =====
     const SPEED_REWARDS = [
         { speed: 10, coins: 50, cases: [{ id: 'animals', count: 1 }] },
         { speed: 25, coins: 75, cases: [{ id: 'muzhiki1', count: 1 }] },
@@ -5085,7 +5243,7 @@
         }
     }
 
-    // ===== МАГАЗИН =====
+    // ===== МАГАЗИН (исправлена покупка титулов с доплатой) =====
     function renderShop() {
         const container = document.getElementById('shopContent');
         if (!container) return;
@@ -5094,16 +5252,33 @@
         let html = '';
         if (activeTab === 'titles') {
             html = `<div class="shop-grid">`;
+            // Находим самый дорогой купленный титул (по полной цене)
+            let maxOwnedPrice = 0;
+            for (const titleId of STATE.titles) {
+                const t = STATE.titleList.find(t => t.id === titleId);
+                if (t && t.price > maxOwnedPrice) maxOwnedPrice = t.price;
+            }
             for (const title of STATE.titleList) {
                 const owned = STATE.titles.includes(title.id);
                 const isActive = STATE.currentTitle === title.id;
                 const priceWithDiscount = Math.floor(title.price * 0.8);
+                let buyPrice = priceWithDiscount;
+                if (owned) {
+                    buyPrice = 0; // уже куплен
+                } else {
+                    // Если есть купленные титулы, доплата = цена нового - цена самого дорогого купленного
+                    if (maxOwnedPrice > 0 && title.price > maxOwnedPrice) {
+                        buyPrice = Math.floor((title.price - maxOwnedPrice) * 0.8);
+                    } else if (maxOwnedPrice > 0 && title.price <= maxOwnedPrice) {
+                        buyPrice = 0; // можно бесплатно переключиться на дешёвый
+                    }
+                }
                 html += `<div class="shop-item">
                     <div class="shop-item-name">${title.name}</div>
-                    <div class="shop-item-price">${priceWithDiscount} ₽</div>
+                    <div class="shop-item-price">${buyPrice > 0 ? buyPrice + ' ₽' : (owned ? 'Куплен' : 'Бесплатно')}</div>
                     ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
-                    <button class="shop-buy-btn" data-type="title" data-id="${title.id}" ${owned ? 'disabled' : ''}>
-                        ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
+                    <button class="shop-buy-btn" data-type="title" data-id="${title.id}" ${owned ? 'disabled' : ''} data-price="${buyPrice}">
+                        ${owned ? (isActive ? 'Активен' : 'Куплен') : (buyPrice === 0 ? 'Взять' : 'Купить')}
                     </button>
                     ${owned && !isActive ? `<button class="shop-buy-btn" data-type="title_activate" data-id="${title.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
                 </div>`;
@@ -5141,11 +5316,14 @@
             if (type === 'title') {
                 const title = STATE.titleList.find(t => t.id === id);
                 if (!title) return;
-                const price = Math.floor(title.price * 0.8);
-                if (STATE.balance < price) { showToast('❌ Недостаточно рублей'); return; }
+                const price = parseInt(target.dataset.price) || 0;
+                if (price > 0 && STATE.balance < price) { showToast('❌ Недостаточно рублей'); return; }
                 if (STATE.titles.includes(id)) { showToast('Уже куплен'); return; }
-                STATE.balance -= price;
-                STATE.totalSpent += price;
+                // Проверим, есть ли уже купленные титулы
+                if (price > 0) {
+                    STATE.balance -= price;
+                    STATE.totalSpent += price;
+                }
                 STATE.titles.push(id);
                 STATE.currentTitle = id;
                 saveStateToFirebase();
@@ -5207,6 +5385,7 @@
         if (idEl) idEl.textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
         const rubyEl = document.getElementById('rubyDisplay');
         if (rubyEl) rubyEl.textContent = STATE.rubies;
+        // Убираем место в топе (удаляем из разметки) – уже убрано из HTML
         const clickerBal = document.getElementById('clickerBalance');
         if (clickerBal) clickerBal.textContent = STATE.balance;
         const clickerClicks = document.getElementById('clickerTotalClicks');
@@ -5215,7 +5394,6 @@
         renderCases();
         renderInventory();
         updateRankAndLevel();
-        if (document.getElementById('progressContainer') && document.getElementById('progressContainer').style.display !== 'none') updateProgressDisplay();
         renderSpeedEvent();
         document.querySelectorAll('.section').forEach(section => {
             if (section.id === 'tab-clicker') {
@@ -5387,6 +5565,7 @@
             }
         };
 
+        // Кнопки входа
         document.getElementById('loginBtn').onclick = function() {
             const nick = document.getElementById('loginNick').value.trim();
             const pass = document.getElementById('loginPass').value;
