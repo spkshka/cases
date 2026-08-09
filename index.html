@@ -1659,7 +1659,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2.1 — исправлены регистрация, мессенджер, события, покупка титулов</div>
+        <div class="update-announce">🔥 Обновление 1.2.1 — исправлена регистрация, мессенджер, форматирование чисел</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1952,16 +1952,16 @@
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (финальные исправления)</div>
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.2.1 (исправления)</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>🐛 Исправлена регистрация – больше не пишет "ник занят" для новых ников</li>
-                        <li>💬 Мессенджер: сообщения теперь отображаются мгновенно после отправки</li>
+                        <li>🐛 Исправлена регистрация – теперь корректно создаются аккаунты</li>
+                        <li>💬 Мессенджер: исправлено отображение времени и имени отправителя</li>
+                        <li>📊 В профиле числа теперь отображаются с 1 знаком после запятой (например, 162.1 км/ч)</li>
                         <li>🔇 Убран звук при просмотре шансов</li>
                         <li>🚫 Удалён промокод MOROLS</li>
-                        <li>👑 Покупка титулов: теперь можно доплатить разницу, если уже есть титул</li>
-                        <li>🔄 Список игроков обновляется каждые 10 секунд</li>
-                        <li>📊 Прогресс "До Pro" теперь показывает проценты до 3000 опыта</li>
-                        <li>📢 Добавлены события: достижения игроков выводятся в реальном времени</li>
+                        <li>👑 Покупка титулов с доплатой (разница цен)</li>
+                        <li>🔄 Автообновление списка игроков каждые 10 секунд</li>
+                        <li>📢 События в реальном времени</li>
                         <li>🏆 Убран пустой "место в топе" в верхней панели</li>
                     </ul>
                 </div>
@@ -2438,10 +2438,9 @@
     function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
     function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
 
-    // ===== ВХОД =====
+    // ===== ВХОД И РЕГИСТРАЦИЯ =====
     function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
-    // ===== ИСПРАВЛЕННАЯ РЕГИСТРАЦИЯ =====
     function registerUser(nick, password) {
         const status = document.getElementById('loginError');
         if (!status) return;
@@ -2450,11 +2449,12 @@
         if (password.length < 6) {
             status.textContent = '❌ Пароль не менее 6 символов';
             status.className = 'error';
+            document.getElementById('loadingStatus').classList.add('hidden');
             return;
         }
         const email = getEmail(nick);
 
-        // Сначала проверим ник
+        // Проверяем ник
         fetch(DB_URL + '/nicknames/' + nick + '.json')
             .then(res => res.json())
             .then(data => {
@@ -2465,26 +2465,20 @@
                         .then(res => res.json())
                         .then(userData => {
                             if (userData && userData.nickname) {
-                                // Пользователь существует
                                 addLog('❌ Ник уже занят');
                                 status.textContent = '❌ Ник уже занят';
                                 status.className = 'error';
                                 document.getElementById('loadingStatus').classList.add('hidden');
                                 return null;
                             } else {
-                                // Пользователь не существует, удаляем запись и продолжаем
+                                // Удаляем мёртвую запись
                                 addLog('🧹 Найдена мёртвая запись нике, удаляем...');
-                                return fetch(DB_URL + '/nicknames/' + nick + '.json', {
-                                    method: 'DELETE',
-                                    auth: currentUser?.idToken || ''
-                                }).then(() => {
-                                    // Теперь ник свободен
-                                    return true;
-                                });
+                                return fetch(DB_URL + '/nicknames/' + nick + '.json', { method: 'DELETE' })
+                                    .then(() => true);
                             }
                         });
                 } else {
-                    return true; // ник свободен
+                    return true;
                 }
             })
             .then(canProceed => {
@@ -2498,81 +2492,63 @@
                 .then(res => res.json())
                 .then(authData => {
                     if (authData.error) {
-                        addLog('❌ Ошибка Auth: ' + authData.error.message);
-                        status.textContent = '❌ ' + authData.error.message;
-                        status.className = 'error';
-                        document.getElementById('loadingStatus').classList.add('hidden');
-                        return;
+                        if (authData.error.message === 'EMAIL_EXISTS') {
+                            // Учётная запись уже существует, но профиля нет – пробуем войти и создать профиль
+                            addLog('ℹ️ Email уже существует, пытаемся войти...');
+                            return fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email, password, returnSecureToken: true })
+                            })
+                            .then(res => res.json())
+                            .then(loginData => {
+                                if (loginData.error) {
+                                    addLog('❌ Ошибка входа: ' + loginData.error.message);
+                                    status.textContent = '❌ ' + loginData.error.message;
+                                    status.className = 'error';
+                                    document.getElementById('loadingStatus').classList.add('hidden');
+                                    return null;
+                                }
+                                const uid = loginData.localId;
+                                const idToken = loginData.idToken;
+                                // Проверяем, есть ли профиль
+                                return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken)
+                                    .then(res => res.json())
+                                    .then(profile => {
+                                        if (profile && profile.nickname) {
+                                            addLog('✅ Профиль уже существует, войдите');
+                                            status.textContent = '✅ Аккаунт уже существует, войдите';
+                                            status.className = 'success';
+                                            document.getElementById('loadingStatus').classList.add('hidden');
+                                            return null;
+                                        } else {
+                                            // Создаём профиль
+                                            addLog('📝 Создаём профиль для существующего аккаунта');
+                                            return createProfile(uid, idToken, nick);
+                                        }
+                                    });
+                            });
+                        } else {
+                            addLog('❌ Ошибка Auth: ' + authData.error.message);
+                            status.textContent = '❌ ' + authData.error.message;
+                            status.className = 'error';
+                            document.getElementById('loadingStatus').classList.add('hidden');
+                            return null;
+                        }
                     }
                     const uid = authData.localId;
                     const idToken = authData.idToken;
                     addLog('✅ Аккаунт создан, UID: ' + uid);
-
-                    const profile = {
-                        nickname: nick,
-                        balance: 500,
-                        elo: 1000,
-                        maxBalance: 500,
-                        maxElo: 1000,
-                        totalEarned: 0,
-                        totalSpent: 0,
-                        casesOpened: 0,
-                        maxCasesOpened: 0,
-                        totalClicks: 0,
-                        inventory: [],
-                        achievements: [],
-                        registrationDate: Date.now(),
-                        settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
-                        morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
-                        plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
-                        exp: 0,
-                        level: 1,
-                        clan: '',
-                        freeOpens: {},
-                        promoUsed: false,
-                        eloBoosted: false,
-                        marketBuys: 0,
-                        marketSells: 0,
-                        nickChanged: false,
-                        easterFound: false,
-                        topElo: false,
-                        eloInitialized: true,
-                        muzhikiRestored: false,
-                        eloPromoUsed: false,
-                        welcomeShown: false,
-                        season: 1,
-                        friends: [], blocked: [], clanId: null, clanRole: null,
-                        messages: {}, trades: [], clanWar: null,
-                        posts: [], userStatus: 'all', chatStatus: {},
-                        totalLikes: 0, totalComments: 0, totalMessages: 0,
-                        speedEvent: { claimed: {} },
-                        rubies: 0, totalRubies: 0,
-                        titles: [],
-                        currentTitle: null,
-                        morolsSkins: [],
-                        currentMorolsSkin: null,
-                        lastActivity: Date.now()
-                    };
-                    const updates = {};
-                    updates['/users/' + uid] = profile;
-                    updates['/nicknames/' + nick] = uid;
-                    addLog('⏳ Сохраняем профиль в БД...');
-                    return fetch(DB_URL + '.json?auth=' + idToken, {
-                        method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updates)
-                    });
+                    return createProfile(uid, idToken, nick);
                 });
             })
-            .then(res => {
-                if (res && res.ok) {
+            .then(result => {
+                if (result && result.success) {
                     addLog('✅ Регистрация успешна!');
                     status.textContent = '✅ Регистрация успешна! Теперь войдите.';
                     status.className = 'success';
-                } else if (res) {
-                    addLog('❌ Ошибка сохранения профиля');
-                    status.textContent = '❌ Ошибка сохранения профиля';
-                    status.className = 'error';
+                    // Попробуем сразу войти
+                    loginUser(nick, password);
                 }
                 document.getElementById('loadingStatus').classList.add('hidden');
             })
@@ -2584,7 +2560,75 @@
             });
     }
 
-    // ===== ЛОГИН =====
+    function createProfile(uid, idToken, nick) {
+        const profile = {
+            nickname: nick,
+            balance: 500,
+            elo: 1000,
+            maxBalance: 500,
+            maxElo: 1000,
+            totalEarned: 0,
+            totalSpent: 0,
+            casesOpened: 0,
+            maxCasesOpened: 0,
+            totalClicks: 0,
+            inventory: [],
+            achievements: [],
+            registrationDate: Date.now(),
+            settings: { theme: 'windows7', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+            morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
+            plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
+            exp: 0,
+            level: 1,
+            clan: '',
+            freeOpens: {},
+            promoUsed: false,
+            eloBoosted: false,
+            marketBuys: 0,
+            marketSells: 0,
+            nickChanged: false,
+            easterFound: false,
+            topElo: false,
+            eloInitialized: true,
+            muzhikiRestored: false,
+            eloPromoUsed: false,
+            welcomeShown: false,
+            season: 1,
+            friends: [], blocked: [], clanId: null, clanRole: null,
+            messages: {}, trades: [], clanWar: null,
+            posts: [], userStatus: 'all', chatStatus: {},
+            totalLikes: 0, totalComments: 0, totalMessages: 0,
+            speedEvent: { claimed: {} },
+            rubies: 0, totalRubies: 0,
+            titles: [],
+            currentTitle: null,
+            morolsSkins: [],
+            currentMorolsSkin: null,
+            lastActivity: Date.now()
+        };
+        const updates = {};
+        updates['/users/' + uid] = profile;
+        updates['/nicknames/' + nick] = uid;
+        return fetch(DB_URL + '.json?auth=' + idToken, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updates)
+        })
+        .then(res => {
+            if (res.ok) {
+                addLog('✅ Профиль сохранён');
+                return { success: true, uid, idToken };
+            } else {
+                addLog('❌ Ошибка сохранения профиля');
+                return { success: false };
+            }
+        })
+        .catch(err => {
+            addLog('❌ Ошибка сохранения: ' + err.message);
+            return { success: false };
+        });
+    }
+
     function loginUser(nick, password) {
         const status = document.getElementById('loginError');
         if (!status) return;
@@ -2614,7 +2658,7 @@
                 .then(profile => {
                     if (!profile || profile.nickname !== nick) {
                         addLog('❌ Профиль не найден или ник не совпадает');
-                        status.textContent = '❌ Неверный ник или пароль';
+                        status.textContent = '❌ Профиль не найден. Попробуйте зарегистрироваться.';
                         status.className = 'error';
                         document.getElementById('loadingStatus').classList.add('hidden');
                         return;
@@ -2734,9 +2778,7 @@
                 try { renderSpeedEvent(); } catch(e) { addLog('⚠️ renderSpeedEvent: ' + e.message); }
                 try { renderShop(); } catch(e) { addLog('⚠️ renderShop: ' + e.message); }
                 try { renderPlayers(); } catch(e) { addLog('⚠️ renderPlayers: ' + e.message); }
-                // Подписка на события
                 initEventListeners();
-                // Автообновление игроков
                 startPlayersAutoUpdate();
             }, 50);
 
@@ -3050,7 +3092,6 @@
         document.getElementById('chanceClose').onclick = () => modal.classList.remove('open');
         modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
         // Убираем звук
-        // sfxClick(); // удалено
     }
 
     // ===== ИНВЕНТАРЬ =====
@@ -3061,7 +3102,6 @@
             const countEl = document.getElementById('invCount');
             const grouped = STATE.inventoryGrouped;
 
-            // Display free opens
             const freeDisplay = document.getElementById('freeOpensDisplay');
             if (freeDisplay) {
                 let html = 'Бесплатные открытия: ';
@@ -3129,7 +3169,6 @@
             grid.innerHTML = html;
             if (countEl) countEl.textContent = STATE.inventory.length;
 
-            // Делегирование событий
             grid.addEventListener('click', function(e) {
                 const target = e.target.closest('button');
                 if (!target) return;
@@ -3300,7 +3339,6 @@
 
                 container.innerHTML = html;
 
-                // Делегирование для кнопок рынка
                 container.addEventListener('click', function(e) {
                     const target = e.target.closest('button');
                     if (!target) return;
@@ -3615,7 +3653,6 @@
                 sfxAchievement();
                 addExp(5);
                 addLog('🏆 Получено достижение: ' + ach.name);
-                // Проверяем, не пора ли отправить событие
                 checkAndSendEvent(ach.id);
             }
         }
@@ -3639,7 +3676,6 @@
 
     // ===== СОБЫТИЯ =====
     function initEventListeners() {
-        // Слушаем новые события в узле /events
         const eventsRef = DB_URL + '/events.json?auth=' + currentUser.idToken;
         fetch(eventsRef)
             .then(res => res.json())
@@ -3653,7 +3689,6 @@
             })
             .catch(err => addLog('⚠️ Ошибка загрузки событий: ' + err.message));
 
-        // Подписываемся на новые события через polling (так как Firebase Realtime не поддерживает on в этом коде)
         setInterval(() => {
             fetch(eventsRef)
                 .then(res => res.json())
@@ -3671,7 +3706,6 @@
     }
 
     function checkAndSendEvent(achievementId) {
-        // События для достижений
         const eventMap = {
             'elo1500': 'игрок ' + STATE.nickname + ' достиг 1500 Эло! 🎉',
             'elo2000': 'игрок ' + STATE.nickname + ' достиг 2000 Эло! 🔥',
@@ -4149,7 +4183,6 @@
         ctx.beginPath(); ctx.moveTo(0, 280); ctx.lineTo(600, 280); ctx.stroke();
         ctx.setLineDash([]);
 
-        // Рисуем прямоугольник с цветом скина
         const skin = STATE.morolsSkinList.find(s => s.id === (STATE.currentMorolsSkin || 'default'));
         const color = skin ? skin.color : '#4a8aba';
         let fillStyle;
@@ -4713,7 +4746,7 @@
         }
     }
 
-    // ===== ПРОМОКОДЫ (исправлены) =====
+    // ===== ПРОМОКОДЫ =====
     document.getElementById('applyPromoBtn').onclick = function() {
         const input = document.getElementById('promoInput');
         if (!input) return;
@@ -4769,7 +4802,7 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР (исправлен: добавлена локальная вставка сообщения) =====
+    // ===== МЕССЕНДЖЕР (исправлен: отображение времени и имени) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
     let chatPartnerName = '';
@@ -4796,9 +4829,7 @@
         }
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
-        // Сначала показываем локальные сообщения, если есть
         let msgs = STATE.messages[chatId] || [];
-        // Если локально пусто, загружаем с сервера
         if (msgs.length === 0) {
             fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
                 .then(res => res.json())
@@ -4834,7 +4865,7 @@
             } else {
                 for (const msg of msgs) {
                     const isSelf = (msg.sender === STATE.uid);
-                    const time = new Date(msg.timestamp).toLocaleTimeString();
+                    const time = msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : 'неизвестно';
                     const senderName = isSelf ? 'Вы' : (msg.senderName || 'Собеседник');
                     html += `<div class="msg ${isSelf ? 'self' : ''}">
                         <span class="time">${time}</span>
@@ -4852,7 +4883,6 @@
     function loadChatPartner(partnerUid, partnerName) {
         currentChatPartner = partnerUid;
         chatPartnerName = partnerName || 'Собеседник';
-        // Загружаем сообщения при открытии
         const chatId = [STATE.uid, partnerUid].sort().join('_');
         fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
             .then(res => res.json())
@@ -4894,10 +4924,9 @@
             text: text,
             timestamp: Date.now()
         };
-        // Добавляем локально сразу
         if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
         STATE.messages[chatId].push(msg);
-        renderMessenger(); // сразу показываем
+        renderMessenger();
 
         fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken, {
             method: 'POST',
@@ -4909,7 +4938,6 @@
             input.value = '';
             STATE.totalMessages = (STATE.totalMessages || 0) + 1;
             saveStateToFirebase();
-            // Обновляем, чтобы синхронизировать с сервером (вдруг что-то изменилось)
             renderMessenger();
             addLog('💬 Сообщение отправлено');
             showNotification('✉️ Сообщение отправлено ' + chatPartnerName);
@@ -4925,7 +4953,6 @@
         messengerPollingInterval = setInterval(() => {
             const section = document.getElementById('section-messenger');
             if (section && section.classList.contains('active') && currentUser && currentChatPartner) {
-                // Обновляем сообщения с сервера, но не перезаписываем локальные, а сливаем
                 const chatId = [STATE.uid, currentChatPartner].sort().join('_');
                 fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
                     .then(res => res.json())
@@ -4939,7 +4966,6 @@
                             }
                         }
                         serverMsgs.sort((a, b) => a.timestamp - b.timestamp);
-                        // Объединяем с локальными (по timestamp)
                         const localMsgs = STATE.messages[chatId] || [];
                         const allMsgs = [...localMsgs];
                         for (const sm of serverMsgs) {
@@ -5151,8 +5177,8 @@
                     <div class="profile-row"><span>Рубины</span><span>${p.rubies}</span></div>
                     <div class="profile-row"><span>Эло</span><span>${p.elo}</span></div>
                     <div class="profile-row"><span>Открыто кейсов</span><span>${p.casesOpened}</span></div>
-                    <div class="profile-row"><span>Макс. скорость</span><span>${p.morols?.maxSpeed || 0} км/ч</span></div>
-                    <div class="profile-row"><span>XP Самолёт</span><span>${p.plane?.xp || 0}</span></div>
+                    <div class="profile-row"><span>Макс. скорость</span><span>${(p.morols?.maxSpeed || 0).toFixed(1)} км/ч</span></div>
+                    <div class="profile-row"><span>XP Самолёт</span><span>${(p.plane?.xp || 0).toFixed(1)}</span></div>
                     <div class="profile-row"><span>Достижений</span><span>${p.achievements ? p.achievements.length : 0}</span></div>
                     <div class="profile-row"><span>Титул</span><span>${p.currentTitle ? STATE.titleList.find(t=>t.id===p.currentTitle)?.name || '—' : '—'}</span></div>
                     <div class="profile-row"><span>Последняя активность</span><span>${p.lastActivity ? new Date(p.lastActivity).toLocaleString() : 'неизвестно'}</span></div>
@@ -5252,7 +5278,6 @@
         let html = '';
         if (activeTab === 'titles') {
             html = `<div class="shop-grid">`;
-            // Находим самый дорогой купленный титул (по полной цене)
             let maxOwnedPrice = 0;
             for (const titleId of STATE.titles) {
                 const t = STATE.titleList.find(t => t.id === titleId);
@@ -5264,13 +5289,12 @@
                 const priceWithDiscount = Math.floor(title.price * 0.8);
                 let buyPrice = priceWithDiscount;
                 if (owned) {
-                    buyPrice = 0; // уже куплен
+                    buyPrice = 0;
                 } else {
-                    // Если есть купленные титулы, доплата = цена нового - цена самого дорогого купленного
                     if (maxOwnedPrice > 0 && title.price > maxOwnedPrice) {
                         buyPrice = Math.floor((title.price - maxOwnedPrice) * 0.8);
                     } else if (maxOwnedPrice > 0 && title.price <= maxOwnedPrice) {
-                        buyPrice = 0; // можно бесплатно переключиться на дешёвый
+                        buyPrice = 0;
                     }
                 }
                 html += `<div class="shop-item">
@@ -5319,7 +5343,6 @@
                 const price = parseInt(target.dataset.price) || 0;
                 if (price > 0 && STATE.balance < price) { showToast('❌ Недостаточно рублей'); return; }
                 if (STATE.titles.includes(id)) { showToast('Уже куплен'); return; }
-                // Проверим, есть ли уже купленные титулы
                 if (price > 0) {
                     STATE.balance -= price;
                     STATE.totalSpent += price;
@@ -5385,7 +5408,6 @@
         if (idEl) idEl.textContent = (STATE.userId !== null) ? '#' + STATE.userId : '—';
         const rubyEl = document.getElementById('rubyDisplay');
         if (rubyEl) rubyEl.textContent = STATE.rubies;
-        // Убираем место в топе (удаляем из разметки) – уже убрано из HTML
         const clickerBal = document.getElementById('clickerBalance');
         if (clickerBal) clickerBal.textContent = STATE.balance;
         const clickerClicks = document.getElementById('clickerTotalClicks');
@@ -5565,7 +5587,6 @@
             }
         };
 
-        // Кнопки входа
         document.getElementById('loginBtn').onclick = function() {
             const nick = document.getElementById('loginNick').value.trim();
             const pass = document.getElementById('loginPass').value;
