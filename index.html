@@ -1659,7 +1659,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.2.1 — исправлена регистрация, мессенджер, форматирование чисел</div>
+        <div class="update-announce">🔥 Обновление 1.2.1 — исправлены регистрация и мессенджер</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1956,13 +1956,14 @@
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
                         <li>🐛 Исправлена регистрация – теперь корректно создаются аккаунты</li>
                         <li>💬 Мессенджер: исправлено отображение времени и имени отправителя</li>
-                        <li>📊 В профиле числа теперь отображаются с 1 знаком после запятой (например, 162.1 км/ч)</li>
+                        <li>💬 Мессенджер: теперь пробелы работают</li>
+                        <li>💬 Мессенджер: сообщения сохраняются после перезагрузки</li>
+                        <li>📊 В профиле числа теперь с 1 знаком после запятой</li>
                         <li>🔇 Убран звук при просмотре шансов</li>
                         <li>🚫 Удалён промокод MOROLS</li>
                         <li>👑 Покупка титулов с доплатой (разница цен)</li>
                         <li>🔄 Автообновление списка игроков каждые 10 секунд</li>
                         <li>📢 События в реальном времени</li>
-                        <li>🏆 Убран пустой "место в топе" в верхней панели</li>
                     </ul>
                 </div>
             </section>
@@ -2438,9 +2439,10 @@
     function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
     function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
 
-    // ===== ВХОД И РЕГИСТРАЦИЯ =====
+    // ===== ВХОД И РЕГИСТРАЦИЯ (исправлены) =====
     function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
+    // Полностью переписанная регистрация
     function registerUser(nick, password) {
         const status = document.getElementById('loginError');
         if (!status) return;
@@ -2454,24 +2456,25 @@
         }
         const email = getEmail(nick);
 
-        // Проверяем ник
+        // Сначала удаляем мёртвые записи ников (если есть)
         fetch(DB_URL + '/nicknames/' + nick + '.json')
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    // Ник занят, проверим, существует ли пользователь
+                    // Проверим, существует ли пользователь
                     const uid = data;
                     return fetch(DB_URL + '/users/' + uid + '.json')
                         .then(res => res.json())
                         .then(userData => {
                             if (userData && userData.nickname) {
+                                // Пользователь существует - ник занят
                                 addLog('❌ Ник уже занят');
                                 status.textContent = '❌ Ник уже занят';
                                 status.className = 'error';
                                 document.getElementById('loadingStatus').classList.add('hidden');
                                 return null;
                             } else {
-                                // Удаляем мёртвую запись
+                                // Мёртвая запись - удаляем
                                 addLog('🧹 Найдена мёртвая запись нике, удаляем...');
                                 return fetch(DB_URL + '/nicknames/' + nick + '.json', { method: 'DELETE' })
                                     .then(() => true);
@@ -2483,63 +2486,55 @@
             })
             .then(canProceed => {
                 if (!canProceed) return;
-                // Создаём аккаунт
-                return fetch(AUTH_URL + ':signUp?key=' + API_KEY, {
+
+                // Проверяем, не существует ли email в Firebase Auth
+                return fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, returnSecureToken: true })
                 })
                 .then(res => res.json())
                 .then(authData => {
-                    if (authData.error) {
-                        if (authData.error.message === 'EMAIL_EXISTS') {
-                            // Учётная запись уже существует, но профиля нет – пробуем войти и создать профиль
-                            addLog('ℹ️ Email уже существует, пытаемся войти...');
-                            return fetch(AUTH_URL + ':signInWithPassword?key=' + API_KEY, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ email, password, returnSecureToken: true })
-                            })
+                    if (!authData.error) {
+                        // Email уже существует! Проверяем профиль
+                        const uid = authData.localId;
+                        return fetch(DB_URL + '/users/' + uid + '.json?auth=' + authData.idToken)
                             .then(res => res.json())
-                            .then(loginData => {
-                                if (loginData.error) {
-                                    addLog('❌ Ошибка входа: ' + loginData.error.message);
-                                    status.textContent = '❌ ' + loginData.error.message;
+                            .then(profile => {
+                                if (profile && profile.nickname) {
+                                    addLog('❌ Аккаунт уже существует!');
+                                    status.textContent = '❌ Аккаунт уже существует! Войдите.';
                                     status.className = 'error';
                                     document.getElementById('loadingStatus').classList.add('hidden');
                                     return null;
+                                } else {
+                                    // Создаём профиль для существующего аккаунта
+                                    addLog('📝 Создаём профиль для существующего аккаунта');
+                                    return createProfile(uid, authData.idToken, nick);
                                 }
-                                const uid = loginData.localId;
-                                const idToken = loginData.idToken;
-                                // Проверяем, есть ли профиль
-                                return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken)
-                                    .then(res => res.json())
-                                    .then(profile => {
-                                        if (profile && profile.nickname) {
-                                            addLog('✅ Профиль уже существует, войдите');
-                                            status.textContent = '✅ Аккаунт уже существует, войдите';
-                                            status.className = 'success';
-                                            document.getElementById('loadingStatus').classList.add('hidden');
-                                            return null;
-                                        } else {
-                                            // Создаём профиль
-                                            addLog('📝 Создаём профиль для существующего аккаунта');
-                                            return createProfile(uid, idToken, nick);
-                                        }
-                                    });
                             });
-                        } else {
-                            addLog('❌ Ошибка Auth: ' + authData.error.message);
-                            status.textContent = '❌ ' + authData.error.message;
-                            status.className = 'error';
-                            document.getElementById('loadingStatus').classList.add('hidden');
-                            return null;
-                        }
+                    } else {
+                        // Email не существует - создаём новый аккаунт
+                        return fetch(AUTH_URL + ':signUp?key=' + API_KEY, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password, returnSecureToken: true })
+                        })
+                        .then(res => res.json())
+                        .then(signUpData => {
+                            if (signUpData.error) {
+                                addLog('❌ Ошибка создания: ' + signUpData.error.message);
+                                status.textContent = '❌ ' + signUpData.error.message;
+                                status.className = 'error';
+                                document.getElementById('loadingStatus').classList.add('hidden');
+                                return null;
+                            }
+                            const uid = signUpData.localId;
+                            const idToken = signUpData.idToken;
+                            addLog('✅ Аккаунт создан, UID: ' + uid);
+                            return createProfile(uid, idToken, nick);
+                        });
                     }
-                    const uid = authData.localId;
-                    const idToken = authData.idToken;
-                    addLog('✅ Аккаунт создан, UID: ' + uid);
-                    return createProfile(uid, idToken, nick);
                 });
             })
             .then(result => {
@@ -2547,8 +2542,10 @@
                     addLog('✅ Регистрация успешна!');
                     status.textContent = '✅ Регистрация успешна! Теперь войдите.';
                     status.className = 'success';
-                    // Попробуем сразу войти
+                    // Автоматически входим
                     loginUser(nick, password);
+                } else if (result !== null && !result.success) {
+                    // Ошибка уже обработана
                 }
                 document.getElementById('loadingStatus').classList.add('hidden');
             })
@@ -3091,7 +3088,6 @@
         modal.classList.add('open');
         document.getElementById('chanceClose').onclick = () => modal.classList.remove('open');
         modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
-        // Убираем звук
     }
 
     // ===== ИНВЕНТАРЬ =====
@@ -4802,7 +4798,7 @@
         }
     };
 
-    // ===== МЕССЕНДЖЕР (исправлен: отображение времени и имени) =====
+    // ===== МЕССЕНДЖЕР (исправлен) =====
     let currentChatPartner = null;
     let messengerPollingInterval = null;
     let chatPartnerName = '';
@@ -4829,7 +4825,9 @@
         }
 
         const chatId = [STATE.uid, currentChatPartner].sort().join('_');
+        // Загружаем сообщения из состояния
         let msgs = STATE.messages[chatId] || [];
+        // Если локально пусто, загружаем с сервера
         if (msgs.length === 0) {
             fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
                 .then(res => res.json())
@@ -4884,6 +4882,7 @@
         currentChatPartner = partnerUid;
         chatPartnerName = partnerName || 'Собеседник';
         const chatId = [STATE.uid, partnerUid].sort().join('_');
+        // Загружаем сообщения с сервера
         fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken)
             .then(res => res.json())
             .then(data => {
@@ -4924,10 +4923,12 @@
             text: text,
             timestamp: Date.now()
         };
+        // Сохраняем локально
         if (!STATE.messages[chatId]) STATE.messages[chatId] = [];
         STATE.messages[chatId].push(msg);
         renderMessenger();
 
+        // Отправляем на сервер
         fetch(DB_URL + '/messages/' + chatId + '.json?auth=' + currentUser.idToken, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -5269,7 +5270,7 @@
         }
     }
 
-    // ===== МАГАЗИН (исправлена покупка титулов с доплатой) =====
+    // ===== МАГАЗИН =====
     function renderShop() {
         const container = document.getElementById('shopContent');
         if (!container) return;
