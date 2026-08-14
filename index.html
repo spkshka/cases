@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TTP кейсы — версия 1.3</title>
+    <title>TTP кейсы — версия 1.3.1</title>
     <style>
         /* ===== ОБЩИЕ СБРОСЫ ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -131,11 +131,11 @@
         body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover,
         body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover,
         body.theme-windows11 .clan-create-btn:hover, body.theme-windows11 .shop-buy-btn:hover { background: #106ebe; }
-        body.theme-dark { background: #0a0a0a; color: #c0c0c0; }
+        body.theme-dark { background: #0a0a0a; color: #000; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
         body.theme-dark .header { border-bottom-color: #333; }
         body.theme-dark .header h1 { color: #fff; }
-        body.theme-dark .nav button { background: #222; border: 1px solid #444; color: #ccc; }
+        body.theme-dark .nav button { background: #222; border: 1px solid #444; color: #000; }
         body.theme-dark .nav button.active { background: #444; color: #fff; }
         body.theme-dark .top-bar { background: #222; border-color: #444; }
         body.theme-dark .case-card, body.theme-dark .inv-item,
@@ -145,10 +145,150 @@
         body.theme-dark .player-card { background: #222; border-color: #444; }
         body.theme-dark .open-btn, body.theme-dark .market-listing .price button,
         body.theme-dark .click-btn, body.theme-dark .modal-buttons button,
-        body.theme-dark .clan-create-btn, body.theme-dark .shop-buy-btn { background: #444; color: #fff; border: 1px solid #666; }
+        body.theme-dark .clan-create-btn, body.theme-dark .shop-buy-btn { background: #444; color: #000; border: 1px solid #666; }
         body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover,
         body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover,
         body.theme-dark .clan-create-btn:hover, body.theme-dark .shop-buy-btn:hover { background: #555; }
+        /* НОВАЯ ТЕМА: тёмная с белым текстом */
+        body.theme-dark_white { background: #0a0a0a; color: #f0f0f0; }
+        body.theme-dark_white #app { background: #1a1a1a; border: 1px solid #444; }
+        body.theme-dark_white .header { border-bottom-color: #444; }
+        body.theme-dark_white .header h1 { color: #fff; }
+        body.theme-dark_white .header .version { color: #ccc !important; }
+        body.theme-dark_white .nav button { background: #2a2a2a; border: 1px solid #555; color: #f0f0f0; }
+        body.theme-dark_white .nav button.active { background: #555; color: #fff; }
+        body.theme-dark_white .top-bar { background: #222; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .top-bar .stat .value { color: #fff; }
+        body.theme-dark_white .top-bar .clock { color: #fff; background: #2a2a2a; border-color: #555; }
+        body.theme-dark_white .case-card, body.theme-dark_white .inv-item,
+        body.theme-dark_white .market-listing, body.theme-dark_white .account-info,
+        body.theme-dark_white .game-wrap, body.theme-dark_white .clicker-wrap,
+        body.theme-dark_white .clan-simple, body.theme-dark_white .shop-item,
+        body.theme-dark_white .player-card { background: #222; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .case-card .case-price { color: #aaa; }
+        body.theme-dark_white .case-card .case-name { color: #fff; }
+        body.theme-dark_white .open-btn, body.theme-dark_white .market-listing .price button,
+        body.theme-dark_white .click-btn, body.theme-dark_white .modal-buttons button,
+        body.theme-dark_white .clan-create-btn, body.theme-dark_white .shop-buy-btn { background: #555; color: #fff; border: 1px solid #777; }
+        body.theme-dark_white .open-btn:hover, body.theme-dark_white .market-listing .price button:hover,
+        body.theme-dark_white .click-btn:hover, body.theme-dark_white .modal-buttons button:hover,
+        body.theme-dark_white .clan-create-btn:hover, body.theme-dark_white .shop-buy-btn:hover { background: #666; }
+        body.theme-dark_white .inv-item .item-count { color: #aaa; }
+        body.theme-dark_white .inv-item .item-rarity { color: #999; }
+        body.theme-dark_white .market-listing .info .details .seller { color: #999; }
+        body.theme-dark_white .market-listing .price { color: #fff; }
+        body.theme-dark_white .inv-empty { color: #aaa; }
+        body.theme-dark_white .account-info .row .label { color: #aaa; }
+        body.theme-dark_white .account-info .row .value { color: #fff; }
+        body.theme-dark_white .settings-group .desc { color: #aaa; }
+        body.theme-dark_white .footer-note { color: #888; border-top-color: #444; }
+        body.theme-dark_white .footer-note a { color: #4a8aba; }
+        body.theme-dark_white .title { border-bottom-color: #444; color: #fff; }
+        body.theme-dark_white .title .badge { color: #aaa; }
+        body.theme-dark_white .tab-bar button { background: #2a2a2a; border-color: #555; color: #ccc; }
+        body.theme-dark_white .tab-bar button.active { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .tab-bar button:hover { background: #3a3a3a; }
+        body.theme-dark_white .game-wrap .game-stats { background: #2a2a2a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .game-wrap .game-controls button { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .game-wrap .game-controls button:hover { background: #3a3a3a; }
+        body.theme-dark_white .game-touch-controls button { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .clicker-wrap .clicker-stats { color: #f0f0f0; }
+        body.theme-dark_white .clicker-wrap .click-timer { color: #aaa; }
+        body.theme-dark_white .market-sort select { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .market-sell-form { background: #2a2a2a; border-color: #444; }
+        body.theme-dark_white .market-sell-form select, body.theme-dark_white .market-sell-form input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .market-tabs button { background: #2a2a2a; border-color: #555; color: #ccc; }
+        body.theme-dark_white .market-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .market-tabs button:hover { background: #3a3a3a; }
+        body.theme-dark_white .rank-item { border-bottom-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .rank-item .pos { color: #aaa; }
+        body.theme-dark_white .rank-item .pos.gold { color: #f0d070; }
+        body.theme-dark_white .rank-item .pos.silver { color: #c0c0c0; }
+        body.theme-dark_white .rank-item .pos.bronze { color: #cd7f32; }
+        body.theme-dark_white .rank-item .name { color: #f0f0f0; }
+        body.theme-dark_white .rank-item .value { color: #fff; }
+        body.theme-dark_white .rank-item.you { background: #2a2a3a; border-color: #555; }
+        body.theme-dark_white .settings-group input[type="range"] { background: #444; }
+        body.theme-dark_white .settings-group input[type="range"]::-webkit-slider-thumb { background: #777; }
+        body.theme-dark_white .settings-group .color-grid .color-btn { border-color: #555; }
+        body.theme-dark_white .settings-group .color-grid .color-btn.active { border-color: #fff; }
+        body.theme-dark_white .toggle { background: #444; border-color: #555; }
+        body.theme-dark_white .toggle.on { background: #555; }
+        body.theme-dark_white .clan-simple .clan-name { color: #fff; }
+        body.theme-dark_white .clan-simple .clan-input-row input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .clan-simple .clan-input-row button { background: #555; color: #fff; }
+        body.theme-dark_white .clan-simple .clan-input-row button.clear { background: #883333; }
+        body.theme-dark_white .shop-item .shop-item-name { color: #fff; }
+        body.theme-dark_white .shop-item .shop-item-price { color: #aaa; }
+        body.theme-dark_white .shop-item .owned { color: #4a8a4a; }
+        body.theme-dark_white .modal-buttons button { background: #555; color: #fff; }
+        body.theme-dark_white .modal-buttons button:hover { background: #666; }
+        body.theme-dark_white .case-modal { background: #1a1a1a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .case-modal .modal-title { color: #fff; }
+        body.theme-dark_white .case-modal .close-btn { color: #aaa; }
+        body.theme-dark_white .case-modal .close-btn:hover { color: #fff; }
+        body.theme-dark_white .slot-container { background: #2a2a2a; border-color: #444; }
+        body.theme-dark_white .slot-item { color: #aaa; }
+        body.theme-dark_white .slot-item.active { color: #fff; background: rgba(255,255,255,0.05); }
+        body.theme-dark_white .slot-item.highlight { color: #f0d070; background: rgba(240,208,112,0.15); }
+        body.theme-dark_white .result-display { border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .result-display .result-name { color: #fff; }
+        body.theme-dark_white .result-display .result-rare { color: #aaa; }
+        body.theme-dark_white .free-opens-display { background: #2a2a2a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .free-opens-display .free-item { background: #4a6a4a; color: #fff; }
+        body.theme-dark_white .update-announce { background: #2a2a2a; border-color: #f0d070; color: #f0d070; }
+        body.theme-dark_white .wipe-banner { background: #883333; color: #fff; border-color: #ffaa00; }
+        body.theme-dark_white .achieve-item { border-color: #444; color: #666; }
+        body.theme-dark_white .achieve-item.unlocked { border-color: #f0d070; color: #f0f0f0; }
+        body.theme-dark_white .account-actions button { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .account-actions button:hover { background: #3a3a3a; }
+        body.theme-dark_white .account-actions .danger { background: #883333; color: #fff; border-color: #aa4444; }
+        body.theme-dark_white .account-actions .danger:hover { background: #aa4444; }
+        body.theme-dark_white .account-actions .delete-account { background: #883333; color: #fff; border-color: #aa4444; }
+        body.theme-dark_white .account-actions .delete-account:hover { background: #aa4444; }
+        body.theme-dark_white .account-actions .reset-progress-btn { background: #883333 !important; color: #fff !important; border-color: #aa4444 !important; }
+        body.theme-dark_white .account-actions .reset-progress-btn:hover { background: #aa4444 !important; }
+        body.theme-dark_white .clan-input input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .clan-input button { background: #555; color: #fff; }
+        body.theme-dark_white .clan-input .clear-clan { background: #883333; }
+        body.theme-dark_white .clan-input .clear-clan:hover { background: #aa4444; }
+        body.theme-dark_white .login-box { background: #1a1a1a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .login-box input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .login-box .row .login-btn { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .login-box .row .register-btn { background: #2a2a2a; color: #f0f0f0; border-color: #555; }
+        body.theme-dark_white .login-box .promo { border-top-color: #444; color: #aaa; }
+        body.theme-dark_white .login-box .sub { color: #aaa; }
+        body.theme-dark_white .login-box .info { color: #aaa; }
+        body.theme-dark_white .login-box .log-area { background: #0a0a0a; border-color: #333; color: #0f0; }
+        body.theme-dark_white .login-box .log-btn { background: #333; color: #fff; }
+        body.theme-dark_white .login-box .log-btn:hover { background: #555; }
+        body.theme-dark_white .rating-tabs button { background: #2a2a2a; border-color: #555; color: #ccc; }
+        body.theme-dark_white .rating-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .rating-tabs button:hover { background: #3a3a3a; }
+        body.theme-dark_white .rating-refresh-btn { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .rating-refresh-btn:hover { background: #3a3a3a; }
+        body.theme-dark_white .profile-modal { background: #1a1a1a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .profile-modal .close-btn { color: #aaa; }
+        body.theme-dark_white .profile-modal .close-btn:hover { color: #fff; }
+        body.theme-dark_white .profile-modal .profile-row { border-bottom-color: #444; }
+        body.theme-dark_white .profile-modal .profile-row span:last-child { color: #fff; }
+        body.theme-dark_white .captcha-box { background: #1a1a1a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .captcha-box .captcha-text { background: #0a0a0a; color: #0f0; }
+        body.theme-dark_white .captcha-box input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .captcha-box button { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .captcha-box button:hover { background: #666; }
+        body.theme-dark_white .toast { background: #1a1a1a; border-color: #444; color: #f0f0f0; }
+        body.theme-dark_white .notification { background: #2a2a2a; color: #f0f0f0; border: 1px solid #444; }
+        body.theme-dark_white .event-rewards { background: #1a2a1a; border-color: #2a7a2a; color: #f0f0f0; }
+        body.theme-dark_white .event-rewards .reward-line { border-bottom-color: rgba(255,255,255,0.05); }
+        body.theme-dark_white .promo-input input { background: #2a2a2a; border-color: #555; color: #f0f0f0; }
+        body.theme-dark_white .promo-input button { background: #555; color: #fff; border: none; border-radius: 4px; padding: 8px 16px; }
+        body.theme-dark_white .promo-input button:hover { background: #666; }
+        body.theme-dark_white .shop-tabs button { background: #2a2a2a; border-color: #555; color: #ccc; }
+        body.theme-dark_white .shop-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        body.theme-dark_white .shop-tabs button:hover { background: #3a3a3a; }
+        body.theme-dark_white .progress-bar { background: #2a2a2a; border-color: #444; }
+        body.theme-dark_white .progress-bar .fill { background: #555; }
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
         body.theme-light .header { border-bottom-color: #ddd; }
@@ -164,6 +304,9 @@
         body.theme-light .open-btn, body.theme-light .market-listing .price button,
         body.theme-light .click-btn, body.theme-light .modal-buttons button,
         body.theme-light .clan-create-btn, body.theme-light .shop-buy-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
+        body.theme-light .open-btn:hover, body.theme-light .market-listing .price button:hover,
+        body.theme-light .click-btn:hover, body.theme-light .modal-buttons button:hover,
+        body.theme-light .clan-create-btn:hover, body.theme-light .shop-buy-btn:hover { background: #106ebe; }
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
         body.theme-vk2010 .header { border-bottom-color: #a0b0c0; }
@@ -240,7 +383,48 @@
             background: #0f0;
             color: #000;
         }
-
+        .header .activity-btn-header {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            background: #222;
+            color: #ffaa00;
+            border: 2px solid #ffaa00;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: monospace;
+            transition: 0.2s;
+            z-index: 100;
+        }
+        .header .activity-btn-header:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+        .header .activity-btn-header.active {
+            background: #ffaa00;
+            color: #000;
+        }
+        .exclusive-banner {
+            text-align: center;
+            font-size: 15px;
+            color: #f0d070;
+            background: rgba(0,0,0,0.6);
+            border: 2px solid #f0d070;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            animation: pulseBanner 2s infinite;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+        @keyframes pulseBanner {
+            0% { border-color: #f0d070; box-shadow: 0 0 5px rgba(240,208,112,0.3); }
+            50% { border-color: #ffaa00; box-shadow: 0 0 20px rgba(240,208,112,0.5); }
+            100% { border-color: #f0d070; box-shadow: 0 0 5px rgba(240,208,112,0.3); }
+        }
         .top-bar {
             display: flex;
             justify-content: space-around;
@@ -307,6 +491,8 @@
             display: flex;
             justify-content: center;
             margin: 8px 0 4px 0;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         .event-btn-row button {
             background: #a0d8a0;
@@ -656,12 +842,13 @@
             align-items: center;
             gap: 12px;
             font-size: 16px;
+            flex-wrap: wrap;
         }
         .rank-item .pos { width: 30px; text-align: center; font-weight: bold; color: #666; }
         .rank-item .pos.gold { color: #f0d070; }
         .rank-item .pos.silver { color: #c0c0c0; }
         .rank-item .pos.bronze { color: #cd7f32; }
-        .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; }
+        .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .rank-item .value { font-weight: bold; }
         .rank-item.you { background: #d8e0e8; border: 1px solid #4a8aba; border-radius: 6px; }
         .rank-item .clan-tag { font-size: 12px; color: #888; margin-left: 6px; }
@@ -704,6 +891,7 @@
         .shop-item .shop-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .shop-item .shop-buy-btn:hover:not(:disabled) { background: #2a5a8a; }
         .shop-item .owned { color: #4a8a4a; font-weight: bold; }
+        .shop-item .coming-soon { color: #f0d070; font-weight: bold; font-size: 13px; margin-top: 4px; }
 
         /* ===== НАСТРОЙКИ ===== */
         .settings-group { margin-bottom: 18px; }
@@ -1042,6 +1230,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
         }
         .player-card .player-name { font-weight: bold; }
         .player-card .player-status { font-size: 13px; }
@@ -1143,19 +1333,21 @@
         .login-box .log-btn:hover { background: #666; }
 
         /* ===== ПРОЧЕЕ ===== */
-        .achieve-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .achieve-grid { display: flex; flex-wrap: wrap; gap: 8px; max-height: 500px; overflow-y: auto; padding: 4px; }
         .achieve-item {
             border: 1px solid #a0b0c0;
             border-radius: 6px;
-            padding: 8px 14px;
-            font-size: 14px;
+            padding: 6px 12px;
+            font-size: 13px;
             opacity: 0.5;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #6a8aaa;
+            background: #f0f0f0;
+            flex: 0 1 auto;
         }
-        .achieve-item.unlocked { opacity: 1; border-color: #f0d070; color: #1a2a3a; }
+        .achieve-item.unlocked { opacity: 1; border-color: #f0d070; color: #1a2a3a; background: #fff8e0; }
 
         .chance-overlay {
             position: fixed;
@@ -1371,6 +1563,40 @@
         }
         .log-popup.show { display: block; }
 
+        /* ===== АКТИВНОСТЬ (Activity Log) ===== */
+        .activity-popup {
+            position: fixed;
+            bottom: 140px;
+            left: 20px;
+            width: 340px;
+            max-height: 350px;
+            background: #1a1a1a;
+            color: #f0f0f0;
+            border: 2px solid #ffaa00;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 12px;
+            overflow-y: auto;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+            line-height: 1.5;
+        }
+        .activity-popup.show { display: block; }
+        .activity-popup .activity-item {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 6px;
+            align-items: baseline;
+        }
+        .activity-popup .activity-item .time { color: #888; font-size: 10px; min-width: 55px; }
+        .activity-popup .activity-item .actor { color: #ffaa00; font-weight: bold; }
+        .activity-popup .activity-item .action { color: #ccc; }
+        .activity-popup .activity-item .highlight { color: #f0d070; }
+        .activity-popup .activity-empty { color: #666; text-align: center; padding: 20px 0; }
+
         .reset-progress-btn {
             background: #cc3333 !important;
             color: #fff !important;
@@ -1528,8 +1754,8 @@
         <div class="login-box">
             <h2>TTP кейсы</h2>
             <div class="sub">Вход / Регистрация</div>
-            <div class="promo">версия 1.3</div>
-            <input type="text" id="loginNick" placeholder="Ник" value="">
+            <div class="promo">версия 1.3.1</div>
+            <input type="text" id="loginNick" placeholder="Ник (макс. 24 символа)" maxlength="24" value="">
             <input type="password" id="loginPass" placeholder="Пароль">
             <div class="error" id="loginError"></div>
             <div class="row">
@@ -1538,18 +1764,25 @@
             </div>
             <button class="log-btn" id="logToggleBtn">📋 Показать логи</button>
             <div class="log-area" id="logArea"></div>
-            <div class="info">Первый аккаунт получает ID #0</div>
+            <div class="info">Первый аккаунт получает ID #0 | Ник до 24 символов</div>
         </div>
     </div>
 
     <!-- ===== ПРИЛОЖЕНИЕ ===== -->
     <div id="app">
         <div class="header">
+            <button class="activity-btn-header" id="activityBtnHeader">📊 Активность</button>
             <h1>TTP кейсы</h1>
-            <div class="version">версия 1.3</div>
+            <div class="version">версия 1.3.1</div>
             <div class="subtitle">игра создана @arbz7 \ xxspk \ made by AI</div>
             <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
         </div>
+
+        <!-- Баннер эксклюзива -->
+        <div id="exclusiveBanner" class="exclusive-banner" style="display:none;">
+            ✨ вы - эксклюзив, помимо своих плюсов вы будете получать также новые версии заранее, промокоды и даже свои вкладки и возможности, это еще не все - сами заметите как начну сыпать подарки (:
+        </div>
+
         <div class="wipe-banner">🔥 обновление под вайп + ждите ребаланс шансов (станет сложнее - выбивайте сейчас!</div>
         <div class="top-bar">
             <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span> ₽</div>
@@ -1564,7 +1797,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Pro: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 Обновление 1.3 — исправлена покупка за рубины (больше не списывает все рубины!)</div>
+        <div class="update-announce">🔥 Обновление 1.3.1 — донаты дороже, эксклюзив, новая тема, лента активности, 100+ достижений!</div>
 
         <!-- НАВИГАЦИЯ (три ряда) -->
         <div class="nav" id="mainNav">
@@ -1587,7 +1820,6 @@
                 <button data-section="settings">Настройки</button>
                 <button data-section="updates">Обновления</button>
             </div>
-            <!-- Салатовая кнопка ивента под третьим рядом -->
             <div class="event-btn-row">
                 <button id="speedEventBtn">🏁 Ивент: Кто больше наберёт скорость!</button>
             </div>
@@ -1639,7 +1871,7 @@
                     <button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button>
                     <button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Обновить достижения</button>
                 </div>
-                <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px;">
+                <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap;">
                     <span style="font-size:16px; color:#666;">Режим:</span>
                     <button id="ratingModeNow" class="active" style="border:1px solid #1a3a6a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#1a3a6a; color:#fff;">Сейчас</button>
                     <button id="ratingModeEver" style="border:1px solid #1a3a6a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#d8e0e8; color:#000;">За всё время</button>
@@ -1723,7 +1955,7 @@
 
             <!-- ДОСТИЖЕНИЯ -->
             <section id="section-achievements" class="section">
-                <div class="title">Достижения <span class="badge" id="achCount">0 / 90+</span>
+                <div class="title">Достижения <span class="badge" id="achCount">0 / 120+</span>
                     <button class="rating-refresh-btn" id="recheckAchievementsBtn2" style="margin-left:10px;">Обновить достижения</button>
                 </div>
                 <div id="achievementsGrid" class="achieve-grid"></div>
@@ -1836,15 +2068,20 @@
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
                 <div style="padding:20px; border:1px solid #1a3a6a; border-radius:6px; background:#d8e0e8; text-align:left; color:#1a2a3a;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.3 (исправления)</div>
-                    <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.6;">
-                        <li>🐛 Исправлена опечатка в кейсе "Игроки 3": sasylisc → sasylixc</li>
-                        <li>🐛 Промокод "пятыйвайп" теперь работает независимо от других промокодов</li>
-                        <li>🛒 В магазин возвращены вкладки "Скины" (за рубли) и "Рубины" (за рубины)</li>
-                        <li>📊 Кнопка "Обновить достижения" добавлена прямо в раздел достижений</li>
-                        <li>🔄 В кейсе "Мужики 1" заменён предмет на "2 мужика водолазы" (эпическая редкость)</li>
-                        <li>📢 Обновлён баннер</li>
-                        <li>💎 ИСПРАВЛЕНА ПОКУПКА ЗА РУБИНЫ — теперь списывается только цена товара, а не все рубины!</li>
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Версия 1.3.1 (большое обновление)</div>
+                    <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.7;">
+                        <li>💰 Цены донатов повышены в 1.5x (князь → 3000)</li>
+                        <li>👑 Добавлен эксклюзивный донат (выдаётся вручную, даёт мощные бонусы)</li>
+                        <li>📊 Новая тема "Тёмная с белым текстом" (dark_white)</li>
+                        <li>📋 Лента активности — видно все действия игроков в реальном времени</li>
+                        <li>🏷️ Никнейм ограничен 24 символами</li>
+                        <li>🏆 В рейтинге отображается донат игрока</li>
+                        <li>💎 В магазин за рубины добавлены: древолом (200), аметистка (400), элитра рушимка (300), мужики из дерева (250)</li>
+                        <li>🎨 У донатов появились цвета: дворянин — коричневый, барон — серый, граф — оранжевый, герцог — зелёный, князь — голубой, эксклюзив — радужный</li>
+                        <li>🏅 Добавлено 40+ новых достижений (всего 120+)</li>
+                        <li>⚡ Исправлена работа автофарма при свёрнутой вкладке (используем Page Visibility API)</li>
+                        <li>🚫 У всех донатов убрано замедление препятствий (честная игра)</li>
+                        <li>✨ Эксклюзив: +10 рубинов/мин, +15 монет/мин, скидка 10% на кейсы, +10% к продаже карт, +10% монет в Моролс, кликер даёт 10 монет вместо 5, а также стартовый бонус: по 1 кейсу каждого вида + 500 рубинов</li>
                     </ul>
                 </div>
             </section>
@@ -1901,11 +2138,18 @@
     </div>
 
     <div class="log-popup" id="logPopup"></div>
+    <div class="activity-popup" id="activityPopup">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:6px;">
+            <span style="font-weight:bold; color:#ffaa00;">📊 Активность игроков</span>
+            <button id="activityPopupClose" style="background:none; border:none; color:#888; font-size:18px; cursor:pointer;">✕</button>
+        </div>
+        <div id="activityList"></div>
+    </div>
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.3 (исправлен баг с рубинами)
+    //  ПОЛНЫЙ JS — ВЕРСИЯ 1.3.1
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -1961,22 +2205,31 @@
             { id: 'chupa_chups', name: 'Чупа-чупс', price: 600, color: '#ff6b6b' },
             { id: 'candy', name: 'Конфета', price: 2000, color: '#ff88aa' },
         ],
-        // Рубиновый магазин
+        // Рубиновый магазин (добавлены новые карточки)
         rubyShopItems: [
             { id: 'vata_men', name: 'Мужики из ваты', price: 50, type: 'card', emoji: '🧻', rarity: 'эпическое' },
             { id: 'monitor_skin', name: 'Скин "Монитор"', price: 100, type: 'skin', skinId: 'monitor' },
-            { id: 'dolphin_skin', name: 'Скин "Дельфин"', price: 75, type: 'skin', skinId: 'dolphin' }
+            { id: 'dolphin_skin', name: 'Скин "Дельфин"', price: 75, type: 'skin', skinId: 'dolphin' },
+            { id: 'drevlom', name: 'Древолом', price: 200, type: 'card', emoji: '🪓', rarity: 'редкое' },
+            { id: 'ametistka', name: 'Аметистка', price: 400, type: 'card', emoji: '💜', rarity: 'эпическое' },
+            { id: 'elitra_rushimka', name: 'Элитра Рушимка', price: 300, type: 'card', emoji: '⚡', rarity: 'сверхредкое' },
+            { id: 'muzhiki_dereva', name: 'Мужики из дерева', price: 250, type: 'card', emoji: '🪵', rarity: 'необычное' }
         ],
-        // Титулы (донат) с бонусами
+        // Титулы (донат) с ценами x1.5 и цветами, без obstacleSlow
         donateTitles: [
-            { id: 'player', name: 'Игрок', price: 0, bonus: {} },
-            { id: 'nobleman', name: 'Дворянин', price: 150, bonus: { moneyMul: 0.001 } },
-            { id: 'baron', name: 'Барон', price: 375, bonus: { moneyMul: 0.0025, passiveCoins: 3 } },
-            { id: 'count', name: 'Граф', price: 675, bonus: { moneyMul: 0.005, passiveCoins: 5, obstacleSlow: 0.005 } },
-            { id: 'duke', name: 'Герцог', price: 1200, bonus: { moneyMul: 0.0075, passiveCoins: 7, obstacleSlow: 0.01, exclusive: true } },
-            { id: 'prince', name: 'Князь', price: 2250, bonus: { moneyMul: 0.01, passiveCoins: 12, obstacleSlow: 0.015, caseDiscount: 0.05, passiveRubies: 2, sellBonus: 0.1 } }
+            { id: 'player', name: 'Игрок', price: 0, bonus: {}, color: 'default' },
+            { id: 'nobleman', name: 'Дворянин', price: 225, bonus: { moneyMul: 0.001 }, color: '#8B4513' },
+            { id: 'baron', name: 'Барон', price: 575, bonus: { moneyMul: 0.0025, passiveCoins: 3 }, color: '#808080' },
+            { id: 'count', name: 'Граф', price: 1000, bonus: { moneyMul: 0.005, passiveCoins: 5 }, color: '#FF8C00' },
+            { id: 'duke', name: 'Герцог', price: 1800, bonus: { moneyMul: 0.0075, passiveCoins: 7, exclusive: true }, color: '#32CD32' },
+            { id: 'prince', name: 'Князь', price: 3000, bonus: { moneyMul: 0.01, passiveCoins: 12, caseDiscount: 0.05, passiveRubies: 2, sellBonus: 0.1 }, color: '#1E90FF' },
+            // Эксклюзив — не покупается, выдаётся вручную
+            { id: 'exclusive', name: 'Эксклюзив', price: -1, bonus: { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 }, color: 'rainbow', isExclusive: true }
         ],
-        passiveInterval: null
+        passiveInterval: null,
+        exclusiveActivated: false,
+        exclusiveGiven: false,
+        rubyShopPurchases: 0
     };
 
     let logMessages = [];
@@ -1992,119 +2245,368 @@
     }
     window.addLog = addLog;
 
-    function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-    function formatNum(n) { return n.toLocaleString('ru-RU'); }
+    // ===== ЛЕНТА АКТИВНОСТИ =====
+    let activityLogCache = [];
+    let activityAutoUpdateInterval = null;
 
-    let toastTimeout = null;
-    function showToast(text, duration = 2500) {
-        const el = document.getElementById('toast');
-        if (!el) return;
-        el.textContent = text;
-        el.classList.add('show');
-        clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
-    }
-
-    function showNotification(text) {
-        const el = document.getElementById('notification');
-        if (!el) return;
-        el.textContent = text;
-        el.classList.add('show');
-        clearTimeout(el._timeout);
-        el._timeout = setTimeout(() => el.classList.remove('show'), 5000);
-    }
-
-    // ===== НОВАЯ ШКАЛА УРОВНЕЙ =====
-    function getLevelForExp(exp) {
-        if (exp < 100) return 1;
-        if (exp < 200) return 2;
-        if (exp < 300) return 3;
-        if (exp < 500) return 4;
-        if (exp < 750) return 5;
-        if (exp < 1000) return 6;
-        if (exp < 1500) return 7;
-        if (exp < 2000) return 8;
-        if (exp < 2500) return 9;
-        if (exp < 3000) return 10;
-        return 11;
-    }
-    function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
-
-    function updateProProgress() {
-        const exp = STATE.exp;
-        const level = STATE.level;
-        const proExp = 3000;
-        const progress = Math.min(100, (exp / proExp) * 100);
-        const expEl = document.getElementById('expDisplay');
-        const progEl = document.getElementById('proProgressDisplay');
-        if (expEl) expEl.textContent = exp;
-        if (progEl) {
-            if (level >= 11) progEl.textContent = 'Pro';
-            else progEl.textContent = Math.round(progress) + '%';
-        }
-        const progressFill = document.getElementById('progressFill');
-        const progressLabel = document.getElementById('progressLabel');
-        if (progressFill) {
-            progressFill.style.width = Math.min(100, progress) + '%';
-        }
-        if (progressLabel) {
-            if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
-            else progressLabel.textContent = Math.round(progress) + '% до Pro';
-        }
-    }
-
-    function addExp(amount) {
+    function addActivityLog(actor, action, detail = '', highlight = false) {
         if (!currentUser) return;
-        const reduced = Math.floor(amount / 2);
-        if (reduced < 1) return;
-        STATE.exp += reduced;
-        const newLevel = getLevelForExp(STATE.exp);
-        if (newLevel !== STATE.level) {
-            STATE.level = newLevel;
-            showToast('🎉 Уровень повышен до ' + getLevelLabel(STATE.level) + '!');
-            giveLevelReward(newLevel);
-            checkAllAchievements();
-            saveStateToFirebase();
-        }
-        updateUI();
-        addLog('➕ +' + reduced + ' опыта (итого ' + STATE.exp + ')');
+        const entry = {
+            actor: actor || STATE.nickname || 'Система',
+            action: action,
+            detail: detail,
+            timestamp: Date.now(),
+            highlight: highlight
+        };
+        fetch(DB_URL + '/activity_log.json?auth=' + currentUser.idToken, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(entry)
+        }).catch(() => {});
+        // локально тоже добавим
+        activityLogCache.unshift(entry);
+        if (activityLogCache.length > 200) activityLogCache.pop();
+        renderActivityLog();
     }
 
-    function giveLevelReward(level) {
+    function loadActivityLog() {
         if (!currentUser) return;
-        let reward = { cases: [], coins: 0 };
-        switch(level) {
-            case 1: reward = { cases: [{ id: 'muzhiki1', count: 3 }], coins: 100 }; break;
-            case 2: reward = { cases: [{ id: 'players', count: 3 }], coins: 100 }; break;
-            case 3: reward = { cases: [{ id: 'cities', count: 3 }], coins: 125 }; break;
-            case 4: reward = { cases: [{ id: 'players', count: 3 }, { id: 'cities', count: 2 }], coins: 100 }; break;
-            case 5: reward = { cases: CASES.map(c => ({ id: c.id, count: 1 })), coins: 150 }; break;
-            case 6: reward = { cases: CASES.map(c => ({ id: c.id, count: 1 })), coins: 150 }; break;
-            case 7: reward = { cases: [...CASES.map(c => ({ id: c.id, count: 1 })), { id: 'cities', count: 2 }], coins: 150 }; break;
-            case 8: reward = { cases: [{ id: 'muzhiki1', count: 5 }, { id: 'muzhiki2', count: 5 }], coins: 200 }; break;
-            case 9: reward = { cases: CASES.map(c => ({ id: c.id, count: 2 })), coins: 200 }; break;
-            case 10: reward = { cases: CASES.map(c => ({ id: c.id, count: 2 })), coins: 250 }; break;
-            case 11: reward = { cases: CASES.map(c => ({ id: c.id, count: 3 })), coins: 300 }; break;
-            default: return;
+        fetch(DB_URL + '/activity_log.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(data => {
+                if (!data) { renderActivityLog(); return; }
+                const entries = [];
+                for (const key in data) {
+                    const e = data[key];
+                    e._key = key;
+                    entries.push(e);
+                }
+                entries.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+                activityLogCache = entries.slice(0, 200);
+                renderActivityLog();
+            })
+            .catch(() => {});
+    }
+
+    function renderActivityLog() {
+        const container = document.getElementById('activityList');
+        if (!container) return;
+        if (activityLogCache.length === 0) {
+            container.innerHTML = '<div class="activity-empty">Нет активности</div>';
+            return;
         }
-        for (const item of reward.cases) {
-            const caseData = CASES.find(c => c.id === item.id);
-            if (caseData) {
-                STATE.freeOpens[item.id] = (STATE.freeOpens[item.id] || 0) + item.count;
-                showToast('🎁 +' + item.count + ' открытий кейса "' + caseData.name + '"!');
+        let html = '';
+        for (const entry of activityLogCache.slice(0, 50)) {
+            const time = new Date(entry.timestamp || Date.now()).toLocaleTimeString('ru-RU', { hour12: false });
+            const hl = entry.highlight ? ' highlight' : '';
+            html += `<div class="activity-item">
+                <span class="time">${time}</span>
+                <span class="actor">${entry.actor}</span>
+                <span class="action${hl}">${entry.action} ${entry.detail || ''}</span>
+            </div>`;
+        }
+        container.innerHTML = html;
+        container.scrollTop = 0;
+    }
+
+    function logPlayerAction(action, detail = '', highlight = false) {
+        if (!currentUser) return;
+        addActivityLog(STATE.nickname, action, detail, highlight);
+    }
+
+    // Автообновление активности
+    function startActivityAutoUpdate() {
+        if (activityAutoUpdateInterval) clearInterval(activityAutoUpdateInterval);
+        activityAutoUpdateInterval = setInterval(() => {
+            if (document.getElementById('activityPopup')?.classList.contains('show')) {
+                loadActivityLog();
             }
-        }
-        STATE.balance += reward.coins;
-        STATE.totalEarned += reward.coins;
-        showToast('💰 +' + reward.coins + ' ₽!');
-        updateUI();
-        saveStateToFirebase();
-        addLog('🎁 Награда за уровень ' + level);
+        }, 5000);
     }
 
-    // ===== КЕЙСЫ =====
+    // ===== ПАССИВНЫЙ ДОХОД с фиксом для свёрнутой вкладки =====
+    let passiveLastTime = Date.now();
+    let passiveAccumulated = 0;
+
+    function startPassiveIncome() {
+        if (STATE.passiveInterval) clearInterval(STATE.passiveInterval);
+        passiveLastTime = Date.now();
+        passiveAccumulated = 0;
+        // Используем setInterval с проверкой видимости
+        STATE.passiveInterval = setInterval(() => {
+            if (!currentUser) return;
+            const now = Date.now();
+            const delta = (now - passiveLastTime) / 1000; // секунд
+            passiveLastTime = now;
+
+            const bonus = STATE.titleBonuses;
+            let coinsPerSecond = 0;
+            let rubiesPerSecond = 0;
+            if (bonus.passiveCoins) coinsPerSecond += bonus.passiveCoins / 60;
+            if (bonus.passiveRubies) rubiesPerSecond += bonus.passiveRubies / 60;
+
+            // Для эксклюзива: 15 монет/мин и 10 рубинов/мин
+            if (STATE.currentTitle === 'exclusive') {
+                coinsPerSecond += 15 / 60;
+                rubiesPerSecond += 10 / 60;
+            }
+
+            if (coinsPerSecond > 0 || rubiesPerSecond > 0) {
+                // Накапливаем за время, даже если вкладка свёрнута
+                passiveAccumulated += delta;
+                if (passiveAccumulated >= 0.5) {
+                    const seconds = Math.floor(passiveAccumulated);
+                    passiveAccumulated -= seconds;
+                    if (coinsPerSecond > 0) {
+                        const gain = Math.floor(coinsPerSecond * seconds);
+                        if (gain > 0) {
+                            STATE.balance += gain;
+                            STATE.totalEarned += gain;
+                            if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                            showToast('+ ' + gain + ' ₽ (пассивный доход)');
+                        }
+                    }
+                    if (rubiesPerSecond > 0) {
+                        const gain = Math.floor(rubiesPerSecond * seconds);
+                        if (gain > 0) {
+                            STATE.rubies += gain;
+                            STATE.totalRubies += gain;
+                            showToast('+ ' + gain + ' 💎 (пассивный доход)');
+                        }
+                    }
+                    updateUI();
+                    saveStateToFirebase();
+                }
+            } else {
+                passiveAccumulated = 0;
+            }
+
+            // Также проверяем видимость страницы
+            if (document.visibilityState === 'hidden') {
+                // Если вкладка скрыта, всё равно накапливаем через passiveAccumulated
+                // уже сделано выше
+            }
+        }, 1000); // проверяем каждую секунду
+    }
+
+    // Слушаем изменение видимости страницы
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            // При возвращении на вкладку принудительно применяем накопленное
+            passiveLastTime = Date.now();
+            if (passiveAccumulated > 1) {
+                const bonus = STATE.titleBonuses;
+                let coinsPerSecond = 0;
+                let rubiesPerSecond = 0;
+                if (bonus.passiveCoins) coinsPerSecond += bonus.passiveCoins / 60;
+                if (bonus.passiveRubies) rubiesPerSecond += bonus.passiveRubies / 60;
+                if (STATE.currentTitle === 'exclusive') {
+                    coinsPerSecond += 15 / 60;
+                    rubiesPerSecond += 10 / 60;
+                }
+                const seconds = Math.floor(passiveAccumulated);
+                passiveAccumulated = 0;
+                if (coinsPerSecond > 0 && seconds > 0) {
+                    const gain = Math.floor(coinsPerSecond * seconds);
+                    if (gain > 0) {
+                        STATE.balance += gain;
+                        STATE.totalEarned += gain;
+                        if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                        showToast('+ ' + gain + ' ₽ (пассивный доход)');
+                    }
+                }
+                if (rubiesPerSecond > 0 && seconds > 0) {
+                    const gain = Math.floor(rubiesPerSecond * seconds);
+                    if (gain > 0) {
+                        STATE.rubies += gain;
+                        STATE.totalRubies += gain;
+                        showToast('+ ' + gain + ' 💎 (пассивный доход)');
+                    }
+                }
+                updateUI();
+                saveStateToFirebase();
+            }
+        } else {
+            passiveLastTime = Date.now();
+        }
+    });
+
+    // ===== ДОСТИЖЕНИЯ (120+) =====
+    const ACHIEVEMENTS = [
+        // Клики
+        { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
+        { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
+        { id: 'click100', name: 'Кликнуть 100 раз', check: s => s.totalClicks >= 100 },
+        { id: 'click500', name: 'Кликнуть 500 раз', check: s => s.totalClicks >= 500 },
+        { id: 'click1000', name: 'Кликнуть 1000 раз', check: s => s.totalClicks >= 1000 },
+        { id: 'click5000', name: 'Кликнуть 5000 раз', check: s => s.totalClicks >= 5000 },
+        { id: 'click10000', name: 'Кликнуть 10000 раз', check: s => s.totalClicks >= 10000 },
+        // Кейсы
+        { id: 'open1', name: 'Открыть 1 кейс', check: s => s.casesOpened >= 1 },
+        { id: 'open5', name: 'Открыть 5 кейсов', check: s => s.casesOpened >= 5 },
+        { id: 'open10', name: 'Открыть 10 кейсов', check: s => s.casesOpened >= 10 },
+        { id: 'open50', name: 'Открыть 50 кейсов', check: s => s.casesOpened >= 50 },
+        { id: 'open100', name: 'Открыть 100 кейсов', check: s => s.casesOpened >= 100 },
+        { id: 'open500', name: 'Открыть 500 кейсов', check: s => s.casesOpened >= 500 },
+        { id: 'open1000', name: 'Открыть 1000 кейсов', check: s => s.casesOpened >= 1000 },
+        // Открытие конкретных кейсов
+        { id: 'case_muzhiki1', name: 'Открыть кейс "Мужики 1"', check: s => s.casesOpened >= 1 }, // будет доп. логика
+        { id: 'case_cities', name: 'Открыть кейс "Города"', check: s => s.casesOpened >= 1 },
+        { id: 'case_animals', name: 'Открыть кейс "Животные"', check: s => s.casesOpened >= 1 },
+        { id: 'case_players', name: 'Открыть кейс "Игроки"', check: s => s.casesOpened >= 1 },
+        { id: 'case_blocks', name: 'Открыть кейс "Блоки"', check: s => s.casesOpened >= 1 },
+        { id: 'case_muzhiki2', name: 'Открыть кейс "Мужики 2"', check: s => s.casesOpened >= 1 },
+        { id: 'case_players2', name: 'Открыть кейс "Игроки 2"', check: s => s.casesOpened >= 1 },
+        { id: 'case_cities2', name: 'Открыть кейс "Города 2"', check: s => s.casesOpened >= 1 },
+        { id: 'case_cities3', name: 'Открыть кейс "Города 3"', check: s => s.casesOpened >= 1 },
+        { id: 'case_players3', name: 'Открыть кейс "Игроки 3"', check: s => s.casesOpened >= 1 },
+        // Моролс
+        { id: 'morols1', name: 'Сыграть в Моролс 1 раз', check: s => s.morols.gamesPlayed >= 1 },
+        { id: 'morols5', name: 'Сыграть в Моролс 5 раз', check: s => s.morols.gamesPlayed >= 5 },
+        { id: 'morols10', name: 'Сыграть в Моролс 10 раз', check: s => s.morols.gamesPlayed >= 10 },
+        { id: 'morols50', name: 'Сыграть в Моролс 50 раз', check: s => s.morols.gamesPlayed >= 50 },
+        { id: 'morols100', name: 'Сыграть в Моролс 100 раз', check: s => s.morols.gamesPlayed >= 100 },
+        { id: 'speed10', name: 'Набить 10 км/ч в Моролс', check: s => s.morols.maxSpeed >= 10 },
+        { id: 'speed25', name: 'Набить 25 км/ч в Моролс', check: s => s.morols.maxSpeed >= 25 },
+        { id: 'speed50', name: 'Набить 50 км/ч в Моролс', check: s => s.morols.maxSpeed >= 50 },
+        { id: 'speed75', name: 'Набить 75 км/ч в Моролс', check: s => s.morols.maxSpeed >= 75 },
+        { id: 'speed100', name: 'Набить 100 км/ч в Моролс', check: s => s.morols.maxSpeed >= 100 },
+        { id: 'speed150', name: 'Набить 150 км/ч в Моролс', check: s => s.morols.maxSpeed >= 150 },
+        { id: 'speed200', name: 'Набить 200 км/ч в Моролс', check: s => s.morols.maxSpeed >= 200 },
+        { id: 'speed250', name: 'Набить 250 км/ч в Моролс', check: s => s.morols.maxSpeed >= 250 },
+        { id: 'speed300', name: 'Набить 300 км/ч в Моролс', check: s => s.morols.maxSpeed >= 300 },
+        // Самолёт
+        { id: 'plane1', name: 'Сыграть в Самолёт 1 раз', check: s => s.plane.gamesPlayed >= 1 },
+        { id: 'plane5', name: 'Сыграть в Самолёт 5 раз', check: s => s.plane.gamesPlayed >= 5 },
+        { id: 'plane10', name: 'Сыграть в Самолёт 10 раз', check: s => s.plane.gamesPlayed >= 10 },
+        { id: 'plane50', name: 'Сыграть в Самолёт 50 раз', check: s => s.plane.gamesPlayed >= 50 },
+        { id: 'planeTime10', name: 'Пролететь 10 секунд в Самолёте', check: s => s.plane.bestTime >= 10 },
+        { id: 'planeTime30', name: 'Пролететь 30 секунд в Самолёте', check: s => s.plane.bestTime >= 30 },
+        { id: 'planeTime60', name: 'Пролететь 60 секунд в Самолёте', check: s => s.plane.bestTime >= 60 },
+        { id: 'planeTime120', name: 'Пролететь 120 секунд в Самолёте', check: s => s.plane.bestTime >= 120 },
+        // Инвентарь
+        { id: 'inv1', name: 'Иметь 1 карту', check: s => s.inventory.length >= 1 },
+        { id: 'inv5', name: 'Иметь 5 карт', check: s => s.inventory.length >= 5 },
+        { id: 'inv10', name: 'Иметь 10 карт', check: s => s.inventory.length >= 10 },
+        { id: 'inv25', name: 'Иметь 25 карт', check: s => s.inventory.length >= 25 },
+        { id: 'inv50', name: 'Иметь 50 карт', check: s => s.inventory.length >= 50 },
+        { id: 'inv100', name: 'Иметь 100 карт', check: s => s.inventory.length >= 100 },
+        { id: 'inv250', name: 'Иметь 250 карт', check: s => s.inventory.length >= 250 },
+        // Рынок
+        { id: 'buyLot', name: 'Купить лот на рынке', check: s => s.marketBuys >= 1 },
+        { id: 'buyLot5', name: 'Купить 5 лотов на рынке', check: s => s.marketBuys >= 5 },
+        { id: 'sellLot', name: 'Выставить лот на рынке', check: s => s.marketSells >= 1 },
+        { id: 'sellLot5', name: 'Выставить 5 лотов на рынке', check: s => s.marketSells >= 5 },
+        // Промокод
+        { id: 'promo', name: 'Активировать промокод', check: s => Object.keys(s.promoCodesUsed).length > 0 },
+        // Эло
+        { id: 'elo1050', name: 'Достичь 1050 Эло', check: s => s.elo >= 1050 },
+        { id: 'elo1100', name: 'Достичь 1100 Эло', check: s => s.elo >= 1100 },
+        { id: 'elo1200', name: 'Достичь 1200 Эло', check: s => s.elo >= 1200 },
+        { id: 'elo1300', name: 'Достичь 1300 Эло', check: s => s.elo >= 1300 },
+        { id: 'elo1400', name: 'Достичь 1400 Эло', check: s => s.elo >= 1400 },
+        { id: 'elo1500', name: 'Достичь 1500 Эло', check: s => s.elo >= 1500 },
+        { id: 'elo1600', name: 'Достичь 1600 Эло', check: s => s.elo >= 1600 },
+        { id: 'elo1700', name: 'Достичь 1700 Эло', check: s => s.elo >= 1700 },
+        { id: 'elo1800', name: 'Достичь 1800 Эло', check: s => s.elo >= 1800 },
+        { id: 'elo1900', name: 'Достичь 1900 Эло', check: s => s.elo >= 1900 },
+        { id: 'elo2000', name: 'Достичь 2000 Эло', check: s => s.elo >= 2000 },
+        { id: 'topElo', name: 'Стать топ 1 по Эло', check: s => s.topElo },
+        // Редкости
+        { id: 'rarity_shirp', name: 'Выбить ширп', check: s => s.inventory.some(i => i.rarity === 'ширп') },
+        { id: 'rarity_common', name: 'Выбить обычное', check: s => s.inventory.some(i => i.rarity === 'обычное') },
+        { id: 'rarity_uncommon', name: 'Выбить необычное', check: s => s.inventory.some(i => i.rarity === 'необычное') },
+        { id: 'rarity_rare', name: 'Выбить редкое', check: s => s.inventory.some(i => i.rarity === 'редкое') },
+        { id: 'rarity_superrare', name: 'Выбить сверхредкое', check: s => s.inventory.some(i => i.rarity === 'сверхредкое') },
+        { id: 'rarity_epic', name: 'Выбить эпическое', check: s => s.inventory.some(i => i.rarity === 'эпическое') },
+        { id: 'rarity_exclusive', name: 'Выбить эксклюзив', check: s => s.inventory.some(i => i.rarity === 'эксклюзив') },
+        { id: 'rarity_mythic', name: 'Выбить мифический', check: s => s.inventory.some(i => i.rarity === 'мифический') },
+        { id: 'rarity_legendary', name: 'Выбить легендарный', check: s => s.inventory.some(i => i.rarity === 'легендарный') },
+        { id: 'rarity_all', name: 'Выбить все редкости', check: s => {
+            const rarities = ['ширп','обычное','необычное','редкое','сверхредкое','эпическое','эксклюзив','мифический','легендарный'];
+            return rarities.every(r => s.inventory.some(i => i.rarity === r));
+        }},
+        // Ник
+        { id: 'changeNick', name: 'Сменить ник', check: s => s.nickChanged },
+        // Уровни
+        { id: 'lv1', name: 'Достичь 1 уровня', check: s => s.level >= 1 },
+        { id: 'lv2', name: 'Достичь 2 уровня', check: s => s.level >= 2 },
+        { id: 'lv3', name: 'Достичь 3 уровня', check: s => s.level >= 3 },
+        { id: 'lv4', name: 'Достичь 4 уровня', check: s => s.level >= 4 },
+        { id: 'lv5', name: 'Достичь 5 уровня', check: s => s.level >= 5 },
+        { id: 'lv6', name: 'Достичь 6 уровня', check: s => s.level >= 6 },
+        { id: 'lv7', name: 'Достичь 7 уровня', check: s => s.level >= 7 },
+        { id: 'lv8', name: 'Достичь 8 уровня', check: s => s.level >= 8 },
+        { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
+        { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
+        { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
+        // Донаты (титулы)
+        { id: 'buy_nobleman', name: 'Купить титул "Дворянин"', check: s => s.currentTitle === 'nobleman' || s.achievements.includes('buy_nobleman') },
+        { id: 'buy_baron', name: 'Купить титул "Барон"', check: s => s.currentTitle === 'baron' || s.achievements.includes('buy_baron') },
+        { id: 'buy_count', name: 'Купить титул "Граф"', check: s => s.currentTitle === 'count' || s.achievements.includes('buy_count') },
+        { id: 'buy_duke', name: 'Купить титул "Герцог"', check: s => s.currentTitle === 'duke' || s.achievements.includes('buy_duke') },
+        { id: 'buy_prince', name: 'Купить титул "Князь"', check: s => s.currentTitle === 'prince' || s.achievements.includes('buy_prince') },
+        { id: 'buy_exclusive', name: 'Получить титул "Эксклюзив"', check: s => s.currentTitle === 'exclusive' || s.achievements.includes('buy_exclusive') },
+        // Рубины
+        { id: 'ruby10', name: 'Накопить 10 рубинов', check: s => s.rubies >= 10 },
+        { id: 'ruby50', name: 'Накопить 50 рубинов', check: s => s.rubies >= 50 },
+        { id: 'ruby100', name: 'Накопить 100 рубинов', check: s => s.rubies >= 100 },
+        { id: 'ruby500', name: 'Накопить 500 рубинов', check: s => s.rubies >= 500 },
+        { id: 'ruby1000', name: 'Накопить 1000 рубинов', check: s => s.rubies >= 1000 },
+        { id: 'ruby_spend100', name: 'Потратить 100 рубинов', check: s => s.totalRubies >= 100 && s.totalRubies - s.rubies >= 100 },
+        { id: 'ruby_spend500', name: 'Потратить 500 рубинов', check: s => s.totalRubies - s.rubies >= 500 },
+        { id: 'ruby_shop1', name: 'Купить в магазине за рубины', check: s => s.rubyShopPurchases >= 1 },
+        { id: 'ruby_shop5', name: 'Купить 5 раз в магазине за рубины', check: s => s.rubyShopPurchases >= 5 },
+        { id: 'ruby_shop10', name: 'Купить 10 раз в магазине за рубины', check: s => s.rubyShopPurchases >= 10 },
+        // Баланс
+        { id: 'balance1000', name: 'Накопить 1000 ₽', check: s => s.maxBalance >= 1000 },
+        { id: 'balance5000', name: 'Накопить 5000 ₽', check: s => s.maxBalance >= 5000 },
+        { id: 'balance10000', name: 'Накопить 10000 ₽', check: s => s.maxBalance >= 10000 },
+        { id: 'balance50000', name: 'Накопить 50000 ₽', check: s => s.maxBalance >= 50000 },
+        { id: 'balance100000', name: 'Накопить 100000 ₽', check: s => s.maxBalance >= 100000 },
+        // Пасхалка
+        { id: 'easter', name: 'Найти пасхалку', check: s => s.easterFound },
+        // Общее
+        { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
+    ];
+
+    // ===== ЗВУКИ (без изменений) =====
+    let audioCtx = null;
+    function getAudioCtx() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        return audioCtx;
+    }
+    function playTone(freq, duration, type = 'sine', volume = 0.1) {
+        if (!STATE.settings.sound && !STATE.settings.sfx) return;
+        const vol = (STATE.settings.sfxVolume || 1) * volume;
+        try {
+            const ctx = getAudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(vol, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + duration);
+        } catch(e) {}
+    }
+    function sfxClick() { if (STATE.settings.sfx) playTone(800, 0.06, 'sine', 0.08); }
+    function sfxCaseOpenStart() { if (STATE.settings.sfx) { playTone(500, 0.08, 'square', 0.05); setTimeout(() => playTone(600, 0.08, 'square', 0.05), 100); } }
+    function sfxCaseOpenFinish() { if (STATE.settings.sfx) { playTone(800, 0.1, 'sine', 0.1); setTimeout(() => playTone(1000, 0.15, 'sine', 0.12), 150); } }
+    function sfxMarketSell() { if (STATE.settings.sfx) { playTone(600, 0.08, 'sine', 0.08); setTimeout(() => playTone(900, 0.1, 'sine', 0.08), 120); } }
+    function sfxMarketBuy() { if (STATE.settings.sfx) { playTone(700, 0.08, 'sine', 0.08); setTimeout(() => playTone(1000, 0.12, 'sine', 0.1), 150); } }
+    function sfxAchievement() { if (STATE.settings.sfx) { [0,100,200,300,400].forEach((t,i) => setTimeout(() => playTone(500+i*150, 0.1, 'sine', 0.08), t)); } }
+    function sfxClicker() { if (STATE.settings.sfx) { playTone(1000, 0.05, 'sine', 0.06); } }
+    function sfxMorolsCoin() { if (STATE.settings.sfx) { playTone(1200, 0.05, 'sine', 0.06); } }
+    function sfxMorolsCrash() { if (STATE.settings.sfx) { playTone(200, 0.3, 'sawtooth', 0.1); } }
+    function sfxPlaneCoin() { if (STATE.settings.sfx) { playTone(1100, 0.05, 'sine', 0.07); } }
+    function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
+    function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
+
+    // ===== КЕЙСЫ (без изменений) =====
     const CASES = [
         { id: 'muzhiki1', name: 'Мужики 1', emoji: '💪', price: 100,
             items: [
@@ -2208,7 +2710,6 @@
                 { name: 'SWR', emoji: '⚡', weight: 0.1, rarity: 'эпическое' }
             ]
         },
-        // НОВЫЙ КЕЙС: Города 3
         { id: 'cities3', name: 'Города 3', emoji: '🌍', price: 150,
             items: [
                 { name: 'нидерланды', emoji: '🇳🇱', weight: 30, rarity: 'ширп' },
@@ -2223,7 +2724,6 @@
                 { name: 'seapure', emoji: '🌊', weight: 0.1, rarity: 'мифический' }
             ]
         },
-        // НОВЫЙ КЕЙС: Игроки 3 (исправлена опечатка)
         { id: 'players3', name: 'Игроки 3', emoji: '👾', price: 100,
             items: [
                 { name: 'wholespk', emoji: '🧑‍💻', weight: 25, rarity: 'ширп' },
@@ -2247,122 +2747,7 @@
         }
     ];
 
-    // ===== ДОСТИЖЕНИЯ =====
-    const ACHIEVEMENTS = [
-        { id: 'click10', name: 'Кликнуть 10 раз', check: s => s.totalClicks >= 10 },
-        { id: 'click50', name: 'Кликнуть 50 раз', check: s => s.totalClicks >= 50 },
-        { id: 'click100', name: 'Кликнуть 100 раз', check: s => s.totalClicks >= 100 },
-        { id: 'click500', name: 'Кликнуть 500 раз', check: s => s.totalClicks >= 500 },
-        { id: 'click1000', name: 'Кликнуть 1000 раз', check: s => s.totalClicks >= 1000 },
-        { id: 'click5000', name: 'Кликнуть 5000 раз', check: s => s.totalClicks >= 5000 },
-        { id: 'open1', name: 'Открыть 1 кейс', check: s => s.casesOpened >= 1 },
-        { id: 'open5', name: 'Открыть 5 кейсов', check: s => s.casesOpened >= 5 },
-        { id: 'open10', name: 'Открыть 10 кейсов', check: s => s.casesOpened >= 10 },
-        { id: 'open50', name: 'Открыть 50 кейсов', check: s => s.casesOpened >= 50 },
-        { id: 'open100', name: 'Открыть 100 кейсов', check: s => s.casesOpened >= 100 },
-        { id: 'open500', name: 'Открыть 500 кейсов', check: s => s.casesOpened >= 500 },
-        { id: 'morols1', name: 'Сыграть в Моролс 1 раз', check: s => s.morols.gamesPlayed >= 1 },
-        { id: 'morols5', name: 'Сыграть в Моролс 5 раз', check: s => s.morols.gamesPlayed >= 5 },
-        { id: 'morols10', name: 'Сыграть в Моролс 10 раз', check: s => s.morols.gamesPlayed >= 10 },
-        { id: 'morols50', name: 'Сыграть в Моролс 50 раз', check: s => s.morols.gamesPlayed >= 50 },
-        { id: 'morols100', name: 'Сыграть в Моролс 100 раз', check: s => s.morols.gamesPlayed >= 100 },
-        { id: 'speed10', name: 'Набить 10 км/ч', check: s => s.morols.maxSpeed >= 10 },
-        { id: 'speed50', name: 'Набить 50 км/ч', check: s => s.morols.maxSpeed >= 50 },
-        { id: 'speed100', name: 'Набить 100 км/ч', check: s => s.morols.maxSpeed >= 100 },
-        { id: 'speed200', name: 'Набить 200 км/ч', check: s => s.morols.maxSpeed >= 200 },
-        { id: 'speed300', name: 'Набить 300 км/ч', check: s => s.morols.maxSpeed >= 300 },
-        { id: 'plane1', name: 'Сыграть в Самолёт 1 раз', check: s => s.plane.gamesPlayed >= 1 },
-        { id: 'plane5', name: 'Сыграть в Самолёт 5 раз', check: s => s.plane.gamesPlayed >= 5 },
-        { id: 'plane10', name: 'Сыграть в Самолёт 10 раз', check: s => s.plane.gamesPlayed >= 10 },
-        { id: 'plane50', name: 'Сыграть в Самолёт 50 раз', check: s => s.plane.gamesPlayed >= 50 },
-        { id: 'planeTime10', name: 'Пролететь 10 секунд', check: s => s.plane.bestTime >= 10 },
-        { id: 'planeTime30', name: 'Пролететь 30 секунд', check: s => s.plane.bestTime >= 30 },
-        { id: 'planeTime60', name: 'Пролететь 60 секунд', check: s => s.plane.bestTime >= 60 },
-        { id: 'inv1', name: 'Иметь 1 карту', check: s => s.inventory.length >= 1 },
-        { id: 'inv5', name: 'Иметь 5 карт', check: s => s.inventory.length >= 5 },
-        { id: 'inv10', name: 'Иметь 10 карт', check: s => s.inventory.length >= 10 },
-        { id: 'inv25', name: 'Иметь 25 карт', check: s => s.inventory.length >= 25 },
-        { id: 'inv50', name: 'Иметь 50 карт', check: s => s.inventory.length >= 50 },
-        { id: 'inv100', name: 'Иметь 100 карт', check: s => s.inventory.length >= 100 },
-        { id: 'buyLot', name: 'Купить лот на рынке', check: s => s.marketBuys >= 1 },
-        { id: 'sellLot', name: 'Выставить лот на рынке', check: s => s.marketSells >= 1 },
-        { id: 'promo', name: 'Активировать промокод', check: s => Object.keys(s.promoCodesUsed).length > 0 },
-        { id: 'elo1050', name: 'Достичь 1050 Эло', check: s => s.elo >= 1050 },
-        { id: 'elo1100', name: 'Достичь 1100 Эло', check: s => s.elo >= 1100 },
-        { id: 'elo1200', name: 'Достичь 1200 Эло', check: s => s.elo >= 1200 },
-        { id: 'elo1300', name: 'Достичь 1300 Эло', check: s => s.elo >= 1300 },
-        { id: 'elo1400', name: 'Достичь 1400 Эло', check: s => s.elo >= 1400 },
-        { id: 'elo1500', name: 'Достичь 1500 Эло', check: s => s.elo >= 1500 },
-        { id: 'elo1600', name: 'Достичь 1600 Эло', check: s => s.elo >= 1600 },
-        { id: 'elo1700', name: 'Достичь 1700 Эло', check: s => s.elo >= 1700 },
-        { id: 'elo1800', name: 'Достичь 1800 Эло', check: s => s.elo >= 1800 },
-        { id: 'elo1900', name: 'Достичь 1900 Эло', check: s => s.elo >= 1900 },
-        { id: 'elo2000', name: 'Достичь 2000 Эло', check: s => s.elo >= 2000 },
-        { id: 'topElo', name: 'Стать топ 1 по Эло', check: s => s.topElo },
-        { id: 'easter', name: 'Найти пасхалку', check: s => s.easterFound },
-        { id: 'rarity_shirp', name: 'Выбить ширп', check: s => s.inventory.some(i => i.rarity === 'ширп') },
-        { id: 'rarity_common', name: 'Выбить обычное', check: s => s.inventory.some(i => i.rarity === 'обычное') },
-        { id: 'rarity_uncommon', name: 'Выбить необычное', check: s => s.inventory.some(i => i.rarity === 'необычное') },
-        { id: 'rarity_rare', name: 'Выбить редкое', check: s => s.inventory.some(i => i.rarity === 'редкое') },
-        { id: 'rarity_superrare', name: 'Выбить сверхредкое', check: s => s.inventory.some(i => i.rarity === 'сверхредкое') },
-        { id: 'rarity_epic', name: 'Выбить эпическое', check: s => s.inventory.some(i => i.rarity === 'эпическое') },
-        { id: 'rarity_exclusive', name: 'Выбить эксклюзив', check: s => s.inventory.some(i => i.rarity === 'эксклюзив') },
-        { id: 'rarity_all', name: 'Выбить все редкости', check: s => {
-            const rarities = ['ширп','обычное','необычное','редкое','сверхредкое','эпическое','эксклюзив','мифический','легендарный'];
-            return rarities.every(r => s.inventory.some(i => i.rarity === r));
-        }},
-        { id: 'changeNick', name: 'Сменить ник', check: s => s.nickChanged },
-        { id: 'lv1', name: 'Достичь 1 уровня', check: s => s.level >= 1 },
-        { id: 'lv2', name: 'Достичь 2 уровня', check: s => s.level >= 2 },
-        { id: 'lv3', name: 'Достичь 3 уровня', check: s => s.level >= 3 },
-        { id: 'lv4', name: 'Достичь 4 уровня', check: s => s.level >= 4 },
-        { id: 'lv5', name: 'Достичь 5 уровня', check: s => s.level >= 5 },
-        { id: 'lv6', name: 'Достичь 6 уровня', check: s => s.level >= 6 },
-        { id: 'lv7', name: 'Достичь 7 уровня', check: s => s.level >= 7 },
-        { id: 'lv8', name: 'Достичь 8 уровня', check: s => s.level >= 8 },
-        { id: 'lv9', name: 'Достичь 9 уровня', check: s => s.level >= 9 },
-        { id: 'lv10', name: 'Достичь 10 уровня', check: s => s.level >= 10 },
-        { id: 'lvPro', name: 'Достичь Pro уровня', check: s => s.level >= 11 },
-        { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
-    ];
-
-    // ===== ЗВУКИ =====
-    let audioCtx = null;
-    function getAudioCtx() {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        return audioCtx;
-    }
-    function playTone(freq, duration, type = 'sine', volume = 0.1) {
-        if (!STATE.settings.sound && !STATE.settings.sfx) return;
-        const vol = (STATE.settings.sfxVolume || 1) * volume;
-        try {
-            const ctx = getAudioCtx();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            gain.gain.setValueAtTime(vol, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + duration);
-        } catch(e) {}
-    }
-    function sfxClick() { if (STATE.settings.sfx) playTone(800, 0.06, 'sine', 0.08); }
-    function sfxCaseOpenStart() { if (STATE.settings.sfx) { playTone(500, 0.08, 'square', 0.05); setTimeout(() => playTone(600, 0.08, 'square', 0.05), 100); } }
-    function sfxCaseOpenFinish() { if (STATE.settings.sfx) { playTone(800, 0.1, 'sine', 0.1); setTimeout(() => playTone(1000, 0.15, 'sine', 0.12), 150); } }
-    function sfxMarketSell() { if (STATE.settings.sfx) { playTone(600, 0.08, 'sine', 0.08); setTimeout(() => playTone(900, 0.1, 'sine', 0.08), 120); } }
-    function sfxMarketBuy() { if (STATE.settings.sfx) { playTone(700, 0.08, 'sine', 0.08); setTimeout(() => playTone(1000, 0.12, 'sine', 0.1), 150); } }
-    function sfxAchievement() { if (STATE.settings.sfx) { [0,100,200,300,400].forEach((t,i) => setTimeout(() => playTone(500+i*150, 0.1, 'sine', 0.08), t)); } }
-    function sfxClicker() { if (STATE.settings.sfx) { playTone(1000, 0.05, 'sine', 0.06); } }
-    function sfxMorolsCoin() { if (STATE.settings.sfx) { playTone(1200, 0.05, 'sine', 0.06); } }
-    function sfxMorolsCrash() { if (STATE.settings.sfx) { playTone(200, 0.3, 'sawtooth', 0.1); } }
-    function sfxPlaneCoin() { if (STATE.settings.sfx) { playTone(1100, 0.05, 'sine', 0.07); } }
-    function sfxPlaneDie() { if (STATE.settings.sfx) { playTone(300, 0.3, 'sawtooth', 0.08); } }
-    function sfxPlaneJump() { if (STATE.settings.sfx) { playTone(600, 0.06, 'sine', 0.07); } }
-
-    // ===== ВХОД И РЕГИСТРАЦИЯ =====
+    // ===== ВХОД И РЕГИСТРАЦИЯ (с ограничением 24 символа) =====
     function getEmail(nick) { return nick + '@casettp.firebaseapp.com'; }
 
     function registerUser(nick, password) {
@@ -2370,6 +2755,13 @@
         if (!status) return;
         status.textContent = '';
         addLog('⏳ Регистрация для ' + nick);
+
+        if (nick.length > 24) {
+            status.textContent = '❌ Ник не может превышать 24 символа';
+            status.className = 'error';
+            document.getElementById('loadingStatus').classList.add('hidden');
+            return;
+        }
         if (password.length < 6) {
             status.textContent = '❌ Пароль не менее 6 символов';
             status.className = 'error';
@@ -2523,7 +2915,13 @@
             titleBonuses: {},
             morolsSkins: [],
             currentMorolsSkin: null,
-            lastActivity: Date.now()
+            lastActivity: Date.now(),
+            exclusiveActivated: false,
+            exclusiveGiven: false,
+            rubyShopPurchases: 0,
+            // Для отслеживания открытых кейсов для достижений
+            caseOpenedCounts: {},
+            totalRubiesSpent: 0
         };
         return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
             method: 'PUT',
@@ -2667,6 +3065,11 @@
             STATE.morolsSkins = data.morolsSkins || [];
             STATE.currentMorolsSkin = data.currentMorolsSkin || null;
             STATE.lastActivity = data.lastActivity || Date.now();
+            STATE.exclusiveActivated = data.exclusiveActivated || false;
+            STATE.exclusiveGiven = data.exclusiveGiven || false;
+            STATE.rubyShopPurchases = data.rubyShopPurchases || 0;
+            STATE.caseOpenedCounts = data.caseOpenedCounts || {};
+            STATE.totalRubiesSpent = data.totalRubiesSpent || 0;
 
             if (!STATE.eloInitialized || STATE.elo < 1000) {
                 STATE.elo = 1000;
@@ -2674,6 +3077,11 @@
                 STATE.eloInitialized = true;
                 addLog('⭐ Выдано 1000 Эло новичку');
                 saveStateToFirebase();
+            }
+
+            // Проверка эксклюзива
+            if (STATE.currentTitle === 'exclusive' && !STATE.exclusiveGiven) {
+                giveExclusiveBonus();
             }
 
             rebuildItemsCount();
@@ -2689,6 +3097,16 @@
             STATE.welcomeShown = true;
             saveStateToFirebase();
             addLog('💬 Показано приветствие');
+
+            // Показать баннер эксклюзива
+            if (STATE.currentTitle === 'exclusive') {
+                document.getElementById('exclusiveBanner').style.display = 'block';
+            } else {
+                document.getElementById('exclusiveBanner').style.display = 'none';
+            }
+
+            // Логируем вход в активность
+            logPlayerAction('вошёл в игру', '', false);
 
             setTimeout(() => {
                 try { updateUI(); } catch(e) { addLog('⚠️ updateUI: ' + e.message); }
@@ -2706,6 +3124,8 @@
                 initEventListeners();
                 startPlayersAutoUpdate();
                 startPassiveIncome();
+                loadActivityLog();
+                startActivityAutoUpdate();
             }, 50);
 
             const idEl = document.getElementById('idDisplay');
@@ -2727,6 +3147,28 @@
             if (status2) status2.classList.add('hidden');
             console.error(e);
         }
+    }
+
+    // ===== ЭКСКЛЮЗИВ БОНУС =====
+    function giveExclusiveBonus() {
+        if (STATE.exclusiveGiven) return;
+        STATE.exclusiveGiven = true;
+        STATE.exclusiveActivated = true;
+
+        // Даём по 1 кейсу каждого вида
+        for (const c of CASES) {
+            STATE.freeOpens[c.id] = (STATE.freeOpens[c.id] || 0) + 1;
+        }
+        STATE.rubies += 500;
+        STATE.totalRubies += 500;
+        showToast('👑 Эксклюзив активирован! +500 рубинов и по 1 кейсу каждого вида!');
+        logPlayerAction('получил бонус эксклюзива', '(500 рубинов + все кейсы)', true);
+        addLog('👑 Эксклюзив бонус выдан: 500 рубинов + все кейсы');
+        saveStateToFirebase();
+        updateUI();
+        renderCases();
+        renderInventory();
+        checkAllAchievements();
     }
 
     function saveStateToFirebase() {
@@ -2784,7 +3226,12 @@
             titleBonuses: STATE.titleBonuses,
             morolsSkins: STATE.morolsSkins,
             currentMorolsSkin: STATE.currentMorolsSkin,
-            lastActivity: STATE.lastActivity
+            lastActivity: STATE.lastActivity,
+            exclusiveActivated: STATE.exclusiveActivated,
+            exclusiveGiven: STATE.exclusiveGiven,
+            rubyShopPurchases: STATE.rubyShopPurchases,
+            caseOpenedCounts: STATE.caseOpenedCounts || {},
+            totalRubiesSpent: STATE.totalRubiesSpent || 0
         };
         return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
             method: 'PATCH',
@@ -2814,34 +3261,13 @@
         document.getElementById('bg-music').pause();
         document.getElementById('bg-music2').pause();
         if (STATE.passiveInterval) clearInterval(STATE.passiveInterval);
+        if (activityAutoUpdateInterval) clearInterval(activityAutoUpdateInterval);
         addLog('🔚 Вышел из аккаунта');
         showToast('Вы вышли');
+        document.getElementById('activityPopup').classList.remove('show');
     }
 
-    // ===== ПАССИВНЫЙ ДОХОД =====
-    function startPassiveIncome() {
-        if (STATE.passiveInterval) clearInterval(STATE.passiveInterval);
-        STATE.passiveInterval = setInterval(() => {
-            if (!currentUser) return;
-            const bonus = STATE.titleBonuses;
-            if (bonus.passiveCoins) {
-                STATE.balance += bonus.passiveCoins;
-                STATE.totalEarned += bonus.passiveCoins;
-                if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                showToast('+ ' + bonus.passiveCoins + ' ₽ (пассивный доход)');
-                updateUI();
-                saveStateToFirebase();
-            }
-            if (bonus.passiveRubies) {
-                STATE.rubies += bonus.passiveRubies;
-                STATE.totalRubies += bonus.passiveRubies;
-                updateUI();
-                saveStateToFirebase();
-            }
-        }, 60000);
-    }
-
-    // ===== КЕЙСЫ (открытие) =====
+    // ===== КЕЙСЫ (открытие) с логированием =====
     function getCaseById(id) { return CASES.find(c => c.id === id); }
     function rollItem(caseData) {
         const total = caseData.items.reduce((s, i) => s + i.weight, 0);
@@ -2859,6 +3285,7 @@
         if (!caseData) return;
         let price = caseData.price;
         let discount = STATE.titleBonuses.caseDiscount || 0;
+        if (STATE.currentTitle === 'exclusive') discount = Math.max(discount, 0.1);
         let discountedPrice = Math.floor(price * (1 - discount));
         if (discountedPrice < 0) discountedPrice = 0;
         let free = false;
@@ -2945,6 +3372,10 @@
                 }
                 STATE.casesOpened += 1;
                 if (STATE.casesOpened > STATE.maxCasesOpened) STATE.maxCasesOpened = STATE.casesOpened;
+                // Отслеживаем открытие кейса для достижений
+                if (!STATE.caseOpenedCounts) STATE.caseOpenedCounts = {};
+                STATE.caseOpenedCounts[caseId] = (STATE.caseOpenedCounts[caseId] || 0) + 1;
+
                 const entry = {
                     id: Date.now() + '_' + Math.random().toString(36).slice(2,6),
                     name: finalResult.name,
@@ -2974,6 +3405,9 @@
                     if (STATE.titleBonuses.sellBonus) {
                         sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
                     }
+                    if (STATE.currentTitle === 'exclusive') {
+                        sellPrice = Math.floor(sellPrice * 1.1);
+                    }
                     sellResultBtn.textContent = 'Продать за ' + sellPrice + ' ₽';
                     sellResultBtn.onclick = function() {
                         const price = sellPrice;
@@ -2998,6 +3432,8 @@
                         setTimeout(() => openCase(caseId), 100);
                     };
                     addLog('📦 Открыт кейс ' + caseData.name + ', выпало: ' + finalResult.name);
+                    // Логируем в активность
+                    logPlayerAction('открыл кейс ' + caseData.name, 'и выбил ' + finalResult.emoji + ' ' + finalResult.name, finalResult.rarity === 'эпическое' || finalResult.rarity === 'эксклюзив' || finalResult.rarity === 'мифический' || finalResult.rarity === 'легендарный');
                 });
             }
         }
@@ -3048,7 +3484,7 @@
         modal.onclick = (e) => { if (e.target === modal) modal.classList.remove('open'); };
     }
 
-    // ===== ИНВЕНТАРЬ =====
+    // ===== ИНВЕНТАРЬ (без изменений) =====
     function renderInventory() {
         try {
             const grid = document.getElementById('inventoryGrid');
@@ -3087,6 +3523,9 @@
                     if (STATE.titleBonuses.sellBonus) {
                         sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
                     }
+                    if (STATE.currentTitle === 'exclusive') {
+                        sellPrice = Math.floor(sellPrice * 1.1);
+                    }
                     itemsToShow.push({ key, name, emoji, count, rarity, sellPrice, caseId });
                 }
             } else {
@@ -3100,6 +3539,9 @@
                     }
                     if (STATE.titleBonuses.sellBonus) {
                         sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
+                    }
+                    if (STATE.currentTitle === 'exclusive') {
+                        sellPrice = Math.floor(sellPrice * 1.1);
                     }
                     itemsToShow.push({ key, name: item.name, emoji: item.emoji, count: 1, rarity: item.rarity || 'обычное', sellPrice, caseId, id: item.id });
                 }
@@ -3160,6 +3602,7 @@
                     saveStateToFirebase();
                     renderInventory();
                     addLog('💰 Продано: ' + name + ' за ' + price + ' рублей');
+                    logPlayerAction('продал карту ' + name, 'за ' + price + ' ₽', false);
                 } else if (target.classList.contains('trash-btn')) {
                     let idx;
                     if (id) {
@@ -3220,7 +3663,7 @@
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    // ===== РЫНОК =====
+    // ===== РЫНОК (без изменений) =====
     function renderMarket() {
         const container = document.getElementById('marketContent');
         if (!container) return;
@@ -3367,6 +3810,7 @@
                             renderInventory();
                             renderMarket();
                             addLog(`📈 Выставлен лот: ${name} x${quantity} за ${price} ₽/шт.`);
+                            logPlayerAction('выставил лот на рынок', `${name} x${quantity} за ${price} ₽/шт.`, false);
                         })
                         .catch(err => showToast('❌ Ошибка: ' + err.message));
                     };
@@ -3425,6 +3869,7 @@
             renderInventory();
             renderMarket();
             addLog(`🛒 Куплен лот: ${lot.name} x${quantity} за ${totalPrice} ₽`);
+            logPlayerAction('купил лот на рынке', `${lot.name} x${quantity} за ${totalPrice} ₽`, false);
         })
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
@@ -3442,7 +3887,7 @@
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    // ===== РЕЙТИНГ =====
+    // ===== РЕЙТИНГ (с отображением доната) =====
     function renderRating(sortBy = 'elo') {
         const container = document.getElementById('ratingContent');
         if (!container) return;
@@ -3525,7 +3970,6 @@
                     else if (rank === 2) posClass = 'silver';
                     else if (rank === 3) posClass = 'bronze';
                     const isPro = p.level >= 11;
-                    let nameClass = isPro ? 'gold-nick' : '';
                     let valueDisplay = p.elo;
                     switch (sortBy) {
                         case 'cards': valueDisplay = p.casesOpened; break;
@@ -3547,9 +3991,24 @@
                         const roleClass = (p.clanRole === 'leader') ? 'leader' : 'member';
                         clanDisplay = `<span class="clan-tag ${roleClass}">[${p.clan}]${p.clanRole === 'leader' ? ' 👑' : ''}</span>`;
                     }
-                    html += `<div class="rank-item ${isYou ? 'you' : ''} ${nameClass}">
+                    // Отображение доната
+                    let titleDisplay = '';
+                    if (p.title && p.title !== 'player') {
+                        const titleData = STATE.donateTitles.find(t => t.id === p.title);
+                        const color = titleData?.color || 'default';
+                        let colorClass = '';
+                        if (color === '#8B4513') colorClass = 'title-color-brown';
+                        else if (color === '#808080') colorClass = 'title-color-gray';
+                        else if (color === '#FF8C00') colorClass = 'title-color-orange';
+                        else if (color === '#32CD32') colorClass = 'title-color-lime';
+                        else if (color === '#1E90FF') colorClass = 'title-color-blue';
+                        else if (color === 'rainbow') colorClass = 'title-color-rainbow';
+                        const label = titleData?.name || p.title;
+                        titleDisplay = `<span class="title-tag ${colorClass}">[${label}]</span>`;
+                    }
+                    html += `<div class="rank-item ${isYou ? 'you' : ''}">
                         <span class="pos ${posClass}">${rank}</span>
-                        <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay}</span>
+                        <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay} ${titleDisplay}</span>
                         <span class="value">${valueDisplay}</span>
                         ${isYou ? '<span style="font-size:12px; color:#666;">вы</span>' : ''}
                         ${isPro ? '<span style="font-size:12px; color:#f0d070; margin-left:6px;">👑 Pro</span>' : ''}
@@ -3571,7 +4030,16 @@
         const countEl = document.getElementById('achCount');
         let html = '';
         let unlocked = 0;
-        for (const ach of ACHIEVEMENTS) {
+        const sorted = [...ACHIEVEMENTS];
+        // Показываем сначала разблокированные
+        sorted.sort((a,b) => {
+            const au = STATE.achievements.includes(a.id);
+            const bu = STATE.achievements.includes(b.id);
+            if (au && !bu) return -1;
+            if (!au && bu) return 1;
+            return a.name.localeCompare(b.name);
+        });
+        for (const ach of sorted) {
             const isUnlocked = STATE.achievements.includes(ach.id);
             if (isUnlocked) unlocked++;
             html += `<div class="achieve-item ${isUnlocked ? 'unlocked' : ''}">
@@ -3596,6 +4064,7 @@
                 sfxAchievement();
                 addExp(5);
                 addLog('🏆 Получено достижение: ' + ach.name);
+                logPlayerAction('получил достижение', ach.name, true);
                 checkAndSendEvent(ach.id);
             }
         }
@@ -3608,6 +4077,7 @@
                 sfxAchievement();
                 addExp(20);
                 addLog('🏆 Все достижения выполнены!');
+                logPlayerAction('выполнил все достижения', '', true);
                 checkAndSendEvent('allAchievements');
             }
         }
@@ -3699,6 +4169,18 @@
     function renderAccount() {
         const container = document.getElementById('accountInfo');
         if (!container) return;
+        // Определяем цвет доната
+        let titleColor = 'default';
+        const titleData = STATE.donateTitles.find(t => t.id === STATE.currentTitle);
+        if (titleData) {
+            const c = titleData.color;
+            if (c === '#8B4513') titleColor = 'title-color-brown';
+            else if (c === '#808080') titleColor = 'title-color-gray';
+            else if (c === '#FF8C00') titleColor = 'title-color-orange';
+            else if (c === '#32CD32') titleColor = 'title-color-lime';
+            else if (c === '#1E90FF') titleColor = 'title-color-blue';
+            else if (c === 'rainbow') titleColor = 'title-color-rainbow';
+        }
         container.innerHTML = `
             <div class="row"><span class="label">Никнейм</span><span class="value">${STATE.nickname}</span></div>
             <div class="row"><span class="label">ID</span><span class="value">#${STATE.userId}</span></div>
@@ -3714,7 +4196,7 @@
             <div class="row"><span class="label">Бесплатных открытий</span><span class="value">${Object.values(STATE.freeOpens).reduce((a,b)=>a+b,0)}</span></div>
             <div class="row"><span class="label">Друзей</span><span class="value">${STATE.friends.length}</span></div>
             <div class="row"><span class="label">Заблокированных</span><span class="value">${STATE.blocked.length}</span></div>
-            <div class="row"><span class="label">Титул</span><span class="value">${STATE.currentTitle ? STATE.donateTitles.find(t=>t.id===STATE.currentTitle)?.name || '—' : '—'}</span></div>
+            <div class="row"><span class="label">Титул</span><span class="value ${titleColor}">${titleData ? titleData.name : '—'}</span></div>
         `;
 
         document.getElementById('setClanBtn')?.addEventListener('click', function() {
@@ -3740,8 +4222,10 @@
         });
 
         document.getElementById('changeNickBtnAccount').onclick = function() {
-            const newNick = prompt('Введите новый ник (стоимость 100 ₽):', STATE.nickname);
+            let newNick = prompt('Введите новый ник (стоимость 100 ₽, макс. 24 символа):', STATE.nickname);
             if (!newNick || newNick === STATE.nickname) return;
+            newNick = newNick.trim();
+            if (newNick.length > 24) { showToast('❌ Ник не может превышать 24 символа'); return; }
             if (STATE.balance < 100) { showToast('❌ Недостаточно средств, нужно 100 ₽'); return; }
             fetch(DB_URL + '/nicknames/' + newNick + '.json')
                 .then(res => res.json())
@@ -3772,6 +4256,7 @@
                         saveStateToFirebase();
                         checkAllAchievements();
                         addLog('✏️ Ник изменён на: ' + newNick);
+                        logPlayerAction('сменил ник', 'на ' + newNick, false);
                     }
                 })
                 .catch(err => showToast('❌ Ошибка: ' + err.message));
@@ -3866,6 +4351,11 @@
                     STATE.titleBonuses = {};
                     STATE.morolsSkins = [];
                     STATE.currentMorolsSkin = null;
+                    STATE.caseOpenedCounts = {};
+                    STATE.totalRubiesSpent = 0;
+                    STATE.rubyShopPurchases = 0;
+                    STATE.exclusiveGiven = false;
+                    STATE.exclusiveActivated = false;
                     saveStateToFirebase().then(() => {
                         showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
                         addLog('🔄 Сброс прогресса выполнен');
@@ -3877,6 +4367,7 @@
                         renderSpeedEvent();
                         renderShop();
                         renderPlayers();
+                        document.getElementById('exclusiveBanner').style.display = 'none';
                     });
                 })
                 .catch(err => showToast('❌ Ошибка: ' + err.message));
@@ -3933,8 +4424,97 @@
         };
     }
 
+    // ===== УРОВНИ =====
+    function getLevelForExp(exp) {
+        if (exp < 100) return 1;
+        if (exp < 200) return 2;
+        if (exp < 300) return 3;
+        if (exp < 500) return 4;
+        if (exp < 750) return 5;
+        if (exp < 1000) return 6;
+        if (exp < 1500) return 7;
+        if (exp < 2000) return 8;
+        if (exp < 2500) return 9;
+        if (exp < 3000) return 10;
+        return 11;
+    }
+    function getLevelLabel(level) { return level <= 10 ? level : 'Pro'; }
+
+    function updateProProgress() {
+        const exp = STATE.exp;
+        const level = STATE.level;
+        const proExp = 3000;
+        const progress = Math.min(100, (exp / proExp) * 100);
+        const expEl = document.getElementById('expDisplay');
+        const progEl = document.getElementById('proProgressDisplay');
+        if (expEl) expEl.textContent = exp;
+        if (progEl) {
+            if (level >= 11) progEl.textContent = 'Pro';
+            else progEl.textContent = Math.round(progress) + '%';
+        }
+        const progressFill = document.getElementById('progressFill');
+        const progressLabel = document.getElementById('progressLabel');
+        if (progressFill) {
+            progressFill.style.width = Math.min(100, progress) + '%';
+        }
+        if (progressLabel) {
+            if (level >= 11) progressLabel.textContent = 'Pro уровень достигнут!';
+            else progressLabel.textContent = Math.round(progress) + '% до Pro';
+        }
+    }
+
+    function addExp(amount) {
+        if (!currentUser) return;
+        const reduced = Math.floor(amount / 2);
+        if (reduced < 1) return;
+        STATE.exp += reduced;
+        const newLevel = getLevelForExp(STATE.exp);
+        if (newLevel !== STATE.level) {
+            STATE.level = newLevel;
+            showToast('🎉 Уровень повышен до ' + getLevelLabel(STATE.level) + '!');
+            giveLevelReward(newLevel);
+            checkAllAchievements();
+            saveStateToFirebase();
+        }
+        updateUI();
+        addLog('➕ +' + reduced + ' опыта (итого ' + STATE.exp + ')');
+    }
+
+    function giveLevelReward(level) {
+        if (!currentUser) return;
+        let reward = { cases: [], coins: 0 };
+        switch(level) {
+            case 1: reward = { cases: [{ id: 'muzhiki1', count: 3 }], coins: 100 }; break;
+            case 2: reward = { cases: [{ id: 'players', count: 3 }], coins: 100 }; break;
+            case 3: reward = { cases: [{ id: 'cities', count: 3 }], coins: 125 }; break;
+            case 4: reward = { cases: [{ id: 'players', count: 3 }, { id: 'cities', count: 2 }], coins: 100 }; break;
+            case 5: reward = { cases: CASES.map(c => ({ id: c.id, count: 1 })), coins: 150 }; break;
+            case 6: reward = { cases: CASES.map(c => ({ id: c.id, count: 1 })), coins: 150 }; break;
+            case 7: reward = { cases: [...CASES.map(c => ({ id: c.id, count: 1 })), { id: 'cities', count: 2 }], coins: 150 }; break;
+            case 8: reward = { cases: [{ id: 'muzhiki1', count: 5 }, { id: 'muzhiki2', count: 5 }], coins: 200 }; break;
+            case 9: reward = { cases: CASES.map(c => ({ id: c.id, count: 2 })), coins: 200 }; break;
+            case 10: reward = { cases: CASES.map(c => ({ id: c.id, count: 2 })), coins: 250 }; break;
+            case 11: reward = { cases: CASES.map(c => ({ id: c.id, count: 3 })), coins: 300 }; break;
+            default: return;
+        }
+        for (const item of reward.cases) {
+            const caseData = CASES.find(c => c.id === item.id);
+            if (caseData) {
+                STATE.freeOpens[item.id] = (STATE.freeOpens[item.id] || 0) + item.count;
+                showToast('🎁 +' + item.count + ' открытий кейса "' + caseData.name + '"!');
+            }
+        }
+        STATE.balance += reward.coins;
+        STATE.totalEarned += reward.coins;
+        showToast('💰 +' + reward.coins + ' ₽!');
+        updateUI();
+        saveStateToFirebase();
+        addLog('🎁 Награда за уровень ' + level);
+        logPlayerAction('получил награду за уровень ' + level, '+' + reward.coins + ' ₽ и кейсы', false);
+    }
+
     // ===== ИГРЫ =====
-    // ---- МОРОЛС (с управлением A и D, прямоугольник, скины меняют цвет, бонусы титулов) ----
+    // ---- МОРОЛС ----
     let morolsRunning = false;
     let morolsAnimId = null;
     let morolsState = {
@@ -4028,8 +4608,8 @@
 
         let spawnRate = 0.03;
         if (morolsState.speed > 50) spawnRate *= 1.5;
-        let slow = STATE.titleBonuses.obstacleSlow || 0;
-        const obstacleSpeedMult = 0.765 * (1 - slow);
+        // Убрано замедление препятствий
+        const obstacleSpeedMult = 0.765;
         if (Math.random() < spawnRate * dt * 60) {
             const x = Math.random() * 560 + 20;
             const obstacleSpeed = (100 + morolsState.speed * 3) * obstacleSpeedMult;
@@ -4063,6 +4643,7 @@
                     STATE.elo += eloGain;
                     STATE.maxElo = Math.max(STATE.maxElo, STATE.elo);
                     let moneyMul = 1 + (STATE.titleBonuses.moneyMul || 0);
+                    if (STATE.currentTitle === 'exclusive') moneyMul += 0.1;
                     let moneyEarn = Math.floor(eloGain * 2 * moneyMul);
                     STATE.balance += moneyEarn;
                     STATE.totalEarned += moneyEarn;
@@ -4085,6 +4666,7 @@
                 checkAllAchievements();
                 drawMorols();
                 addLog('🏁 Моролс: авария, скорость ' + maxSpeed.toFixed(1) + ' км/ч');
+                logPlayerAction('сыграл в Моролс', 'скорость ' + maxSpeed.toFixed(1) + ' км/ч, +' + eloGain + ' Эло', false);
                 return;
             }
         }
@@ -4099,6 +4681,7 @@
                 const value = c.value || 1;
                 morolsState.totalCoins += value;
                 let moneyMul = 1 + (STATE.titleBonuses.moneyMul || 0);
+                if (STATE.currentTitle === 'exclusive') moneyMul += 0.1;
                 let earned = Math.floor(value * moneyMul);
                 STATE.balance += earned;
                 STATE.totalEarned += earned;
@@ -4174,7 +4757,7 @@
         document.getElementById('morolsCoins').textContent = morolsState.totalCoins;
     }
 
-    // ---- САМОЛЁТ (без изменений) ----
+    // ---- САМОЛЁТ ----
     let planeRunning = false;
     let planeAnimId = null;
     let planeState = {
@@ -4364,6 +4947,7 @@
                 drawPlane();
                 updatePlaneUI();
                 addLog('✈️ Самолёт разбился, время: ' + Math.floor(planeState.time) + 'с, монет: ' + reward);
+                logPlayerAction('сыграл в Самолёт', 'время ' + Math.floor(planeState.time) + 'с, +' + reward + ' ₽', false);
                 return;
             }
         }
@@ -4488,7 +5072,7 @@
         document.getElementById('planeTime').textContent = Math.floor(planeState.time);
     }
 
-    // ===== КЛИКЕР =====
+    // ===== КЛИКЕР (с бонусом эксклюзива) =====
     const CAPTCHA_VARIANTS = ['FD2', 'ABCD', 'WXYZ', '1234', 'QWE', 'RTY', 'UIOP'];
     let captchaActive = false;
     let captchaAnswer = '';
@@ -4500,10 +5084,12 @@
                 if (captchaActive) { showToast('Введите капчу!'); return; }
                 STATE.clicksSinceCaptcha = (STATE.clicksSinceCaptcha || 0) + 1;
                 STATE.totalClicks += 1;
-                STATE.balance += 5;
-                STATE.totalEarned += 5;
+                let clickReward = 5;
+                if (STATE.currentTitle === 'exclusive') clickReward = 10;
+                STATE.balance += clickReward;
+                STATE.totalEarned += clickReward;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - 5) / 10)) {
+                if (Math.floor(STATE.balance / 10) > Math.floor((STATE.balance - clickReward) / 10)) {
                     STATE.rubies += 1;
                     STATE.totalRubies += 1;
                 }
@@ -4561,6 +5147,7 @@
         'windows_xp': 'Windows XP',
         'windows11': 'Windows 11',
         'dark': 'Тёмная',
+        'dark_white': 'Тёмная (белый текст)',
         'light': 'Светлая',
         'vk2010': 'VK2010',
         'red': 'Красная',
@@ -4580,6 +5167,7 @@
                     'windows_xp': '#3a6ea5',
                     'windows11': '#f0f0f0',
                     'dark': '#0a0a0a',
+                    'dark_white': '#1a1a1a',
                     'light': '#f5f5f5',
                     'vk2010': '#c8d0d8',
                     'red': '#2a0a0a',
@@ -4693,7 +5281,7 @@
         }
     }
 
-    // ===== ПРОМОКОДЫ (исправлены) =====
+    // ===== ПРОМОКОДЫ =====
     document.getElementById('applyPromoBtn').onclick = function() {
         const input = document.getElementById('promoInput');
         if (!input) return;
@@ -4718,6 +5306,7 @@
             renderCases();
             renderInventory();
             addLog('✅ Промокод ARBZ активирован');
+            logPlayerAction('активировал промокод ARBZ', '+200 ₽ и все кейсы', true);
             return;
         }
 
@@ -4739,6 +5328,7 @@
             renderCases();
             renderInventory();
             addLog('✅ Промокод пятыйвайп активирован');
+            logPlayerAction('активировал промокод пятыйвайп', '+200 ₽, кейс Игроки 3, +10 💎', true);
             return;
         }
 
@@ -4765,6 +5355,7 @@
                 }
             }, 100);
             addLog('🥚 Пасхалка найдена');
+            logPlayerAction('нашёл пасхалку', '', true);
         } else {
             showToast('🥚 Пасхалка уже найдена!');
         }
@@ -4786,6 +5377,7 @@
             showToast('✅ Клан установлен: ' + clan);
             input.value = '';
             addLog('🏷️ Клан установлен: ' + clan);
+            logPlayerAction('создал/изменил клан', clan, false);
         };
         document.getElementById('clearClanSimple').onclick = function() {
             STATE.clan = '';
@@ -4827,7 +5419,8 @@
                         level: p.level,
                         maxSpeed: p.morols?.maxSpeed || 0,
                         planeXP: p.plane?.xp || 0,
-                        clan: p.clan || ''
+                        clan: p.clan || '',
+                        title: p.currentTitle || null
                     });
                 }
                 players.sort((a,b) => b.lastActivity - a.lastActivity);
@@ -4836,9 +5429,14 @@
                 for (const p of players) {
                     const online = (Date.now() - p.lastActivity) < 5 * 60 * 1000;
                     const lastTime = p.lastActivity ? new Date(p.lastActivity).toLocaleString() : 'неизвестно';
+                    let titleTag = '';
+                    if (p.title && p.title !== 'player') {
+                        const td = STATE.donateTitles.find(t => t.id === p.title);
+                        if (td) titleTag = ` [${td.name}]`;
+                    }
                     html += `<div class="player-card">
                         <div>
-                            <span class="player-name">${p.isYou ? '⭐ ' : ''}${p.nickname}</span>
+                            <span class="player-name">${p.isYou ? '⭐ ' : ''}${p.nickname}${titleTag}</span>
                             <span class="player-status ${online ? 'online' : 'offline'}">${online ? '🟢 онлайн' : '⚫ офлайн'}</span>
                             <span class="player-last">был: ${lastTime}</span>
                         </div>
@@ -4885,6 +5483,17 @@
                     content.innerHTML = 'Профиль не найден';
                     return;
                 }
+                let titleColor = 'default';
+                const td = STATE.donateTitles.find(t => t.id === p.currentTitle);
+                if (td) {
+                    const c = td.color;
+                    if (c === '#8B4513') titleColor = 'title-color-brown';
+                    else if (c === '#808080') titleColor = 'title-color-gray';
+                    else if (c === '#FF8C00') titleColor = 'title-color-orange';
+                    else if (c === '#32CD32') titleColor = 'title-color-lime';
+                    else if (c === '#1E90FF') titleColor = 'title-color-blue';
+                    else if (c === 'rainbow') titleColor = 'title-color-rainbow';
+                }
                 content.innerHTML = `
                     <div class="profile-row"><span>Никнейм</span><span>${p.nickname}</span></div>
                     <div class="profile-row"><span>Клан</span><span>${p.clan || '—'}</span></div>
@@ -4896,7 +5505,7 @@
                     <div class="profile-row"><span>Макс. скорость</span><span>${(p.morols?.maxSpeed || 0).toFixed(1)} км/ч</span></div>
                     <div class="profile-row"><span>XP Самолёт</span><span>${(p.plane?.xp || 0).toFixed(1)}</span></div>
                     <div class="profile-row"><span>Достижений</span><span>${p.achievements ? p.achievements.length : 0}</span></div>
-                    <div class="profile-row"><span>Титул</span><span>${p.currentTitle ? STATE.donateTitles.find(t=>t.id===p.currentTitle)?.name || '—' : '—'}</span></div>
+                    <div class="profile-row"><span>Титул</span><span class="${titleColor}">${td ? td.name : '—'}</span></div>
                     <div class="profile-row"><span>Последняя активность</span><span>${p.lastActivity ? new Date(p.lastActivity).toLocaleString() : 'неизвестно'}</span></div>
                 `;
             })
@@ -4974,6 +5583,7 @@
                 }).join(', ');
                 showToast(`🏁 Ивент скорости! ${reward.speed} км/ч: +${reward.coins} ₽` + (caseStr ? `, кейсы: ${caseStr}` : '') + (rubiesGain > 0 ? `, +${rubiesGain} 💎` : ''));
                 addLog(`🏁 Ивент скорости: ${reward.speed} км/ч выполнен!`);
+                logPlayerAction('выполнил ивент скорости', `${reward.speed} км/ч, +${reward.coins} ₽`, true);
             }
         }
         if (anyClaimed) {
@@ -4985,7 +5595,7 @@
         }
     }
 
-    // ===== МАГАЗИН (исправлен баг с рубинами) =====
+    // ===== МАГАЗИН (исправлен баг с рубинами, добавлены новые карточки, донаты с цветами) =====
     let shopListenerAttached = false;
 
     function renderShop() {
@@ -4999,8 +5609,13 @@
             let currentTitle = STATE.currentTitle || 'player';
             let maxOwnedIndex = STATE.donateTitles.findIndex(t => t.id === currentTitle);
             if (maxOwnedIndex < 0) maxOwnedIndex = 0;
+            // Показываем все титулы, включая эксклюзив
             for (let i = 0; i < STATE.donateTitles.length; i++) {
                 const title = STATE.donateTitles[i];
+                // Эксклюзив не показываем в магазине (он выдаётся вручную)
+                if (title.isExclusive) {
+                    continue;
+                }
                 const owned = (i <= maxOwnedIndex);
                 const isActive = (title.id === currentTitle);
                 let buyPrice = title.price;
@@ -5010,8 +5625,18 @@
                     const prevPrice = maxOwnedIndex >= 0 ? STATE.donateTitles[maxOwnedIndex].price : 0;
                     buyPrice = Math.max(0, title.price - prevPrice);
                 }
+                // Цвет титула
+                const color = title.color || 'default';
+                let colorStyle = '';
+                if (color === '#8B4513') colorStyle = 'color:#8B4513;';
+                else if (color === '#808080') colorStyle = 'color:#808080;';
+                else if (color === '#FF8C00') colorStyle = 'color:#FF8C00;';
+                else if (color === '#32CD32') colorStyle = 'color:#32CD32;';
+                else if (color === '#1E90FF') colorStyle = 'color:#1E90FF;';
+                else if (color === 'rainbow') colorStyle = 'background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);-webkit-background-clip:text;-webkit-text-fill-color:transparent;';
+
                 html += `<div class="shop-item">
-                    <div class="shop-item-name">${title.name}</div>
+                    <div class="shop-item-name" style="${colorStyle}">${title.name}</div>
                     <div class="shop-item-price">${buyPrice > 0 ? buyPrice + ' ₽' : (owned ? 'Куплен' : 'Бесплатно')}</div>
                     ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
                     <button class="shop-buy-btn" data-type="donate" data-id="${title.id}" ${owned ? 'disabled' : ''} data-price="${buyPrice}">
@@ -5021,14 +5646,20 @@
                     <div style="font-size:11px; color:#666; margin-top:4px;">${Object.entries(title.bonus).map(([k,v]) => {
                         if (k === 'moneyMul') return '+'+(v*100)+'% к деньгам';
                         if (k === 'passiveCoins') return '+' + v + ' ₽/мин';
-                        if (k === 'obstacleSlow') return '-'+(v*100)+'% скорости препятствий';
                         if (k === 'caseDiscount') return '-'+(v*100)+'% на кейсы';
                         if (k === 'passiveRubies') return '+' + v + ' 💎/мин';
                         if (k === 'sellBonus') return '+'+(v*100)+'% к продаже';
+                        if (k === 'clickBonus') return '+' + v + ' ₽ за клик';
                         return '';
                     }).join(' | ')}</div>
                 </div>`;
             }
+            // "Скоро тут будут новые донаты"
+            html += `<div class="shop-item" style="border:2px dashed #f0d070; background:#fff8e0;">
+                <div class="shop-item-name" style="color:#f0d070;">🔥 Скоро тут будут новые донаты</div>
+                <div class="shop-item-price" style="color:#999;">Следите за обновлениями!</div>
+                <div class="coming-soon">⭐ В разработке</div>
+            </div>`;
             html += `</div>`;
         } else if (activeTab === 'skins') {
             html = `<div class="shop-grid">`;
@@ -5079,14 +5710,12 @@
 
         container.innerHTML = html;
 
-        // Добавляем обработчик событий для магазина, если он ещё не добавлен
         if (!shopListenerAttached) {
             container.addEventListener('click', shopClickHandler);
             shopListenerAttached = true;
         }
     }
 
-    // Обработчик кликов в магазине (отдельная функция для избежания дублирования)
     function shopClickHandler(e) {
         const target = e.target.closest('button');
         if (!target || !target.classList.contains('shop-buy-btn')) return;
@@ -5112,12 +5741,20 @@
             }
             STATE.currentTitle = id;
             STATE.titleBonuses = title.bonus || {};
+            // Если это эксклюзив (но его нельзя купить, он только через Firebase)
+            if (title.isExclusive) {
+                // Не даём купить
+                showToast('❌ Эксклюзив нельзя купить, он выдаётся вручную');
+                return;
+            }
             saveStateToFirebase();
             renderShop();
             renderAccount();
             showToast('✅ Титул "' + title.name + '" активирован!');
             addLog('👑 Активирован титул: ' + title.name);
+            logPlayerAction('активировал титул', title.name, true);
             startPassiveIncome();
+            checkAllAchievements();
         } else if (type === 'donate_activate') {
             const title = STATE.donateTitles.find(t => t.id === id);
             if (!title) return;
@@ -5128,7 +5765,9 @@
             renderAccount();
             showToast('✅ Титул "' + title.name + '" активирован!');
             addLog('👑 Активирован титул: ' + title.name);
+            logPlayerAction('активировал титул', title.name, true);
             startPassiveIncome();
+            checkAllAchievements();
         } else if (type === 'skin_rubles') {
             const skin = STATE.morolsSkinList.find(s => s.id === id);
             if (!skin) return;
@@ -5142,6 +5781,7 @@
             renderShop();
             showToast('✅ Скин "' + skin.name + '" куплен и активирован!');
             addLog('🎨 Куплен скин за рубли: ' + skin.name);
+            logPlayerAction('купил скин', skin.name + ' за ' + skin.price + ' ₽', false);
         } else if (type === 'skin_activate') {
             STATE.currentMorolsSkin = id;
             saveStateToFirebase();
@@ -5154,13 +5794,17 @@
             if (STATE.rubies < item.price) { showToast('❌ Недостаточно рубинов'); return; }
             if (item.type === 'skin') {
                 if (STATE.morolsSkins.includes(item.skinId)) { showToast('Уже куплен'); return; }
-                STATE.rubies -= item.price; // ТОЛЬКО ЦЕНА, НЕ ВСЕ РУБИНЫ!
+                STATE.rubies -= item.price;
+                STATE.totalRubiesSpent = (STATE.totalRubiesSpent || 0) + item.price;
                 STATE.morolsSkins.push(item.skinId);
                 STATE.currentMorolsSkin = item.skinId;
+                STATE.rubyShopPurchases = (STATE.rubyShopPurchases || 0) + 1;
                 saveStateToFirebase();
                 renderShop();
                 showToast('✅ Скин "' + item.name + '" куплен и активирован!');
                 addLog('🎨 Куплен скин за рубины: ' + item.name);
+                logPlayerAction('купил скин за рубины', item.name + ' за ' + item.price + ' 💎', true);
+                checkAllAchievements();
             } else if (item.type === 'card') {
                 if (STATE.inventory.length >= 1000) { showToast('❌ Инвентарь переполнен'); return; }
                 const entry = {
@@ -5174,12 +5818,16 @@
                 STATE.inventory.push(entry);
                 const key = entry.name + '|||' + entry.emoji;
                 STATE.itemsCount[key] = (STATE.itemsCount[key] || 0) + 1;
-                STATE.rubies -= item.price; // ТОЛЬКО ЦЕНА, НЕ ВСЕ РУБИНЫ!
+                STATE.rubies -= item.price;
+                STATE.totalRubiesSpent = (STATE.totalRubiesSpent || 0) + item.price;
+                STATE.rubyShopPurchases = (STATE.rubyShopPurchases || 0) + 1;
                 saveStateToFirebase();
                 renderShop();
                 renderInventory();
                 showToast('✅ Карта "' + item.name + '" добавлена в инвентарь!');
                 addLog('🃏 Куплена карта за рубины: ' + item.name);
+                logPlayerAction('купил карту за рубины', item.name + ' за ' + item.price + ' 💎', true);
+                checkAllAchievements();
             }
         } else if (type === 'ruby_activate') {
             STATE.currentMorolsSkin = id;
@@ -5231,6 +5879,12 @@
                 if (cc) cc.textContent = STATE.totalClicks;
             }
         });
+        // Баннер эксклюзива
+        if (STATE.currentTitle === 'exclusive') {
+            document.getElementById('exclusiveBanner').style.display = 'block';
+        } else {
+            document.getElementById('exclusiveBanner').style.display = 'none';
+        }
     }
 
     function renderCases() {
@@ -5398,6 +6052,10 @@
                 document.getElementById('loginError').textContent = '❌ Заполните все поля';
                 return;
             }
+            if (nick.length > 24) {
+                document.getElementById('loginError').textContent = '❌ Ник не может превышать 24 символа';
+                return;
+            }
             document.getElementById('loginError').textContent = '';
             document.getElementById('loadingStatus').classList.remove('hidden');
             document.getElementById('loadingText').textContent = '⏳ Вход...';
@@ -5408,7 +6066,11 @@
             const nick = document.getElementById('loginNick').value.trim();
             const pass = document.getElementById('loginPass').value;
             if (!nick || !pass || pass.length < 6) {
-                document.getElementById('loginError').textContent = '❌ Ник и пароль (6+)';
+                document.getElementById('loginError').textContent = '❌ Ник (макс. 24 символа) и пароль (6+)';
+                return;
+            }
+            if (nick.length > 24) {
+                document.getElementById('loginError').textContent = '❌ Ник не может превышать 24 символа';
                 return;
             }
             document.getElementById('loginError').textContent = '';
@@ -5445,6 +6107,26 @@
             }
         };
 
+        // Кнопка активности
+        document.getElementById('activityBtnHeader').onclick = function() {
+            const popup = document.getElementById('activityPopup');
+            if (!popup) return;
+            popup.classList.toggle('show');
+            if (popup.classList.contains('show')) {
+                this.classList.add('active');
+                this.textContent = '📊 Скрыть';
+                loadActivityLog();
+            } else {
+                this.classList.remove('active');
+                this.textContent = '📊 Активность';
+            }
+        };
+        document.getElementById('activityPopupClose').onclick = function() {
+            document.getElementById('activityPopup').classList.remove('show');
+            document.getElementById('activityBtnHeader').classList.remove('active');
+            document.getElementById('activityBtnHeader').textContent = '📊 Активность';
+        };
+
         document.getElementById('refreshRatingBtn').onclick = function() {
             this.disabled = true;
             showToast('🔄 Обновление...');
@@ -5465,10 +6147,133 @@
             addLog('🔄 Достижения обновлены');
         };
 
+        document.getElementById('clearAllInventoryBtn').onclick = clearAllInventory;
+
         document.getElementById('loginOverlay').classList.remove('hidden');
         document.getElementById('app').style.display = 'none';
         addLog('🚀 Игра загружена, ожидание входа.');
     });
+
+    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+    function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+    function formatNum(n) { return n.toLocaleString('ru-RU'); }
+
+    let toastTimeout = null;
+    function showToast(text, duration = 2500) {
+        const el = document.getElementById('toast');
+        if (!el) return;
+        el.textContent = text;
+        el.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => el.classList.remove('show'), duration);
+    }
+
+    function showNotification(text) {
+        const el = document.getElementById('notification');
+        if (!el) return;
+        el.textContent = text;
+        el.classList.add('show');
+        clearTimeout(el._timeout);
+        el._timeout = setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    // ===== ДОПОЛНИТЕЛЬНЫЕ ДОСТИЖЕНИЯ, КОТОРЫЕ ПРОВЕРЯЮТСЯ ПРИ ПОКУПКЕ ТИТУЛОВ =====
+    // Эти достижения проверяются в checkAllAchievements через STATE.currentTitle
+    // Дополнительно проверим при активации титула
+
+    // Переопределяем checkAllAchievements для поддержки новых достижений
+    const originalCheck = checkAllAchievements;
+    checkAllAchievements = function() {
+        // Дополнительные проверки для титулов
+        const title = STATE.currentTitle;
+        if (title === 'nobleman' && !STATE.achievements.includes('buy_nobleman')) {
+            STATE.achievements.push('buy_nobleman');
+            showToast('🏆 Достижение: Купить титул "Дворянин"');
+            sfxAchievement();
+            addExp(3);
+            logPlayerAction('получил достижение', 'Купить титул "Дворянин"', true);
+        }
+        if (title === 'baron' && !STATE.achievements.includes('buy_baron')) {
+            STATE.achievements.push('buy_baron');
+            showToast('🏆 Достижение: Купить титул "Барон"');
+            sfxAchievement();
+            addExp(5);
+            logPlayerAction('получил достижение', 'Купить титул "Барон"', true);
+        }
+        if (title === 'count' && !STATE.achievements.includes('buy_count')) {
+            STATE.achievements.push('buy_count');
+            showToast('🏆 Достижение: Купить титул "Граф"');
+            sfxAchievement();
+            addExp(7);
+            logPlayerAction('получил достижение', 'Купить титул "Граф"', true);
+        }
+        if (title === 'duke' && !STATE.achievements.includes('buy_duke')) {
+            STATE.achievements.push('buy_duke');
+            showToast('🏆 Достижение: Купить титул "Герцог"');
+            sfxAchievement();
+            addExp(10);
+            logPlayerAction('получил достижение', 'Купить титул "Герцог"', true);
+        }
+        if (title === 'prince' && !STATE.achievements.includes('buy_prince')) {
+            STATE.achievements.push('buy_prince');
+            showToast('🏆 Достижение: Купить титул "Князь"');
+            sfxAchievement();
+            addExp(12);
+            logPlayerAction('получил достижение', 'Купить титул "Князь"', true);
+        }
+        if (title === 'exclusive' && !STATE.achievements.includes('buy_exclusive')) {
+            STATE.achievements.push('buy_exclusive');
+            showToast('🏆 Достижение: Получить титул "Эксклюзив"');
+            sfxAchievement();
+            addExp(20);
+            logPlayerAction('получил достижение', 'Получить титул "Эксклюзив"', true);
+        }
+        // Проверка открытия конкретных кейсов
+        if (STATE.caseOpenedCounts) {
+            const caseMap = {
+                'muzhiki1': 'case_muzhiki1',
+                'cities': 'case_cities',
+                'animals': 'case_animals',
+                'players': 'case_players',
+                'blocks': 'case_blocks',
+                'muzhiki2': 'case_muzhiki2',
+                'players2': 'case_players2',
+                'cities2': 'case_cities2',
+                'cities3': 'case_cities3',
+                'players3': 'case_players3'
+            };
+            for (const [caseId, count] of Object.entries(STATE.caseOpenedCounts)) {
+                const achId = caseMap[caseId];
+                if (achId && count >= 1 && !STATE.achievements.includes(achId)) {
+                    STATE.achievements.push(achId);
+                    const caseData = CASES.find(c => c.id === caseId);
+                    showToast('🏆 Достижение: Открыть кейс "' + (caseData ? caseData.name : caseId) + '"');
+                    sfxAchievement();
+                    addExp(2);
+                    logPlayerAction('получил достижение', 'Открыть кейс "' + (caseData ? caseData.name : caseId) + '"', true);
+                }
+            }
+        }
+        // Вызываем оригинальную функцию
+        originalCheck.call(this);
+    };
+
+    // Переопределяем открытие кейса для отслеживания
+    const originalOpenCase = openCase;
+    openCase = async function(caseId) {
+        if (STATE.isOpening) return;
+        await originalOpenCase.call(this, caseId);
+        // Достижения для открытия кейсов проверяются в checkAllAchievements через caseOpenedCounts
+        // Сохраняем статистику
+        if (!STATE.caseOpenedCounts) STATE.caseOpenedCounts = {};
+        STATE.caseOpenedCounts[caseId] = (STATE.caseOpenedCounts[caseId] || 0) + 1;
+        saveStateToFirebase();
+        checkAllAchievements();
+    };
+
+    console.log('✅ TTP кейсы версия 1.3.1 загружена');
     </script>
 </body>
 </html>
