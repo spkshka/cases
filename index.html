@@ -18,607 +18,641 @@
             font-size: 16px;
             transition: background 0.3s, color 0.3s;
         }
-        /* ===== ТЕМА ПО УМОЛЧАНИЮ: ТЁМНАЯ С БЕЛЫМ ТЕКСТОМ ===== */
-        body.theme-dark_white {
+        /* ===== ЧЁРНО-ОРАНЖЕВАЯ ТЕМА (ПО УМОЛЧАНИЮ) ===== */
+        body.theme-dark_orange {
             background: #0a0a0a;
             color: #f0f0f0;
         }
-        body.theme-dark_white #app {
+        body.theme-dark_orange #app {
             background: #1a1a1a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 12px;
         }
-        body.theme-dark_white .header {
-            border-bottom-color: #444;
+        body.theme-dark_orange .header {
+            border-bottom-color: #ff8c00;
         }
-        body.theme-dark_white .header h1 {
-            color: #fff;
+        body.theme-dark_orange .header h1 {
+            color: #ff8c00;
         }
-        body.theme-dark_white .header .version {
-            color: #ccc !important;
+        body.theme-dark_orange .header .version {
+            color: #ffaa33 !important;
         }
-        body.theme-dark_white .nav button {
+        body.theme-dark_orange .header .log-btn-header,
+        body.theme-dark_orange .header .chat-btn-header {
+            background: #222;
+            color: #ff8c00;
+            border: 2px solid #ff8c00;
+        }
+        body.theme-dark_orange .header .log-btn-header:hover,
+        body.theme-dark_orange .header .chat-btn-header:hover {
+            background: #333;
+        }
+        body.theme-dark_orange .header .log-btn-header.active {
+            background: #ff8c00;
+            color: #000;
+        }
+        body.theme-dark_orange .nav button {
             background: #2a2a2a;
             border: 1px solid #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .nav button.active {
-            background: #555;
-            color: #fff;
+        body.theme-dark_orange .nav button.active {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .top-bar {
-            background: #222;
-            border-color: #444;
+        body.theme-dark_orange .top-bar {
+            background: #1a1a1a;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .top-bar .stat .value {
-            color: #fff;
+        body.theme-dark_orange .top-bar .stat .value {
+            color: #ff8c00;
         }
-        body.theme-dark_white .top-bar .clock {
-            color: #fff;
+        body.theme-dark_orange .top-bar .clock {
+            color: #ff8c00;
             background: #2a2a2a;
-            border-color: #555;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .case-card,
-        body.theme-dark_white .inv-item,
-        body.theme-dark_white .market-listing,
-        body.theme-dark_white .account-info,
-        body.theme-dark_white .game-wrap,
-        body.theme-dark_white .clicker-wrap,
-        body.theme-dark_white .clan-simple,
-        body.theme-dark_white .shop-item,
-        body.theme-dark_white .player-card,
-        body.theme-dark_white .chat-message {
-            background: #222;
-            border-color: #444;
+        body.theme-dark_orange .case-card,
+        body.theme-dark_orange .inv-item,
+        body.theme-dark_orange .market-listing,
+        body.theme-dark_orange .account-info,
+        body.theme-dark_orange .game-wrap,
+        body.theme-dark_orange .clicker-wrap,
+        body.theme-dark_orange .clan-simple,
+        body.theme-dark_orange .shop-item,
+        body.theme-dark_orange .player-card,
+        body.theme-dark_orange .chat-message {
+            background: #1a1a1a;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .case-card .case-price {
-            color: #aaa;
+        body.theme-dark_orange .case-card .case-price {
+            color: #ffaa33;
         }
-        body.theme-dark_white .case-card .case-name {
+        body.theme-dark_orange .case-card .case-name {
             color: #fff;
         }
-        body.theme-dark_white .open-btn,
-        body.theme-dark_white .market-listing .price button,
-        body.theme-dark_white .click-btn,
-        body.theme-dark_white .modal-buttons button,
-        body.theme-dark_white .clan-create-btn,
-        body.theme-dark_white .shop-buy-btn {
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+        body.theme-dark_orange .open-btn,
+        body.theme-dark_orange .market-listing .price button,
+        body.theme-dark_orange .click-btn,
+        body.theme-dark_orange .modal-buttons button,
+        body.theme-dark_orange .clan-create-btn,
+        body.theme-dark_orange .shop-buy-btn {
+            background: #ff8c00;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 16px;
+            font-weight: bold;
         }
-        body.theme-dark_white .open-btn:hover,
-        body.theme-dark_white .market-listing .price button:hover,
-        body.theme-dark_white .click-btn:hover,
-        body.theme-dark_white .modal-buttons button:hover,
-        body.theme-dark_white .clan-create-btn:hover,
-        body.theme-dark_white .shop-buy-btn:hover {
-            background: #666;
+        body.theme-dark_orange .open-btn:hover,
+        body.theme-dark_orange .market-listing .price button:hover,
+        body.theme-dark_orange .click-btn:hover,
+        body.theme-dark_orange .modal-buttons button:hover,
+        body.theme-dark_orange .clan-create-btn:hover,
+        body.theme-dark_orange .shop-buy-btn:hover {
+            background: #ffaa33;
         }
-        body.theme-dark_white .inv-item .item-count {
+        body.theme-dark_orange .inv-item .item-count {
             color: #aaa;
         }
-        body.theme-dark_white .inv-item .item-rarity {
+        body.theme-dark_orange .inv-item .item-rarity {
             color: #999;
         }
-        body.theme-dark_white .market-listing .info .details .seller {
+        body.theme-dark_orange .market-listing .info .details .seller {
             color: #999;
         }
-        body.theme-dark_white .market-listing .price {
-            color: #fff;
+        body.theme-dark_orange .market-listing .price {
+            color: #ff8c00;
         }
-        body.theme-dark_white .inv-empty {
-            color: #aaa;
-        }
-        body.theme-dark_white .account-info .row .label {
-            color: #aaa;
-        }
-        body.theme-dark_white .account-info .row .value {
-            color: #fff;
-        }
-        body.theme-dark_white .settings-group .desc {
-            color: #aaa;
-        }
-        body.theme-dark_white .footer-note {
+        body.theme-dark_orange .inv-empty {
             color: #888;
-            border-top-color: #444;
         }
-        body.theme-dark_white .footer-note a {
-            color: #4a8aba;
-        }
-        body.theme-dark_white .title {
-            border-bottom-color: #444;
-            color: #fff;
-        }
-        body.theme-dark_white .title .badge {
+        body.theme-dark_orange .account-info .row .label {
             color: #aaa;
         }
-        body.theme-dark_white .tab-bar button {
+        body.theme-dark_orange .account-info .row .value {
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .settings-group .desc {
+            color: #888;
+        }
+        body.theme-dark_orange .footer-note {
+            color: #888;
+            border-top-color: #ff8c00;
+        }
+        body.theme-dark_orange .footer-note a {
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .title {
+            border-bottom-color: #ff8c00;
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .title .badge {
+            color: #aaa;
+        }
+        body.theme-dark_orange .tab-bar button {
             background: #2a2a2a;
             border-color: #555;
             color: #ccc;
         }
-        body.theme-dark_white .tab-bar button.active {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .tab-bar button.active {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .tab-bar button:hover {
+        body.theme-dark_orange .tab-bar button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .game-wrap .game-stats {
+        body.theme-dark_orange .game-wrap .game-stats {
             background: #2a2a2a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .game-wrap .game-controls button {
+        body.theme-dark_orange .game-wrap .game-stats span {
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .game-wrap .game-controls button {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .game-wrap .game-controls button:hover {
+        body.theme-dark_orange .game-wrap .game-controls button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .game-touch-controls button {
+        body.theme-dark_orange .game-touch-controls button {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .clicker-wrap .clicker-stats {
+        body.theme-dark_orange .clicker-wrap .clicker-stats {
             color: #f0f0f0;
         }
-        body.theme-dark_white .clicker-wrap .click-timer {
+        body.theme-dark_orange .clicker-wrap .click-timer {
             color: #aaa;
         }
-        body.theme-dark_white .market-sort select {
+        body.theme-dark_orange .market-sort select {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .market-sell-form {
+        body.theme-dark_orange .market-sell-form {
             background: #2a2a2a;
-            border-color: #444;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .market-sell-form select,
-        body.theme-dark_white .market-sell-form input {
+        body.theme-dark_orange .market-sell-form select,
+        body.theme-dark_orange .market-sell-form input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .market-tabs button {
+        body.theme-dark_orange .market-tabs button {
             background: #2a2a2a;
             border-color: #555;
             color: #ccc;
         }
-        body.theme-dark_white .market-tabs button.active {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .market-tabs button.active {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .market-tabs button:hover {
+        body.theme-dark_orange .market-tabs button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .rank-item {
+        body.theme-dark_orange .rank-item {
             border-bottom-color: #444;
             color: #f0f0f0;
         }
-        body.theme-dark_white .rank-item .pos {
-            color: #aaa;
+        body.theme-dark_orange .rank-item .pos {
+            color: #888;
         }
-        body.theme-dark_white .rank-item .pos.gold {
-            color: #f0d070;
+        body.theme-dark_orange .rank-item .pos.gold {
+            color: #ff8c00;
         }
-        body.theme-dark_white .rank-item .pos.silver {
+        body.theme-dark_orange .rank-item .pos.silver {
             color: #c0c0c0;
         }
-        body.theme-dark_white .rank-item .pos.bronze {
+        body.theme-dark_orange .rank-item .pos.bronze {
             color: #cd7f32;
         }
-        body.theme-dark_white .rank-item .name {
+        body.theme-dark_orange .rank-item .name {
             color: #f0f0f0;
         }
-        body.theme-dark_white .rank-item .value {
-            color: #fff;
+        body.theme-dark_orange .rank-item .value {
+            color: #ff8c00;
         }
-        body.theme-dark_white .rank-item.you {
-            background: #2a2a3a;
-            border-color: #555;
+        body.theme-dark_orange .rank-item.you {
+            background: #2a2a1a;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .settings-group input[type="range"] {
+        body.theme-dark_orange .settings-group input[type="range"] {
             background: #444;
         }
-        body.theme-dark_white .settings-group input[type="range"]::-webkit-slider-thumb {
-            background: #777;
+        body.theme-dark_orange .settings-group input[type="range"]::-webkit-slider-thumb {
+            background: #ff8c00;
         }
-        body.theme-dark_white .settings-group .color-grid .color-btn {
+        body.theme-dark_orange .settings-group .color-grid .color-btn {
             border-color: #555;
         }
-        body.theme-dark_white .settings-group .color-grid .color-btn.active {
-            border-color: #fff;
+        body.theme-dark_orange .settings-group .color-grid .color-btn.active {
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .toggle {
+        body.theme-dark_orange .toggle {
             background: #444;
             border-color: #555;
         }
-        body.theme-dark_white .toggle.on {
-            background: #555;
+        body.theme-dark_orange .toggle.on {
+            background: #ff8c00;
         }
-        body.theme-dark_white .clan-simple .clan-name {
-            color: #fff;
+        body.theme-dark_orange .clan-simple .clan-name {
+            color: #ff8c00;
         }
-        body.theme-dark_white .clan-simple .clan-input-row input {
+        body.theme-dark_orange .clan-simple .clan-input-row input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .clan-simple .clan-input-row button {
-            background: #555;
-            color: #fff;
+        body.theme-dark_orange .clan-simple .clan-input-row button {
+            background: #ff8c00;
+            color: #000;
         }
-        body.theme-dark_white .clan-simple .clan-input-row button.clear {
+        body.theme-dark_orange .clan-simple .clan-input-row button.clear {
             background: #883333;
-        }
-        body.theme-dark_white .shop-item .shop-item-name {
             color: #fff;
         }
-        body.theme-dark_white .shop-item .shop-item-price {
+        body.theme-dark_orange .shop-item .shop-item-name {
+            color: #fff;
+        }
+        body.theme-dark_orange .shop-item .shop-item-price {
             color: #aaa;
         }
-        body.theme-dark_white .shop-item .owned {
+        body.theme-dark_orange .shop-item .owned {
             color: #4a8a4a;
         }
-        body.theme-dark_white .modal-buttons button {
-            background: #555;
-            color: #fff;
+        body.theme-dark_orange .modal-buttons button {
+            background: #ff8c00;
+            color: #000;
         }
-        body.theme-dark_white .modal-buttons button:hover {
-            background: #666;
+        body.theme-dark_orange .modal-buttons button:hover {
+            background: #ffaa33;
         }
-        body.theme-dark_white .case-modal {
+        body.theme-dark_orange .case-modal {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .case-modal .modal-title {
-            color: #fff;
+        body.theme-dark_orange .case-modal .modal-title {
+            color: #ff8c00;
         }
-        body.theme-dark_white .case-modal .close-btn {
+        body.theme-dark_orange .case-modal .close-btn {
             color: #aaa;
         }
-        body.theme-dark_white .case-modal .close-btn:hover {
+        body.theme-dark_orange .case-modal .close-btn:hover {
             color: #fff;
         }
-        body.theme-dark_white .slot-container {
+        body.theme-dark_orange .slot-container {
             background: #2a2a2a;
-            border-color: #444;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .slot-item {
+        body.theme-dark_orange .slot-item {
             color: #aaa;
         }
-        body.theme-dark_white .slot-item.active {
-            color: #fff;
-            background: rgba(255,255,255,0.05);
+        body.theme-dark_orange .slot-item.active {
+            color: #ff8c00;
+            background: rgba(255,140,0,0.1);
         }
-        body.theme-dark_white .slot-item.highlight {
-            color: #f0d070;
-            background: rgba(240,208,112,0.15);
+        body.theme-dark_orange .slot-item.highlight {
+            color: #ff8c00;
+            background: rgba(255,140,0,0.2);
         }
-        body.theme-dark_white .result-display {
-            border-color: #444;
+        body.theme-dark_orange .result-display {
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .result-display .result-name {
-            color: #fff;
+        body.theme-dark_orange .result-display .result-name {
+            color: #ff8c00;
         }
-        body.theme-dark_white .result-display .result-rare {
+        body.theme-dark_orange .result-display .result-rare {
             color: #aaa;
         }
-        body.theme-dark_white .free-opens-display {
+        body.theme-dark_orange .free-opens-display {
             background: #2a2a2a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .free-opens-display .free-item {
-            background: #4a6a4a;
-            color: #fff;
+        body.theme-dark_orange .free-opens-display .free-item {
+            background: #ff8c00;
+            color: #000;
         }
-        body.theme-dark_white .update-announce {
+        body.theme-dark_orange .update-announce {
             background: #2a2a2a;
-            border-color: #f0d070;
-            color: #f0d070;
+            border-color: #ff8c00;
+            color: #ff8c00;
         }
-        body.theme-dark_white .wipe-banner {
+        body.theme-dark_orange .wipe-banner {
             background: #883333;
             color: #fff;
-            border-color: #ffaa00;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .achieve-item {
+        body.theme-dark_orange .achieve-item {
             border-color: #444;
             color: #666;
             background: #222;
         }
-        body.theme-dark_white .achieve-item.unlocked {
-            border-color: #f0d070;
+        body.theme-dark_orange .achieve-item.unlocked {
+            border-color: #ff8c00;
             color: #f0f0f0;
             background: #2a2a1a;
         }
-        body.theme-dark_white .account-actions button {
+        body.theme-dark_orange .account-actions button {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .account-actions button:hover {
+        body.theme-dark_orange .account-actions button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .account-actions .danger {
+        body.theme-dark_orange .account-actions .danger {
             background: #883333;
             color: #fff;
             border-color: #aa4444;
         }
-        body.theme-dark_white .account-actions .danger:hover {
+        body.theme-dark_orange .account-actions .danger:hover {
             background: #aa4444;
         }
-        body.theme-dark_white .account-actions .delete-account {
+        body.theme-dark_orange .account-actions .delete-account {
             background: #883333;
             color: #fff;
             border-color: #aa4444;
         }
-        body.theme-dark_white .account-actions .delete-account:hover {
+        body.theme-dark_orange .account-actions .delete-account:hover {
             background: #aa4444;
         }
-        body.theme-dark_white .account-actions .reset-progress-btn {
+        body.theme-dark_orange .account-actions .reset-progress-btn {
             background: #883333 !important;
             color: #fff !important;
             border-color: #aa4444 !important;
         }
-        body.theme-dark_white .account-actions .reset-progress-btn:hover {
+        body.theme-dark_orange .account-actions .reset-progress-btn:hover {
             background: #aa4444 !important;
         }
-        body.theme-dark_white .clan-input input {
+        body.theme-dark_orange .clan-input input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .clan-input button {
-            background: #555;
-            color: #fff;
+        body.theme-dark_orange .clan-input button {
+            background: #ff8c00;
+            color: #000;
         }
-        body.theme-dark_white .clan-input .clear-clan {
+        body.theme-dark_orange .clan-input .clear-clan {
             background: #883333;
-        }
-        body.theme-dark_white .clan-input .clear-clan:hover {
-            background: #aa4444;
-        }
-        body.theme-dark_white .login-box {
-            background: #1a1a1a;
-            border-color: #444;
-            color: #f0f0f0;
-        }
-        body.theme-dark_white .login-box input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_white .login-box .row .login-btn {
-            background: #555;
             color: #fff;
-            border-color: #777;
         }
-        body.theme-dark_white .login-box .row .register-btn {
+        body.theme-dark_orange .login-box {
+            background: #1a1a1a;
+            border-color: #ff8c00;
+            color: #f0f0f0;
+        }
+        body.theme-dark_orange .login-box input {
+            background: #2a2a2a;
+            border-color: #555;
+            color: #f0f0f0;
+        }
+        body.theme-dark_orange .login-box .row .login-btn {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
+        }
+        body.theme-dark_orange .login-box .row .register-btn {
             background: #2a2a2a;
             color: #f0f0f0;
             border-color: #555;
         }
-        body.theme-dark_white .login-box .promo {
-            border-top-color: #444;
+        body.theme-dark_orange .login-box .promo {
+            border-top-color: #ff8c00;
             color: #aaa;
         }
-        body.theme-dark_white .login-box .sub {
+        body.theme-dark_orange .login-box .sub {
             color: #aaa;
         }
-        body.theme-dark_white .login-box .info {
+        body.theme-dark_orange .login-box .info {
             color: #aaa;
         }
-        body.theme-dark_white .login-box .log-area {
+        body.theme-dark_orange .login-box .log-area {
             background: #0a0a0a;
             border-color: #333;
             color: #0f0;
         }
-        body.theme-dark_white .login-box .log-btn {
+        body.theme-dark_orange .login-box .log-btn {
             background: #333;
             color: #fff;
         }
-        body.theme-dark_white .login-box .log-btn:hover {
+        body.theme-dark_orange .login-box .log-btn:hover {
             background: #555;
         }
-        body.theme-dark_white .rating-tabs button {
+        body.theme-dark_orange .rating-tabs button {
             background: #2a2a2a;
             border-color: #555;
             color: #ccc;
         }
-        body.theme-dark_white .rating-tabs button.active {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .rating-tabs button.active {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .rating-tabs button:hover {
+        body.theme-dark_orange .rating-tabs button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .rating-refresh-btn {
+        body.theme-dark_orange .rating-refresh-btn {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .rating-refresh-btn:hover {
+        body.theme-dark_orange .rating-refresh-btn:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .profile-modal {
+        body.theme-dark_orange .profile-modal {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .profile-modal .close-btn {
+        body.theme-dark_orange .profile-modal .close-btn {
             color: #aaa;
         }
-        body.theme-dark_white .profile-modal .close-btn:hover {
+        body.theme-dark_orange .profile-modal .close-btn:hover {
             color: #fff;
         }
-        body.theme-dark_white .profile-modal .profile-row {
+        body.theme-dark_orange .profile-modal .profile-row {
             border-bottom-color: #444;
         }
-        body.theme-dark_white .profile-modal .profile-row span:last-child {
-            color: #fff;
+        body.theme-dark_orange .profile-modal .profile-row span:last-child {
+            color: #ff8c00;
         }
-        body.theme-dark_white .captcha-box {
+        body.theme-dark_orange .captcha-box {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .captcha-box .captcha-text {
+        body.theme-dark_orange .captcha-box .captcha-text {
             background: #0a0a0a;
             color: #0f0;
         }
-        body.theme-dark_white .captcha-box input {
+        body.theme-dark_orange .captcha-box input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .captcha-box button {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .captcha-box button {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .captcha-box button:hover {
-            background: #666;
+        body.theme-dark_orange .captcha-box button:hover {
+            background: #ffaa33;
         }
-        body.theme-dark_white .toast {
+        body.theme-dark_orange .toast {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .notification {
+        body.theme-dark_orange .notification {
             background: #2a2a2a;
             color: #f0f0f0;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
         }
-        body.theme-dark_white .event-rewards {
+        body.theme-dark_orange .event-rewards {
             background: #1a2a1a;
-            border-color: #2a7a2a;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .event-rewards .reward-line {
-            border-bottom-color: rgba(255,255,255,0.05);
+        body.theme-dark_orange .event-rewards .reward-line {
+            border-bottom-color: rgba(255,140,0,0.1);
         }
-        body.theme-dark_white .promo-input input {
+        body.theme-dark_orange .promo-input input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .promo-input button {
-            background: #555;
-            color: #fff;
+        body.theme-dark_orange .promo-input button {
+            background: #ff8c00;
+            color: #000;
             border: none;
             border-radius: 4px;
             padding: 8px 16px;
         }
-        body.theme-dark_white .promo-input button:hover {
-            background: #666;
+        body.theme-dark_orange .promo-input button:hover {
+            background: #ffaa33;
         }
-        body.theme-dark_white .shop-tabs button {
+        body.theme-dark_orange .shop-tabs button {
             background: #2a2a2a;
             border-color: #555;
             color: #ccc;
         }
-        body.theme-dark_white .shop-tabs button.active {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .shop-tabs button.active {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .shop-tabs button:hover {
+        body.theme-dark_orange .shop-tabs button:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .progress-bar {
+        body.theme-dark_orange .progress-bar {
             background: #2a2a2a;
-            border-color: #444;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .progress-bar .fill {
-            background: #555;
+        body.theme-dark_orange .progress-bar .fill {
+            background: #ff8c00;
         }
-        body.theme-dark_white .block-grid {
+        body.theme-dark_orange .block-grid {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .block-grid .cell {
+        body.theme-dark_orange .block-grid .cell {
             background: #2a2a2a;
             border-color: #444;
         }
-        body.theme-dark_white .block-grid .cell.filled {
-            background: #4a8aba;
+        body.theme-dark_orange .block-grid .cell.filled {
+            background: #ff8c00;
         }
-        body.theme-dark_white .block-grid .cell.preview {
-            background: rgba(74,138,186,0.4);
+        body.theme-dark_orange .block-grid .cell.preview {
+            background: rgba(255,140,0,0.3);
         }
-        body.theme-dark_white .block-grid .cell.highlight {
-            background: rgba(255,208,112,0.3);
+        body.theme-dark_orange .block-grid .cell.highlight {
+            background: rgba(255,140,0,0.2);
         }
-        body.theme-dark_white .chat-message .chat-nick {
-            color: #fff;
+        body.theme-dark_orange .chat-message .chat-nick {
+            color: #ff8c00;
         }
-        body.theme-dark_white .chat-message .chat-title {
-            color: #f0d070;
+        body.theme-dark_orange .chat-message .chat-title {
+            color: #ffaa33;
         }
-        body.theme-dark_white .chat-message .chat-clan {
+        body.theme-dark_orange .chat-message .chat-clan {
             color: #888;
         }
-        body.theme-dark_white .chat-message .chat-elo {
-            color: #4a8aba;
+        body.theme-dark_orange .chat-message .chat-elo {
+            color: #ff8c00;
         }
-        body.theme-dark_white .chat-message .chat-text {
+        body.theme-dark_orange .chat-message .chat-text {
             color: #f0f0f0;
         }
-        body.theme-dark_white .chat-message .chat-time {
+        body.theme-dark_orange .chat-message .chat-time {
             color: #666;
         }
-        body.theme-dark_white .chat-input-area input {
+        body.theme-dark_orange .chat-input-area input {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .chat-input-area button {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+        body.theme-dark_orange .chat-input-area button {
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .chat-input-area button:hover {
-            background: #666;
+        body.theme-dark_orange .chat-input-area button:hover {
+            background: #ffaa33;
         }
-        body.theme-dark_white .block-shape-btn {
+        body.theme-dark_orange .block-shape-btn {
             background: #2a2a2a;
             border-color: #555;
             color: #f0f0f0;
         }
-        body.theme-dark_white .block-shape-btn.active {
-            background: #555;
-            border-color: #777;
+        body.theme-dark_orange .block-shape-btn.active {
+            background: #3a3a3a;
+            border-color: #ff8c00;
         }
-        body.theme-dark_white .block-shape-btn:hover {
+        body.theme-dark_orange .block-shape-btn:hover {
             background: #3a3a3a;
         }
-        body.theme-dark_white .block-shape-btn .shape-preview {
-            background: #1a1a1a;
+        body.theme-dark_orange .block-shape-btn .shape-preview .sp-cell {
+            background: #ff8c00;
         }
-        body.theme-dark_white .welcome-popup {
+        body.theme-dark_orange .welcome-popup {
             background: #1a1a1a;
-            border-color: #444;
+            border-color: #ff8c00;
             color: #f0f0f0;
         }
-        body.theme-dark_white .welcome-popup .close-btn {
+        body.theme-dark_orange .welcome-popup .welcome-title {
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .welcome-popup .welcome-text strong {
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .welcome-popup .close-btn {
             color: #aaa;
         }
-        body.theme-dark_white .welcome-popup .close-btn:hover {
+        body.theme-dark_orange .welcome-popup .close-btn:hover {
             color: #fff;
+        }
+        body.theme-dark_orange .exclusive-banner {
+            border-color: #ff8c00;
+            color: #ff8c00;
+        }
+        body.theme-dark_orange .beta-badge {
+            background: #ff8c00;
+            color: #000;
         }
 
         /* ===== ДРУГИЕ ТЕМЫ (сокращены) ===== */
@@ -644,7 +678,6 @@
         body.theme-windows7 .block-shape-btn.active { background: #1a3a6a; color: #fff; }
         body.theme-windows7 .welcome-popup { background: #e8e8e8; border-color: #1a3a6a; color: #000; }
 
-        /* Остальные темы... */
         body.theme-windows_xp { background: #3a6ea5; color: #000; }
         body.theme-windows_xp #app { background: #d4d0c8; border: 3px solid #0a246a; border-style: inset; }
         body.theme-windows_xp .header { border-bottom: 2px solid #0a246a; }
@@ -720,7 +753,7 @@
         .header {
             text-align: center;
             padding: 12px 0;
-            border-bottom: 2px solid #444;
+            border-bottom: 2px solid #ff8c00;
             position: relative;
         }
         .header h1 {
@@ -732,7 +765,7 @@
             font-size: 20px;
             font-weight: bold;
             margin-top: 2px;
-            color: #ff6b35;
+            color: #ffaa33;
         }
         .header .subtitle {
             font-size: 14px;
@@ -744,8 +777,8 @@
             right: 10px;
             top: 10px;
             background: #222;
-            color: #0f0;
-            border: 2px solid #0f0;
+            color: #ff8c00;
+            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 8px 16px;
             font-size: 16px;
@@ -760,7 +793,31 @@
             transform: scale(1.05);
         }
         .header .log-btn-header.active {
-            background: #0f0;
+            background: #ff8c00;
+            color: #000;
+        }
+        .header .chat-btn-header {
+            position: absolute;
+            right: 80px;
+            top: 10px;
+            background: #222;
+            color: #ff8c00;
+            border: 2px solid #ff8c00;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            transition: 0.2s;
+            z-index: 100;
+        }
+        .header .chat-btn-header:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+        .header .chat-btn-header.active {
+            background: #ff8c00;
             color: #000;
         }
         .header .activity-btn-header {
@@ -768,8 +825,8 @@
             left: 10px;
             top: 10px;
             background: #222;
-            color: #ffaa00;
-            border: 2px solid #ffaa00;
+            color: #ff8c00;
+            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 8px 16px;
             font-size: 16px;
@@ -784,13 +841,13 @@
             transform: scale(1.05);
         }
         .header .activity-btn-header.active {
-            background: #ffaa00;
+            background: #ff8c00;
             color: #000;
         }
         .header .beta-badge {
             display: inline-block;
-            background: #ff6b35;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             padding: 2px 12px;
             border-radius: 12px;
             font-size: 14px;
@@ -800,9 +857,9 @@
         .exclusive-banner {
             text-align: center;
             font-size: 15px;
-            color: #f0d070;
+            color: #ff8c00;
             background: rgba(0,0,0,0.6);
-            border: 2px solid #f0d070;
+            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 12px 16px;
             margin: 8px 0;
@@ -811,9 +868,9 @@
             line-height: 1.5;
         }
         @keyframes pulseBanner {
-            0% { border-color: #f0d070; box-shadow: 0 0 5px rgba(240,208,112,0.3); }
-            50% { border-color: #ffaa00; box-shadow: 0 0 20px rgba(240,208,112,0.5); }
-            100% { border-color: #f0d070; box-shadow: 0 0 5px rgba(240,208,112,0.3); }
+            0% { border-color: #ff8c00; box-shadow: 0 0 5px rgba(255,140,0,0.3); }
+            50% { border-color: #ffaa33; box-shadow: 0 0 20px rgba(255,140,0,0.5); }
+            100% { border-color: #ff8c00; box-shadow: 0 0 5px rgba(255,140,0,0.3); }
         }
         .top-bar {
             display: flex;
@@ -822,24 +879,24 @@
             border-radius: 6px;
             padding: 10px 4px;
             margin: 10px 0;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             font-size: 15px;
             flex-wrap: wrap;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .top-bar .stat .value {
             font-weight: bold;
             font-size: 17px;
-            color: #fff;
+            color: #ff8c00;
         }
         .top-bar .clock {
             font-weight: bold;
             font-size: 17px;
-            color: #fff;
+            color: #ff8c00;
             background: #2a2a2a;
             padding: 4px 12px;
-            border: 1px solid #555;
+            border: 1px solid #ff8c00;
             border-radius: 4px;
             font-family: monospace;
         }
@@ -873,8 +930,9 @@
         }
         .nav button.active {
             font-weight: bold;
-            background: #555;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
         .event-btn-row {
             display: flex;
@@ -884,23 +942,22 @@
             gap: 6px;
         }
         .event-btn-row button {
-            background: #2a4a2a;
-            border: 2px solid #4a8a4a;
+            background: #2a2a2a;
+            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 10px 24px;
             font-weight: bold;
             font-size: 16px;
-            color: #8f8;
+            color: #ff8c00;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,80,0,0.2);
             flex: 0 1 auto;
             min-width: 160px;
         }
         .event-btn-row button:hover {
-            background: #1a3a1a;
+            background: #1a1a1a;
             transform: scale(1.02);
-            box-shadow: 0 4px 16px rgba(0,80,0,0.3);
+            box-shadow: 0 4px 16px rgba(255,140,0,0.3);
         }
         .event-btn-row button:disabled {
             opacity: 0.5;
@@ -920,10 +977,10 @@
         .title {
             font-size: 22px;
             font-weight: bold;
-            border-bottom: 2px solid #444;
+            border-bottom: 2px solid #ff8c00;
             padding-bottom: 8px;
             margin-bottom: 14px;
-            color: #fff;
+            color: #ff8c00;
         }
         .title .badge {
             font-size: 14px;
@@ -947,9 +1004,9 @@
             transition: 0.2s;
         }
         .tab-bar button.active {
-            background: #555;
-            color: #fff;
-            border-color: #777;
+            background: #ff8c00;
+            color: #000;
+            border-color: #ff8c00;
         }
         .tab-bar button:hover {
             background: #3a3a3a;
@@ -964,19 +1021,19 @@
         /* ===== КЕЙСЫ ===== */
         .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .case-card {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 16px;
             text-align: center;
             position: relative;
             transition: 0.2s;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
-        .case-card:hover { background: #2a2a2a; }
+        .case-card:hover { background: #2a2a1a; }
         .case-card .case-emoji { font-size: 40px; display: block; margin-bottom: 6px; }
         .case-card .case-name { font-size: 18px; font-weight: bold; color: #fff; }
-        .case-card .case-price { font-size: 14px; color: #aaa; }
+        .case-card .case-price { font-size: 14px; color: #ffaa33; }
         .case-card .open-btn {
             display: block;
             width: 100%;
@@ -988,12 +1045,11 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
         .case-card .open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .case-card .open-btn:hover:not(:disabled) { background: #666; }
+        .case-card .open-btn:hover:not(:disabled) { background: #ffaa33; }
         .case-card .info-btn {
             position: absolute;
             top: 6px;
@@ -1036,7 +1092,7 @@
             padding: 3px 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .case-card .chances-tooltip .chance-item .percent { font-weight: bold; color: #f0d070; }
+        .case-card .chances-tooltip .chance-item .percent { font-weight: bold; color: #ff8c00; }
         .case-card .chances-tooltip .close-tooltip {
             float: right;
             background: none;
@@ -1048,8 +1104,8 @@
         .case-card .chances-tooltip .close-tooltip:hover { color: #fff; }
         .case-card .free-badge {
             display: inline-block;
-            background: #4a8a4a;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
@@ -1057,20 +1113,20 @@
         }
         .case-card .event-progress {
             font-size: 12px;
-            color: #f0d070;
+            color: #ff8c00;
             margin-top: 4px;
         }
 
         /* ===== ИНВЕНТАРЬ ===== */
         .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 10px; }
         .inv-item {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
             font-size: 14px;
             position: relative;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .inv-item .item-emoji { font-size: 30px; display: block; }
@@ -1097,7 +1153,7 @@
         .inv-item .trash-btn { background: #6a2a2a; color: #fff; }
         .inv-item .clear-all-btn { background: #cc3333; color: #fff; }
         .inv-item .sell-btn:hover, .inv-item .trash-btn:hover, .inv-item .clear-all-btn:hover { opacity: 0.8; }
-        .inv-empty { text-align: center; padding: 40px; font-size: 16px; color: #aaa; }
+        .inv-empty { text-align: center; padding: 40px; font-size: 16px; color: #888; }
         .inv-clear-all {
             margin-bottom: 10px;
             padding: 8px 16px;
@@ -1117,7 +1173,7 @@
         }
         .inv-toggle-group button {
             padding: 6px 14px;
-            border: 1px solid #555;
+            border: 1px solid #ff8c00;
             border-radius: 4px;
             background: #2a2a2a;
             cursor: pointer;
@@ -1125,12 +1181,12 @@
             color: #ccc;
         }
         .inv-toggle-group button.active {
-            background: #555;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
         }
         .free-opens-display {
             background: #2a2a2a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 4px;
             padding: 8px 12px;
             margin-bottom: 10px;
@@ -1141,8 +1197,8 @@
             color: #f0f0f0;
         }
         .free-opens-display .free-item {
-            background: #4a8a4a;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
@@ -1160,10 +1216,10 @@
             color: #ccc;
             transition: 0.2s;
         }
-        .market-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        .market-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
         .market-tabs button:hover { background: #3a3a3a; }
         .market-listing {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px 14px;
             margin-bottom: 8px;
@@ -1171,14 +1227,14 @@
             justify-content: space-between;
             align-items: center;
             font-size: 15px;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .market-listing .info { display: flex; gap: 12px; align-items: center; }
         .market-listing .info .emoji { font-size: 28px; }
         .market-listing .info .details .name { font-weight: bold; color: #fff; }
         .market-listing .info .details .seller { font-size: 12px; color: #999; }
-        .market-listing .price { font-weight: bold; color: #fff; }
+        .market-listing .price { font-weight: bold; color: #ff8c00; }
         .market-listing .price button {
             border: none;
             border-radius: 6px;
@@ -1187,11 +1243,10 @@
             font-size: 14px;
             margin-left: 10px;
             transition: 0.2s;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .market-listing .price button:hover { background: #666; }
+        .market-listing .price button:hover { background: #ffaa33; }
         .market-sort { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; color: #ccc; }
         .market-sort select {
             padding: 6px 10px;
@@ -1204,7 +1259,7 @@
         .market-sell-form {
             margin-top: 12px;
             padding: 12px;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             background: #2a2a2a;
             color: #f0f0f0;
@@ -1230,11 +1285,10 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .market-sell-form .row button:hover { background: #666; }
+        .market-sell-form .row button:hover { background: #ffaa33; }
 
         /* ===== РЕЙТИНГ ===== */
         .rating-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -1248,7 +1302,7 @@
             color: #ccc;
             transition: 0.2s;
         }
-        .rating-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        .rating-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
         .rating-tabs button:hover { background: #3a3a3a; }
         .rank-item {
             border-bottom: 1px solid #444;
@@ -1260,20 +1314,20 @@
             flex-wrap: wrap;
             color: #f0f0f0;
         }
-        .rank-item .pos { width: 30px; text-align: center; font-weight: bold; color: #aaa; }
-        .rank-item .pos.gold { color: #f0d070; }
+        .rank-item .pos { width: 30px; text-align: center; font-weight: bold; color: #888; }
+        .rank-item .pos.gold { color: #ff8c00; }
         .rank-item .pos.silver { color: #c0c0c0; }
         .rank-item .pos.bronze { color: #cd7f32; }
         .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: #f0f0f0; }
-        .rank-item .value { font-weight: bold; color: #fff; }
-        .rank-item.you { background: #2a2a3a; border: 1px solid #555; border-radius: 6px; }
+        .rank-item .value { font-weight: bold; color: #ff8c00; }
+        .rank-item.you { background: #2a2a1a; border: 1px solid #ff8c00; border-radius: 6px; }
         .rank-item .clan-tag { font-size: 12px; color: #888; margin-left: 6px; }
-        .rank-item .leader { color: #f0d070; }
+        .rank-item .leader { color: #ff8c00; }
         .rank-item .member { color: #999; }
         .rank-item .title-tag { font-size: 12px; font-weight: bold; margin-left: 4px; }
         .title-color-brown { color: #8B4513; }
         .title-color-gray { color: #808080; }
-        .title-color-orange { color: #FF8C00; }
+        .title-color-orange { color: #ff8c00; }
         .title-color-lime { color: #32CD32; }
         .title-color-blue { color: #1E90FF; }
         .title-color-darkblue { color: #0000CD; }
@@ -1292,29 +1346,29 @@
             color: #ccc;
             transition: 0.2s;
         }
-        .shop-tabs button.active { background: #555; color: #fff; border-color: #777; }
+        .shop-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
         .shop-tabs button:hover { background: #3a3a3a; }
         .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .shop-item {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .shop-item .shop-item-name { font-weight: bold; font-size: 16px; color: #fff; }
         .shop-item .shop-item-price { font-size: 14px; color: #aaa; margin: 6px 0; }
-        .shop-item .shop-buy-btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; background: #555; color: #fff; border: 1px solid #777; }
+        .shop-item .shop-buy-btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; background: #ff8c00; color: #000; }
         .shop-item .shop-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .shop-item .shop-buy-btn:hover:not(:disabled) { background: #666; }
+        .shop-item .shop-buy-btn:hover:not(:disabled) { background: #ffaa33; }
         .shop-item .owned { color: #4a8a4a; font-weight: bold; }
-        .shop-item .coming-soon { color: #f0d070; font-weight: bold; font-size: 13px; margin-top: 4px; }
+        .shop-item .coming-soon { color: #ff8c00; font-weight: bold; font-size: 13px; margin-top: 4px; }
 
         /* ===== НАСТРОЙКИ ===== */
         .settings-group { margin-bottom: 18px; color: #f0f0f0; }
         .settings-group label { display: block; font-size: 16px; margin-bottom: 6px; color: #fff; }
-        .settings-group .desc { font-size: 13px; color: #aaa; }
+        .settings-group .desc { font-size: 13px; color: #888; }
         .settings-group input[type="range"] {
             width: 100%;
             height: 6px;
@@ -1328,10 +1382,10 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #777;
+            background: #ff8c00;
             cursor: pointer;
         }
-        .settings-group .range-value { font-weight: bold; margin-left: 8px; color: #fff; }
+        .settings-group .range-value { font-weight: bold; margin-left: 8px; color: #ff8c00; }
         .settings-group .color-grid { display: flex; gap: 8px; flex-wrap: wrap; }
         .settings-group .color-grid .color-btn {
             width: 36px;
@@ -1341,7 +1395,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .settings-group .color-grid .color-btn.active { border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.15); }
+        .settings-group .color-grid .color-btn.active { border-color: #ff8c00; box-shadow: 0 0 10px rgba(255,140,0,0.3); }
         .toggle-row { display: flex; align-items: center; gap: 14px; color: #f0f0f0; }
         .toggle {
             width: 44px;
@@ -1353,7 +1407,7 @@
             transition: 0.3s;
             background: #444;
         }
-        .toggle.on { background: #555; }
+        .toggle.on { background: #ff8c00; }
         .toggle .knob {
             width: 18px;
             height: 18px;
@@ -1379,7 +1433,7 @@
         .case-modal-overlay.open { display: flex; }
         .case-modal {
             background: #1a1a1a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 12px;
             padding: 24px;
             max-width: 450px;
@@ -1395,10 +1449,10 @@
             color: #aaa;
         }
         .case-modal .close-btn:hover { color: #fff; }
-        .case-modal .modal-title { text-align: center; font-size: 22px; color: #fff; }
+        .case-modal .modal-title { text-align: center; font-size: 22px; color: #ff8c00; }
         .slot-container {
             background: #2a2a2a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             height: 100px;
             overflow: hidden;
@@ -1426,18 +1480,18 @@
             transition: color 0.2s, background 0.2s;
             padding: 0 10px;
         }
-        .slot-item.active { color: #fff; background: rgba(255,255,255,0.05); }
-        .slot-item.highlight { color: #f0d070; background: rgba(240,208,112,0.15); }
+        .slot-item.active { color: #ff8c00; background: rgba(255,140,0,0.1); }
+        .slot-item.highlight { color: #ff8c00; background: rgba(255,140,0,0.2); }
         .result-display {
             text-align: center;
             padding: 14px;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             margin: 10px 0;
             color: #f0f0f0;
         }
         .result-display .big-emoji { font-size: 48px; display: block; }
-        .result-display .result-name { font-size: 18px; font-weight: bold; color: #fff; }
+        .result-display .result-name { font-size: 18px; font-weight: bold; color: #ff8c00; }
         .result-display .result-rare { font-size: 14px; color: #aaa; }
         .modal-buttons {
             display: flex;
@@ -1455,19 +1509,18 @@
             cursor: pointer;
             transition: 0.2s;
             min-width: 100px;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .modal-buttons button:hover { background: #666; }
+        .modal-buttons button:hover { background: #ffaa33; }
 
         /* ===== ИГРЫ ===== */
         .game-wrap {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .game-wrap .game-stats {
@@ -1476,10 +1529,10 @@
             padding: 6px;
             background: #2a2a2a;
             border-radius: 4px;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             color: #f0f0f0;
         }
-        .game-wrap .game-stats span { font-weight: bold; color: #fff; }
+        .game-wrap .game-stats span { font-weight: bold; color: #ff8c00; }
         .game-wrap .game-canvas {
             width: 100%;
             background: #0a1a2b;
@@ -1529,15 +1582,15 @@
 
         /* ===== КЛИКЕР ===== */
         .clicker-wrap {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 20px;
             text-align: center;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .clicker-wrap .clicker-stats { font-size: 18px; margin-bottom: 12px; color: #f0f0f0; }
-        .clicker-wrap .clicker-stats span { font-weight: bold; color: #fff; }
+        .clicker-wrap .clicker-stats span { font-weight: bold; color: #ff8c00; }
         .clicker-wrap .click-btn {
             border: none;
             border-radius: 8px;
@@ -1546,20 +1599,19 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .clicker-wrap .click-btn:hover { background: #666; }
+        .clicker-wrap .click-btn:hover { background: #ffaa33; }
         .clicker-wrap .click-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .clicker-wrap .click-timer { font-size: 14px; color: #aaa; margin-top: 8px; }
 
         /* ===== АККАУНТ ===== */
         .account-info {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 16px;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .account-info .row {
@@ -1569,7 +1621,7 @@
             border-bottom: 1px solid #444;
         }
         .account-info .row .label { color: #aaa; }
-        .account-info .row .value { font-weight: bold; color: #fff; }
+        .account-info .row .value { font-weight: bold; color: #ff8c00; }
         .account-info .row:last-child { border-bottom: none; }
         .account-actions {
             margin-top: 16px;
@@ -1614,13 +1666,12 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
-            background: #555;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             transition: 0.2s;
-            border: 1px solid #777;
         }
-        .clan-input button:hover { background: #666; }
-        .clan-input .clear-clan { background: #883333; border-color: #aa4444; }
+        .clan-input button:hover { background: #ffaa33; }
+        .clan-input .clear-clan { background: #883333; color: #fff; }
         .clan-input .clear-clan:hover { background: #aa4444; }
 
         .progress-bar {
@@ -1630,34 +1681,34 @@
             border-radius: 10px;
             overflow: hidden;
             margin: 8px 0;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
         }
         .progress-bar .fill {
             height: 100%;
-            background: #555;
+            background: #ff8c00;
             transition: width 0.3s;
             border-radius: 10px;
         }
 
         /* ===== КЛАНЫ ===== */
         .clan-simple {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
-        .clan-simple .clan-name { font-weight: bold; font-size: 18px; color: #fff; }
+        .clan-simple .clan-name { font-weight: bold; font-size: 18px; color: #ff8c00; }
         .clan-simple .clan-input-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
         .clan-simple .clan-input-row input { padding: 6px 10px; border: 1px solid #555; border-radius: 4px; background: #2a2a2a; color: #f0f0f0; flex:1; max-width:200px; }
-        .clan-simple .clan-input-row button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; background: #555; color: #fff; border: 1px solid #777; }
-        .clan-simple .clan-input-row button:hover { background: #666; }
-        .clan-simple .clan-input-row button.clear { background: #883333; border-color: #aa4444; }
+        .clan-simple .clan-input-row button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; background: #ff8c00; color: #000; }
+        .clan-simple .clan-input-row button:hover { background: #ffaa33; }
+        .clan-simple .clan-input-row button.clear { background: #883333; color: #fff; }
         .clan-simple .clan-input-row button.clear:hover { background: #aa4444; }
 
         /* ===== ИГРОКИ ===== */
         .player-card {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 10px 14px;
             margin-bottom: 6px;
@@ -1666,7 +1717,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 6px;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .player-card .player-name { font-weight: bold; color: #fff; }
@@ -1681,11 +1732,10 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .player-card .player-actions button:hover { background: #666; }
+        .player-card .player-actions button:hover { background: #ffaa33; }
 
         /* ===== ВХОД ===== */
         #loginOverlay {
@@ -1702,7 +1752,7 @@
         #loginOverlay.hidden { display: none; }
         .login-box {
             background: #1a1a1a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 12px;
             padding: 30px;
             max-width: 400px;
@@ -1711,9 +1761,9 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        .login-box h2 { text-align: center; font-size: 26px; color: #fff; }
+        .login-box h2 { text-align: center; font-size: 26px; color: #ff8c00; }
         .login-box .sub { text-align: center; font-size: 15px; margin-bottom: 16px; color: #aaa; }
-        .login-box .promo { text-align: center; font-size: 14px; margin: 10px 0; border-top: 1px solid #444; padding-top: 12px; color: #aaa; }
+        .login-box .promo { text-align: center; font-size: 14px; margin: 10px 0; border-top: 1px solid #ff8c00; padding-top: 12px; color: #aaa; }
         .login-box input {
             width: 100%;
             padding: 12px 16px;
@@ -1724,7 +1774,7 @@
             background: #2a2a2a;
             color: #f0f0f0;
         }
-        .login-box input:focus { outline: none; border-color: #777; }
+        .login-box input:focus { outline: none; border-color: #ff8c00; }
         .login-box .row { display: flex; gap: 10px; }
         .login-box .row button {
             flex: 1;
@@ -1736,7 +1786,7 @@
             font-size: 16px;
             transition: 0.2s;
         }
-        .login-box .row .login-btn { background: #555; color: #fff; border-color: #777; }
+        .login-box .row .login-btn { background: #ff8c00; color: #000; border-color: #ff8c00; }
         .login-box .row .register-btn { background: #2a2a2a; color: #f0f0f0; border-color: #555; }
         .login-box .row button:hover { opacity: 0.9; }
         .login-box .error { color: #ff6b6b; font-size: 15px; margin-top: 8px; text-align: center; }
@@ -1782,7 +1832,7 @@
             background: #222;
             flex: 0 1 auto;
         }
-        .achieve-item.unlocked { opacity: 1; border-color: #f0d070; color: #f0f0f0; background: #2a2a1a; }
+        .achieve-item.unlocked { opacity: 1; border-color: #ff8c00; color: #f0f0f0; background: #2a2a1a; }
 
         /* ===== ПРОЧЕЕ ===== */
         .chance-overlay {
@@ -1797,7 +1847,7 @@
         .chance-overlay.open { display: flex; }
         .chance-box {
             background: #1a1a1a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 12px;
             padding: 24px;
             max-width: 400px;
@@ -1828,7 +1878,7 @@
             bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 8px;
             padding: 14px 28px;
             font-size: 16px;
@@ -1845,28 +1895,28 @@
         .footer-note {
             text-align: center;
             font-size: 13px;
-            border-top: 1px solid #444;
+            border-top: 1px solid #ff8c00;
             padding-top: 12px;
             margin-top: 16px;
             color: #888;
         }
-        .footer-note a { text-decoration: none; color: #4a8aba; }
+        .footer-note a { text-decoration: none; color: #ff8c00; }
 
         .update-announce {
             text-align: center;
             font-size: 14px;
-            color: #f0d070;
+            color: #ff8c00;
             background: #2a2a2a;
-            border: 1px solid #f0d070;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 10px;
             margin: 10px 0;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { border-color: #f0d070; }
-            50% { border-color: #ffaa00; }
-            100% { border-color: #f0d070; }
+            0% { border-color: #ff8c00; }
+            50% { border-color: #ffaa33; }
+            100% { border-color: #ff8c00; }
         }
         .wipe-banner {
             text-align: center;
@@ -1877,7 +1927,7 @@
             padding: 10px;
             border-radius: 6px;
             margin: 10px 0;
-            border: 2px solid #ffaa00;
+            border: 2px solid #ff8c00;
             animation: pulseBanner 1.5s infinite;
         }
         .wipe-banner { animation: pulseBanner 1.5s infinite; }
@@ -1942,11 +1992,10 @@
             cursor: pointer;
             font-size: 15px;
             transition: 0.2s;
-            background: #555;
-            color: #fff;
-            border: 1px solid #777;
+            background: #ff8c00;
+            color: #000;
         }
-        .promo-input button:hover { background: #666; }
+        .promo-input button:hover { background: #ffaa33; }
 
         #bg-music, #bg-music2 { display: none; }
         #loadingStatus {
@@ -1965,7 +2014,7 @@
         }
         #loadingStatus .spinner {
             border: 6px solid #f3f3f3;
-            border-top: 6px solid #555;
+            border-top: 6px solid #ff8c00;
             border-radius: 50%;
             width: 60px;
             height: 60px;
@@ -2007,7 +2056,7 @@
             max-height: 350px;
             background: #1a1a1a;
             color: #f0f0f0;
-            border: 2px solid #ffaa00;
+            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 12px;
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -2027,9 +2076,9 @@
             align-items: baseline;
         }
         .activity-popup .activity-item .time { color: #888; font-size: 10px; min-width: 55px; }
-        .activity-popup .activity-item .actor { color: #ffaa00; font-weight: bold; }
+        .activity-popup .activity-item .actor { color: #ff8c00; font-weight: bold; }
         .activity-popup .activity-item .action { color: #ccc; }
-        .activity-popup .activity-item .highlight { color: #f0d070; }
+        .activity-popup .activity-item .highlight { color: #ff8c00; }
         .activity-popup .activity-empty { color: #666; text-align: center; padding: 20px 0; }
 
         .reset-progress-btn {
@@ -2052,7 +2101,7 @@
         .captcha-overlay.hidden { display: none; }
         .captcha-box {
             background: #1a1a1a;
-            border: 2px solid #444;
+            border: 2px solid #ff8c00;
             border-radius: 12px;
             padding: 24px;
             max-width: 350px;
@@ -2084,15 +2133,15 @@
         .captcha-box button {
             margin-top: 12px;
             padding: 8px 24px;
-            border: 2px solid #555;
+            border: 2px solid #ff8c00;
             border-radius: 6px;
-            background: #555;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             font-weight: bold;
             cursor: pointer;
             font-size: 16px;
         }
-        .captcha-box button:hover { background: #666; }
+        .captcha-box button:hover { background: #ffaa33; }
 
         .notification {
             position: fixed;
@@ -2110,7 +2159,7 @@
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
         }
         .notification.show {
             opacity: 1;
@@ -2123,7 +2172,7 @@
             padding: 8px 12px;
             background: #1a2a1a;
             border-radius: 6px;
-            border: 1px solid #2a7a2a;
+            border: 1px solid #ff8c00;
             max-height: 200px;
             overflow-y: auto;
             display: none;
@@ -2132,7 +2181,7 @@
         .event-rewards.show { display: block; }
         .event-rewards .reward-line {
             padding: 2px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,140,0,0.1);
             font-size: 12px;
         }
         .event-rewards .reward-line:last-child { border-bottom: none; }
@@ -2150,7 +2199,7 @@
         .profile-modal-overlay.open { display: flex; }
         .profile-modal {
             background: #1a1a1a;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 12px;
             padding: 24px;
             max-width: 400px;
@@ -2178,11 +2227,11 @@
 
         /* ===== BLOCK BLAST ===== */
         .block-blast-wrap {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
         }
         .block-blast-wrap .block-stats {
@@ -2191,14 +2240,14 @@
             padding: 6px;
             background: #2a2a2a;
             border-radius: 4px;
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 8px;
             color: #f0f0f0;
         }
-        .block-blast-wrap .block-stats span { font-weight: bold; color: #fff; }
+        .block-blast-wrap .block-stats span { font-weight: bold; color: #ff8c00; }
         .block-grid-wrap {
             display: flex;
             flex-direction: column;
@@ -2213,7 +2262,7 @@
             max-width: 360px;
             aspect-ratio: 1;
             background: #1a1a1a;
-            border: 2px solid #444;
+            border: 2px solid #ff8c00;
             border-radius: 4px;
             padding: 4px;
         }
@@ -2227,16 +2276,16 @@
             position: relative;
         }
         .block-grid .cell.filled {
-            background: #4a8aba;
-            border-color: #5a9aca;
+            background: #ff8c00;
+            border-color: #ffaa33;
         }
         .block-grid .cell.preview {
-            background: rgba(74,138,186,0.3);
-            border-color: rgba(74,138,186,0.5);
+            background: rgba(255,140,0,0.3);
+            border-color: rgba(255,140,0,0.5);
         }
         .block-grid .cell.highlight {
-            background: rgba(255,208,112,0.25);
-            border-color: rgba(255,208,112,0.4);
+            background: rgba(255,140,0,0.15);
+            border-color: rgba(255,140,0,0.3);
         }
         .block-grid .cell:hover:not(.filled):not(.preview) {
             background: #3a3a3a;
@@ -2263,7 +2312,7 @@
             min-width: 50px;
         }
         .block-shape-btn.active {
-            border-color: #f0d070;
+            border-color: #ff8c00;
             background: #3a3a3a;
         }
         .block-shape-btn:hover {
@@ -2279,7 +2328,7 @@
         .block-shape-btn .shape-preview .sp-cell {
             width: 14px;
             height: 14px;
-            background: #4a8aba;
+            background: #ff8c00;
             border-radius: 1px;
         }
         .block-shape-btn .shape-preview .sp-cell.empty {
@@ -2320,10 +2369,10 @@
 
         /* ===== ЧАТ ===== */
         .chat-wrap {
-            border: 1px solid #444;
+            border: 1px solid #ff8c00;
             border-radius: 6px;
             padding: 12px;
-            background: #222;
+            background: #1a1a1a;
             color: #f0f0f0;
             max-height: 500px;
             display: flex;
@@ -2360,11 +2409,11 @@
         }
         .chat-message .chat-nick {
             font-weight: bold;
-            color: #fff;
+            color: #ff8c00;
         }
         .chat-message .chat-title {
             font-size: 12px;
-            color: #f0d070;
+            color: #ffaa33;
             font-weight: bold;
         }
         .chat-message .chat-clan {
@@ -2373,7 +2422,7 @@
         }
         .chat-message .chat-elo {
             font-size: 12px;
-            color: #4a8aba;
+            color: #ff8c00;
         }
         .chat-message .chat-text {
             color: #f0f0f0;
@@ -2400,20 +2449,20 @@
         }
         .chat-input-area input:focus {
             outline: none;
-            border-color: #777;
+            border-color: #ff8c00;
         }
         .chat-input-area button {
             padding: 8px 20px;
-            border: 1px solid #777;
+            border: 1px solid #ff8c00;
             border-radius: 4px;
             cursor: pointer;
             font-size: 15px;
-            background: #555;
-            color: #fff;
+            background: #ff8c00;
+            color: #000;
             transition: 0.2s;
         }
         .chat-input-area button:hover {
-            background: #666;
+            background: #ffaa33;
         }
         .chat-input-area button:disabled {
             opacity: 0.4;
@@ -2439,7 +2488,7 @@
         .welcome-overlay.open { display: flex; }
         .welcome-popup {
             background: #1a1a1a;
-            border: 2px solid #f0d070;
+            border: 2px solid #ff8c00;
             border-radius: 16px;
             padding: 32px 28px;
             max-width: 420px;
@@ -2461,9 +2510,9 @@
         }
         .welcome-popup .close-btn:hover { color: #fff; }
         .welcome-popup .welcome-icon { font-size: 48px; margin-bottom: 12px; display: block; }
-        .welcome-popup .welcome-title { font-size: 22px; font-weight: bold; color: #f0d070; margin-bottom: 10px; }
+        .welcome-popup .welcome-title { font-size: 22px; font-weight: bold; color: #ff8c00; margin-bottom: 10px; }
         .welcome-popup .welcome-text { font-size: 16px; line-height: 1.6; color: #ddd; }
-        .welcome-popup .welcome-text strong { color: #f0d070; }
+        .welcome-popup .welcome-text strong { color: #ff8c00; }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 600px) {
@@ -2480,7 +2529,8 @@
             .chat-message { font-size: 13px; }
             .header h1 { font-size: 24px; }
             .header .version { font-size: 16px; }
-            .header .log-btn-header, .header .activity-btn-header { font-size: 12px; padding: 4px 10px; top: 4px; }
+            .header .log-btn-header, .header .activity-btn-header, .header .chat-btn-header { font-size: 12px; padding: 4px 10px; top: 4px; }
+            .header .chat-btn-header { right: 60px; }
             .welcome-popup { padding: 24px 16px; margin: 10px; }
             .welcome-popup .welcome-text { font-size: 14px; }
             .block-shape-btn { min-width: 40px; padding: 4px 6px; }
@@ -2500,7 +2550,7 @@
         }
     </style>
 </head>
-<body class="theme-dark_white">
+<body class="theme-dark_orange">
     <div id="loadingStatus"><div class="spinner"></div><div id="loadingText">Загрузка...</div></div>
     <audio id="bg-music" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
     <audio id="bg-music2" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
@@ -2526,7 +2576,7 @@
         <div class="login-box">
             <h2>TTP кейсы</h2>
             <div class="sub">Вход / Регистрация</div>
-            <div class="promo">версия <strong>UNRELEASED (beta)</strong> <span class="beta-badge" style="display:inline-block;background:#ff6b35;color:#fff;padding:2px 12px;border-radius:12px;font-size:14px;font-weight:bold;margin-left:8px;">BETA</span></div>
+            <div class="promo">версия <strong>UNRELEASED (beta)</strong> <span class="beta-badge" style="display:inline-block;background:#ff8c00;color:#000;padding:2px 12px;border-radius:12px;font-size:14px;font-weight:bold;margin-left:8px;">BETA</span></div>
             <input type="text" id="loginNick" placeholder="Ник (макс. 24 символа)" maxlength="24" value="">
             <input type="password" id="loginPass" placeholder="Пароль">
             <div class="error" id="loginError"></div>
@@ -2547,6 +2597,7 @@
             <h1>TTP кейсы <span class="beta-badge">BETA</span></h1>
             <div class="version">UNRELEASED (beta)</div>
             <div class="subtitle">игра создана @arbz7 \ xxspk \ made by AI</div>
+            <button class="chat-btn-header" id="chatBtnHeader">💬 Чат</button>
             <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
         </div>
 
@@ -2558,14 +2609,13 @@
         <div class="top-bar">
             <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span> ₽</div>
             <div class="stat">⚡ <span class="value" id="eloDisplay">0</span></div>
-            <div class="stat">🏆 <span class="value" id="rankDisplay">—</span></div>
             <div class="stat">⭐ <span class="value" id="levelDisplay">1</span></div>
             <div class="stat">🆔 <span class="value" id="idDisplay">—</span></div>
             <div class="stat">💎 <span class="value" id="rubyDisplay">0</span></div>
             <div class="stat">⏱️ <span class="value" id="playtimeDisplay">0ч</span></div>
             <div class="clock" id="clockDisplay">--:--:--</div>
         </div>
-        <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#2a2a2a; padding:6px 12px; border-radius:4px; border:1px solid #444; color:#f0f0f0;">
+        <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#2a2a2a; padding:6px 12px; border-radius:4px; border:1px solid #ff8c00; color:#f0f0f0;">
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Max Level: <span id="proProgressDisplay">0%</span></span>
         </div>
@@ -2594,11 +2644,9 @@
                 <button data-section="chat">Чат</button>
             </div>
             <div class="event-btn-row">
-                <button id="speedEventBtn">🏁 Ивент: Кто больше наберёт скорость!</button>
                 <button id="cities3EventBtn">🏙️ Ивент: Открой Города 3!</button>
             </div>
-            <div class="event-rewards" id="eventRewardsList"></div>
-            <div class="event-rewards" id="cities3EventList" style="border-color:#f0d070;"></div>
+            <div class="event-rewards" id="cities3EventList" style="border-color:#ff8c00;"></div>
         </div>
 
         <div class="main-content">
@@ -2648,7 +2696,7 @@
                 </div>
                 <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; color:#f0f0f0;">
                     <span style="font-size:16px; color:#aaa;">Режим:</span>
-                    <button id="ratingModeNow" class="active" style="border:1px solid #555; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#555; color:#fff;">Сейчас</button>
+                    <button id="ratingModeNow" class="active" style="border:1px solid #555; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ff8c00; color:#000;">Сейчас</button>
                     <button id="ratingModeEver" style="border:1px solid #555; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#2a2a2a; color:#f0f0f0;">За всё время</button>
                 </div>
                 <div class="rating-tabs" id="ratingTabs">
@@ -2667,6 +2715,7 @@
                     <button data-rating-tab="totalCases">Открыто кейсов</button>
                     <button data-rating-tab="blockXP">Опыт Block Blast</button>
                     <button data-rating-tab="blockPieces">Поставлено фигур</button>
+                    <button data-rating-tab="playtime">Наигранно минут</button>
                 </div>
                 <div id="ratingContent"></div>
             </section>
@@ -2725,7 +2774,7 @@
                         <div id="clickerCaptcha" style="display:none; margin-top:12px;">
                             <div style="font-size:18px; color:#f0f0f0;">Введите код: <span id="captchaText"></span></div>
                             <input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #555; border-radius:4px; width:100%; margin:8px 0; background:#2a2a2a; color:#f0f0f0;">
-                            <button id="captchaSubmit" style="border:2px solid #555; border-radius:4px; padding:8px 16px; cursor:pointer; background:#555; color:#fff;">Подтвердить</button>
+                            <button id="captchaSubmit" style="border:2px solid #555; border-radius:4px; padding:8px 16px; cursor:pointer; background:#ff8c00; color:#000;">Подтвердить</button>
                         </div>
                     </div>
                 </div>
@@ -2743,7 +2792,6 @@
                             <div class="block-shapes" id="blockShapes"></div>
                             <div class="block-blast-controls">
                                 <button id="blockNewGame">🔄 Новая игра</button>
-                                <button id="blockSkip">⏭️ Пропустить</button>
                             </div>
                         </div>
                     </div>
@@ -2761,13 +2809,13 @@
             <!-- ПРОМОКОД -->
             <section id="section-promo" class="section">
                 <div class="title">Промокод</div>
-                <div style="padding:20px; text-align:center; background:#2a2a2a; border-radius:6px; border:1px solid #444; color:#f0f0f0;">
+                <div style="padding:20px; text-align:center; background:#2a2a2a; border-radius:6px; border:1px solid #ff8c00; color:#f0f0f0;">
                     <div style="font-size:18px; margin-bottom:12px; color:#fff;">Введите промокод</div>
                     <div class="promo-input">
                         <input type="text" id="promoInput" placeholder="Введите промокод" style="max-width:200px;">
                         <button id="applyPromoBtn">Активировать</button>
                     </div>
-                    <div style="margin-top:12px; font-size:14px; color:#aaa;">Промокоды: <strong style="color:#f0d070;">ARBZ</strong> (по 1 открытию каждого кейса) | <strong style="color:#f0d070;">пятыйвайп</strong> (200 ₽, 1 кейс "Игроки 3", 10 💎)</div>
+                    <div style="margin-top:12px; font-size:14px; color:#aaa;">Промокод: <strong style="color:#ff8c00;">dimadartiez</strong> (20 💎, 100 ₽, кейс "Игроки 1")</div>
                 </div>
             </section>
 
@@ -2864,8 +2912,8 @@
             <!-- ОБНОВЛЕНИЯ -->
             <section id="section-updates" class="section">
                 <div class="title">Обновления</div>
-                <div style="padding:20px; border:1px solid #444; border-radius:6px; background:#2a2a2a; text-align:left; color:#f0f0f0;">
-                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px; color:#ff6b35;">UNRELEASED (beta) — Большое обновление!</div>
+                <div style="padding:20px; border:1px solid #ff8c00; border-radius:6px; background:#2a2a2a; text-align:left; color:#f0f0f0;">
+                    <div style="font-size:20px; font-weight:bold; margin-bottom:10px; color:#ff8c00;">UNRELEASED (beta) — Большое обновление!</div>
                     <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.7; color:#ddd;">
                         <li>🎮 Добавлена игра <strong>Block Blast</strong> (9x9 поле, 8 фигур, комбо-система, опыт)</li>
                         <li>💬 <strong>Общий чат</strong> игроков (видно ник, донат, клан, эло)</li>
@@ -2873,10 +2921,11 @@
                         <li>⏱️ <strong>Плейтайм</strong> — сколько вы наиграли за всё время</li>
                         <li>📋 <strong>50 действий</strong> в ленте активности (вместо безлимита)</li>
                         <li>🏷️ "Pro level" переименован в <strong>"Max Level"</strong></li>
-                        <li>🎨 <strong>Тёмная тема с белым текстом</strong> теперь по умолчанию (все белые пятна исправлены)</li>
-                        <li>👑 Исправлена выдача <strong>эксклюзива</strong> через Firebase (больше не сбрасывается)</li>
-                        <li>📊 Рейтинг: добавлены вкладки <strong>"Опыт Block Blast"</strong> и <strong>"Поставлено фигур"</strong></li>
+                        <li>🎨 <strong>Чёрно-оранжевая</strong> стилистика по умолчанию</li>
+                        <li>👑 Исправлена выдача <strong>эксклюзива</strong> (больше не сбрасывается)</li>
+                        <li>📊 Рейтинг: добавлены вкладки <strong>"Опыт Block Blast"</strong>, <strong>"Поставлено фигур"</strong> и <strong>"Наигранно минут"</strong></li>
                         <li>🧹 Логи активности теперь хранят только <strong>последние 50 действий</strong></li>
+                        <li>📌 Промокод <strong>dimadartiez</strong> даёт 20 💎, 100 ₽ и кейс "Игроки 1"</li>
                     </ul>
                 </div>
             </section>
@@ -2947,7 +2996,7 @@
     <div class="log-popup" id="logPopup"></div>
     <div class="activity-popup" id="activityPopup">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:6px;">
-            <span style="font-weight:bold; color:#ffaa00;">📊 Активность игроков (посл. 50)</span>
+            <span style="font-weight:bold; color:#ff8c00;">📊 Активность игроков (посл. 50)</span>
             <button id="activityPopupClose" style="background:none; border:none; color:#888; font-size:18px; cursor:pointer;">✕</button>
         </div>
         <div id="activityList"></div>
@@ -2956,7 +3005,7 @@
     <!-- ===== JAVASCRIPT ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — UNRELEASED (beta)
+    //  ПОЛНЫЙ JS — UNRELEASED (beta) — ЧЁРНО-ОРАНЖЕВАЯ ТЕМА
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -2978,7 +3027,7 @@
         balance: 500, totalEarned: 0, totalSpent: 0, maxBalance: 500,
         elo: 1000, maxElo: 1000, casesOpened: 0, maxCasesOpened: 0,
         totalClicks: 0, clicksSinceCaptcha: 0, inventory: [], itemsCount: {},
-        settings: { theme: 'dark_white', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+        settings: { theme: 'dark_orange', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
         morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
         achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
@@ -2992,7 +3041,6 @@
         friends: [], blocked: [], clanId: null, clanRole: null,
         trades: [], clanWar: null,
         posts: [], userStatus: 'all', chatStatus: {},
-        speedEvent: { claimed: {} },
         inventoryGrouped: true,
         rubies: 0, totalRubies: 0,
         currentTitle: 'player',
@@ -3035,16 +3083,14 @@
         rubyShopPurchases: 0,
         caseOpenedCounts: {},
         totalRubiesSpent: 0,
-        // Block Blast
         blockXP: 0,
         blockPieces: 0,
         blockBestCombo: 0,
-        // Playtime
         playtimeSeconds: 0,
         lastPlaytimeTick: Date.now(),
-        // Cities3 event
         cities3Opened: 0,
-        cities3Rewards: {}
+        cities3Rewards: {},
+        chatMessagesSent: 0
     };
 
     let logMessages = [];
@@ -3263,13 +3309,12 @@
             else if (mins > 0) display.textContent = mins + 'м ' + secs + 'с';
             else display.textContent = secs + 'с';
         }
-        // Сохраняем каждые 30 секунд
         if (Math.floor(STATE.playtimeSeconds) % 30 === 0) {
             saveStateToFirebase();
         }
     }
 
-    // ===== УРОВНИ (Max Level вместо Pro) =====
+    // ===== УРОВНИ (Max Level) =====
     function getLevelForExp(exp) {
         if (exp < 100) return 1;
         if (exp < 200) return 2;
@@ -3812,7 +3857,7 @@
             inventory: [],
             achievements: [],
             registrationDate: Date.now(),
-            settings: { theme: 'dark_white', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
+            settings: { theme: 'dark_orange', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1, musicTrack: 0 },
             morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
             plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
             exp: 0,
@@ -3835,7 +3880,6 @@
             trades: [], clanWar: null,
             posts: [], userStatus: 'all', chatStatus: {},
             totalLikes: 0, totalComments: 0, totalMessages: 0,
-            speedEvent: { claimed: {} },
             rubies: 0, totalRubies: 0,
             currentTitle: 'player',
             titleBonuses: {},
@@ -3988,7 +4032,6 @@
             STATE.totalLikes = data.totalLikes || 0;
             STATE.totalComments = data.totalComments || 0;
             STATE.totalMessages = data.totalMessages || 0;
-            STATE.speedEvent = data.speedEvent || { claimed: {} };
             STATE.inventoryGrouped = true;
             STATE.rubies = data.rubies || 0;
             STATE.totalRubies = data.totalRubies || 0;
@@ -4011,12 +4054,10 @@
             STATE.cities3Rewards = data.cities3Rewards || {};
             STATE.chatMessagesSent = data.chatMessagesSent || 0;
 
-            // Фикс эксклюзива: если currentTitle === 'exclusive', принудительно устанавливаем флаги
             if (STATE.currentTitle === 'exclusive') {
                 STATE.exclusiveGiven = true;
                 STATE.exclusiveActivated = true;
                 if (!data.exclusiveGiven || !data.exclusiveActivated) {
-                    // Сохраняем в Firebase, чтобы больше не сбрасывалось
                     const updates = {
                         exclusiveGiven: true,
                         exclusiveActivated: true
@@ -4027,7 +4068,6 @@
                         body: JSON.stringify(updates)
                     }).catch(() => {});
                 }
-                // Даём бонус если ещё не давали
                 if (!data.exclusiveGiven) {
                     giveExclusiveBonus();
                 }
@@ -4048,9 +4088,8 @@
             const app = document.getElementById('app');
             if (app) app.style.display = 'block';
 
-            applyTheme(STATE.settings.theme || 'dark_white');
+            applyTheme(STATE.settings.theme || 'dark_orange');
 
-            // Показываем приветствие
             if (!STATE.welcomeShown) {
                 document.getElementById('welcomeOverlay').classList.add('open');
                 STATE.welcomeShown = true;
@@ -4083,7 +4122,6 @@
                 try { renderAchievements(); } catch(e) { addLog('⚠️ renderAchievements: ' + e.message); }
                 try { renderAccount(); } catch(e) { addLog('⚠️ renderAccount: ' + e.message); }
                 try { renderClanSimple(); } catch(e) { addLog('⚠️ renderClanSimple: ' + e.message); }
-                try { renderSpeedEvent(); } catch(e) { addLog('⚠️ renderSpeedEvent: ' + e.message); }
                 try { renderShop(); } catch(e) { addLog('⚠️ renderShop: ' + e.message); }
                 try { renderPlayers(); } catch(e) { addLog('⚠️ renderPlayers: ' + e.message); }
                 try { renderChat(); } catch(e) { addLog('⚠️ renderChat: ' + e.message); }
@@ -4098,7 +4136,6 @@
                 initClicker();
                 initBlockBlast();
                 startClock();
-                // Playtime tick
                 STATE.lastPlaytimeTick = Date.now();
                 setInterval(updatePlaytime, 1000);
             }, 50);
@@ -4187,7 +4224,6 @@
             totalLikes: STATE.totalLikes,
             totalComments: STATE.totalComments,
             totalMessages: STATE.totalMessages,
-            speedEvent: STATE.speedEvent,
             rubies: STATE.rubies,
             totalRubies: STATE.totalRubies,
             currentTitle: STATE.currentTitle,
@@ -4215,7 +4251,7 @@
             body: JSON.stringify(updates)
         })
         .then(res => {
-            if (res.ok) addLog('✅ Сохранено в Firebase');
+            if (res.ok) addLog('✅ Сохранено');
             else addLog('⚠️ Ошибка сохранения: ' + res.status);
             return res;
         })
@@ -4352,7 +4388,6 @@
                 if (!STATE.caseOpenedCounts) STATE.caseOpenedCounts = {};
                 STATE.caseOpenedCounts[caseId] = (STATE.caseOpenedCounts[caseId] || 0) + 1;
 
-                // Отслеживаем открытие Города 3 для ивента
                 if (caseId === 'cities3') {
                     STATE.cities3Opened = (STATE.cities3Opened || 0) + 1;
                     checkCities3Event();
@@ -4914,7 +4949,8 @@
                         achievements: p.achievements ? p.achievements.length : 0,
                         title: p.currentTitle || null,
                         blockXP: p.blockXP || 0,
-                        blockPieces: p.blockPieces || 0
+                        blockPieces: p.blockPieces || 0,
+                        playtimeSeconds: p.playtimeSeconds || 0
                     });
                 }
                 if (players.length === 0) {
@@ -4937,6 +4973,7 @@
                     case 'totalCases': players.sort((a, b) => b.casesOpened - a.casesOpened); break;
                     case 'blockXP': players.sort((a, b) => b.blockXP - a.blockXP); break;
                     case 'blockPieces': players.sort((a, b) => b.blockPieces - a.blockPieces); break;
+                    case 'playtime': players.sort((a, b) => b.playtimeSeconds - a.playtimeSeconds); break;
                     default: players.sort((a, b) => b.elo - a.elo);
                 }
 
@@ -4966,6 +5003,7 @@
                         case 'totalCases': valueDisplay = p.casesOpened; break;
                         case 'blockXP': valueDisplay = p.blockXP; break;
                         case 'blockPieces': valueDisplay = p.blockPieces; break;
+                        case 'playtime': valueDisplay = Math.floor(p.playtimeSeconds / 60) + ' мин'; break;
                         default: valueDisplay = p.elo;
                     }
                     let clanDisplay = '';
@@ -4992,7 +5030,7 @@
                         <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay} ${titleDisplay}</span>
                         <span class="value">${valueDisplay}</span>
                         ${isYou ? '<span style="font-size:12px; color:#888;">вы</span>' : ''}
-                        ${isMaxLevel ? '<span style="font-size:12px; color:#f0d070; margin-left:6px;">👑 Max Level</span>' : ''}
+                        ${isMaxLevel ? '<span style="font-size:12px; color:#ff8c00; margin-left:6px;">👑 Max Level</span>' : ''}
                     </div>`;
                     rank++;
                 }
@@ -5328,7 +5366,6 @@
                     STATE.totalLikes = 0;
                     STATE.totalComments = 0;
                     STATE.totalMessages = 0;
-                    STATE.speedEvent = { claimed: {} };
                     STATE.rubies = 0;
                     STATE.totalRubies = 0;
                     STATE.currentTitle = 'player';
@@ -5355,7 +5392,6 @@
                         renderAccount();
                         renderClanSimple();
                         checkAllAchievements();
-                        renderSpeedEvent();
                         renderShop();
                         renderPlayers();
                         renderCities3Event();
@@ -5562,7 +5598,6 @@
                 if (morolsState.distance > STATE.morols.maxDistance) STATE.morols.maxDistance = morolsState.distance;
                 STATE.morols.totalCoins += morolsState.totalCoins;
                 STATE.morols.gamesPlayed = (STATE.morols.gamesPlayed || 0) + 1;
-                checkSpeedEvent(morolsState.maxSpeedReached);
                 await saveStateToFirebase();
                 updateUI();
                 checkAllAchievements();
@@ -6071,7 +6106,6 @@
         const grid = document.getElementById('blockGrid');
         if (!grid) return;
         document.getElementById('blockNewGame').onclick = blockNewGame;
-        document.getElementById('blockSkip').onclick = blockSkip;
         blockNewGame();
     }
 
@@ -6090,21 +6124,18 @@
         renderBlockGrid();
         renderBlockShapes();
         updateBlockStats();
-        document.getElementById('blockSkip').disabled = false;
+        document.getElementById('blockNewGame').disabled = false;
     }
 
     function generateBlockShapes() {
-        // Всегда генерируем 3 подходящие фигуры (с запасом)
         const available = [];
         const pool = [...BLOCK_SHAPES];
-        // Берём 3 случайные фигуры, но гарантируем, что они могут быть размещены
         for (let i = 0; i < 3; i++) {
             if (pool.length === 0) break;
             const idx = rand(0, pool.length - 1);
             available.push({ ...pool[idx] });
             pool.splice(idx, 1);
         }
-        // Если меньше 3, добираем из полного списка
         while (available.length < 3) {
             const shape = { ...BLOCK_SHAPES[rand(0, BLOCK_SHAPES.length - 1)] };
             if (!available.some(s => s.id === shape.id)) {
@@ -6130,7 +6161,6 @@
                 if (blockGrid[r][c] === 1) {
                     cell.classList.add('filled');
                 }
-                // Проверяем preview
                 const isPreview = blockPreviewCells.some(p => p.r === r && p.c === c);
                 if (isPreview && blockGrid[r][c] === 0) {
                     cell.classList.add('preview');
@@ -6145,7 +6175,6 @@
 
     function blockCellHover(r, c) {
         if (!blockSelectedShape) return;
-        // Показываем preview
         const pattern = blockSelectedShape.pattern;
         const rows = pattern.length;
         const cols = pattern[0].length;
@@ -6199,7 +6228,6 @@
             return;
         }
 
-        // Ставим фигуру
         for (const cell of cells) {
             blockGrid[cell.r][cell.c] = 1;
         }
@@ -6208,11 +6236,9 @@
         sfxBlockPlace();
         blockScore += cells.length * 2;
 
-        // Проверяем линии
         const clearedLines = blockCheckLines();
         let comboXP = 0;
         if (clearedLines > 0) {
-            // Комбо: чем больше линий, тем больше множитель
             const comboMultiplier = Math.pow(2, clearedLines - 1);
             const baseXP = clearedLines * 20;
             comboXP = baseXP * comboMultiplier;
@@ -6233,14 +6259,12 @@
             }
             addExp(Math.floor(comboXP / 2));
         } else {
-            // Нет комбо, но даём немного опыта за размещение
             const placeXP = Math.floor(cells.length * 0.5);
             blockXPTotal += placeXP;
             STATE.blockXP = blockXPTotal;
             addExp(0);
         }
 
-        // Убираем использованную фигуру
         const idx = blockShapesAvailable.findIndex(s => s.id === blockSelectedShape.id);
         if (idx !== -1) {
             blockShapesAvailable.splice(idx, 1);
@@ -6249,13 +6273,11 @@
         blockSelectedIndex = -1;
         blockPreviewCells = [];
 
-        // Проверяем, есть ли ещё доступные ходы
         if (!blockHasValidMoves()) {
             blockGameOver = true;
-            document.getElementById('blockSkip').disabled = true;
+            document.getElementById('blockNewGame').disabled = false;
             showToast('💥 Игра окончена! Опыт: ' + blockXPTotal);
             logPlayerAction('закончил Block Blast', 'опыт ' + blockXPTotal + ', фигур ' + blockPiecesTotal, false);
-            // Сохраняем в STATE
             STATE.blockXP = blockXPTotal;
             STATE.blockPieces = blockPiecesTotal;
             STATE.blockBestCombo = blockBestCombo;
@@ -6267,19 +6289,16 @@
             return;
         }
 
-        // Если фигур меньше 3, генерируем новые
         if (blockShapesAvailable.length < 3) {
             const pool = [...BLOCK_SHAPES];
             while (blockShapesAvailable.length < 3 && pool.length > 0) {
                 const idx2 = rand(0, pool.length - 1);
                 const shape = { ...pool[idx2] };
-                // Проверяем, можно ли её поставить
                 if (blockCanPlaceShape(shape)) {
                     blockShapesAvailable.push(shape);
                 }
                 pool.splice(idx2, 1);
             }
-            // Если всё ещё меньше 3, добираем любые
             while (blockShapesAvailable.length < 3) {
                 const shape = { ...BLOCK_SHAPES[rand(0, BLOCK_SHAPES.length - 1)] };
                 if (!blockShapesAvailable.some(s => s.id === shape.id)) {
@@ -6288,7 +6307,6 @@
             }
         }
 
-        // Сохраняем состояние
         STATE.blockXP = blockXPTotal;
         STATE.blockPieces = blockPiecesTotal;
         STATE.blockBestCombo = blockBestCombo;
@@ -6301,14 +6319,12 @@
 
     function blockCheckLines() {
         let cleared = 0;
-        // Проверяем строки
         for (let r = 0; r < 9; r++) {
             if (blockGrid[r].every(cell => cell === 1)) {
                 for (let c = 0; c < 9; c++) blockGrid[r][c] = 0;
                 cleared++;
             }
         }
-        // Проверяем столбцы
         for (let c = 0; c < 9; c++) {
             let full = true;
             for (let r = 0; r < 9; r++) {
@@ -6377,7 +6393,6 @@
             name.className = 'shape-name';
             name.textContent = shape.name;
             btn.appendChild(name);
-            // Проверяем, можно ли поставить
             const canPlace = blockCanPlaceShape(shape);
             if (!canPlace) {
                 btn.style.opacity = '0.4';
@@ -6401,44 +6416,11 @@
         }
     }
 
-    function blockSkip() {
-        if (blockGameOver) return;
-        // Пропускаем ход: удаляем одну фигуру и генерируем новую
-        if (blockShapesAvailable.length > 0) {
-            // Удаляем первую фигуру
-            blockShapesAvailable.splice(0, 1);
-            // Добавляем новую
-            const pool = [...BLOCK_SHAPES];
-            let added = false;
-            for (let i = 0; i < pool.length; i++) {
-                const shape = { ...pool[i] };
-                if (!blockShapesAvailable.some(s => s.id === shape.id) && blockCanPlaceShape(shape)) {
-                    blockShapesAvailable.push(shape);
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                // Если нет подходящих, добавляем любую
-                const shape = { ...BLOCK_SHAPES[rand(0, BLOCK_SHAPES.length - 1)] };
-                blockShapesAvailable.push(shape);
-            }
-            blockSelectedShape = null;
-            blockSelectedIndex = -1;
-            blockPreviewCells = [];
-            renderBlockShapes();
-            renderBlockGrid();
-            showToast('⏭️ Фигура заменена');
-            logPlayerAction('пропустил ход в Block Blast', '', false);
-        }
-    }
-
     function updateBlockStats() {
         document.getElementById('blockXP').textContent = blockXPTotal;
         document.getElementById('blockPieces').textContent = blockPiecesTotal;
         document.getElementById('blockCombo').textContent = blockComboCount;
         document.getElementById('blockBestCombo').textContent = blockBestCombo;
-        // Обновляем глобальные STATE
         STATE.blockXP = blockXPTotal;
         STATE.blockPieces = blockPiecesTotal;
         STATE.blockBestCombo = blockBestCombo;
@@ -6467,7 +6449,6 @@
                 STATE.totalRubies += reward.rubies;
                 let msg = '🏙️ Ивент Города 3: ' + reward.count + ' кейсов! +' + reward.coins + ' ₽, +' + reward.rubies + ' 💎';
                 if (reward.exclusive) {
-                    // Даём эксклюзив
                     if (STATE.currentTitle !== 'exclusive') {
                         STATE.currentTitle = 'exclusive';
                         STATE.exclusiveGiven = true;
@@ -6503,8 +6484,6 @@
                 checkAllAchievements();
             }
         }
-        // Дальше за каждый кейс 10 рубинов
-        // Проверяем, не было ли уже награды за каждый кейс
         const lastReward = STATE.cities3Rewards['extra'] || 0;
         if (count > lastReward && count > 50) {
             const extra = count - lastReward;
@@ -6524,18 +6503,17 @@
         const container = document.getElementById('cities3EventList');
         if (!container) return;
         const count = STATE.cities3Opened || 0;
-        let html = '<div style="font-weight:bold; margin-bottom:6px; color:#f0d070;">🏙️ Ивент: Открой Города 3! (открыто: ' + count + ')</div>';
+        let html = '<div style="font-weight:bold; margin-bottom:6px; color:#ff8c00;">🏙️ Ивент: Открой Города 3! (открыто: ' + count + ')</div>';
         for (const reward of CITIES3_REWARDS) {
             const claimed = STATE.cities3Rewards?.[reward.count] || false;
             const done = count >= reward.count;
             const cardStr = reward.card ? ', карта "' + reward.card.name + '"' : '';
             const exclStr = reward.exclusive ? ' 👑 ЭКСКЛЮЗИВ' : '';
-            html += `<div class="reward-line" style="${claimed ? 'color:#4a8a4a;' : (done ? 'color:#f0d070;' : 'color:#666;')}">
+            html += `<div class="reward-line" style="${claimed ? 'color:#4a8a4a;' : (done ? 'color:#ff8c00;' : 'color:#666;')}">
                 ${claimed ? '✅' : (done ? '⏳' : '🔒')} ${reward.count} кейсов → +${reward.coins} ₽, +${reward.rubies} 💎${cardStr}${exclStr}
                 ${claimed ? ' (получено!)' : (done ? ' (готово к получению!)' : '')}
             </div>`;
         }
-        // Экстра за каждый кейс после 50
         const extra = count > 50 ? (count - 50) : 0;
         html += `<div class="reward-line" style="color:#aaa;">${extra > 0 ? '✅' : '⏳'} За каждый кейс после 50: +10 💎 (получено: ${extra * 10})</div>`;
         container.innerHTML = html;
@@ -6544,82 +6522,9 @@
         }
     }
 
-    // ===== ИВЕНТ СКОРОСТИ =====
-    const SPEED_REWARDS = [
-        { speed: 10, coins: 50, cases: [{ id: 'animals', count: 1 }] },
-        { speed: 25, coins: 75, cases: [{ id: 'muzhiki1', count: 1 }] },
-        { speed: 50, coins: 100, cases: [] },
-        { speed: 75, coins: 125, cases: [{ id: 'cities', count: 1 }] },
-        { speed: 100, coins: 150, cases: [{ id: 'players', count: 2 }] },
-        { speed: 125, coins: 200, cases: [{ id: 'muzhiki1', count: 2 }] },
-        { speed: 150, coins: 200, cases: [{ id: 'muzhiki2', count: 1 }, { id: 'cities2', count: 1 }] },
-        { speed: 175, coins: 200, cases: [{ id: 'cities', count: 3 }] },
-        { speed: 200, coins: 250, cases: [{ id: 'players', count: 5 }] },
-        { speed: 225, coins: 250, cases: [{ id: 'muzhiki1', count: 5 }] },
-        { speed: 250, coins: 250, cases: [{ id: 'muzhiki2', count: 3 }] },
-        { speed: 275, coins: 300, cases: CASES.map(c => ({ id: c.id, count: 1 })) },
-        { speed: 300, coins: 500, cases: [...CASES.map(c => ({ id: c.id, count: 1 })), { id: 'players2', count: 5 }, { id: 'cities2', count: 2 }] }
-    ];
-
-    function renderSpeedEvent() {
-        const list = document.getElementById('eventRewardsList');
-        if (!list) return;
-        let html = '<div style="font-weight:bold; margin-bottom:6px;">🏁 Награды за скорость в Моролс:</div>';
-        for (const reward of SPEED_REWARDS) {
-            const claimed = STATE.speedEvent?.claimed?.[reward.speed] || false;
-            const caseStr = reward.cases.map(c => {
-                const caseData = CASES.find(cc => cc.id === c.id);
-                return caseData ? `${caseData.emoji} ${caseData.name} x${c.count}` : `${c.id} x${c.count}`;
-            }).join(', ');
-            const rewardStr = `${reward.coins} ₽` + (caseStr ? `, ${caseStr}` : '');
-            html += `<div class="reward-line" style="${claimed ? 'color:#4a8a4a;' : ''}">
-                ${claimed ? '✅' : '⏳'} ${reward.speed} км/ч → ${rewardStr}
-                ${claimed ? ' (получено!)' : ''}
-            </div>`;
-        }
-        list.innerHTML = html;
-    }
-
-    function checkSpeedEvent(maxSpeed) {
-        if (!currentUser) return;
-        if (!STATE.speedEvent) STATE.speedEvent = { claimed: {} };
-        let anyClaimed = false;
-        for (const reward of SPEED_REWARDS) {
-            if (maxSpeed >= reward.speed && !STATE.speedEvent.claimed[reward.speed]) {
-                STATE.speedEvent.claimed[reward.speed] = true;
-                anyClaimed = true;
-                STATE.balance += reward.coins;
-                STATE.totalEarned += reward.coins;
-                if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
-                const rubiesGain = Math.floor(reward.coins / 10);
-                if (rubiesGain > 0) {
-                    STATE.rubies += rubiesGain;
-                    STATE.totalRubies += rubiesGain;
-                }
-                for (const c of reward.cases) {
-                    STATE.freeOpens[c.id] = (STATE.freeOpens[c.id] || 0) + c.count;
-                }
-                const caseStr = reward.cases.map(c => {
-                    const caseData = CASES.find(cc => cc.id === c.id);
-                    return caseData ? `${caseData.name} x${c.count}` : `${c.id} x${c.count}`;
-                }).join(', ');
-                showToast(`🏁 Ивент скорости! ${reward.speed} км/ч: +${reward.coins} ₽` + (caseStr ? `, кейсы: ${caseStr}` : '') + (rubiesGain > 0 ? `, +${rubiesGain} 💎` : ''));
-                addLog(`🏁 Ивент скорости: ${reward.speed} км/ч выполнен!`);
-                logPlayerAction('выполнил ивент скорости', `${reward.speed} км/ч, +${reward.coins} ₽`, true);
-            }
-        }
-        if (anyClaimed) {
-            updateUI();
-            saveStateToFirebase();
-            renderSpeedEvent();
-            renderCases();
-            renderInventory();
-        }
-    }
-
     // ===== НАСТРОЙКИ =====
     const THEMES = {
-        'dark_white': 'Тёмная (белый текст)',
+        'dark_orange': 'Чёрно-оранжевая',
         'windows7': 'Windows 7',
         'windows_xp': 'Windows XP',
         'windows11': 'Windows 11',
@@ -6639,7 +6544,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'color-btn' + (key === STATE.settings.theme ? ' active' : '');
                 const colors = {
-                    'dark_white': '#1a1a1a',
+                    'dark_orange': '#1a1a1a',
                     'windows7': '#2a6a9a',
                     'windows_xp': '#3a6ea5',
                     'windows11': '#f0f0f0',
@@ -6764,16 +6669,16 @@
         const code = input.value.trim().toUpperCase();
         addLog('🔑 Введён промокод: ' + code);
 
-        if (code === 'ARBZ') {
-            if (STATE.promoCodesUsed['ARBZ']) { showToast('❌ Промокод уже использован'); return; }
-            for (const c of CASES) {
-                STATE.freeOpens[c.id] = (STATE.freeOpens[c.id] || 0) + 1;
-            }
-            STATE.balance += 200;
-            STATE.totalEarned += 200;
-            STATE.promoCodesUsed['ARBZ'] = true;
+        if (code === 'DIMADARTIEZ') {
+            if (STATE.promoCodesUsed['dimadartiez']) { showToast('❌ Промокод уже использован'); return; }
+            STATE.balance += 100;
+            STATE.totalEarned += 100;
+            STATE.rubies += 20;
+            STATE.totalRubies += 20;
+            STATE.freeOpens['players'] = (STATE.freeOpens['players'] || 0) + 1;
+            STATE.promoCodesUsed['dimadartiez'] = true;
             addExp(5);
-            showToast('🎉 Промокод ARBZ активирован! +200 ₽ и по 1 открытию каждого кейса!');
+            showToast('🎉 Промокод dimadartiez активирован! +100 ₽, +20 💎, 1 кейс "Игроки 1"!');
             input.value = '';
             updateUI();
             saveStateToFirebase();
@@ -6781,30 +6686,8 @@
             renderAccount();
             renderCases();
             renderInventory();
-            addLog('✅ Промокод ARBZ активирован');
-            logPlayerAction('активировал промокод ARBZ', '+200 ₽ и все кейсы', true);
-            return;
-        }
-
-        if (code === 'ПЯТЫЙВАЙП' || code === 'ПЯТЫЙВАЙП') {
-            if (STATE.promoCodesUsed['пятыйвайп']) { showToast('❌ Промокод уже использован'); return; }
-            STATE.balance += 200;
-            STATE.totalEarned += 200;
-            STATE.freeOpens['players3'] = (STATE.freeOpens['players3'] || 0) + 1;
-            STATE.rubies += 10;
-            STATE.totalRubies += 10;
-            STATE.promoCodesUsed['пятыйвайп'] = true;
-            addExp(5);
-            showToast('🎉 Промокод "пятыйвайп" активирован! +200 ₽, 1 кейс "Игроки 3", +10 💎');
-            input.value = '';
-            updateUI();
-            saveStateToFirebase();
-            checkAllAchievements();
-            renderAccount();
-            renderCases();
-            renderInventory();
-            addLog('✅ Промокод пятыйвайп активирован');
-            logPlayerAction('активировал промокод пятыйвайп', '+200 ₽, кейс Игроки 3, +10 💎', true);
+            addLog('✅ Промокод dimadartiez активирован');
+            logPlayerAction('активировал промокод dimadartiez', '+100 ₽, +20 💎, кейс Игроки 1', true);
             return;
         }
 
@@ -7018,11 +6901,10 @@
             for (let i = 0; i < STATE.donateTitles.length; i++) {
                 const title = STATE.donateTitles[i];
                 if (title.isExclusive) {
-                    // Показываем эксклюзив как недоступный для покупки
-                    html += `<div class="shop-item" style="border-color:#f0d070; background:#2a2a1a;">
+                    html += `<div class="shop-item" style="border-color:#ff8c00; background:#2a2a1a;">
                         <div class="shop-item-name" style="background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${title.name}</div>
                         <div class="shop-item-price">⭐ НЕДОСТУПЕН ДЛЯ ПОКУПКИ</div>
-                        <div style="font-size:12px; color:#aaa; margin:4px 0;">Выдаётся вручную через Firebase</div>
+                        <div style="font-size:12px; color:#aaa; margin:4px 0;">Выдаётся вручную</div>
                         <div style="font-size:11px; color:#888;">${Object.entries(title.bonus).map(([k,v]) => {
                             if (k === 'moneyMul') return '+'+(v*100)+'% к деньгам';
                             if (k === 'passiveCoins') return '+' + v + ' ₽/мин';
@@ -7032,7 +6914,7 @@
                             if (k === 'clickBonus') return '+' + v + ' ₽ за клик';
                             return '';
                         }).join(' | ')}</div>
-                        <div style="margin-top:6px; font-size:12px; color:#f0d070;">⭐ Эксклюзивные возможности</div>
+                        <div style="margin-top:6px; font-size:12px; color:#ff8c00;">⭐ Эксклюзивные возможности</div>
                     </div>`;
                     continue;
                 }
@@ -7073,8 +6955,8 @@
                     }).join(' | ')}</div>
                 </div>`;
             }
-            html += `<div class="shop-item" style="border:2px dashed #f0d070; background:#2a2a1a;">
-                <div class="shop-item-name" style="color:#f0d070;">🔥 Скоро тут будут новые донаты</div>
+            html += `<div class="shop-item" style="border:2px dashed #ff8c00; background:#2a2a1a;">
+                <div class="shop-item-name" style="color:#ff8c00;">🔥 Скоро тут будут новые донаты</div>
                 <div class="shop-item-price" style="color:#888;">Следите за обновлениями!</div>
                 <div class="coming-soon">⭐ В разработке</div>
             </div>`;
@@ -7329,6 +7211,11 @@
             timestamp: Date.now()
         };
 
+        // Сначала добавляем в локальный кэш и отображаем
+        chatMessagesCache.push(msg);
+        if (chatMessagesCache.length > 1000) chatMessagesCache.shift();
+        renderChat();
+
         fetch(DB_URL + '/chat.json?auth=' + currentUser.idToken, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -7338,7 +7225,6 @@
             STATE.chatMessagesSent = (STATE.chatMessagesSent || 0) + 1;
             saveStateToFirebase();
             document.getElementById('chatInput').value = '';
-            renderChat();
             logPlayerAction('написал в чат', text.trim().slice(0, 30) + (text.length > 30 ? '...' : ''), false);
             checkAllAchievements();
         })
@@ -7387,7 +7273,6 @@
         renderCases();
         renderInventory();
         updateRankAndLevel();
-        renderSpeedEvent();
         renderCities3Event();
         document.querySelectorAll('.section').forEach(section => {
             if (section.id === 'tab-clicker') {
@@ -7402,7 +7287,6 @@
         } else {
             document.getElementById('exclusiveBanner').style.display = 'none';
         }
-        // Playtime
         updatePlaytime();
     }
 
@@ -7533,13 +7417,13 @@
         });
 
         document.getElementById('ratingModeNow').onclick = function() {
-            this.style.background = '#555'; this.style.color = '#fff';
+            this.style.background = '#ff8c00'; this.style.color = '#000';
             document.getElementById('ratingModeEver').style.background = '#2a2a2a';
             document.getElementById('ratingModeEver').style.color = '#f0f0f0';
             renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
         };
         document.getElementById('ratingModeEver').onclick = function() {
-            this.style.background = '#555'; this.style.color = '#fff';
+            this.style.background = '#ff8c00'; this.style.color = '#000';
             document.getElementById('ratingModeNow').style.background = '#2a2a2a';
             document.getElementById('ratingModeNow').style.color = '#f0f0f0';
             renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
@@ -7556,19 +7440,6 @@
             this.classList.add('active');
             document.getElementById('invGroupBtn').classList.remove('active');
             renderInventory();
-        };
-
-        document.getElementById('speedEventBtn').onclick = function() {
-            const list = document.getElementById('eventRewardsList');
-            if (list) {
-                list.classList.toggle('show');
-                if (list.classList.contains('show')) {
-                    renderSpeedEvent();
-                    this.textContent = '🏁 Скрыть награды';
-                } else {
-                    this.textContent = '🏁 Ивент: Кто больше наберёт скорость!';
-                }
-            }
         };
 
         document.getElementById('cities3EventBtn').onclick = function() {
@@ -7646,6 +7517,10 @@
             }
         };
 
+        document.getElementById('chatBtnHeader').onclick = function() {
+            navigateTo('chat');
+        };
+
         document.getElementById('activityBtnHeader').onclick = function() {
             const popup = document.getElementById('activityPopup');
             if (!popup) return;
@@ -7708,12 +7583,11 @@
         document.getElementById('app').style.display = 'none';
         addLog('🚀 Игра загружена, ожидание входа.');
 
-        // Запускаем автообновление чата
         startChatAutoUpdate();
     });
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ =====
-    console.log('✅ TTP кейсы UNRELEASED (beta) загружена');
+    console.log('✅ TTP кейсы UNRELEASED (beta) — чёрно-оранжевая тема');
     </script>
 </body>
 </html>
