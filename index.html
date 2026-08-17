@@ -18,7 +18,6 @@
             font-size: 16px;
             transition: background 0.3s, color 0.3s;
         }
-        /* ===== ЧЁРНО-ОРАНЖЕВАЯ ТЕМА (ПО УМОЛЧАНИЮ) ===== */
         body.theme-dark_orange {
             background: #0a0a0a;
             color: #f0f0f0;
@@ -642,7 +641,7 @@
         body.theme-dark_orange .rarity-unreal { background: linear-gradient(135deg, #fff, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         body.theme-dark_orange .rarity-exclusive { background: linear-gradient(135deg, #ff69b4, #ffd700, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ===== ДРУГИЕ ТЕМЫ ===== (сокращены, но сохранены) */
+        /* ===== ДРУГИЕ ТЕМЫ ===== */
         body.theme-windows7 { background: #2a6a9a; color: #000; }
         body.theme-windows7 #app { background: #e8e8e8; border: 2px solid #1a3a6a; border-radius: 8px; }
         body.theme-windows7 .header { border-bottom-color: #1a3a6a; }
@@ -2951,6 +2950,8 @@
 
     <!-- ===== JAVASCRIPT ===== -->
     <script>
+    console.log('Скрипт загружен');
+
     // ============================================================
     //  ПОЛНЫЙ JS — UNRELEASED (beta) — с изменениями по 13 пунктам
     // ============================================================
@@ -7201,6 +7202,7 @@
 
     // ===== ИНИЦИАЛИЗАЦИЯ =====
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM загружен, начало инициализации');
         document.getElementById('loadingStatus').classList.add('hidden');
 
         document.querySelectorAll('.sidebar button[data-section]').forEach(btn => {
