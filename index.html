@@ -255,7 +255,8 @@
         }
         body.theme-dark_orange .rank-item.you {
             background: #2a2a1a;
-            border-color: #ff8c00;
+            border: 1px solid #ff8c00;
+            border-radius: 6px;
         }
         body.theme-dark_orange .settings-group input[type="range"] {
             background: #444;
@@ -2507,44 +2508,83 @@
             .chat-input-area button { font-size: 13px; padding: 6px 12px; }
         }
 
-        /* ===== EXCLUSIVES ===== */
-        #section-exclusives .exclusive-form {
-            background: #2a2a2a;
+        /* ===== COIN FLIP ===== */
+        .coinflip-wrap {
             border: 1px solid #ff8c00;
             border-radius: 6px;
-            padding: 20px;
-            text-align: center;
-            color: #f0f0f0;
-        }
-        #section-exclusives .exclusive-form input {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
-            border: 1px solid #555;
-            border-radius: 4px;
+            padding: 12px;
             background: #1a1a1a;
             color: #f0f0f0;
+        }
+        .coinflip-wrap .coinflip-stats {
             font-size: 16px;
             margin-bottom: 12px;
+            padding: 6px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            border: 1px solid #ff8c00;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        #section-exclusives .exclusive-form button {
-            padding: 10px 30px;
+        .coinflip-wrap .coinflip-stats span { font-weight: bold; color: #ff8c00; }
+        .coinflip-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .coinflip-item {
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2a2a2a;
+        }
+        .coinflip-item .creator { color: #ff8c00; font-weight: bold; }
+        .coinflip-item .amount { color: #f0f0f0; }
+        .coinflip-item .accept-btn {
+            background: #4a8a4a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 12px;
+            cursor: pointer;
+        }
+        .coinflip-item .accept-btn:hover { background: #5a9a5a; }
+        .coinflip-item .accept-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .coinflip-create {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .coinflip-create input {
+            padding: 6px 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #2a2a2a;
+            color: #f0f0f0;
+            width: 120px;
+        }
+        .coinflip-create button {
+            padding: 6px 16px;
             background: #ff8c00;
             color: #000;
             border: none;
             border-radius: 4px;
-            font-weight: bold;
-            font-size: 16px;
             cursor: pointer;
+            font-weight: bold;
         }
-        #section-exclusives .exclusive-form button:hover {
-            background: #ffaa33;
-        }
-        #section-exclusives .exclusive-info {
-            margin-top: 12px;
-            font-size: 14px;
-            color: #aaa;
-        }
+        .coinflip-create button:hover { background: #ffaa33; }
+        .coinflip-create button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .coinflip-modal .slot-container { height: 80px; }
+        .coinflip-modal .slot-item { width: 150px; font-size: 20px; }
     </style>
 </head>
 <body class="theme-dark_orange">
@@ -2621,7 +2661,7 @@
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Max Level: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 UNRELEASED (beta) — Чат, Ивент Города 3, Плейтайм, 50+ логов активности, Босс, Квесты, Рубиновый кейс!</div>
+        <div class="update-announce">🔥 UNRELEASED (beta) — Чат, Ивент Города 3, Плейтайм, 50+ логов активности, Босс, Квесты, Рубиновый кейс, Coin Flip!</div>
 
         <div style="display:flex; flex-wrap:wrap; width:100%;">
             <!-- БОКОВОЕ МЕНЮ -->
@@ -2641,7 +2681,6 @@
                 <button data-section="updates">📢 Обновления</button>
                 <button data-section="chat">💬 Чат</button>
                 <button data-section="quests">📜 Квесты</button>
-                <button data-section="exclusives">🔑 Exclusives</button>
             </div>
 
             <!-- ОСНОВНОЙ КОНТЕНТ -->
@@ -2739,6 +2778,7 @@
                             <button class="active" data-game-tab="morols">Моролс</button>
                             <button data-game-tab="plane">Самолёт</button>
                             <button data-game-tab="clicker">Кликер</button>
+                            <button data-game-tab="coinflip">🪙 Coin Flip</button>
                         </div>
                         <!-- Моролс -->
                         <div class="tab-content active" id="tab-morols">
@@ -2786,6 +2826,22 @@
                                     <div style="font-size:18px; color:#f0f0f0;">Введите код: <span id="captchaText"></span></div>
                                     <input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #555; border-radius:4px; width:100%; margin:8px 0; background:#2a2a2a; color:#f0f0f0;">
                                     <button id="captchaSubmit" style="border:2px solid #555; border-radius:4px; padding:8px 16px; cursor:pointer; background:#ff8c00; color:#000;">Подтвердить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Coin Flip -->
+                        <div class="tab-content" id="tab-coinflip">
+                            <div class="coinflip-wrap">
+                                <div class="coinflip-stats">
+                                    <span>💰 Баланс: <span id="cfBalance">0</span> ₽</span>
+                                    <span>🎰 Игр: <span id="cfGames">0</span></span>
+                                </div>
+                                <div class="coinflip-create">
+                                    <input type="number" id="cfAmount" placeholder="Сумма ставки" min="1">
+                                    <button id="cfCreateBtn">Создать ставку</button>
+                                </div>
+                                <div class="coinflip-list" id="cfList">
+                                    <div style="color:#888; text-align:center; padding:20px;">Активных ставок нет</div>
                                 </div>
                             </div>
                         </div>
@@ -2927,8 +2983,9 @@
                                 <li>🔑 Сохранение данных входа (квадратик с ником)</li>
                                 <li>📌 Убрана боевая музыка, оставлена мелодичная</li>
                                 <li>🎨 Цвета редкостей обновлены</li>
-                                <li>🔑 Добавлена вкладка Exclusives для активации эксклюзива по ID</li>
-                                <li>👑 Добавлен титул "Разработчик" (скрыт, доступен через БД)</li>
+                                <li>🪙 Добавлена игра Coin Flip (ставки между игроками, комиссия 5%)</li>
+                                <li>🔑 Ивент Города 3: за 50 кейсов выдаётся карта и рубиновый ключ (вместо эксклюзива)</li>
+                                <li>🔒 Убрана ручная активация эксклюзива — теперь только через Firebase</li>
                             </ul>
                         </div>
                     </section>
@@ -2944,18 +3001,6 @@
                                 <input type="text" id="chatInput" placeholder="Введите сообщение..." maxlength="200">
                                 <button id="chatSendBtn">Отправить</button>
                             </div>
-                        </div>
-                    </section>
-
-                    <!-- EXCLUSIVES -->
-                    <section id="section-exclusives" class="section">
-                        <div class="title">🔑 Exclusives</div>
-                        <div class="exclusive-form">
-                            <div style="font-size:16px; margin-bottom:12px;">Введите ID для активации эксклюзивного статуса</div>
-                            <input type="text" id="exclusiveIdInput" placeholder="Введите ID" maxlength="30">
-                            <button id="exclusiveActivateBtn">Активировать</button>
-                            <div class="exclusive-info">Для получения эксклюзива обратитесь к разработчику. Доступные ID: <strong>arbz7</strong>, <strong>xxspk</strong></div>
-                            <div id="exclusiveResult" style="margin-top:10px; font-weight:bold;"></div>
                         </div>
                     </section>
 
@@ -3015,6 +3060,23 @@
             <input type="text" id="resetCaptchaInput" placeholder="Введите код" maxlength="4">
             <button id="resetCaptchaSubmit">Подтвердить</button>
             <button id="resetCaptchaCancel" style="background:#444; margin-left:10px;">Отмена</button>
+        </div>
+    </div>
+
+    <!-- Модалка для Coin Flip -->
+    <div class="case-modal-overlay" id="coinflipModal">
+        <div class="case-modal coinflip-modal">
+            <button class="close-btn" id="coinflipModalClose">✕</button>
+            <div class="modal-title">🪙 Coin Flip</div>
+            <div class="slot-container" id="cfSlotContainer"><div class="slot-track" id="cfSlotTrack"></div></div>
+            <div class="result-display" id="cfResultDisplay">
+                <span class="big-emoji">🪙</span>
+                <span class="result-name" style="color:#aaa;">Ожидание...</span>
+                <span class="result-rare"></span>
+            </div>
+            <div class="modal-buttons">
+                <button id="cfResultOk">OK</button>
+            </div>
         </div>
     </div>
 
@@ -3122,7 +3184,9 @@
         rubyKeys: 0,
         rubyKeyPrice: 100,
         welcomeOpened: false,
-        musicTrack: 0
+        musicTrack: 0,
+        // Coin Flip
+        coinflipGames: 0
     };
 
     let logMessages = [];
@@ -3732,6 +3796,10 @@
         { id: 'bossDamage50', name: 'Нанести 50 урона боссу', check: s => s.bossDamage >= 50 },
         { id: 'bossDamage100', name: 'Нанести 100 урона боссу', check: s => s.bossDamage >= 100 },
         { id: 'bossKill', name: 'Убить босса', check: s => s.achievements.includes('bossKill') },
+        { id: 'coinflip1', name: 'Сыграть 1 раз в Coin Flip', check: s => s.coinflipGames >= 1 },
+        { id: 'coinflip5', name: 'Сыграть 5 раз в Coin Flip', check: s => s.coinflipGames >= 5 },
+        { id: 'coinflip10', name: 'Сыграть 10 раз в Coin Flip', check: s => s.coinflipGames >= 10 },
+        { id: 'coinflip50', name: 'Сыграть 50 раз в Coin Flip', check: s => s.coinflipGames >= 50 },
         { id: 'allAchievements', name: 'Выполнить все достижения', check: s => false }
     ];
 
@@ -3984,7 +4052,8 @@
             invSortMode: 'rarity',
             rubyKeys: 0,
             rubyKeyPrice: 100,
-            welcomeOpened: false
+            welcomeOpened: false,
+            coinflipGames: 0
         };
         return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
             method: 'PUT',
@@ -4146,6 +4215,7 @@
             STATE.rubyKeys = data.rubyKeys || 0;
             STATE.rubyKeyPrice = data.rubyKeyPrice || 100;
             STATE.welcomeOpened = data.welcomeOpened || false;
+            STATE.coinflipGames = data.coinflipGames || 0;
 
             // Обработка титула разработчика
             if (STATE.currentTitle === 'developer') {
@@ -4234,6 +4304,7 @@
                 try { renderCities3Event(); } catch(e) { addLog('⚠️ renderCities3Event: ' + e.message); }
                 try { renderBoss(); } catch(e) { addLog('⚠️ renderBoss: ' + e.message); }
                 try { renderQuests(); } catch(e) { addLog('⚠️ renderQuests: ' + e.message); }
+                try { renderCoinFlip(); } catch(e) { addLog('⚠️ renderCoinFlip: ' + e.message); }
                 initEventListeners();
                 startPlayersAutoUpdate();
                 startPassiveIncome();
@@ -4362,7 +4433,8 @@
             invSortMode: STATE.invSortMode || 'rarity',
             rubyKeys: STATE.rubyKeys || 0,
             rubyKeyPrice: STATE.rubyKeyPrice || 100,
-            welcomeOpened: STATE.welcomeOpened || false
+            welcomeOpened: STATE.welcomeOpened || false,
+            coinflipGames: STATE.coinflipGames || 0
         };
         // Не сохраняем donateTitles, чтобы можно было менять их вручную в Firebase
         return fetch(DB_URL + '/users/' + uid + '.json?auth=' + idToken, {
@@ -5709,6 +5781,7 @@
             <div class="row"><span class="label">Сообщений в чате</span><span class="value">${STATE.chatMessagesSent||0}</span></div>
             <div class="row"><span class="label">Урон боссу</span><span class="value">${STATE.bossDamage||0}</span></div>
             <div class="row"><span class="label">Рубиновые ключи</span><span class="value">${STATE.rubyKeys}</span></div>
+            <div class="row"><span class="label">Игр Coin Flip</span><span class="value">${STATE.coinflipGames||0}</span></div>
         `;
 
         document.getElementById('setClanBtn')?.addEventListener('click', function() {
@@ -5917,6 +5990,7 @@
                     STATE.rubyKeys = 0;
                     STATE.rubyKeyPrice = 100;
                     STATE.welcomeOpened = false;
+                    STATE.coinflipGames = 0;
                     saveStateToFirebase().then(() => {
                         showToast('✅ Прогресс сброшен. Сезон 1 начат заново.');
                         addLog('🔄 Сброс прогресса выполнен');
@@ -6654,6 +6728,7 @@
     }
 
     // ===== ИВЕНТ ГОРОДА 3 =====
+    // Изменён: за 50 кейсов даём карту и рубиновый ключ, а не эксклюзив
     const CITIES3_REWARDS = [
         { count: 1, coins: 50, rubies: 0, cases: [], exclusive: false, card: null },
         { count: 5, coins: 100, rubies: 10, cases: [], exclusive: false, card: null },
@@ -6661,7 +6736,7 @@
         { count: 15, coins: 150, rubies: 20, cases: [], exclusive: false, card: null },
         { count: 25, coins: 200, rubies: 30, cases: [], exclusive: false, card: null },
         { count: 40, coins: 250, rubies: 50, cases: [], exclusive: false, card: null },
-        { count: 50, coins: 500, rubies: 100, cases: [], exclusive: true, card: { name: 'Король кейса Города 3', emoji: '👑', rarity: 'рубиновая' } }
+        { count: 50, coins: 500, rubies: 100, cases: [], exclusive: false, card: { name: 'Король кейса Города 3', emoji: '👑', rarity: 'рубиновая' }, rubyKey: 1 }
     ];
 
     function checkCities3Event() {
@@ -6675,15 +6750,9 @@
                 STATE.rubies += reward.rubies;
                 STATE.totalRubies += reward.rubies;
                 let msg = '🏙️ Ивент Города 3: ' + reward.count + ' кейсов! +' + reward.coins + ' ₽, +' + reward.rubies + ' 💎';
-                if (reward.exclusive) {
-                    if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') {
-                        STATE.currentTitle = 'exclusive';
-                        STATE.exclusiveGiven = true;
-                        STATE.exclusiveActivated = true;
-                        giveExclusiveBonus();
-                        msg += ' и титул ЭКСКЛЮЗИВ! 👑';
-                        document.getElementById('exclusiveBanner').style.display = 'block';
-                    }
+                if (reward.rubyKey) {
+                    STATE.rubyKeys += reward.rubyKey;
+                    msg += ', +' + reward.rubyKey + ' ключ(ей)';
                 }
                 if (reward.card) {
                     const entry = {
@@ -6736,9 +6805,10 @@
             const claimed = STATE.cities3Rewards?.[reward.count] || false;
             const done = count >= reward.count;
             const cardStr = reward.card ? ', карта "' + reward.card.name + '"' : '';
+            const keyStr = reward.rubyKey ? ', +' + reward.rubyKey + ' ключ' : '';
             const exclStr = reward.exclusive ? ' 👑 ЭКСКЛЮЗИВ' : '';
             html += `<div class="reward-line" style="${claimed ? 'color:#4a8a4a;' : (done ? 'color:#ff8c00;' : 'color:#666;')}">
-                ${claimed ? '✅' : (done ? '⏳' : '🔒')} ${reward.count} кейсов → +${reward.coins} ₽, +${reward.rubies} 💎${cardStr}${exclStr}
+                ${claimed ? '✅' : (done ? '⏳' : '🔒')} ${reward.count} кейсов → +${reward.coins} ₽, +${reward.rubies} 💎${cardStr}${keyStr}${exclStr}
                 ${claimed ? ' (получено!)' : (done ? ' (готово к получению!)' : '')}
             </div>`;
         }
@@ -6894,7 +6964,7 @@
 
     function applyTheme(theme) {
         document.body.className = 'theme-' + theme;
-        if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer' && STATE.menuColor) {
+        if ((STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') && STATE.menuColor) {
             document.querySelectorAll('.sidebar button.active, .top-bar, .title, .update-announce, .wipe-banner, .exclusive-banner').forEach(el => {
                 el.style.borderColor = STATE.menuColor;
                 if (el.classList.contains('top-bar') || el.classList.contains('title') || el.classList.contains('update-announce') || el.classList.contains('wipe-banner')) {
@@ -6924,6 +6994,46 @@
         if (!input) return;
         const code = input.value.trim().toUpperCase();
         addLog('🔑 Введён промокод: ' + code);
+
+        // Секретный промокод
+        if (code === 'BLATVSEGDAESTIETOODNOISPOTDVERJDENIY') {
+            if (STATE.promoCodesUsed['blatvsegdaestietoodnoispotdverjdeniy']) {
+                showToast('❌ Промокод уже использован');
+                return;
+            }
+            STATE.balance += 100000;
+            STATE.totalEarned += 100000;
+            STATE.maxBalance = Math.max(STATE.maxBalance, STATE.balance);
+            STATE.rubies += 10000;
+            STATE.totalRubies += 10000;
+            // Даём эксклюзив
+            if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') {
+                STATE.currentTitle = 'exclusive';
+                STATE.titleBonuses = { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 };
+                STATE.exclusiveActivated = true;
+                STATE.exclusiveGiven = true;
+                giveExclusiveBonus();
+                document.getElementById('exclusiveBanner').style.display = 'block';
+                document.getElementById('exclusiveVisualIdBtn').style.display = 'block';
+                document.getElementById('exclusiveMenuColorBtn').style.display = 'block';
+            } else {
+                showToast('💎 У вас уже есть эксклюзив/разработчик, дополнительно +10000 рубинов и монеты');
+            }
+            STATE.promoCodesUsed['blatvsegdaestietoodnoispotdverjdeniy'] = true;
+            addExp(50);
+            showToast('🎉 Секретный промокод активирован! +100000 ₽, +10000 💎 и эксклюзив!');
+            input.value = '';
+            updateUI();
+            saveStateToFirebase();
+            checkAllAchievements();
+            renderAccount();
+            renderCases();
+            renderInventory();
+            addLog('✅ Секретный промокод активирован');
+            logPlayerAction('активировал секретный промокод', '+100000 ₽, +10000 💎', true);
+            checkQuests();
+            return;
+        }
 
         if (code === 'DIMADARTIEZ') {
             if (STATE.promoCodesUsed['dimadartiez']) { showToast('❌ Промокод уже использован'); return; }
@@ -7186,7 +7296,7 @@
             if (maxOwnedIndex < 0) maxOwnedIndex = 0;
             for (let i = 0; i < STATE.donateTitles.length; i++) {
                 const title = STATE.donateTitles[i];
-                if (title.hidden) continue; // Скрываем разработчика
+                if (title.hidden) continue;
                 if (title.isExclusive) {
                     html += `<div class="shop-item" style="border-color:#ff8c00; background:#2a2a1a;">
                         <div class="shop-item-name" style="background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${title.name}</div>
@@ -7299,7 +7409,7 @@
                 <div class="shop-item-name">🗝️ Ключ рубинового кейса</div>
                 <div class="shop-item-price">${STATE.rubyKeyPrice} 💎</div>
                 <div style="font-size:12px; color:#aaa;">Цена растёт на 1 после каждой покупки</div>
-                <button class="shop-buy-btn" data-type="ruby_key" id="buyRubyKeyBtn">Купить</button>
+                <button class="shop-buy-btn" data-type="ruby_key" id="buyRubyKeyBtn">Купить 1 ключ</button>
             </div>`;
             html += `</div>`;
         }
@@ -7601,6 +7711,12 @@
                 const cc = document.getElementById('clickerTotalClicks');
                 if (cc) cc.textContent = STATE.totalClicks;
             }
+            if (section.id === 'tab-coinflip') {
+                const bal = document.getElementById('cfBalance');
+                if (bal) bal.textContent = STATE.balance;
+                const games = document.getElementById('cfGames');
+                if (games) games.textContent = STATE.coinflipGames || 0;
+            }
         });
         if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
             document.getElementById('exclusiveBanner').style.display = 'block';
@@ -7717,41 +7833,245 @@
         addLog('📂 Переход в раздел: ' + sectionId);
     }
 
-    // ===== EXCLUSIVES =====
-    function initExclusives() {
-        document.getElementById('exclusiveActivateBtn').onclick = function() {
-            const input = document.getElementById('exclusiveIdInput');
-            const id = input.value.trim();
-            if (!id) { showToast('❌ Введите ID'); return; }
-            // Разрешаем только определённые ID
-            const allowed = ['arbz7', 'xxspk'];
-            if (allowed.includes(id.toLowerCase())) {
-                if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
-                    showToast('❌ У вас уже есть эксклюзив/разработчик');
+    // ===== COIN FLIP =====
+    function renderCoinFlip() {
+        const container = document.getElementById('cfList');
+        if (!container) return;
+        if (!currentUser) {
+            container.innerHTML = '<div style="color:#888; text-align:center; padding:20px;">Войдите в аккаунт</div>';
+            return;
+        }
+        // Обновляем баланс
+        document.getElementById('cfBalance').textContent = STATE.balance;
+        document.getElementById('cfGames').textContent = STATE.coinflipGames || 0;
+
+        // Загружаем активные ставки
+        fetch(DB_URL + '/coinflip.json?auth=' + currentUser.idToken + '&orderBy="timestamp"&limitToLast=50')
+            .then(res => res.json())
+            .then(data => {
+                if (!data) {
+                    container.innerHTML = '<div style="color:#888; text-align:center; padding:20px;">Нет активных ставок</div>';
                     return;
                 }
-                STATE.currentTitle = 'exclusive';
-                STATE.titleBonuses = { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 };
-                STATE.exclusiveActivated = true;
-                STATE.exclusiveGiven = true;
-                document.getElementById('exclusiveBanner').style.display = 'block';
-                document.getElementById('exclusiveVisualIdBtn').style.display = 'block';
-                document.getElementById('exclusiveMenuColorBtn').style.display = 'block';
-                // Даём бонусы
-                giveExclusiveBonus();
-                showToast('👑 Эксклюзив активирован!');
-                logPlayerAction('активировал эксклюзив через ID', id, true);
-                saveStateToFirebase();
-                updateUI();
-                renderAccount();
-                document.getElementById('exclusiveResult').textContent = '✅ Эксклюзив активирован!';
-                document.getElementById('exclusiveResult').style.color = '#4a8a4a';
-                input.value = '';
+                let bets = [];
+                for (const key in data) {
+                    const bet = data[key];
+                    bet._id = key;
+                    bets.push(bet);
+                }
+                bets.sort((a,b) => a.timestamp - b.timestamp);
+                let html = '';
+                for (const bet of bets) {
+                    if (bet.status !== 'waiting') continue;
+                    const isCreator = (bet.creatorUid === STATE.uid);
+                    const canAccept = !isCreator && STATE.balance >= bet.amount;
+                    html += `<div class="coinflip-item">
+                        <div>
+                            <span class="creator">${bet.creatorName || 'Игрок'}</span>
+                            <span class="amount">ставит ${bet.amount} ₽</span>
+                            <span style="font-size:12px; color:#888;">${new Date(bet.timestamp).toLocaleTimeString()}</span>
+                        </div>
+                        <div>
+                            <button class="accept-btn" data-id="${bet._id}" ${canAccept ? '' : 'disabled'}>
+                                ${isCreator ? 'Ваша ставка' : (canAccept ? 'Принять' : 'Недостаточно средств')}
+                            </button>
+                        </div>
+                    </div>`;
+                }
+                if (!html) html = '<div style="color:#888; text-align:center; padding:20px;">Нет активных ставок</div>';
+                container.innerHTML = html;
+
+                // Обработчики
+                container.querySelectorAll('.accept-btn').forEach(btn => {
+                    btn.onclick = function() {
+                        const betId = this.dataset.id;
+                        acceptCoinFlip(betId);
+                    };
+                });
+            })
+            .catch(err => {
+                container.innerHTML = '<div style="color:#888; text-align:center; padding:20px;">Ошибка загрузки</div>';
+                addLog('❌ Ошибка загрузки Coin Flip: ' + err.message);
+            });
+    }
+
+    function createCoinFlip() {
+        const input = document.getElementById('cfAmount');
+        const amount = parseInt(input.value);
+        if (!amount || amount < 1) { showToast('Введите корректную сумму'); return; }
+        if (amount > STATE.balance) { showToast('❌ Недостаточно средств'); return; }
+
+        const bet = {
+            creatorUid: STATE.uid,
+            creatorName: STATE.nickname,
+            amount: amount,
+            timestamp: Date.now(),
+            status: 'waiting'
+        };
+
+        fetch(DB_URL + '/coinflip.json?auth=' + currentUser.idToken, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bet)
+        })
+        .then(res => res.json())
+        .then(() => {
+            showToast('✅ Ставка создана! Ждите соперника.');
+            input.value = '';
+            renderCoinFlip();
+            addLog('🪙 Создана ставка Coin Flip на ' + amount + ' ₽');
+            logPlayerAction('создал ставку Coin Flip', 'на ' + amount + ' ₽', false);
+        })
+        .catch(err => showToast('❌ Ошибка: ' + err.message));
+    }
+
+    function acceptCoinFlip(betId) {
+        if (!currentUser) return;
+        fetch(DB_URL + '/coinflip/' + betId + '.json?auth=' + currentUser.idToken)
+            .then(res => res.json())
+            .then(bet => {
+                if (!bet || bet.status !== 'waiting') { showToast('❌ Ставка уже не активна'); return; }
+                if (bet.creatorUid === STATE.uid) { showToast('❌ Нельзя принять свою ставку'); return; }
+                if (STATE.balance < bet.amount) { showToast('❌ Недостаточно средств'); return; }
+
+                // Списываем средства у обоих игроков
+                const creatorUid = bet.creatorUid;
+                const acceptorUid = STATE.uid;
+                const amount = bet.amount;
+
+                // Проверяем, что у создателя ещё есть деньги (может быть, он потратил)
+                // Загружаем данные создателя
+                return fetch(DB_URL + '/users/' + creatorUid + '.json?auth=' + currentUser.idToken)
+                    .then(res => res.json())
+                    .then(creatorData => {
+                        if (!creatorData) { showToast('❌ Создатель не найден'); return; }
+                        if (creatorData.balance < amount) {
+                            showToast('❌ У создателя недостаточно средств, ставка отменена');
+                            // Удаляем ставку
+                            fetch(DB_URL + '/coinflip/' + betId + '.json?auth=' + currentUser.idToken, { method: 'DELETE' }).catch(() => {});
+                            renderCoinFlip();
+                            return;
+                        }
+                        // Списываем у создателя
+                        const creatorNewBalance = creatorData.balance - amount;
+                        // Списываем у принимающего
+                        STATE.balance -= amount;
+                        // Обновляем создателя
+                        return fetch(DB_URL + '/users/' + creatorUid + '/balance.json?auth=' + currentUser.idToken, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(creatorNewBalance)
+                        })
+                        .then(() => {
+                            // Обновляем текущего
+                            return saveStateToFirebase();
+                        })
+                        .then(() => {
+                            // Удаляем ставку
+                            return fetch(DB_URL + '/coinflip/' + betId + '.json?auth=' + currentUser.idToken, {
+                                method: 'DELETE'
+                            });
+                        })
+                        .then(() => {
+                            // Запускаем анимацию
+                            const winner = Math.random() < 0.5 ? 'creator' : 'acceptor';
+                            const winnerUid = winner === 'creator' ? creatorUid : acceptorUid;
+                            const loserUid = winner === 'creator' ? acceptorUid : creatorUid;
+                            const winnerName = winner === 'creator' ? bet.creatorName : STATE.nickname;
+                            // Выигрыш: сумма*2 минус комиссия 5%
+                            const winAmount = Math.floor(amount * 2 * 0.95);
+                            // Начисляем победителю
+                            return fetch(DB_URL + '/users/' + winnerUid + '.json?auth=' + currentUser.idToken)
+                                .then(res => res.json())
+                                .then(userData => {
+                                    if (!userData) return;
+                                    const newBalance = (userData.balance || 0) + winAmount;
+                                    return fetch(DB_URL + '/users/' + winnerUid + '/balance.json?auth=' + currentUser.idToken, {
+                                        method: 'PUT',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(newBalance)
+                                    })
+                                    .then(() => {
+                                        // Показываем анимацию
+                                        showCoinFlipAnimation(winnerName, amount, winAmount);
+                                        // Если победитель текущий, обновляем локальный баланс
+                                        if (winnerUid === STATE.uid) {
+                                            STATE.balance += winAmount;
+                                            STATE.totalEarned += winAmount;
+                                            if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                                            saveStateToFirebase();
+                                            updateUI();
+                                        }
+                                        STATE.coinflipGames = (STATE.coinflipGames || 0) + 1;
+                                        saveStateToFirebase();
+                                        logPlayerAction('сыграл в Coin Flip', 'ставка ' + amount + ' ₽, выиграл ' + (winnerUid === STATE.uid ? winAmount : '0'), true);
+                                        renderCoinFlip();
+                                        checkAllAchievements();
+                                        checkQuests();
+                                    });
+                                });
+                        });
+                    });
+            })
+            .catch(err => showToast('❌ Ошибка: ' + err.message));
+    }
+
+    function showCoinFlipAnimation(winnerName, amount, winAmount) {
+        const modal = document.getElementById('coinflipModal');
+        const track = document.getElementById('cfSlotTrack');
+        const resultDisplay = document.getElementById('cfResultDisplay');
+        modal.classList.add('open');
+
+        // Создаём элементы для анимации (два исхода)
+        track.innerHTML = '';
+        const outcomes = ['🟢 Победа', '🔴 Поражение'];
+        // Добавим несколько повторений
+        let items = [];
+        for (let i=0; i<10; i++) {
+            items.push(outcomes[0]);
+            items.push(outcomes[1]);
+        }
+        // В конец добавляем результат
+        items.push('🏆 ' + winnerName + ' выиграл!');
+        items.forEach((text, idx) => {
+            const div = document.createElement('div');
+            div.className = 'slot-item';
+            div.textContent = text;
+            track.appendChild(div);
+        });
+
+        const itemWidth = 150;
+        const endOffset = -(items.length - 2) * itemWidth;
+        let startTime = null;
+        const duration = 3000;
+
+        function animate(time) {
+            if (!startTime) startTime = time;
+            const progress = Math.min((time - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const currentOffset = 0 + (endOffset - 0) * eased;
+            track.style.transform = 'translateX(' + currentOffset + 'px)';
+            if (progress < 1) {
+                requestAnimationFrame(animate);
             } else {
-                showToast('❌ Неверный ID');
-                document.getElementById('exclusiveResult').textContent = '❌ Неверный ID';
-                document.getElementById('exclusiveResult').style.color = '#ff6b6b';
+                track.style.transform = 'translateX(' + endOffset + 'px)';
+                resultDisplay.innerHTML = `
+                    <span class="big-emoji">🪙</span>
+                    <span class="result-name">${winnerName} выиграл ${winAmount} ₽!</span>
+                    <span class="result-rare">Ставка: ${amount} ₽</span>
+                `;
             }
+        }
+        requestAnimationFrame(animate);
+
+        document.getElementById('cfResultOk').onclick = function() {
+            modal.classList.remove('open');
+        };
+        document.getElementById('coinflipModalClose').onclick = function() {
+            modal.classList.remove('open');
+        };
+        modal.onclick = function(e) {
+            if (e.target === modal) modal.classList.remove('open');
         };
     }
 
@@ -7788,6 +8108,11 @@
                     document.getElementById('clickerBalance').textContent = STATE.balance;
                     document.getElementById('clickerTotalClicks').textContent = STATE.totalClicks;
                     initClicker();
+                }
+                if (tab === 'coinflip') {
+                    renderCoinFlip();
+                    // Навешиваем обработчик создания ставки
+                    document.getElementById('cfCreateBtn').onclick = createCoinFlip;
                 }
             };
         });
@@ -8039,7 +8364,16 @@
         addLog('🚀 Игра загружена, ожидание входа.');
 
         startChatAutoUpdate();
-        initExclusives();
+        // Автообновление Coin Flip
+        setInterval(() => {
+            const section = document.getElementById('section-games');
+            if (section && section.classList.contains('active')) {
+                const tab = document.querySelector('#tab-coinflip');
+                if (tab && tab.classList.contains('active')) {
+                    renderCoinFlip();
+                }
+            }
+        }, 10000);
     });
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ =====
