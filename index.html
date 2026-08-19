@@ -2506,6 +2506,45 @@
             .chat-input-area input { font-size: 13px; padding: 6px 10px; }
             .chat-input-area button { font-size: 13px; padding: 6px 12px; }
         }
+
+        /* ===== EXCLUSIVES ===== */
+        #section-exclusives .exclusive-form {
+            background: #2a2a2a;
+            border: 1px solid #ff8c00;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            color: #f0f0f0;
+        }
+        #section-exclusives .exclusive-form input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #f0f0f0;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        #section-exclusives .exclusive-form button {
+            padding: 10px 30px;
+            background: #ff8c00;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #section-exclusives .exclusive-form button:hover {
+            background: #ffaa33;
+        }
+        #section-exclusives .exclusive-info {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #aaa;
+        }
     </style>
 </head>
 <body class="theme-dark_orange">
@@ -2602,6 +2641,7 @@
                 <button data-section="updates">📢 Обновления</button>
                 <button data-section="chat">💬 Чат</button>
                 <button data-section="quests">📜 Квесты</button>
+                <button data-section="exclusives">🔑 Exclusives</button>
             </div>
 
             <!-- ОСНОВНОЙ КОНТЕНТ -->
@@ -2771,7 +2811,7 @@
                         <div style="padding:20px; text-align:center; background:#2a2a2a; border-radius:6px; border:1px solid #ff8c00; color:#f0f0f0;">
                             <div style="font-size:18px; margin-bottom:12px; color:#fff;">Введите промокод</div>
                             <div class="promo-input">
-                                <input type="text" id="promoInput" placeholder="Введите промокод (латиница)" style="max-width:200px;">
+                                <input type="text" id="promoInput" placeholder="Введите промокод (латиница)" style="max-width:200px;" inputmode="text">
                                 <button id="applyPromoBtn">Активировать</button>
                             </div>
                             <div style="margin-top:12px; font-size:14px; color:#aaa;">Промокод: <strong style="color:#ff8c00;">dimadartiez</strong> (20 💎, 100 ₽, кейс "Игроки 1")</div>
@@ -2887,6 +2927,8 @@
                                 <li>🔑 Сохранение данных входа (квадратик с ником)</li>
                                 <li>📌 Убрана боевая музыка, оставлена мелодичная</li>
                                 <li>🎨 Цвета редкостей обновлены</li>
+                                <li>🔑 Добавлена вкладка Exclusives для активации эксклюзива по ID</li>
+                                <li>👑 Добавлен титул "Разработчик" (скрыт, доступен через БД)</li>
                             </ul>
                         </div>
                     </section>
@@ -2902,6 +2944,18 @@
                                 <input type="text" id="chatInput" placeholder="Введите сообщение..." maxlength="200">
                                 <button id="chatSendBtn">Отправить</button>
                             </div>
+                        </div>
+                    </section>
+
+                    <!-- EXCLUSIVES -->
+                    <section id="section-exclusives" class="section">
+                        <div class="title">🔑 Exclusives</div>
+                        <div class="exclusive-form">
+                            <div style="font-size:16px; margin-bottom:12px;">Введите ID для активации эксклюзивного статуса</div>
+                            <input type="text" id="exclusiveIdInput" placeholder="Введите ID" maxlength="30">
+                            <button id="exclusiveActivateBtn">Активировать</button>
+                            <div class="exclusive-info">Для получения эксклюзива обратитесь к разработчику. Доступные ID: <strong>arbz7</strong>, <strong>xxspk</strong></div>
+                            <div id="exclusiveResult" style="margin-top:10px; font-weight:bold;"></div>
                         </div>
                     </section>
 
@@ -3042,7 +3096,8 @@
             { id: 'count', name: 'Граф', price: 1000, bonus: { moneyMul: 0.005, passiveCoins: 5 }, color: '#FF8C00' },
             { id: 'duke', name: 'Герцог', price: 1800, bonus: { moneyMul: 0.0075, passiveCoins: 7 }, color: '#32CD32' },
             { id: 'prince', name: 'Князь', price: 3000, bonus: { moneyMul: 0.01, passiveCoins: 12, caseDiscount: 0.05, passiveRubies: 2, sellBonus: 0.1 }, color: '#1E90FF' },
-            { id: 'exclusive', name: 'Эксклюзив', price: -1, bonus: { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 }, color: 'rainbow', isExclusive: true }
+            { id: 'exclusive', name: 'Эксклюзив', price: -1, bonus: { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 }, color: 'rainbow', isExclusive: true },
+            { id: 'developer', name: 'Разработчик', price: -1, bonus: { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 }, color: 'rainbow', isExclusive: true, hidden: true }
         ],
         passiveInterval: null,
         exclusiveActivated: false,
@@ -3064,11 +3119,9 @@
         menuColor: '#ff8c00',
         customSortOrder: [],
         invSortMode: 'rarity',
-        // Рубиновый кейс
         rubyKeys: 0,
         rubyKeyPrice: 100,
         welcomeOpened: false,
-        // Музыка: только мелодичная
         musicTrack: 0
     };
 
@@ -3208,7 +3261,7 @@
             let rubiesPerSecond = 0;
             if (bonus.passiveCoins) coinsPerSecond += bonus.passiveCoins / 60;
             if (bonus.passiveRubies) rubiesPerSecond += bonus.passiveRubies / 60;
-            if (STATE.currentTitle === 'exclusive') {
+            if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
                 coinsPerSecond += 15 / 60;
                 rubiesPerSecond += 10 / 60;
             }
@@ -3250,7 +3303,7 @@
                 let coinsPerSecond = 0, rubiesPerSecond = 0;
                 if (bonus.passiveCoins) coinsPerSecond += bonus.passiveCoins / 60;
                 if (bonus.passiveRubies) rubiesPerSecond += bonus.passiveRubies / 60;
-                if (STATE.currentTitle === 'exclusive') {
+                if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
                     coinsPerSecond += 15 / 60;
                     rubiesPerSecond += 10 / 60;
                 }
@@ -3736,8 +3789,8 @@
         } catch(e) {}
     }
     function sfxClick() { if (STATE.settings.sfx) playTone(800, 0.06, 'sine', 0.08); }
-    function sfxCaseOpenStart() { if (STATE.settings.sfx) { playTone(500, 0.08, 'square', 0.05); setTimeout(() => playTone(600, 0.08, 'square', 0.05), 100); } }
-    function sfxCaseOpenFinish() { if (STATE.settings.sfx) { playTone(800, 0.1, 'sine', 0.1); setTimeout(() => playTone(1000, 0.15, 'sine', 0.12), 150); } }
+    function sfxCaseOpenStart() { if (STATE.settings.sfx) { playTone(500, 0.08, 'square', 0.02); setTimeout(() => playTone(600, 0.08, 'square', 0.02), 100); } }
+    function sfxCaseOpenFinish() { if (STATE.settings.sfx) { playTone(800, 0.1, 'sine', 0.04); setTimeout(() => playTone(1000, 0.15, 'sine', 0.04), 150); } }
     function sfxMarketSell() { if (STATE.settings.sfx) { playTone(600, 0.08, 'sine', 0.08); setTimeout(() => playTone(900, 0.1, 'sine', 0.08), 120); } }
     function sfxMarketBuy() { if (STATE.settings.sfx) { playTone(700, 0.08, 'sine', 0.08); setTimeout(() => playTone(1000, 0.12, 'sine', 0.1), 150); } }
     function sfxAchievement() { if (STATE.settings.sfx) { [0,100,200,300,400].forEach((t,i) => setTimeout(() => playTone(500+i*150, 0.1, 'sine', 0.08), t)); } }
@@ -4094,6 +4147,17 @@
             STATE.rubyKeyPrice = data.rubyKeyPrice || 100;
             STATE.welcomeOpened = data.welcomeOpened || false;
 
+            // Обработка титула разработчика
+            if (STATE.currentTitle === 'developer') {
+                STATE.titleBonuses = { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 };
+                STATE.exclusiveActivated = true;
+                STATE.exclusiveGiven = true;
+                document.getElementById('exclusiveBanner').style.display = 'block';
+                document.getElementById('exclusiveVisualIdBtn').style.display = 'block';
+                document.getElementById('exclusiveMenuColorBtn').style.display = 'block';
+                addLog('👑 Титул "Разработчик" активирован');
+            }
+
             if (STATE.currentTitle === 'exclusive') {
                 STATE.exclusiveGiven = true;
                 STATE.exclusiveActivated = true;
@@ -4146,7 +4210,7 @@
             saveStateToFirebase();
             addLog('💬 Показано приветствие');
 
-            if (STATE.currentTitle === 'exclusive') {
+            if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
                 document.getElementById('exclusiveBanner').style.display = 'block';
             } else {
                 document.getElementById('exclusiveBanner').style.display = 'none';
@@ -4181,7 +4245,6 @@
                 startClock();
                 STATE.lastPlaytimeTick = Date.now();
                 setInterval(updatePlaytime, 1000);
-                // При первом входе даём стартовый кейс "Горы", если ещё не открыт
                 if (!STATE.welcomeOpened) {
                     openWelcomeCase();
                 }
@@ -4390,7 +4453,6 @@
         if (STATE.isOpening) return;
         const caseData = getCaseById(caseId);
         if (!caseData) return;
-        // Проверка для кейса "Горы" (уже открыт)
         if (caseId === 'welcome' && STATE.welcomeOpened) {
             showToast('❌ Этот кейс можно открыть только один раз при входе');
             return;
@@ -4398,7 +4460,7 @@
         let price = caseData.price;
         let currency = caseData.currency || 'coins';
         let discount = STATE.titleBonuses.caseDiscount || 0;
-        if (STATE.currentTitle === 'exclusive') discount = Math.max(discount, 0.1);
+        if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') discount = Math.max(discount, 0.1);
         let discountedPrice = Math.floor(price * (1 - discount));
         if (discountedPrice < 0) discountedPrice = 0;
         let free = false;
@@ -4408,14 +4470,12 @@
             STATE.freeOpens[caseId]--;
             price = 0;
         } else if (currency === 'keys') {
-            // Рубиновый кейс требует ключ
             if (caseId === 'ruby') {
                 if (STATE.rubyKeys <= 0) {
                     showToast('❌ У вас нет ключа для рубинового кейса. Купите в магазине.');
                     return;
                 }
                 STATE.rubyKeys--;
-                // Не тратим рубины, только ключ
             } else {
                 if (STATE.balance < discountedPrice) {
                     showToast('Недостаточно рублей! Нужно ' + discountedPrice + ' ₽ (скидка ' + (discount*100) + '%)');
@@ -4448,7 +4508,6 @@
         modal.classList.add('open');
         reopenBtn.style.display = 'none';
         sellResultBtn.style.display = 'none';
-        // Скрываем кнопку закрытия во время анимации
         document.getElementById('caseModalClose').style.display = 'none';
 
         const allItems = caseData.items;
@@ -4507,7 +4566,7 @@
                         STATE.rubies -= discountedPrice;
                         STATE.totalRubiesSpent = (STATE.totalRubiesSpent || 0) + discountedPrice;
                     } else if (currency === 'keys') {
-                        // Уже списали ключ
+                        // уже списали
                     } else {
                         STATE.balance -= discountedPrice;
                         STATE.totalSpent += discountedPrice;
@@ -4525,7 +4584,6 @@
                     checkCities3Event();
                 }
 
-                // Урон боссу (кроме рубинового и welcome)
                 if (caseId !== 'ruby' && caseId !== 'welcome') {
                     STATE.bossDamage = (STATE.bossDamage || 0) + 5;
                     saveStateToFirebase();
@@ -4558,14 +4616,13 @@
                 caseOpenInProgress = false;
                 saveStateToFirebase().then(() => {
                     reopenBtn.style.display = 'block';
-                    // Для рубинового кейса кнопка продажи не показывается
                     if (caseId !== 'ruby') {
                         sellResultBtn.style.display = 'block';
                         let sellPrice = Math.floor(caseData.price * 0.5);
                         if (STATE.titleBonuses.sellBonus) {
                             sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
                         }
-                        if (STATE.currentTitle === 'exclusive') {
+                        if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
                             sellPrice = Math.floor(sellPrice * 1.1);
                         }
                         sellResultBtn.textContent = 'Продать за ' + sellPrice + ' ₽';
@@ -4600,7 +4657,6 @@
                         finalResult.rarity === 'мифическое' || finalResult.rarity === 'легендарное' || 
                         finalResult.rarity === 'хроматическая');
                     checkQuests();
-                    // Показываем кнопку закрытия после анимации
                     document.getElementById('caseModalClose').style.display = 'block';
                 });
             }
@@ -4697,11 +4753,11 @@
                         const caseData = getCaseById(caseId);
                         if (caseData) sellPrice = Math.floor(caseData.price * 0.5);
                     }
-                    if (caseId === 'ruby') sellPrice = 0; // нельзя продать за рубли
+                    if (caseId === 'ruby') sellPrice = 0;
                     if (STATE.titleBonuses.sellBonus && sellPrice > 0) {
                         sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
                     }
-                    if (STATE.currentTitle === 'exclusive' && sellPrice > 0) {
+                    if ((STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') && sellPrice > 0) {
                         sellPrice = Math.floor(sellPrice * 1.1);
                     }
                     let chance = 0;
@@ -4727,7 +4783,7 @@
                     if (STATE.titleBonuses.sellBonus && sellPrice > 0) {
                         sellPrice = Math.floor(sellPrice * (1 + STATE.titleBonuses.sellBonus));
                     }
-                    if (STATE.currentTitle === 'exclusive' && sellPrice > 0) {
+                    if ((STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') && sellPrice > 0) {
                         sellPrice = Math.floor(sellPrice * 1.1);
                     }
                     let chance = 0;
@@ -5423,14 +5479,14 @@
                 }
                 if (reward.title) {
                     const title = STATE.donateTitles.find(t => t.id === reward.title);
-                    if (title && STATE.currentTitle !== 'exclusive') {
+                    if (title && STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') {
                         STATE.currentTitle = reward.title;
                         STATE.titleBonuses = title.bonus || {};
                         showToast('👑 Получен титул "' + title.name + '"!');
-                    } else if (title && STATE.currentTitle === 'exclusive') {
+                    } else if (title && (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer')) {
                         STATE.rubies += 20;
                         STATE.totalRubies += 20;
-                        showToast('💎 У вас уже есть эксклюзив, +20 рубинов за титул!');
+                        showToast('💎 У вас уже есть эксклюзив/разработчик, +20 рубинов за титул!');
                     }
                 }
                 showToast('🎯 Квест "' + q.name + '" выполнен!');
@@ -5678,8 +5734,8 @@
         });
 
         document.getElementById('changeNickBtnAccount').onclick = function() {
-            if (STATE.currentTitle === 'exclusive') {
-                let newNick = prompt('Введите новый ник (макс. 24 символа, бесплатно для эксклюзива):', STATE.nickname);
+            if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
+                let newNick = prompt('Введите новый ник (макс. 24 символа, бесплатно для эксклюзива/разработчика):', STATE.nickname);
                 if (!newNick || newNick === STATE.nickname) return;
                 newNick = newNick.trim();
                 if (newNick.length > 24) { showToast('❌ Ник не может превышать 24 символа'); return; }
@@ -5708,7 +5764,7 @@
                             saveStateToFirebase();
                             checkAllAchievements();
                             addLog('✏️ Ник изменён на: ' + newNick);
-                            logPlayerAction('сменил ник (эксклюзив)', 'на ' + newNick, false);
+                            logPlayerAction('сменил ник (эксклюзив/разработчик)', 'на ' + newNick, false);
                         }
                     })
                     .catch(err => showToast('❌ Ошибка: ' + err.message));
@@ -5933,7 +5989,7 @@
         };
 
         document.getElementById('exclusiveVisualIdBtn').onclick = function() {
-            if (STATE.currentTitle !== 'exclusive') { showToast('❌ Только для эксклюзива'); return; }
+            if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') { showToast('❌ Только для эксклюзива/разработчика'); return; }
             const newId = prompt('Введите новый визуальный ID (текст):', STATE.visualId || ('#' + STATE.userId));
             if (newId !== null) {
                 STATE.visualId = newId.trim();
@@ -5946,7 +6002,7 @@
         };
 
         document.getElementById('exclusiveMenuColorBtn').onclick = function() {
-            if (STATE.currentTitle !== 'exclusive') { showToast('❌ Только для эксклюзива'); return; }
+            if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') { showToast('❌ Только для эксклюзива/разработчика'); return; }
             const color = prompt('Введите цвет в формате #rrggbb:', STATE.menuColor || '#ff8c00');
             if (color && /^#[0-9a-f]{6}$/i.test(color)) {
                 STATE.menuColor = color;
@@ -6097,7 +6153,7 @@
                     STATE.elo += eloGain;
                     STATE.maxElo = Math.max(STATE.maxElo, STATE.elo);
                     let moneyMul = 1 + (STATE.titleBonuses.moneyMul || 0);
-                    if (STATE.currentTitle === 'exclusive') moneyMul += 0.1;
+                    if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') moneyMul += 0.1;
                     let moneyEarn = Math.floor(eloGain * 2 * moneyMul);
                     STATE.balance += moneyEarn;
                     STATE.totalEarned += moneyEarn;
@@ -6135,7 +6191,7 @@
                 const value = c.value || 1;
                 morolsState.totalCoins += value;
                 let moneyMul = 1 + (STATE.titleBonuses.moneyMul || 0);
-                if (STATE.currentTitle === 'exclusive') moneyMul += 0.1;
+                if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') moneyMul += 0.1;
                 let earned = Math.floor(value * moneyMul);
                 STATE.balance += earned;
                 STATE.totalEarned += earned;
@@ -6540,7 +6596,7 @@
                 STATE.clicksSinceCaptcha = (STATE.clicksSinceCaptcha || 0) + 1;
                 STATE.totalClicks += 1;
                 let clickReward = 5;
-                if (STATE.currentTitle === 'exclusive') clickReward = 10;
+                if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') clickReward = 10;
                 STATE.balance += clickReward;
                 STATE.totalEarned += clickReward;
                 if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
@@ -6620,7 +6676,7 @@
                 STATE.totalRubies += reward.rubies;
                 let msg = '🏙️ Ивент Города 3: ' + reward.count + ' кейсов! +' + reward.coins + ' ₽, +' + reward.rubies + ' 💎';
                 if (reward.exclusive) {
-                    if (STATE.currentTitle !== 'exclusive') {
+                    if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') {
                         STATE.currentTitle = 'exclusive';
                         STATE.exclusiveGiven = true;
                         STATE.exclusiveActivated = true;
@@ -6797,7 +6853,6 @@
                 };
             }
 
-            // Кнопка "Показать все редкости"
             document.getElementById('showRaritiesBtn').onclick = function() {
                 const modal = document.getElementById('raritiesModal');
                 const list = document.getElementById('raritiesList');
@@ -6839,7 +6894,7 @@
 
     function applyTheme(theme) {
         document.body.className = 'theme-' + theme;
-        if (STATE.currentTitle === 'exclusive' && STATE.menuColor) {
+        if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer' && STATE.menuColor) {
             document.querySelectorAll('.sidebar button.active, .top-bar, .title, .update-announce, .wipe-banner, .exclusive-banner').forEach(el => {
                 el.style.borderColor = STATE.menuColor;
                 if (el.classList.contains('top-bar') || el.classList.contains('title') || el.classList.contains('update-announce') || el.classList.contains('wipe-banner')) {
@@ -7131,6 +7186,7 @@
             if (maxOwnedIndex < 0) maxOwnedIndex = 0;
             for (let i = 0; i < STATE.donateTitles.length; i++) {
                 const title = STATE.donateTitles[i];
+                if (title.hidden) continue; // Скрываем разработчика
                 if (title.isExclusive) {
                     html += `<div class="shop-item" style="border-color:#ff8c00; background:#2a2a1a;">
                         <div class="shop-item-name" style="background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${title.name}</div>
@@ -7243,7 +7299,7 @@
                 <div class="shop-item-name">🗝️ Ключ рубинового кейса</div>
                 <div class="shop-item-price">${STATE.rubyKeyPrice} 💎</div>
                 <div style="font-size:12px; color:#aaa;">Цена растёт на 1 после каждой покупки</div>
-                <button class="shop-buy-btn" data-type="ruby_key">Купить</button>
+                <button class="shop-buy-btn" data-type="ruby_key" id="buyRubyKeyBtn">Купить</button>
             </div>`;
             html += `</div>`;
         }
@@ -7375,6 +7431,7 @@
             showToast('✅ Скин активирован');
             addLog('🎨 Активирован скин: ' + id);
         } else if (type === 'ruby_key') {
+            // Покупаем ровно 1 ключ
             if (STATE.rubies < STATE.rubyKeyPrice) {
                 showToast('❌ Недостаточно рубинов, нужно ' + STATE.rubyKeyPrice);
                 return;
@@ -7545,13 +7602,13 @@
                 if (cc) cc.textContent = STATE.totalClicks;
             }
         });
-        if (STATE.currentTitle === 'exclusive') {
+        if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
             document.getElementById('exclusiveBanner').style.display = 'block';
         } else {
             document.getElementById('exclusiveBanner').style.display = 'none';
         }
         updatePlaytime();
-        if (STATE.currentTitle === 'exclusive' && STATE.menuColor) {
+        if ((STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') && STATE.menuColor) {
             applyTheme(STATE.settings.theme);
         }
     }
@@ -7561,7 +7618,7 @@
         if (!grid) return;
         let html = '';
         for (const c of CASES) {
-            if (c.id === 'animals') continue; // Убран кейс
+            if (c.id === 'animals') continue;
             const freeCount = STATE.freeOpens[c.id] || 0;
             let eventProgress = '';
             if (c.id === 'cities3') {
@@ -7658,6 +7715,44 @@
         if (sectionId === 'chat') renderChat();
         if (sectionId === 'quests') renderQuests();
         addLog('📂 Переход в раздел: ' + sectionId);
+    }
+
+    // ===== EXCLUSIVES =====
+    function initExclusives() {
+        document.getElementById('exclusiveActivateBtn').onclick = function() {
+            const input = document.getElementById('exclusiveIdInput');
+            const id = input.value.trim();
+            if (!id) { showToast('❌ Введите ID'); return; }
+            // Разрешаем только определённые ID
+            const allowed = ['arbz7', 'xxspk'];
+            if (allowed.includes(id.toLowerCase())) {
+                if (STATE.currentTitle === 'exclusive' || STATE.currentTitle === 'developer') {
+                    showToast('❌ У вас уже есть эксклюзив/разработчик');
+                    return;
+                }
+                STATE.currentTitle = 'exclusive';
+                STATE.titleBonuses = { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 };
+                STATE.exclusiveActivated = true;
+                STATE.exclusiveGiven = true;
+                document.getElementById('exclusiveBanner').style.display = 'block';
+                document.getElementById('exclusiveVisualIdBtn').style.display = 'block';
+                document.getElementById('exclusiveMenuColorBtn').style.display = 'block';
+                // Даём бонусы
+                giveExclusiveBonus();
+                showToast('👑 Эксклюзив активирован!');
+                logPlayerAction('активировал эксклюзив через ID', id, true);
+                saveStateToFirebase();
+                updateUI();
+                renderAccount();
+                document.getElementById('exclusiveResult').textContent = '✅ Эксклюзив активирован!';
+                document.getElementById('exclusiveResult').style.color = '#4a8a4a';
+                input.value = '';
+            } else {
+                showToast('❌ Неверный ID');
+                document.getElementById('exclusiveResult').textContent = '❌ Неверный ID';
+                document.getElementById('exclusiveResult').style.color = '#ff6b6b';
+            }
+        };
     }
 
     // ===== ИНИЦИАЛИЗАЦИЯ И СОБЫТИЯ =====
@@ -7809,7 +7904,6 @@
             registerUser(nick, pass);
         };
 
-        // Сохранение данных входа
         document.getElementById('saveAccountBtn').onclick = function() {
             const nick = document.getElementById('loginNick').value.trim();
             const pass = document.getElementById('loginPass').value;
@@ -7925,7 +8019,6 @@
 
         document.getElementById('clearAllInventoryBtn').onclick = clearAllInventory;
 
-        // Чат
         document.getElementById('chatSendBtn').onclick = function() {
             const input = document.getElementById('chatInput');
             sendChatMessage(input.value);
@@ -7937,7 +8030,6 @@
             }
         });
 
-        // Welcome overlay
         document.getElementById('welcomeClose').onclick = function() {
             document.getElementById('welcomeOverlay').classList.remove('open');
         };
@@ -7947,6 +8039,7 @@
         addLog('🚀 Игра загружена, ожидание входа.');
 
         startChatAutoUpdate();
+        initExclusives();
     });
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ =====
