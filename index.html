@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TTP кейсы — UNRELEASED (beta)</title>
+    <title>TTP кейсы — 1.0.0</title>
     <style>
         /* ===== ОБЩИЕ СБРОСЫ ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Tahoma','Arial',sans-serif;
-            background: #0a0a0a;
-            color: #f0f0f0;
+            background: #e8f0f0;
+            color: #1a2a2a;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -18,622 +18,628 @@
             font-size: 16px;
             transition: background 0.3s, color 0.3s;
         }
-        /* ===== ЧЁРНО-ОРАНЖЕВАЯ ТЕМА (ПО УМОЛЧАНИЮ) ===== */
-        body.theme-dark_orange {
-            background: #0a0a0a;
-            color: #f0f0f0;
+        /* ===== ТЕМА ПО УМОЛЧАНИЮ: WIN7 TEAL (зелено-голубая эстетика) ===== */
+        body.theme-win7_teal {
+            background: #d4e8e8;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange #app {
-            background: #1a1a1a;
-            border: 1px solid #ff8c00;
-            border-radius: 12px;
+        body.theme-win7_teal #app {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,40,40,0.2);
         }
-        body.theme-dark_orange .header {
-            border-bottom-color: #ff8c00;
+        body.theme-win7_teal .header {
+            border-bottom-color: #2a7a7a;
         }
-        body.theme-dark_orange .header h1 {
-            color: #ff8c00;
+        body.theme-win7_teal .header h1 {
+            color: #1a5a5a;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
         }
-        body.theme-dark_orange .header .version {
-            color: #ffaa33 !important;
+        body.theme-win7_teal .header .version {
+            color: #2a6a6a !important;
         }
-        body.theme-dark_orange .header .log-btn-header,
-        body.theme-dark_orange .header .chat-btn-header {
-            background: #222;
-            color: #ff8c00;
-            border: 2px solid #ff8c00;
+        body.theme-win7_teal .header .log-btn-header,
+        body.theme-win7_teal .header .chat-btn-header {
+            background: #c8dcdc;
+            color: #1a5a5a;
+            border: 2px solid #2a7a7a;
         }
-        body.theme-dark_orange .header .log-btn-header:hover,
-        body.theme-dark_orange .header .chat-btn-header:hover {
-            background: #333;
+        body.theme-win7_teal .header .log-btn-header:hover,
+        body.theme-win7_teal .header .chat-btn-header:hover {
+            background: #b8d0d0;
         }
-        body.theme-dark_orange .header .log-btn-header.active {
-            background: #ff8c00;
-            color: #000;
-        }
-        body.theme-dark_orange .sidebar {
-            background: #1a1a1a;
-            border-right: 2px solid #ff8c00;
-        }
-        body.theme-dark_orange .sidebar button {
-            background: #2a2a2a;
-            border: 1px solid #555;
-            color: #f0f0f0;
-            border-radius: 0;
-            border-left: 3px solid transparent;
-            text-align: left;
-        }
-        body.theme-dark_orange .sidebar button.active {
-            background: #ff8c00;
-            color: #000;
-            border-left-color: #fff;
-        }
-        body.theme-dark_orange .sidebar button:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .top-bar {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .top-bar .stat .value {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .top-bar .clock {
-            color: #ff8c00;
-            background: #2a2a2a;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .case-card,
-        body.theme-dark_orange .inv-item,
-        body.theme-dark_orange .market-listing,
-        body.theme-dark_orange .account-info,
-        body.theme-dark_orange .game-wrap,
-        body.theme-dark_orange .clicker-wrap,
-        body.theme-dark_orange .clan-simple,
-        body.theme-dark_orange .shop-item,
-        body.theme-dark_orange .player-card,
-        body.theme-dark_orange .chat-message {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .case-card .case-price {
-            color: #ffaa33;
-        }
-        body.theme-dark_orange .case-card .case-name {
+        body.theme-win7_teal .header .log-btn-header.active {
+            background: #2a7a7a;
             color: #fff;
         }
-        body.theme-dark_orange .open-btn,
-        body.theme-dark_orange .market-listing .price button,
-        body.theme-dark_orange .click-btn,
-        body.theme-dark_orange .modal-buttons button,
-        body.theme-dark_orange .clan-create-btn,
-        body.theme-dark_orange .shop-buy-btn {
-            background: #ff8c00;
-            color: #000;
+        body.theme-win7_teal .sidebar {
+            background: #dce8e8;
+            border-right: 2px solid #2a7a7a;
+        }
+        body.theme-win7_teal .sidebar button {
+            background: #dce8e8;
+            border: none;
+            border-bottom: 1px solid #b0c8c8;
+            color: #1a3a3a;
+            border-left: 3px solid transparent;
+            text-align: left;
+            font-size: 14px;
+        }
+        body.theme-win7_teal .sidebar button.active {
+            background: #2a8a7a;
+            color: #fff;
+            border-left-color: #fff;
+        }
+        body.theme-win7_teal .sidebar button:hover {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .top-bar {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .top-bar .stat .value {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .top-bar .clock {
+            color: #1a6a5a;
+            background: #c8dcdc;
+            border: 1px solid #2a7a7a;
+        }
+        body.theme-win7_teal .case-card,
+        body.theme-win7_teal .inv-item,
+        body.theme-win7_teal .market-listing,
+        body.theme-win7_teal .account-info,
+        body.theme-win7_teal .game-wrap,
+        body.theme-win7_teal .clicker-wrap,
+        body.theme-win7_teal .clan-simple,
+        body.theme-win7_teal .shop-item,
+        body.theme-win7_teal .player-card,
+        body.theme-win7_teal .chat-message {
+            background: #e8f4f4;
+            border: 1px solid #2a7a7a;
+            border-radius: 4px;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .case-card .case-price {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .case-card .case-name {
+            color: #1a3a3a;
+        }
+        body.theme-win7_teal .open-btn,
+        body.theme-win7_teal .market-listing .price button,
+        body.theme-win7_teal .click-btn,
+        body.theme-win7_teal .modal-buttons button,
+        body.theme-win7_teal .clan-create-btn,
+        body.theme-win7_teal .shop-buy-btn {
+            background: #2a8a7a;
+            color: #fff;
             border: none;
             border-radius: 4px;
             padding: 6px 16px;
             font-weight: bold;
         }
-        body.theme-dark_orange .open-btn:hover,
-        body.theme-dark_orange .market-listing .price button:hover,
-        body.theme-dark_orange .click-btn:hover,
-        body.theme-dark_orange .modal-buttons button:hover,
-        body.theme-dark_orange .clan-create-btn:hover,
-        body.theme-dark_orange .shop-buy-btn:hover {
-            background: #ffaa33;
-        }
-        body.theme-dark_orange .inv-item .item-count {
-            color: #aaa;
-        }
-        body.theme-dark_orange .inv-item .item-rarity {
-            color: #999;
-        }
-        body.theme-dark_orange .market-listing .info .details .seller {
-            color: #999;
-        }
-        body.theme-dark_orange .market-listing .price {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .inv-empty {
-            color: #888;
-        }
-        body.theme-dark_orange .account-info .row .label {
-            color: #aaa;
-        }
-        body.theme-dark_orange .account-info .row .value {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .settings-group .desc {
-            color: #888;
-        }
-        body.theme-dark_orange .footer-note {
-            color: #888;
-            border-top-color: #ff8c00;
-        }
-        body.theme-dark_orange .footer-note a {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .title {
-            border-bottom-color: #ff8c00;
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .title .badge {
-            color: #aaa;
-        }
-        body.theme-dark_orange .tab-bar button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #ccc;
-        }
-        body.theme-dark_orange .tab-bar button.active {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .tab-bar button:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .game-wrap .game-stats {
-            background: #2a2a2a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .game-wrap .game-stats span {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .game-wrap .game-controls button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .game-wrap .game-controls button:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .game-touch-controls button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .clicker-wrap .clicker-stats {
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .clicker-wrap .click-timer {
-            color: #aaa;
-        }
-        body.theme-dark_orange .market-sort select {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .market-sell-form {
-            background: #2a2a2a;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .market-sell-form select,
-        body.theme-dark_orange .market-sell-form input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .market-tabs button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #ccc;
-        }
-        body.theme-dark_orange .market-tabs button.active {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .market-tabs button:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .rank-item {
-            border-bottom-color: #444;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .rank-item .pos {
-            color: #888;
-        }
-        body.theme-dark_orange .rank-item .pos.gold {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .rank-item .pos.silver {
-            color: #c0c0c0;
-        }
-        body.theme-dark_orange .rank-item .pos.bronze {
-            color: #cd7f32;
-        }
-        body.theme-dark_orange .rank-item .name {
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .rank-item .value {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .rank-item.you {
-            background: #2a2a1a;
-            border: 1px solid #ff8c00;
-            border-radius: 6px;
-        }
-        body.theme-dark_orange .settings-group input[type="range"] {
-            background: #444;
-        }
-        body.theme-dark_orange .settings-group input[type="range"]::-webkit-slider-thumb {
-            background: #ff8c00;
-        }
-        body.theme-dark_orange .settings-group .color-grid .color-btn {
-            border-color: #555;
-        }
-        body.theme-dark_orange .settings-group .color-grid .color-btn.active {
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .toggle {
-            background: #444;
-            border-color: #555;
-        }
-        body.theme-dark_orange .toggle.on {
-            background: #ff8c00;
-        }
-        body.theme-dark_orange .clan-simple .clan-name {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .clan-simple .clan-input-row input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .clan-simple .clan-input-row button {
-            background: #ff8c00;
-            color: #000;
-        }
-        body.theme-dark_orange .clan-simple .clan-input-row button.clear {
-            background: #883333;
-            color: #fff;
-        }
-        body.theme-dark_orange .shop-item .shop-item-name {
-            color: #fff;
-        }
-        body.theme-dark_orange .shop-item .shop-item-price {
-            color: #aaa;
-        }
-        body.theme-dark_orange .shop-item .owned {
-            color: #4a8a4a;
-        }
-        body.theme-dark_orange .modal-buttons button {
-            background: #ff8c00;
-            color: #000;
-        }
-        body.theme-dark_orange .modal-buttons button:hover {
-            background: #ffaa33;
-        }
-        body.theme-dark_orange .case-modal {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .case-modal .modal-title {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .case-modal .close-btn {
-            color: #aaa;
-        }
-        body.theme-dark_orange .case-modal .close-btn:hover {
-            color: #fff;
-        }
-        body.theme-dark_orange .slot-container {
-            background: #2a2a2a;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .slot-item {
-            color: #aaa;
-        }
-        body.theme-dark_orange .slot-item.active {
-            color: #ff8c00;
-            background: rgba(255,140,0,0.1);
-        }
-        body.theme-dark_orange .slot-item.highlight {
-            color: #ff8c00;
-            background: rgba(255,140,0,0.2);
-        }
-        body.theme-dark_orange .result-display {
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .result-display .result-name {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .result-display .result-rare {
-            color: #aaa;
-        }
-        body.theme-dark_orange .free-opens-display {
-            background: #2a2a2a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .free-opens-display .free-item {
-            background: #ff8c00;
-            color: #000;
-        }
-        body.theme-dark_orange .update-announce {
-            background: #2a2a2a;
-            border-color: #ff8c00;
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .wipe-banner {
-            background: #883333;
-            color: #fff;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .achieve-item {
-            border-color: #444;
+        body.theme-win7_teal .open-btn:hover,
+        body.theme-win7_teal .market-listing .price button:hover,
+        body.theme-win7_teal .click-btn:hover,
+        body.theme-win7_teal .modal-buttons button:hover,
+        body.theme-win7_teal .clan-create-btn:hover,
+        body.theme-win7_teal .shop-buy-btn:hover {
+            background: #3a9a8a;
+        }
+        body.theme-win7_teal .inv-item .item-rarity {
             color: #666;
-            background: #222;
         }
-        body.theme-dark_orange .achieve-item.unlocked {
-            border-color: #ff8c00;
-            color: #f0f0f0;
-            background: #2a2a1a;
+        body.theme-win7_teal .market-listing .info .details .seller {
+            color: #666;
         }
-        body.theme-dark_orange .account-actions button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .market-listing .price {
+            color: #1a6a5a;
         }
-        body.theme-dark_orange .account-actions button:hover {
-            background: #3a3a3a;
+        body.theme-win7_teal .inv-empty {
+            color: #888;
         }
-        body.theme-dark_orange .account-actions .danger {
+        body.theme-win7_teal .account-info .row .label {
+            color: #555;
+        }
+        body.theme-win7_teal .account-info .row .value {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .settings-group .desc {
+            color: #666;
+        }
+        body.theme-win7_teal .footer-note {
+            color: #666;
+            border-top-color: #2a7a7a;
+        }
+        body.theme-win7_teal .footer-note a {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .title {
+            border-bottom-color: #2a7a7a;
+            color: #1a5a5a;
+        }
+        body.theme-win7_teal .title .badge {
+            color: #666;
+        }
+        body.theme-win7_teal .tab-bar button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a3a3a;
+        }
+        body.theme-win7_teal .tab-bar button.active {
+            background: #2a8a7a;
+            color: #fff;
+            border-color: #2a8a7a;
+        }
+        body.theme-win7_teal .tab-bar button:hover {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .game-wrap .game-stats {
+            background: #dce8e8;
+            border-color: #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .game-wrap .game-stats span {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .game-wrap .game-controls button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a3a3a;
+        }
+        body.theme-win7_teal .game-wrap .game-controls button:hover {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .game-touch-controls button {
+            background: #dce8e8;
+            border: 2px solid #2a7a7a;
+            color: #1a3a3a;
+        }
+        body.theme-win7_teal .clicker-wrap .clicker-stats {
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .clicker-wrap .click-timer {
+            color: #666;
+        }
+        body.theme-win7_teal .market-sort select {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .market-sell-form {
+            background: #dce8e8;
+            border-color: #2a7a7a;
+        }
+        body.theme-win7_teal .market-sell-form select,
+        body.theme-win7_teal .market-sell-form input {
+            background: #e8f4f4;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .market-tabs button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a3a3a;
+        }
+        body.theme-win7_teal .market-tabs button.active {
+            background: #2a8a7a;
+            color: #fff;
+            border-color: #2a8a7a;
+        }
+        body.theme-win7_teal .market-tabs button:hover {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .rank-item {
+            border-bottom-color: #b0c8c8;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .rank-item .pos {
+            color: #888;
+        }
+        body.theme-win7_teal .rank-item .pos.gold {
+            color: #2a7a5a;
+        }
+        body.theme-win7_teal .rank-item .pos.silver {
+            color: #8a9a9a;
+        }
+        body.theme-win7_teal .rank-item .pos.bronze {
+            color: #8a7a4a;
+        }
+        body.theme-win7_teal .rank-item .name {
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .rank-item .value {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .rank-item.you {
+            background: #d0e8e0;
+            border: 1px solid #2a7a7a;
+        }
+        body.theme-win7_teal .settings-group input[type="range"] {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .settings-group input[type="range"]::-webkit-slider-thumb {
+            background: #2a8a7a;
+        }
+        body.theme-win7_teal .settings-group .color-grid .color-btn {
+            border-color: #b0c8c8;
+        }
+        body.theme-win7_teal .settings-group .color-grid .color-btn.active {
+            border-color: #2a8a7a;
+            box-shadow: 0 0 10px rgba(42,138,122,0.3);
+        }
+        body.theme-win7_teal .toggle {
+            background: #b0c8c8;
+            border: 1px solid #2a7a7a;
+        }
+        body.theme-win7_teal .toggle.on {
+            background: #2a8a7a;
+        }
+        body.theme-win7_teal .clan-simple .clan-name {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .clan-simple .clan-input-row input {
+            background: #e8f4f4;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .clan-simple .clan-input-row button {
+            background: #2a8a7a;
+            color: #fff;
+        }
+        body.theme-win7_teal .clan-simple .clan-input-row button.clear {
             background: #883333;
             color: #fff;
-            border-color: #aa4444;
         }
-        body.theme-dark_orange .account-actions .danger:hover {
-            background: #aa4444;
+        body.theme-win7_teal .shop-item .shop-item-name {
+            color: #1a3a3a;
         }
-        body.theme-dark_orange .account-actions .delete-account {
+        body.theme-win7_teal .shop-item .shop-item-price {
+            color: #555;
+        }
+        body.theme-win7_teal .shop-item .owned {
+            color: #2a7a4a;
+        }
+        body.theme-win7_teal .modal-buttons button {
+            background: #2a8a7a;
+            color: #fff;
+        }
+        body.theme-win7_teal .modal-buttons button:hover {
+            background: #3a9a8a;
+        }
+        body.theme-win7_teal .case-modal {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .case-modal .modal-title {
+            color: #1a5a5a;
+        }
+        body.theme-win7_teal .case-modal .close-btn {
+            color: #666;
+        }
+        body.theme-win7_teal .case-modal .close-btn:hover {
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .slot-container {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+        }
+        body.theme-win7_teal .slot-item {
+            color: #666;
+        }
+        body.theme-win7_teal .slot-item.active {
+            color: #1a6a5a;
+            background: rgba(42,138,122,0.1);
+        }
+        body.theme-win7_teal .slot-item.highlight {
+            color: #1a6a5a;
+            background: rgba(42,138,122,0.2);
+        }
+        body.theme-win7_teal .result-display {
+            border-color: #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .result-display .result-name {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .result-display .result-rare {
+            color: #666;
+        }
+        body.theme-win7_teal .free-opens-display {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .free-opens-display .free-item {
+            background: #2a8a7a;
+            color: #fff;
+        }
+        body.theme-win7_teal .update-announce {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a5a5a;
+        }
+        body.theme-win7_teal .wipe-banner {
+            background: #a04040;
+            color: #fff;
+            border: 2px solid #2a7a7a;
+        }
+        body.theme-win7_teal .achieve-item {
+            border: 1px solid #b0c8c8;
+            color: #888;
+            background: #dce8e8;
+        }
+        body.theme-win7_teal .achieve-item.unlocked {
+            border-color: #2a7a7a;
+            color: #1a2a2a;
+            background: #d0e8e0;
+        }
+        body.theme-win7_teal .account-actions button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .account-actions button:hover {
+            background: #c8dcdc;
+        }
+        body.theme-win7_teal .account-actions .danger {
             background: #883333;
             color: #fff;
-            border-color: #aa4444;
+            border: none;
         }
-        body.theme-dark_orange .account-actions .delete-account:hover {
+        body.theme-win7_teal .account-actions .danger:hover {
             background: #aa4444;
         }
-        body.theme-dark_orange .account-actions .reset-progress-btn {
+        body.theme-win7_teal .account-actions .delete-account {
+            background: #883333;
+            color: #fff;
+            border: none;
+        }
+        body.theme-win7_teal .account-actions .delete-account:hover {
+            background: #aa4444;
+        }
+        body.theme-win7_teal .account-actions .reset-progress-btn {
             background: #883333 !important;
             color: #fff !important;
-            border-color: #aa4444 !important;
+            border: none !important;
         }
-        body.theme-dark_orange .account-actions .reset-progress-btn:hover {
+        body.theme-win7_teal .account-actions .reset-progress-btn:hover {
             background: #aa4444 !important;
         }
-        body.theme-dark_orange .clan-input input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .clan-input input {
+            background: #e8f4f4;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .clan-input button {
-            background: #ff8c00;
-            color: #000;
+        body.theme-win7_teal .clan-input button {
+            background: #2a8a7a;
+            color: #fff;
         }
-        body.theme-dark_orange .clan-input .clear-clan {
+        body.theme-win7_teal .clan-input .clear-clan {
             background: #883333;
             color: #fff;
         }
-        body.theme-dark_orange .login-box {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
+        body.theme-win7_teal .login-box {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .login-box input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .login-box input {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .login-box .row .login-btn {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .login-box .row .register-btn {
-            background: #2a2a2a;
-            color: #f0f0f0;
-            border-color: #555;
-        }
-        body.theme-dark_orange .login-box .promo {
-            border-top-color: #ff8c00;
-            color: #aaa;
-        }
-        body.theme-dark_orange .login-box .sub {
-            color: #aaa;
-        }
-        body.theme-dark_orange .login-box .info {
-            color: #aaa;
-        }
-        body.theme-dark_orange .login-box .log-area {
-            background: #0a0a0a;
-            border-color: #333;
-            color: #0f0;
-        }
-        body.theme-dark_orange .login-box .log-btn {
-            background: #333;
+        body.theme-win7_teal .login-box .row .login-btn {
+            background: #2a8a7a;
             color: #fff;
+            border: 2px solid #2a8a7a;
         }
-        body.theme-dark_orange .login-box .log-btn:hover {
-            background: #555;
+        body.theme-win7_teal .login-box .row .register-btn {
+            background: #dce8e8;
+            color: #1a2a2a;
+            border: 2px solid #2a7a7a;
         }
-        body.theme-dark_orange .rating-tabs button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #ccc;
-        }
-        body.theme-dark_orange .rating-tabs button.active {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
-        }
-        body.theme-dark_orange .rating-tabs button:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .rating-refresh-btn {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .rating-refresh-btn:hover {
-            background: #3a3a3a;
-        }
-        body.theme-dark_orange .profile-modal {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .profile-modal .close-btn {
-            color: #aaa;
-        }
-        body.theme-dark_orange .profile-modal .close-btn:hover {
+        body.theme-win7_teal .login-box .row .save-btn {
+            background: #3a7a6a;
             color: #fff;
+            border: 2px solid #3a7a6a;
         }
-        body.theme-dark_orange .profile-modal .profile-row {
-            border-bottom-color: #444;
+        body.theme-win7_teal .login-box .promo {
+            border-top-color: #2a7a7a;
+            color: #666;
         }
-        body.theme-dark_orange .profile-modal .profile-row span:last-child {
-            color: #ff8c00;
+        body.theme-win7_teal .login-box .sub {
+            color: #666;
         }
-        body.theme-dark_orange .captcha-box {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
+        body.theme-win7_teal .login-box .info {
+            color: #666;
         }
-        body.theme-dark_orange .captcha-box .captcha-text {
-            background: #0a0a0a;
-            color: #0f0;
+        body.theme-win7_teal .login-box .log-area {
+            background: #dce8e8;
+            border: 1px solid #b0c8c8;
+            color: #0a2a2a;
         }
-        body.theme-dark_orange .captcha-box input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .login-box .log-btn {
+            background: #b0c8c8;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .captcha-box button {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
+        body.theme-win7_teal .login-box .log-btn:hover {
+            background: #9ab8b8;
         }
-        body.theme-dark_orange .captcha-box button:hover {
-            background: #ffaa33;
+        body.theme-win7_teal .rating-tabs button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a3a3a;
         }
-        body.theme-dark_orange .toast {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
+        body.theme-win7_teal .rating-tabs button.active {
+            background: #2a8a7a;
+            color: #fff;
+            border-color: #2a8a7a;
         }
-        body.theme-dark_orange .notification {
-            background: #2a2a2a;
-            color: #f0f0f0;
-            border: 1px solid #ff8c00;
+        body.theme-win7_teal .rating-tabs button:hover {
+            background: #c8dcdc;
         }
-        body.theme-dark_orange .event-rewards {
-            background: #1a2a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
+        body.theme-win7_teal .rating-refresh-btn {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .event-rewards .reward-line {
-            border-bottom-color: rgba(255,140,0,0.1);
+        body.theme-win7_teal .rating-refresh-btn:hover {
+            background: #c8dcdc;
         }
-        body.theme-dark_orange .promo-input input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .profile-modal {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .promo-input button {
-            background: #ff8c00;
-            color: #000;
+        body.theme-win7_teal .profile-modal .close-btn {
+            color: #666;
+        }
+        body.theme-win7_teal .profile-modal .close-btn:hover {
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .profile-modal .profile-row {
+            border-bottom-color: #b0c8c8;
+        }
+        body.theme-win7_teal .profile-modal .profile-row span:last-child {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .captcha-box {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .captcha-box .captcha-text {
+            background: #dce8e8;
+            color: #0a2a2a;
+        }
+        body.theme-win7_teal .captcha-box input {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .captcha-box button {
+            background: #2a8a7a;
+            color: #fff;
+            border: 2px solid #2a8a7a;
+        }
+        body.theme-win7_teal .captcha-box button:hover {
+            background: #3a9a8a;
+        }
+        body.theme-win7_teal .toast {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .notification {
+            background: #dce8e8;
+            color: #1a2a2a;
+            border: 1px solid #2a7a7a;
+        }
+        body.theme-win7_teal .event-rewards {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .event-rewards .reward-line {
+            border-bottom-color: rgba(42,138,122,0.1);
+        }
+        body.theme-win7_teal .promo-input input {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .promo-input button {
+            background: #2a8a7a;
+            color: #fff;
             border: none;
             border-radius: 4px;
             padding: 8px 16px;
         }
-        body.theme-dark_orange .promo-input button:hover {
-            background: #ffaa33;
+        body.theme-win7_teal .promo-input button:hover {
+            background: #3a9a8a;
         }
-        body.theme-dark_orange .shop-tabs button {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #ccc;
+        body.theme-win7_teal .shop-tabs button {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a3a3a;
         }
-        body.theme-dark_orange .shop-tabs button.active {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
+        body.theme-win7_teal .shop-tabs button.active {
+            background: #2a8a7a;
+            color: #fff;
+            border-color: #2a8a7a;
         }
-        body.theme-dark_orange .shop-tabs button:hover {
-            background: #3a3a3a;
+        body.theme-win7_teal .shop-tabs button:hover {
+            background: #c8dcdc;
         }
-        body.theme-dark_orange .progress-bar {
-            background: #2a2a2a;
-            border-color: #ff8c00;
+        body.theme-win7_teal .progress-bar {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
         }
-        body.theme-dark_orange .progress-bar .fill {
-            background: #ff8c00;
+        body.theme-win7_teal .progress-bar .fill {
+            background: #2a8a7a;
         }
-        body.theme-dark_orange .chat-message .chat-nick {
-            color: #ff8c00;
+        body.theme-win7_teal .chat-message .chat-nick {
+            color: #1a6a5a;
         }
-        body.theme-dark_orange .chat-message .chat-title {
-            color: #ffaa33;
+        body.theme-win7_teal .chat-message .chat-title {
+            color: #2a8a7a;
         }
-        body.theme-dark_orange .chat-message .chat-clan {
+        body.theme-win7_teal .chat-message .chat-clan {
             color: #888;
         }
-        body.theme-dark_orange .chat-message .chat-elo {
-            color: #ff8c00;
+        body.theme-win7_teal .chat-message .chat-elo {
+            color: #1a6a5a;
         }
-        body.theme-dark_orange .chat-message .chat-text {
-            color: #f0f0f0;
+        body.theme-win7_teal .chat-message .chat-text {
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .chat-message .chat-time {
+        body.theme-win7_teal .chat-message .chat-time {
+            color: #888;
+        }
+        body.theme-win7_teal .chat-input-area input {
+            background: #dce8e8;
+            border: 1px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .chat-input-area button {
+            background: #2a8a7a;
+            color: #fff;
+            border: 1px solid #2a8a7a;
+        }
+        body.theme-win7_teal .chat-input-area button:hover {
+            background: #3a9a8a;
+        }
+        body.theme-win7_teal .welcome-popup {
+            background: #e8f4f4;
+            border: 2px solid #2a7a7a;
+            color: #1a2a2a;
+        }
+        body.theme-win7_teal .welcome-popup .welcome-title {
+            color: #1a5a5a;
+        }
+        body.theme-win7_teal .welcome-popup .welcome-text strong {
+            color: #1a6a5a;
+        }
+        body.theme-win7_teal .welcome-popup .close-btn {
             color: #666;
         }
-        body.theme-dark_orange .chat-input-area input {
-            background: #2a2a2a;
-            border-color: #555;
-            color: #f0f0f0;
+        body.theme-win7_teal .welcome-popup .close-btn:hover {
+            color: #1a2a2a;
         }
-        body.theme-dark_orange .chat-input-area button {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
+        body.theme-win7_teal .exclusive-banner {
+            border-color: #2a7a7a;
+            color: #1a6a5a;
         }
-        body.theme-dark_orange .chat-input-area button:hover {
-            background: #ffaa33;
-        }
-        body.theme-dark_orange .welcome-popup {
-            background: #1a1a1a;
-            border-color: #ff8c00;
-            color: #f0f0f0;
-        }
-        body.theme-dark_orange .welcome-popup .welcome-title {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .welcome-popup .welcome-text strong {
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .welcome-popup .close-btn {
-            color: #aaa;
-        }
-        body.theme-dark_orange .welcome-popup .close-btn:hover {
+        body.theme-win7_teal .beta-badge {
+            background: #2a8a7a;
             color: #fff;
         }
-        body.theme-dark_orange .exclusive-banner {
-            border-color: #ff8c00;
-            color: #ff8c00;
-        }
-        body.theme-dark_orange .beta-badge {
-            background: #ff8c00;
-            color: #000;
-        }
-        /* ЦВЕТА РЕДКОСТЕЙ */
+        /* ЦВЕТА РЕДКОСТЕЙ (оставляем как есть) */
         .rarity-common { color: #fff; }
         .rarity-uncommon { color: #40e0d0; }
         .rarity-rare { color: #32cd32; }
@@ -652,7 +658,7 @@
         .rarity-unreal { background: linear-gradient(135deg, #fff, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .rarity-exclusive { background: linear-gradient(135deg, #ff69b4, #ffd700, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* ===== ДРУГИЕ ТЕМЫ (сокращены) ===== */
+        /* ===== ОСТАЛЬНЫЕ ТЕМЫ (сокращены, оставляем) ===== */
         body.theme-windows7 { background: #2a6a9a; color: #000; }
         body.theme-windows7 #app { background: #e8e8e8; border: 2px solid #1a3a6a; border-radius: 8px; }
         body.theme-windows7 .header { border-bottom-color: #1a3a6a; }
@@ -679,6 +685,7 @@
         body.theme-windows_xp .case-card, body.theme-windows_xp .inv-item, body.theme-windows_xp .market-listing, body.theme-windows_xp .account-info, body.theme-windows_xp .game-wrap, body.theme-windows_xp .clicker-wrap, body.theme-windows_xp .clan-simple, body.theme-windows_xp .shop-item, body.theme-windows_xp .player-card, body.theme-windows_xp .chat-message { background: #ece9d8; border: 2px solid #0a246a; border-style: outset; color: #000; }
         body.theme-windows_xp .open-btn, body.theme-windows_xp .market-listing .price button, body.theme-windows_xp .click-btn, body.theme-windows_xp .modal-buttons button, body.theme-windows_xp .clan-create-btn, body.theme-windows_xp .shop-buy-btn { background: #0a246a; color: #fff; border: 2px solid #0a246a; border-style: outset; }
         body.theme-windows_xp .open-btn:hover, body.theme-windows_xp .market-listing .price button:hover, body.theme-windows_xp .click-btn:hover, body.theme-windows_xp .modal-buttons button:hover, body.theme-windows_xp .clan-create-btn:hover, body.theme-windows_xp .shop-buy-btn:hover { background: #1a3a8a; }
+
         body.theme-windows11 { background: #f0f0f0; color: #000; }
         body.theme-windows11 #app { background: #ffffff; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
         body.theme-windows11 .header { border-bottom-color: #e0e0e0; }
@@ -689,6 +696,7 @@
         body.theme-windows11 .case-card, body.theme-windows11 .inv-item, body.theme-windows11 .market-listing, body.theme-windows11 .account-info, body.theme-windows11 .game-wrap, body.theme-windows11 .clicker-wrap, body.theme-windows11 .clan-simple, body.theme-windows11 .shop-item, body.theme-windows11 .player-card, body.theme-windows11 .chat-message { background: #fafafa; border-color: #ddd; color: #000; }
         body.theme-windows11 .open-btn, body.theme-windows11 .market-listing .price button, body.theme-windows11 .click-btn, body.theme-windows11 .modal-buttons button, body.theme-windows11 .clan-create-btn, body.theme-windows11 .shop-buy-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
         body.theme-windows11 .open-btn:hover, body.theme-windows11 .market-listing .price button:hover, body.theme-windows11 .click-btn:hover, body.theme-windows11 .modal-buttons button:hover, body.theme-windows11 .clan-create-btn:hover, body.theme-windows11 .shop-buy-btn:hover { background: #106ebe; }
+
         body.theme-dark { background: #0a0a0a; color: #000; }
         body.theme-dark #app { background: #1a1a1a; border: 1px solid #333; }
         body.theme-dark .header { border-bottom-color: #333; }
@@ -699,6 +707,7 @@
         body.theme-dark .case-card, body.theme-dark .inv-item, body.theme-dark .market-listing, body.theme-dark .account-info, body.theme-dark .game-wrap, body.theme-dark .clicker-wrap, body.theme-dark .clan-simple, body.theme-dark .shop-item, body.theme-dark .player-card, body.theme-dark .chat-message { background: #222; border-color: #444; color: #000; }
         body.theme-dark .open-btn, body.theme-dark .market-listing .price button, body.theme-dark .click-btn, body.theme-dark .modal-buttons button, body.theme-dark .clan-create-btn, body.theme-dark .shop-buy-btn { background: #444; color: #000; border: 1px solid #666; }
         body.theme-dark .open-btn:hover, body.theme-dark .market-listing .price button:hover, body.theme-dark .click-btn:hover, body.theme-dark .modal-buttons button:hover, body.theme-dark .clan-create-btn:hover, body.theme-dark .shop-buy-btn:hover { background: #555; }
+
         body.theme-light { background: #f5f5f5; color: #000; }
         body.theme-light #app { background: #ffffff; border: 1px solid #ddd; }
         body.theme-light .header { border-bottom-color: #ddd; }
@@ -709,6 +718,7 @@
         body.theme-light .case-card, body.theme-light .inv-item, body.theme-light .market-listing, body.theme-light .account-info, body.theme-light .game-wrap, body.theme-light .clicker-wrap, body.theme-light .clan-simple, body.theme-light .shop-item, body.theme-light .player-card, body.theme-light .chat-message { background: #fafafa; border-color: #ddd; color: #000; }
         body.theme-light .open-btn, body.theme-light .market-listing .price button, body.theme-light .click-btn, body.theme-light .modal-buttons button, body.theme-light .clan-create-btn, body.theme-light .shop-buy-btn { background: #0078d4; color: #fff; border: none; border-radius: 6px; }
         body.theme-light .open-btn:hover, body.theme-light .market-listing .price button:hover, body.theme-light .click-btn:hover, body.theme-light .modal-buttons button:hover, body.theme-light .clan-create-btn:hover, body.theme-light .shop-buy-btn:hover { background: #106ebe; }
+
         body.theme-vk2010 { background: #c8d0d8; color: #1a2a3a; }
         body.theme-vk2010 #app { background: #e4eaf0; border: 1px solid #a0b0c0; border-radius: 8px; }
         body.theme-vk2010 .header { border-bottom-color: #a0b0c0; }
@@ -716,6 +726,7 @@
         body.theme-vk2010 .sidebar button { background: #d8e0e8; border: 1px solid #a0b0c0; color: #4a6a8a; }
         body.theme-vk2010 .sidebar button.active { background: #4a8aba; color: #fff; border-color: #4a8aba; }
         body.theme-vk2010 .top-bar { background: #d8e0e8; border-color: #a0b0c0; }
+
         body.theme-red { background: #2a0a0a; color: #f0d0d0; }
         body.theme-red #app { background: #3a1010; border: 1px solid #6a2020; }
         body.theme-red .header { border-bottom-color: #6a2020; }
@@ -723,6 +734,7 @@
         body.theme-red .sidebar button { background: #4a1818; border: 1px solid #6a2020; color: #f0d0d0; }
         body.theme-red .sidebar button.active { background: #8a2a2a; color: #fff; }
         body.theme-red .top-bar { background: #3a1010; border-color: #6a2020; }
+
         body.theme-blue { background: #0a1a3a; color: #c0d8f0; }
         body.theme-blue #app { background: #102050; border: 1px solid #2a4a8a; }
         body.theme-blue .header { border-bottom-color: #2a4a8a; }
@@ -731,7 +743,7 @@
         body.theme-blue .sidebar button.active { background: #2a5a9a; color: #fff; }
         body.theme-blue .top-bar { background: #102050; border-color: #2a4a8a; }
 
-        /* ===== ОБЩИЕ СТИЛИ ===== */
+        /* ===== ОБЩИЕ СТИЛИ (не зависят от темы) ===== */
         #app {
             width: 100%;
             max-width: 1000px;
@@ -744,9 +756,7 @@
         }
         .sidebar {
             width: 180px;
-            background: #1a1a1a;
             padding: 10px 0;
-            border-right: 2px solid #ff8c00;
             flex-shrink: 0;
             height: 100%;
             min-height: 500px;
@@ -755,23 +765,12 @@
             display: block;
             width: 100%;
             padding: 10px 16px;
-            background: #2a2a2a;
             border: none;
-            border-left: 3px solid transparent;
-            border-bottom: 1px solid #444;
-            color: #f0f0f0;
+            border-bottom: 1px solid #b0c8c8;
             font-size: 14px;
             text-align: left;
             cursor: pointer;
             transition: 0.2s;
-        }
-        .sidebar button:hover {
-            background: #3a3a3a;
-        }
-        .sidebar button.active {
-            background: #ff8c00;
-            color: #000;
-            border-left-color: #fff;
         }
         .content {
             flex: 1;
@@ -781,7 +780,7 @@
         .header {
             text-align: center;
             padding: 12px 0;
-            border-bottom: 2px solid #ff8c00;
+            border-bottom: 2px solid #2a7a7a;
             position: relative;
             width: 100%;
         }
@@ -794,68 +793,34 @@
             font-size: 18px;
             font-weight: bold;
             margin-top: 2px;
-            color: #ffaa33;
         }
         .header .subtitle {
             font-size: 13px;
             margin-top: 4px;
             color: #888;
         }
-        .header .log-btn-header {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            background: #222;
-            color: #ff8c00;
-            border: 2px solid #ff8c00;
-            border-radius: 8px;
-            padding: 6px 14px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: monospace;
-            transition: 0.2s;
-            z-index: 100;
-        }
-        .header .log-btn-header:hover {
-            background: #333;
-            transform: scale(1.05);
-        }
-        .header .log-btn-header.active {
-            background: #ff8c00;
-            color: #000;
-        }
+        .header .log-btn-header,
         .header .chat-btn-header {
             position: absolute;
-            right: 80px;
             top: 10px;
-            background: #222;
-            color: #ff8c00;
-            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 6px 14px;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
             transition: 0.2s;
             z-index: 100;
         }
-        .header .chat-btn-header:hover {
-            background: #333;
-            transform: scale(1.05);
-        }
-        .header .chat-btn-header.active {
-            background: #ff8c00;
-            color: #000;
-        }
+        .header .log-btn-header { right: 10px; font-family: monospace; }
+        .header .chat-btn-header { right: 80px; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        .header .log-btn-header:hover,
+        .header .chat-btn-header:hover { transform: scale(1.05); }
+        .header .log-btn-header.active { background: #2a8a7a; color: #fff; }
+        .header .chat-btn-header.active { background: #2a8a7a; color: #fff; }
         .header .activity-btn-header {
             position: absolute;
             left: 10px;
             top: 10px;
-            background: #222;
-            color: #ff8c00;
-            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 6px 14px;
             font-size: 14px;
@@ -864,19 +829,16 @@
             font-family: monospace;
             transition: 0.2s;
             z-index: 100;
+            background: #c8dcdc;
+            color: #1a5a5a;
+            border: 2px solid #2a7a7a;
         }
-        .header .activity-btn-header:hover {
-            background: #333;
-            transform: scale(1.05);
-        }
-        .header .activity-btn-header.active {
-            background: #ff8c00;
-            color: #000;
-        }
+        .header .activity-btn-header:hover { background: #b8d0d0; transform: scale(1.05); }
+        .header .activity-btn-header.active { background: #2a8a7a; color: #fff; }
         .header .beta-badge {
             display: inline-block;
-            background: #ff8c00;
-            color: #000;
+            background: #2a8a7a;
+            color: #fff;
             padding: 2px 12px;
             border-radius: 12px;
             font-size: 14px;
@@ -886,9 +848,8 @@
         .exclusive-banner {
             text-align: center;
             font-size: 15px;
-            color: #ff8c00;
             background: rgba(0,0,0,0.6);
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 8px;
             padding: 12px 16px;
             margin: 8px 0;
@@ -897,9 +858,9 @@
             line-height: 1.5;
         }
         @keyframes pulseBanner {
-            0% { border-color: #ff8c00; box-shadow: 0 0 5px rgba(255,140,0,0.3); }
-            50% { border-color: #ffaa33; box-shadow: 0 0 20px rgba(255,140,0,0.5); }
-            100% { border-color: #ff8c00; box-shadow: 0 0 5px rgba(255,140,0,0.3); }
+            0% { border-color: #2a7a7a; box-shadow: 0 0 5px rgba(42,138,122,0.3); }
+            50% { border-color: #3a9a8a; box-shadow: 0 0 20px rgba(42,138,122,0.5); }
+            100% { border-color: #2a7a7a; box-shadow: 0 0 5px rgba(42,138,122,0.3); }
         }
         .top-bar {
             display: flex;
@@ -908,24 +869,16 @@
             border-radius: 6px;
             padding: 10px 4px;
             margin: 10px 0;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             font-size: 15px;
             flex-wrap: wrap;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .top-bar .stat .value {
-            font-weight: bold;
-            font-size: 17px;
-            color: #ff8c00;
-        }
+        .top-bar .stat .value { font-weight: bold; font-size: 17px; }
         .top-bar .clock {
             font-weight: bold;
             font-size: 17px;
-            color: #ff8c00;
-            background: #2a2a2a;
             padding: 4px 12px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             font-family: monospace;
         }
@@ -937,51 +890,28 @@
             gap: 6px;
         }
         .event-btn-row button {
-            background: #2a2a2a;
-            border: 2px solid #ff8c00;
             border-radius: 8px;
             padding: 10px 24px;
             font-weight: bold;
             font-size: 16px;
-            color: #ff8c00;
             cursor: pointer;
             transition: 0.2s;
             flex: 0 1 auto;
             min-width: 160px;
         }
-        .event-btn-row button:hover {
-            background: #1a1a1a;
-            transform: scale(1.02);
-            box-shadow: 0 4px 16px rgba(255,140,0,0.3);
-        }
-        .event-btn-row button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .main-content {
-            margin-top: 12px;
-            min-height: 350px;
-        }
-        .section {
-            display: none;
-        }
-        .section.active {
-            display: block;
-        }
+        .event-btn-row button:hover { transform: scale(1.02); box-shadow: 0 4px 16px rgba(42,138,122,0.3); }
+        .event-btn-row button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .main-content { margin-top: 12px; min-height: 350px; }
+        .section { display: none; }
+        .section.active { display: block; }
         .title {
             font-size: 22px;
             font-weight: bold;
-            border-bottom: 2px solid #ff8c00;
+            border-bottom: 2px solid #2a7a7a;
             padding-bottom: 8px;
             margin-bottom: 14px;
-            color: #ff8c00;
         }
-        .title .badge {
-            font-size: 14px;
-            font-weight: normal;
-            color: #aaa;
-        }
+        .title .badge { font-size: 14px; font-weight: normal; color: #888; }
         .tab-bar {
             display: flex;
             gap: 8px;
@@ -994,41 +924,27 @@
             padding: 8px 16px;
             cursor: pointer;
             font-size: 15px;
-            background: #2a2a2a;
-            color: #ccc;
             transition: 0.2s;
         }
-        .tab-bar button.active {
-            background: #ff8c00;
-            color: #000;
-            border-color: #ff8c00;
-        }
-        .tab-bar button:hover {
-            background: #3a3a3a;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
+        .tab-bar button.active { background: #2a8a7a; color: #fff; border-color: #2a8a7a; }
+        .tab-bar button:hover { background: #c8dcdc; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
         /* ===== КЕЙСЫ ===== */
         .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .case-card {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 16px;
             text-align: center;
             position: relative;
             transition: 0.2s;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .case-card:hover { background: #2a2a1a; }
+        .case-card:hover { background: #dce8e8; }
         .case-card .case-emoji { font-size: 40px; display: block; margin-bottom: 6px; }
-        .case-card .case-name { font-size: 18px; font-weight: bold; color: #fff; }
-        .case-card .case-price { font-size: 14px; color: #ffaa33; }
+        .case-card .case-name { font-size: 18px; font-weight: bold; }
+        .case-card .case-price { font-size: 14px; }
         .case-card .open-btn {
             display: block;
             width: 100%;
@@ -1040,11 +956,8 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            background: #ff8c00;
-            color: #000;
         }
         .case-card .open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .case-card .open-btn:hover:not(:disabled) { background: #ffaa33; }
         .case-card .info-btn {
             position: absolute;
             top: 6px;
@@ -1060,10 +973,10 @@
             align-items: center;
             justify-content: center;
             border: none;
-            background: #555;
-            color: #fff;
+            background: #b0c8c8;
+            color: #1a2a2a;
         }
-        .case-card .info-btn:hover { background: #666; }
+        .case-card .info-btn:hover { background: #9ab8b8; }
         .case-card .chances-tooltip {
             display: none;
             position: absolute;
@@ -1099,21 +1012,17 @@
         .case-card .chances-tooltip .close-tooltip:hover { color: #fff; }
         .case-card .free-badge {
             display: inline-block;
-            background: #ff8c00;
-            color: #000;
+            background: #2a8a7a;
+            color: #fff;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
             margin-top: 4px;
         }
-        .case-card .event-progress {
-            font-size: 12px;
-            color: #ff8c00;
-            margin-top: 4px;
-        }
+        .case-card .event-progress { font-size: 12px; margin-top: 4px; }
         .case-card .locked-badge {
             display: inline-block;
-            background: #555;
+            background: #888;
             color: #fff;
             padding: 2px 8px;
             border-radius: 4px;
@@ -1124,18 +1033,16 @@
         /* ===== ИНВЕНТАРЬ ===== */
         .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 10px; }
         .inv-item {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
             font-size: 14px;
             position: relative;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
         .inv-item .item-emoji { font-size: 30px; display: block; }
-        .inv-item .item-name { font-weight: bold; font-size: 13px; color: #fff; }
-        .inv-item .item-count { font-size: 12px; color: #aaa; }
+        .inv-item .item-name { font-weight: bold; font-size: 13px; }
+        .inv-item .item-count { font-size: 12px; color: #888; }
         .inv-item .item-rarity { font-size: 11px; display: block; }
         .inv-item .btn-group {
             display: flex;
@@ -1178,20 +1085,16 @@
         }
         .inv-toggle-group button {
             padding: 6px 14px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
-            background: #2a2a2a;
             cursor: pointer;
             font-size: 14px;
-            color: #ccc;
+            background: #dce8e8;
+            color: #1a2a2a;
         }
-        .inv-toggle-group button.active {
-            background: #ff8c00;
-            color: #000;
-        }
+        .inv-toggle-group button.active { background: #2a8a7a; color: #fff; }
         .free-opens-display {
-            background: #2a2a2a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             padding: 8px 12px;
             margin-bottom: 10px;
@@ -1199,11 +1102,10 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            color: #f0f0f0;
         }
         .free-opens-display .free-item {
-            background: #ff8c00;
-            color: #000;
+            background: #2a8a7a;
+            color: #fff;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
@@ -1212,19 +1114,17 @@
         /* ===== РЫНОК ===== */
         .market-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
         .market-tabs button {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 8px 16px;
             cursor: pointer;
             font-size: 15px;
-            background: #2a2a2a;
-            color: #ccc;
             transition: 0.2s;
         }
-        .market-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
-        .market-tabs button:hover { background: #3a3a3a; }
+        .market-tabs button.active { background: #2a8a7a; color: #fff; border-color: #2a8a7a; }
+        .market-tabs button:hover { background: #c8dcdc; }
         .market-listing {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px 14px;
             margin-bottom: 8px;
@@ -1232,14 +1132,12 @@
             justify-content: space-between;
             align-items: center;
             font-size: 15px;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
         .market-listing .info { display: flex; gap: 12px; align-items: center; }
         .market-listing .info .emoji { font-size: 28px; }
-        .market-listing .info .details .name { font-weight: bold; color: #fff; }
-        .market-listing .info .details .seller { font-size: 12px; color: #999; }
-        .market-listing .price { font-weight: bold; color: #ff8c00; }
+        .market-listing .info .details .name { font-weight: bold; }
+        .market-listing .info .details .seller { font-size: 12px; }
+        .market-listing .price { font-weight: bold; }
         .market-listing .price button {
             border: none;
             border-radius: 6px;
@@ -1248,34 +1146,25 @@
             font-size: 14px;
             margin-left: 10px;
             transition: 0.2s;
-            background: #ff8c00;
-            color: #000;
         }
-        .market-listing .price button:hover { background: #ffaa33; }
-        .market-sort { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; color: #ccc; }
+        .market-sort { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
         .market-sort select {
             padding: 6px 10px;
             border-radius: 4px;
             font-size: 14px;
-            background: #2a2a2a;
-            border: 1px solid #555;
-            color: #f0f0f0;
+            border: 1px solid #2a7a7a;
         }
         .market-sell-form {
             margin-top: 12px;
             padding: 12px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
-            background: #2a2a2a;
-            color: #f0f0f0;
         }
         .market-sell-form select, .market-sell-form input {
             padding: 8px;
             border-radius: 4px;
             font-size: 15px;
-            background: #2a2a2a;
-            border: 1px solid #555;
-            color: #f0f0f0;
+            border: 1px solid #2a7a7a;
         }
         .market-sell-form .row {
             display: flex;
@@ -1290,44 +1179,38 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
-            background: #ff8c00;
-            color: #000;
         }
-        .market-sell-form .row button:hover { background: #ffaa33; }
 
         /* ===== РЕЙТИНГ ===== */
         .rating-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
         .rating-tabs button {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 8px 14px;
             cursor: pointer;
             font-size: 14px;
-            background: #2a2a2a;
-            color: #ccc;
             transition: 0.2s;
         }
-        .rating-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
-        .rating-tabs button:hover { background: #3a3a3a; }
+        .rating-tabs button.active { background: #2a8a7a; color: #fff; border-color: #2a8a7a; }
+        .rating-tabs button:hover { background: #c8dcdc; }
         .rank-item {
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid #b0c8c8;
             padding: 10px 12px;
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 16px;
             flex-wrap: wrap;
-            color: #f0f0f0;
         }
-        .rank-item .pos { width: 30px; text-align: center; font-weight: bold; color: #888; }
-        .rank-item .pos.gold { color: #ff8c00; }
-        .rank-item .pos.silver { color: #c0c0c0; }
-        .rank-item .pos.bronze { color: #cd7f32; }
-        .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: #f0f0f0; }
-        .rank-item .value { font-weight: bold; color: #ff8c00; }
-        .rank-item.you { background: #2a2a1a; border: 1px solid #ff8c00; border-radius: 6px; }
-        .rank-item .clan-tag { font-size: 12px; color: #888; margin-left: 6px; }
-        .rank-item .leader { color: #ff8c00; }
+        .rank-item .pos { width: 30px; text-align: center; font-weight: bold; }
+        .rank-item .pos.gold { color: #2a7a5a; }
+        .rank-item .pos.silver { color: #8a9a9a; }
+        .rank-item .pos.bronze { color: #8a7a4a; }
+        .rank-item .name { flex: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .rank-item .value { font-weight: bold; }
+        .rank-item.you { background: #d0e8e0; border: 1px solid #2a7a7a; border-radius: 6px; }
+        .rank-item .clan-tag { font-size: 12px; margin-left: 6px; }
+        .rank-item .leader { color: #2a8a7a; }
         .rank-item .member { color: #999; }
         .rank-item .title-tag { font-size: 12px; font-weight: bold; margin-left: 4px; }
         .title-color-brown { color: #8B4513; }
@@ -1342,77 +1225,76 @@
         /* ===== МАГАЗИН ===== */
         .shop-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
         .shop-tabs button {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 8px 16px;
             cursor: pointer;
             font-size: 15px;
-            background: #2a2a2a;
-            color: #ccc;
             transition: 0.2s;
         }
-        .shop-tabs button.active { background: #ff8c00; color: #000; border-color: #ff8c00; }
-        .shop-tabs button:hover { background: #3a3a3a; }
+        .shop-tabs button.active { background: #2a8a7a; color: #fff; border-color: #2a8a7a; }
+        .shop-tabs button:hover { background: #c8dcdc; }
         .shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .shop-item {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .shop-item .shop-item-name { font-weight: bold; font-size: 16px; color: #fff; }
-        .shop-item .shop-item-price { font-size: 14px; color: #aaa; margin: 6px 0; }
-        .shop-item .shop-buy-btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; background: #ff8c00; color: #000; }
+        .shop-item .shop-item-name { font-weight: bold; font-size: 16px; }
+        .shop-item .shop-item-price { font-size: 14px; margin: 6px 0; }
+        .shop-item .shop-buy-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
         .shop-item .shop-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .shop-item .shop-buy-btn:hover:not(:disabled) { background: #ffaa33; }
-        .shop-item .owned { color: #4a8a4a; font-weight: bold; }
-        .shop-item .coming-soon { color: #ff8c00; font-weight: bold; font-size: 13px; margin-top: 4px; }
+        .shop-item .owned { font-weight: bold; }
+        .shop-item .coming-soon { font-weight: bold; font-size: 13px; margin-top: 4px; }
 
         /* ===== НАСТРОЙКИ ===== */
-        .settings-group { margin-bottom: 18px; color: #f0f0f0; }
-        .settings-group label { display: block; font-size: 16px; margin-bottom: 6px; color: #fff; }
-        .settings-group .desc { font-size: 13px; color: #888; }
+        .settings-group { margin-bottom: 18px; }
+        .settings-group label { display: block; font-size: 16px; margin-bottom: 6px; }
+        .settings-group .desc { font-size: 13px; }
         .settings-group input[type="range"] {
             width: 100%;
             height: 6px;
             -webkit-appearance: none;
             border-radius: 4px;
             outline: none;
-            background: #444;
         }
         .settings-group input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #ff8c00;
             cursor: pointer;
         }
-        .settings-group .range-value { font-weight: bold; margin-left: 8px; color: #ff8c00; }
+        .settings-group .range-value { font-weight: bold; margin-left: 8px; }
         .settings-group .color-grid { display: flex; gap: 8px; flex-wrap: wrap; }
         .settings-group .color-grid .color-btn {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 2px solid #555;
+            border: 2px solid #b0c8c8;
             cursor: pointer;
             transition: 0.2s;
         }
-        .settings-group .color-grid .color-btn.active { border-color: #ff8c00; box-shadow: 0 0 10px rgba(255,140,0,0.3); }
-        .toggle-row { display: flex; align-items: center; gap: 14px; color: #f0f0f0; }
+        .settings-group .color-grid .color-btn.active { border-color: #2a8a7a; box-shadow: 0 0 10px rgba(42,138,122,0.3); }
+        .toggle-row { display: flex; align-items: center; gap: 14px; }
         .toggle {
             width: 44px;
             height: 24px;
             border-radius: 24px;
             cursor: pointer;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             position: relative;
             transition: 0.3s;
-            background: #444;
+            background: #b0c8c8;
         }
-        .toggle.on { background: #ff8c00; }
+        .toggle.on { background: #2a8a7a; }
         .toggle .knob {
             width: 18px;
             height: 18px;
@@ -1437,13 +1319,11 @@
         }
         .case-modal-overlay.open { display: flex; }
         .case-modal {
-            background: #1a1a1a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 12px;
             padding: 24px;
             max-width: 450px;
             width: 100%;
-            color: #f0f0f0;
         }
         .case-modal .close-btn {
             float: right;
@@ -1451,14 +1331,12 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #aaa;
             transition: 0.2s;
         }
-        .case-modal .close-btn:hover { color: #fff; }
-        .case-modal .modal-title { text-align: center; font-size: 22px; color: #ff8c00; }
+        .case-modal .close-btn:hover { opacity: 0.7; }
+        .case-modal .modal-title { text-align: center; font-size: 22px; }
         .slot-container {
-            background: #2a2a2a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             height: 100px;
             overflow: hidden;
@@ -1482,23 +1360,21 @@
             flex-shrink: 0;
             font-size: 16px;
             gap: 10px;
-            color: #aaa;
             transition: color 0.2s, background 0.2s;
             padding: 0 10px;
         }
-        .slot-item.active { color: #ff8c00; background: rgba(255,140,0,0.1); }
-        .slot-item.highlight { color: #ff8c00; background: rgba(255,140,0,0.2); }
+        .slot-item.active { background: rgba(42,138,122,0.1); }
+        .slot-item.highlight { background: rgba(42,138,122,0.2); }
         .result-display {
             text-align: center;
             padding: 14px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             margin: 10px 0;
-            color: #f0f0f0;
         }
         .result-display .big-emoji { font-size: 48px; display: block; }
-        .result-display .result-name { font-size: 18px; font-weight: bold; color: #ff8c00; }
-        .result-display .result-rare { font-size: 14px; color: #aaa; }
+        .result-display .result-name { font-size: 18px; font-weight: bold; }
+        .result-display .result-rare { font-size: 14px; }
         .modal-buttons {
             display: flex;
             gap: 10px;
@@ -1515,30 +1391,23 @@
             cursor: pointer;
             transition: 0.2s;
             min-width: 100px;
-            background: #ff8c00;
-            color: #000;
         }
-        .modal-buttons button:hover { background: #ffaa33; }
 
         /* ===== ИГРЫ ===== */
         .game-wrap {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
             text-align: center;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
         .game-wrap .game-stats {
             font-size: 18px;
             margin-bottom: 12px;
             padding: 6px;
-            background: #2a2a2a;
             border-radius: 4px;
-            border: 1px solid #ff8c00;
-            color: #f0f0f0;
+            border: 1px solid #2a7a7a;
         }
-        .game-wrap .game-stats span { font-weight: bold; color: #ff8c00; }
+        .game-wrap .game-stats span { font-weight: bold; }
         .game-wrap .game-canvas {
             width: 100%;
             background: #0a1a2b;
@@ -1554,16 +1423,14 @@
         }
         .game-wrap .game-controls { margin-top: 12px; }
         .game-wrap .game-controls button {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 10px 24px;
             cursor: pointer;
             font-size: 16px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             transition: 0.2s;
         }
-        .game-wrap .game-controls button:hover { background: #3a3a3a; }
+        .game-wrap .game-controls button:hover { background: #c8dcdc; }
         .game-touch-controls {
             display: flex;
             justify-content: center;
@@ -1575,28 +1442,21 @@
             height: 70px;
             font-size: 30px;
             border-radius: 50%;
-            border: 2px solid #555;
-            background: #2a2a2a;
-            color: #f0f0f0;
+            border: 2px solid #2a7a7a;
             touch-action: none;
             user-select: none;
         }
-        .game-touch-controls button:active {
-            background: #3a3a3a;
-            transform: scale(0.95);
-        }
+        .game-touch-controls button:active { transform: scale(0.95); }
 
         /* ===== КЛИКЕР ===== */
         .clicker-wrap {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 20px;
             text-align: center;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .clicker-wrap .clicker-stats { font-size: 18px; margin-bottom: 12px; color: #f0f0f0; }
-        .clicker-wrap .clicker-stats span { font-weight: bold; color: #ff8c00; }
+        .clicker-wrap .clicker-stats { font-size: 18px; margin-bottom: 12px; }
+        .clicker-wrap .clicker-stats span { font-weight: bold; }
         .clicker-wrap .click-btn {
             border: none;
             border-radius: 8px;
@@ -1605,29 +1465,25 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-            background: #ff8c00;
-            color: #000;
         }
-        .clicker-wrap .click-btn:hover { background: #ffaa33; }
+        .clicker-wrap .click-btn:hover { opacity: 0.9; }
         .clicker-wrap .click-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .clicker-wrap .click-timer { font-size: 14px; color: #aaa; margin-top: 8px; }
+        .clicker-wrap .click-timer { font-size: 14px; margin-top: 8px; }
 
         /* ===== АККАУНТ ===== */
         .account-info {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 16px;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
         .account-info .row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid #b0c8c8;
         }
-        .account-info .row .label { color: #aaa; }
-        .account-info .row .value { font-weight: bold; color: #ff8c00; }
+        .account-info .row .label { color: #555; }
+        .account-info .row .value { font-weight: bold; }
         .account-info .row:last-child { border-bottom: none; }
         .account-actions {
             margin-top: 16px;
@@ -1636,16 +1492,14 @@
             gap: 10px;
         }
         .account-actions button {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
             transition: 0.2s;
-            background: #2a2a2a;
-            color: #f0f0f0;
         }
-        .account-actions button:hover { background: #3a3a3a; }
+        .account-actions button:hover { background: #c8dcdc; }
         .account-actions .danger { background: #883333; color: #fff; border: none; }
         .account-actions .danger:hover { background: #aa4444; }
         .account-actions .delete-account { background: #883333; color: #fff; border: none; }
@@ -1659,11 +1513,9 @@
         .clan-input input {
             flex: 1;
             padding: 6px 10px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             font-size: 14px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             max-width: 150px;
         }
         .clan-input button {
@@ -1672,49 +1524,54 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
-            background: #ff8c00;
-            color: #000;
             transition: 0.2s;
         }
-        .clan-input button:hover { background: #ffaa33; }
+        .clan-input button:hover { opacity: 0.9; }
         .clan-input .clear-clan { background: #883333; color: #fff; }
         .clan-input .clear-clan:hover { background: #aa4444; }
 
         .progress-bar {
             width: 100%;
             height: 20px;
-            background: #2a2a2a;
             border-radius: 10px;
             overflow: hidden;
             margin: 8px 0;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
         }
         .progress-bar .fill {
             height: 100%;
-            background: #ff8c00;
             transition: width 0.3s;
             border-radius: 10px;
         }
 
         /* ===== КЛАНЫ ===== */
         .clan-simple {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .clan-simple .clan-name { font-weight: bold; font-size: 18px; color: #ff8c00; }
+        .clan-simple .clan-name { font-weight: bold; font-size: 18px; }
         .clan-simple .clan-input-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
-        .clan-simple .clan-input-row input { padding: 6px 10px; border: 1px solid #555; border-radius: 4px; background: #2a2a2a; color: #f0f0f0; flex:1; max-width:200px; }
-        .clan-simple .clan-input-row button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; background: #ff8c00; color: #000; }
-        .clan-simple .clan-input-row button:hover { background: #ffaa33; }
+        .clan-simple .clan-input-row input {
+            padding: 6px 10px;
+            border: 1px solid #2a7a7a;
+            border-radius: 4px;
+            flex:1;
+            max-width:200px;
+        }
+        .clan-simple .clan-input-row button {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .clan-simple .clan-input-row button:hover { opacity: 0.9; }
         .clan-simple .clan-input-row button.clear { background: #883333; color: #fff; }
         .clan-simple .clan-input-row button.clear:hover { background: #aa4444; }
 
         /* ===== ИГРОКИ ===== */
         .player-card {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 10px 14px;
             margin-bottom: 6px;
@@ -1723,12 +1580,10 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 6px;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
-        .player-card .player-name { font-weight: bold; color: #fff; }
+        .player-card .player-name { font-weight: bold; }
         .player-card .player-status { font-size: 13px; }
-        .player-card .player-status.online { color: #4a8a4a; }
+        .player-card .player-status.online { color: #2a7a4a; }
         .player-card .player-status.offline { color: #888; }
         .player-card .player-last { font-size: 12px; color: #999; }
         .player-card .player-actions button {
@@ -1738,10 +1593,8 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
-            background: #ff8c00;
-            color: #000;
         }
-        .player-card .player-actions button:hover { background: #ffaa33; }
+        .player-card .player-actions button:hover { opacity: 0.9; }
 
         /* ===== ВХОД ===== */
         #loginOverlay {
@@ -1757,35 +1610,31 @@
         }
         #loginOverlay.hidden { display: none; }
         .login-box {
-            background: #1a1a1a;
-            border: 1px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 12px;
             padding: 30px;
             max-width: 400px;
             width: 100%;
-            color: #f0f0f0;
             max-height: 90vh;
             overflow-y: auto;
         }
-        .login-box h2 { text-align: center; font-size: 26px; color: #ff8c00; }
-        .login-box .sub { text-align: center; font-size: 15px; margin-bottom: 16px; color: #aaa; }
-        .login-box .promo { text-align: center; font-size: 14px; margin: 10px 0; border-top: 1px solid #ff8c00; padding-top: 12px; color: #aaa; }
+        .login-box h2 { text-align: center; font-size: 26px; }
+        .login-box .sub { text-align: center; font-size: 15px; margin-bottom: 16px; }
+        .login-box .promo { text-align: center; font-size: 14px; margin: 10px 0; border-top: 1px solid #2a7a7a; padding-top: 12px; }
         .login-box input {
             width: 100%;
             padding: 12px 16px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             margin-bottom: 12px;
             font-size: 16px;
-            background: #2a2a2a;
-            color: #f0f0f0;
         }
-        .login-box input:focus { outline: none; border-color: #ff8c00; }
+        .login-box input:focus { outline: none; border-color: #2a8a7a; }
         .login-box .row { display: flex; gap: 10px; flex-wrap: wrap; }
         .login-box .row button {
             flex: 1;
             padding: 12px;
-            border: 2px solid #555;
+            border: 2px solid #2a7a7a;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
@@ -1793,29 +1642,22 @@
             transition: 0.2s;
             min-width: 100px;
         }
-        .login-box .row .login-btn { background: #ff8c00; color: #000; border-color: #ff8c00; }
-        .login-box .row .register-btn { background: #2a2a2a; color: #f0f0f0; border-color: #555; }
-        .login-box .row .save-btn { background: #2a6a4a; color: #fff; border-color: #4a8a4a; }
         .login-box .row button:hover { opacity: 0.9; }
         .login-box .error { color: #ff6b6b; font-size: 15px; margin-top: 8px; text-align: center; }
-        .login-box .info { text-align: center; font-size: 13px; margin-top: 12px; color: #aaa; }
+        .login-box .info { text-align: center; font-size: 13px; margin-top: 12px; }
         .login-box .log-area {
             margin-top: 12px;
             padding: 8px;
-            background: #0a0a0a;
-            color: #0f0;
             font-family: monospace;
             font-size: 12px;
             max-height: 120px;
             overflow-y: auto;
             border-radius: 4px;
-            border: 1px solid #333;
+            border: 1px solid #b0c8c8;
             display: none;
         }
         .login-box .log-area.show { display: block; }
         .login-box .log-btn {
-            background: #333;
-            color: #fff;
             border: none;
             padding: 4px 12px;
             border-radius: 4px;
@@ -1823,22 +1665,17 @@
             font-size: 12px;
             margin-top: 6px;
         }
-        .login-box .log-btn:hover { background: #555; }
+        .login-box .log-btn:hover { background: #9ab8b8; }
         .saved-account {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: #2a2a2a;
             padding: 8px 12px;
             border-radius: 6px;
             margin-bottom: 12px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
         }
-        .saved-account .saved-nick {
-            font-weight: bold;
-            color: #ff8c00;
-            cursor: pointer;
-        }
+        .saved-account .saved-nick { font-weight: bold; cursor: pointer; }
         .saved-account .saved-nick:hover { text-decoration: underline; }
         .saved-account .saved-remove {
             background: #883333;
@@ -1853,7 +1690,7 @@
         /* ===== ДОСТИЖЕНИЯ ===== */
         .achieve-grid { display: flex; flex-wrap: wrap; gap: 8px; max-height: 500px; overflow-y: auto; padding: 4px; }
         .achieve-item {
-            border: 1px solid #444;
+            border: 1px solid #b0c8c8;
             border-radius: 6px;
             padding: 6px 12px;
             font-size: 13px;
@@ -1861,19 +1698,16 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #666;
-            background: #222;
             flex: 0 1 auto;
         }
-        .achieve-item.unlocked { opacity: 1; border-color: #ff8c00; color: #f0f0f0; background: #2a2a1a; }
+        .achieve-item.unlocked { opacity: 1; border-color: #2a7a7a; background: #d0e8e0; }
 
         /* ===== КВЕСТЫ ===== */
         .quest-grid { display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto; padding: 4px; }
         .quest-item {
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 10px 14px;
-            background: #2a2a2a;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1881,28 +1715,27 @@
             gap: 6px;
         }
         .quest-item .quest-info { flex: 1; }
-        .quest-item .quest-name { font-weight: bold; color: #fff; }
-        .quest-item .quest-desc { font-size: 13px; color: #aaa; }
-        .quest-item .quest-reward { font-size: 12px; color: #ffaa33; }
+        .quest-item .quest-name { font-weight: bold; }
+        .quest-item .quest-desc { font-size: 13px; }
+        .quest-item .quest-reward { font-size: 12px; }
         .quest-item .quest-status { font-size: 14px; font-weight: bold; }
-        .quest-item .quest-status.done { color: #4a8a4a; }
-        .quest-item .quest-status.pending { color: #ff8c00; }
+        .quest-item .quest-status.done { color: #2a7a4a; }
+        .quest-item .quest-status.pending { color: #2a8a7a; }
 
         /* ===== БОСС ===== */
         .boss-container {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 8px;
             padding: 12px;
-            background: #1a1a1a;
             margin: 10px 0;
             text-align: center;
         }
-        .boss-container .boss-name { font-size: 22px; font-weight: bold; color: #ff8c00; }
-        .boss-container .boss-hp { font-size: 18px; color: #f0f0f0; }
-        .boss-container .boss-hp span { color: #ff8c00; }
-        .boss-container .boss-progress { height: 20px; background: #2a2a2a; border-radius: 10px; overflow: hidden; margin: 8px 0; border: 1px solid #ff8c00; }
-        .boss-container .boss-progress .fill { height: 100%; background: #ff8c00; transition: width 0.5s; }
-        .boss-container .boss-rewards { font-size: 13px; color: #aaa; margin-top: 6px; }
+        .boss-container .boss-name { font-size: 22px; font-weight: bold; }
+        .boss-container .boss-hp { font-size: 18px; }
+        .boss-container .boss-hp span { font-weight: bold; }
+        .boss-container .boss-progress { height: 20px; border-radius: 10px; overflow: hidden; margin: 8px 0; border: 1px solid #2a7a7a; }
+        .boss-container .boss-progress .fill { height: 100%; transition: width 0.5s; }
+        .boss-container .boss-rewards { font-size: 13px; margin-top: 6px; }
 
         /* ===== ПРОЧЕЕ ===== */
         .chance-overlay {
@@ -1916,15 +1749,13 @@
         }
         .chance-overlay.open { display: flex; }
         .chance-box {
-            background: #1a1a1a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 12px;
             padding: 24px;
             max-width: 400px;
             width: 100%;
             max-height: 80vh;
             overflow-y: auto;
-            color: #f0f0f0;
         }
         .chance-box .close-btn {
             float: right;
@@ -1932,27 +1763,23 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #aaa;
         }
-        .chance-box .close-btn:hover { color: #fff; }
+        .chance-box .close-btn:hover { opacity: 0.7; }
         .chance-box .chance-item {
             display: flex;
             justify-content: space-between;
             padding: 6px 0;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid #b0c8c8;
             font-size: 15px;
         }
-        .chance-box .chance-item .rarity {
-            font-size: 13px;
-            color: #aaa;
-        }
+        .chance-box .chance-item .rarity { font-size: 13px; }
 
         .toast {
             position: fixed;
             bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 8px;
             padding: 14px 28px;
             font-size: 16px;
@@ -1960,8 +1787,6 @@
             transition: 0.3s;
             z-index: 3000;
             pointer-events: none;
-            background: #1a1a1a;
-            color: #f0f0f0;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         .toast.show { opacity: 1; }
@@ -1969,55 +1794,49 @@
         .footer-note {
             text-align: center;
             font-size: 13px;
-            border-top: 1px solid #ff8c00;
+            border-top: 1px solid #2a7a7a;
             padding-top: 12px;
             margin-top: 16px;
-            color: #888;
         }
-        .footer-note a { text-decoration: none; color: #ff8c00; }
+        .footer-note a { text-decoration: none; }
 
         .update-announce {
             text-align: center;
             font-size: 14px;
-            color: #ff8c00;
-            background: #2a2a2a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 10px;
             margin: 10px 0;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { border-color: #ff8c00; }
-            50% { border-color: #ffaa33; }
-            100% { border-color: #ff8c00; }
+            0% { border-color: #2a7a7a; }
+            50% { border-color: #3a9a8a; }
+            100% { border-color: #2a7a7a; }
         }
         .wipe-banner {
             text-align: center;
             font-size: 18px;
             font-weight: bold;
             color: #fff;
-            background: #883333;
+            background: #a04040;
             padding: 10px;
             border-radius: 6px;
             margin: 10px 0;
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             animation: pulseBanner 1.5s infinite;
         }
-        .wipe-banner { animation: pulseBanner 1.5s infinite; }
 
         .rating-refresh-btn {
             margin-left: 10px;
             padding: 6px 16px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
-            background: #2a2a2a;
             cursor: pointer;
             font-size: 14px;
             transition: 0.2s;
-            color: #f0f0f0;
         }
-        .rating-refresh-btn:hover { background: #3a3a3a; }
+        .rating-refresh-btn:hover { background: #c8dcdc; }
         .rating-refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .easter-egg-btn {
@@ -2052,11 +1871,9 @@
         .promo-input input {
             flex: 1;
             padding: 8px 12px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             font-size: 15px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             max-width: 200px;
         }
         .promo-input button {
@@ -2066,10 +1883,8 @@
             cursor: pointer;
             font-size: 15px;
             transition: 0.2s;
-            background: #ff8c00;
-            color: #000;
         }
-        .promo-input button:hover { background: #ffaa33; }
+        .promo-input button:hover { opacity: 0.9; }
 
         #bg-music { display: none; }
         #loadingStatus {
@@ -2088,7 +1903,7 @@
         }
         #loadingStatus .spinner {
             border: 6px solid #f3f3f3;
-            border-top: 6px solid #ff8c00;
+            border-top: 6px solid #2a8a7a;
             border-radius: 50%;
             width: 60px;
             height: 60px;
@@ -2130,7 +1945,7 @@
             max-height: 350px;
             background: #1a1a1a;
             color: #f0f0f0;
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 8px;
             padding: 12px;
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -2150,19 +1965,17 @@
             align-items: baseline;
         }
         .activity-popup .activity-item .time { color: #888; font-size: 10px; min-width: 55px; }
-        .activity-popup .activity-item .actor { color: #ff8c00; font-weight: bold; }
+        .activity-popup .activity-item .actor { color: #2a8a7a; font-weight: bold; }
         .activity-popup .activity-item .action { color: #ccc; }
-        .activity-popup .activity-item .highlight { color: #ff8c00; }
+        .activity-popup .activity-item .highlight { color: #2a8a7a; }
         .activity-popup .activity-empty { color: #666; text-align: center; padding: 20px 0; }
 
         .reset-progress-btn {
             background: #883333 !important;
             color: #fff !important;
-            border-color: #aa4444 !important;
+            border: none !important;
         }
-        .reset-progress-btn:hover {
-            background: #aa4444 !important;
-        }
+        .reset-progress-btn:hover { background: #aa4444 !important; }
         .captcha-overlay {
             position: fixed;
             inset: 0;
@@ -2174,21 +1987,17 @@
         }
         .captcha-overlay.hidden { display: none; }
         .captcha-box {
-            background: #1a1a1a;
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 12px;
             padding: 24px;
             max-width: 350px;
             width: 100%;
             text-align: center;
-            color: #f0f0f0;
         }
         .captcha-box .captcha-text {
             font-size: 28px;
             font-weight: bold;
             letter-spacing: 6px;
-            background: #0a0a0a;
-            color: #0f0;
             padding: 8px;
             border-radius: 4px;
             margin: 12px 0;
@@ -2197,32 +2006,26 @@
         .captcha-box input {
             width: 100%;
             padding: 8px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             font-size: 18px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             text-align: center;
         }
         .captcha-box button {
             margin-top: 12px;
             padding: 8px 24px;
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 6px;
-            background: #ff8c00;
-            color: #000;
             font-weight: bold;
             cursor: pointer;
             font-size: 16px;
         }
-        .captcha-box button:hover { background: #ffaa33; }
+        .captcha-box button:hover { opacity: 0.9; }
 
         .notification {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             padding: 12px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -2233,29 +2036,24 @@
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
         }
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .notification.show { opacity: 1; transform: translateY(0); }
         .event-rewards {
             font-size: 13px;
             text-align: left;
             margin-top: 8px;
             padding: 8px 12px;
-            background: #1a2a1a;
             border-radius: 6px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             max-height: 200px;
             overflow-y: auto;
             display: none;
-            color: #f0f0f0;
         }
         .event-rewards.show { display: block; }
         .event-rewards .reward-line {
             padding: 2px 0;
-            border-bottom: 1px solid rgba(255,140,0,0.1);
+            border-bottom: 1px solid rgba(42,138,122,0.1);
             font-size: 12px;
         }
         .event-rewards .reward-line:last-child { border-bottom: none; }
@@ -2272,14 +2070,12 @@
         }
         .profile-modal-overlay.open { display: flex; }
         .profile-modal {
-            background: #1a1a1a;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 12px;
             padding: 24px;
             max-width: 90%;
             width: 100%;
             max-width: 500px;
-            color: #f0f0f0;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -2289,14 +2085,13 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #aaa;
         }
-        .profile-modal .close-btn:hover { color: #fff; }
+        .profile-modal .close-btn:hover { opacity: 0.7; }
         .profile-modal .profile-row {
             display: flex;
             justify-content: space-between;
             padding: 6px 0;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid #b0c8c8;
         }
         .profile-modal .profile-row:last-child { border-bottom: none; }
         .profile-modal .inv-grid-mini {
@@ -2306,21 +2101,18 @@
             margin-top: 8px;
         }
         .profile-modal .inv-grid-mini .mini-item {
-            background: #2a2a2a;
             border-radius: 4px;
             padding: 4px;
             text-align: center;
             font-size: 20px;
-            border: 1px solid #444;
+            border: 1px solid #b0c8c8;
         }
 
         /* ===== ЧАТ ===== */
         .chat-wrap {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
-            background: #1a1a1a;
-            color: #f0f0f0;
             max-height: 500px;
             display: flex;
             flex-direction: column;
@@ -2333,94 +2125,53 @@
             display: flex;
             flex-direction: column;
             gap: 3px;
-            background: #1a1a1a;
             border-radius: 4px;
-            border: 1px solid #333;
+            border: 1px solid #b0c8c8;
             min-height: 150px;
         }
         .chat-message {
             padding: 4px 8px;
             border-radius: 4px;
-            background: #2a2a2a;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #b0c8c8;
             display: flex;
             flex-wrap: wrap;
             align-items: baseline;
             gap: 4px 8px;
             font-size: 14px;
         }
-        .chat-message .chat-time {
-            font-size: 10px;
-            color: #666;
-            min-width: 55px;
-        }
-        .chat-message .chat-nick {
-            font-weight: bold;
-            color: #ff8c00;
-        }
-        .chat-message .chat-title {
-            font-size: 12px;
-            color: #ffaa33;
-            font-weight: bold;
-        }
-        .chat-message .chat-clan {
-            font-size: 12px;
-            color: #888;
-        }
-        .chat-message .chat-elo {
-            font-size: 12px;
-            color: #ff8c00;
-        }
-        .chat-message .chat-text {
-            color: #f0f0f0;
-            word-break: break-word;
-        }
-        .chat-message .chat-text .highlight-emoji {
-            font-size: 18px;
-        }
+        .chat-message .chat-time { font-size: 10px; min-width: 55px; }
+        .chat-message .chat-nick { font-weight: bold; }
+        .chat-message .chat-title { font-size: 12px; font-weight: bold; }
+        .chat-message .chat-clan { font-size: 12px; }
+        .chat-message .chat-elo { font-size: 12px; }
+        .chat-message .chat-text { word-break: break-word; }
+        .chat-message .chat-text .highlight-emoji { font-size: 18px; }
         .chat-input-area {
             display: flex;
             gap: 8px;
             margin-top: 8px;
             padding-top: 8px;
-            border-top: 1px solid #333;
+            border-top: 1px solid #b0c8c8;
         }
         .chat-input-area input {
             flex: 1;
             padding: 8px 12px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             font-size: 15px;
-            background: #2a2a2a;
-            color: #f0f0f0;
         }
-        .chat-input-area input:focus {
-            outline: none;
-            border-color: #ff8c00;
-        }
+        .chat-input-area input:focus { outline: none; border-color: #2a8a7a; }
         .chat-input-area button {
             padding: 8px 20px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
             cursor: pointer;
             font-size: 15px;
-            background: #ff8c00;
-            color: #000;
             transition: 0.2s;
         }
-        .chat-input-area button:hover {
-            background: #ffaa33;
-        }
-        .chat-input-area button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .chat-empty {
-            color: #666;
-            text-align: center;
-            padding: 30px 0;
-            font-size: 14px;
-        }
+        .chat-input-area button:hover { opacity: 0.9; }
+        .chat-input-area button:disabled { opacity: 0.4; cursor: not-allowed; }
+        .chat-empty { text-align: center; padding: 30px 0; font-size: 14px; }
 
         /* ===== WELCOME POPUP ===== */
         .welcome-overlay {
@@ -2434,13 +2185,11 @@
         }
         .welcome-overlay.open { display: flex; }
         .welcome-popup {
-            background: #1a1a1a;
-            border: 2px solid #ff8c00;
+            border: 2px solid #2a7a7a;
             border-radius: 16px;
             padding: 32px 28px;
             max-width: 420px;
             width: 100%;
-            color: #f0f0f0;
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
             position: relative;
@@ -2453,20 +2202,19 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #aaa;
         }
-        .welcome-popup .close-btn:hover { color: #fff; }
+        .welcome-popup .close-btn:hover { opacity: 0.7; }
         .welcome-popup .welcome-icon { font-size: 48px; margin-bottom: 12px; display: block; }
-        .welcome-popup .welcome-title { font-size: 22px; font-weight: bold; color: #ff8c00; margin-bottom: 10px; }
-        .welcome-popup .welcome-text { font-size: 16px; line-height: 1.6; color: #ddd; }
-        .welcome-popup .welcome-text strong { color: #ff8c00; }
+        .welcome-popup .welcome-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; }
+        .welcome-popup .welcome-text { font-size: 16px; line-height: 1.6; }
+        .welcome-popup .welcome-text strong { font-weight: bold; }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 2px solid #ff8c00;
+                border-bottom: 2px solid #2a7a7a;
                 min-height: auto;
                 display: flex;
                 flex-wrap: wrap;
@@ -2479,7 +2227,7 @@
                 padding: 8px 12px;
                 border-left: none;
                 border-bottom: none;
-                border-right: 1px solid #444;
+                border-right: 1px solid #b0c8c8;
                 font-size: 13px;
             }
             .content { padding: 10px; }
@@ -2510,51 +2258,47 @@
 
         /* ===== COIN FLIP ===== */
         .coinflip-wrap {
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             border-radius: 6px;
             padding: 12px;
-            background: #1a1a1a;
-            color: #f0f0f0;
         }
         .coinflip-wrap .coinflip-stats {
             font-size: 16px;
             margin-bottom: 12px;
             padding: 6px;
-            background: #2a2a2a;
             border-radius: 4px;
-            border: 1px solid #ff8c00;
+            border: 1px solid #2a7a7a;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 8px;
         }
-        .coinflip-wrap .coinflip-stats span { font-weight: bold; color: #ff8c00; }
+        .coinflip-wrap .coinflip-stats span { font-weight: bold; }
         .coinflip-list {
             max-height: 300px;
             overflow-y: auto;
             margin-top: 10px;
         }
         .coinflip-item {
-            border: 1px solid #555;
+            border: 1px solid #b0c8c8;
             border-radius: 4px;
             padding: 8px 12px;
             margin-bottom: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #2a2a2a;
         }
-        .coinflip-item .creator { color: #ff8c00; font-weight: bold; }
-        .coinflip-item .amount { color: #f0f0f0; }
+        .coinflip-item .creator { font-weight: bold; }
+        .coinflip-item .amount {  }
         .coinflip-item .accept-btn {
-            background: #4a8a4a;
+            background: #2a8a7a;
             color: #fff;
             border: none;
             border-radius: 4px;
             padding: 4px 12px;
             cursor: pointer;
         }
-        .coinflip-item .accept-btn:hover { background: #5a9a5a; }
+        .coinflip-item .accept-btn:hover { opacity: 0.9; }
         .coinflip-item .accept-btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .coinflip-create {
             display: flex;
@@ -2565,29 +2309,32 @@
         }
         .coinflip-create input {
             padding: 6px 10px;
-            border: 1px solid #555;
+            border: 1px solid #2a7a7a;
             border-radius: 4px;
-            background: #2a2a2a;
-            color: #f0f0f0;
             width: 120px;
+        }
+        .coinflip-create select {
+            padding: 6px 10px;
+            border: 1px solid #2a7a7a;
+            border-radius: 4px;
         }
         .coinflip-create button {
             padding: 6px 16px;
-            background: #ff8c00;
-            color: #000;
+            background: #2a8a7a;
+            color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
         }
-        .coinflip-create button:hover { background: #ffaa33; }
+        .coinflip-create button:hover { opacity: 0.9; }
         .coinflip-create button:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .coinflip-modal .slot-container { height: 80px; }
         .coinflip-modal .slot-item { width: 150px; font-size: 20px; }
     </style>
 </head>
-<body class="theme-dark_orange">
+<body class="theme-win7_teal">
     <div id="loadingStatus"><div class="spinner"></div><div id="loadingText">Загрузка...</div></div>
     <audio id="bg-music" loop preload="auto" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
     <div id="toast" class="toast"></div>
@@ -2612,7 +2359,7 @@
         <div class="login-box">
             <h2>TTP кейсы</h2>
             <div class="sub">Вход / Регистрация</div>
-            <div class="promo">версия <strong>UNRELEASED (beta)</strong> <span class="beta-badge" style="display:inline-block;background:#ff8c00;color:#000;padding:2px 12px;border-radius:12px;font-size:14px;font-weight:bold;margin-left:8px;">BETA</span></div>
+            <div class="promo">версия <strong>1.0.0</strong> <span class="beta-badge" style="display:inline-block;background:#2a8a7a;color:#fff;padding:2px 12px;border-radius:12px;font-size:14px;font-weight:bold;margin-left:8px;">RELEASE</span></div>
             <div id="savedAccountContainer" style="display:none;" class="saved-account">
                 <span>🔑 Быстрый вход: </span>
                 <span class="saved-nick" id="savedNick"></span>
@@ -2636,8 +2383,8 @@
     <div id="app">
         <div class="header">
             <button class="activity-btn-header" id="activityBtnHeader">📊 Активность</button>
-            <h1>TTP кейсы <span class="beta-badge">BETA</span></h1>
-            <div class="version">UNRELEASED (beta)</div>
+            <h1>TTP кейсы <span class="beta-badge">RELEASE</span></h1>
+            <div class="version">1.0.0</div>
             <div class="subtitle">игра создана @arbz7 \ xxspk \ made by AI</div>
             <button class="chat-btn-header" id="chatBtnHeader">💬 Чат</button>
             <button class="log-btn-header" id="headerLogBtn">📋 Логи</button>
@@ -2647,7 +2394,7 @@
             ✨ вы — эксклюзив, помимо своих плюсов вы будете получать также новые версии заранее, промокоды и даже свои вкладки и возможности, это еще не все — сами заметите как начну сыпать подарки (:
         </div>
 
-        <div class="wipe-banner">🔥 обновление под вайп + ждите ребаланс шансов (станет сложнее — выбивайте сейчас!</div>
+        <div class="wipe-banner">🔥 Релиз версии 1.0.0! Спасибо всем игрокам!</div>
         <div class="top-bar">
             <div class="stat">🪙 <span class="value" id="balanceDisplay">0</span> ₽</div>
             <div class="stat">⚡ <span class="value" id="eloDisplay">0</span></div>
@@ -2657,11 +2404,11 @@
             <div class="stat">⏱️ <span class="value" id="playtimeDisplay">0ч</span></div>
             <div class="clock" id="clockDisplay">--:--:--</div>
         </div>
-        <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#2a2a2a; padding:6px 12px; border-radius:4px; border:1px solid #ff8c00; color:#f0f0f0;">
+        <div style="margin: 6px 0; font-size:14px; display:flex; justify-content:space-between; background:#dce8e8; padding:6px 12px; border-radius:4px; border:1px solid #2a7a7a; color:#1a2a2a;">
             <span>Опыт: <span id="expDisplay">0</span></span>
             <span>До Max Level: <span id="proProgressDisplay">0%</span></span>
         </div>
-        <div class="update-announce">🔥 UNRELEASED (beta) — Чат, Ивент Города 3, Плейтайм, 50+ логов активности, Босс, Квесты, Рубиновый кейс, Coin Flip!</div>
+        <div class="update-announce">🔥 версия 1.0.0 — Чат, Ивент Города 3, Плейтайм, 50+ логов активности, Босс, Квесты, Рубиновый кейс, Coin Flip с рубинами!</div>
 
         <div style="display:flex; flex-wrap:wrap; width:100%;">
             <!-- БОКОВОЕ МЕНЮ -->
@@ -2689,7 +2436,7 @@
                     <button id="cities3EventBtn">🏙️ Ивент: Открой Города 3!</button>
                     <button id="bossEventBtn">👹 Босс: Убейте общего врага!</button>
                 </div>
-                <div class="event-rewards" id="cities3EventList" style="border-color:#ff8c00;"></div>
+                <div class="event-rewards" id="cities3EventList" style="border-color:#2a7a7a;"></div>
                 <div class="boss-container" id="bossContainer" style="display:none;">
                     <div class="boss-name">👹 Общий Босс</div>
                     <div class="boss-hp">HP: <span id="bossHp">1000</span> / 1000</div>
@@ -2746,10 +2493,10 @@
                             <button class="rating-refresh-btn" id="refreshRatingBtn">Обновить</button>
                             <button class="rating-refresh-btn" id="recheckAchievementsBtn" style="margin-left:5px;">Обновить достижения</button>
                         </div>
-                        <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; color:#f0f0f0;">
-                            <span style="font-size:16px; color:#aaa;">Режим:</span>
-                            <button id="ratingModeNow" class="active" style="border:1px solid #555; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#ff8c00; color:#000;">Сейчас</button>
-                            <button id="ratingModeEver" style="border:1px solid #555; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#2a2a2a; color:#f0f0f0;">За всё время</button>
+                        <div style="display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; color:#1a2a2a;">
+                            <span style="font-size:16px; color:#888;">Режим:</span>
+                            <button id="ratingModeNow" class="active" style="border:1px solid #2a7a7a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#2a8a7a; color:#fff;">Сейчас</button>
+                            <button id="ratingModeEver" style="border:1px solid #2a7a7a; border-radius:6px; padding:8px 16px; cursor:pointer; font-size:15px; background:#dce8e8; color:#1a2a2a;">За всё время</button>
                         </div>
                         <div class="rating-tabs" id="ratingTabs">
                             <button class="active" data-rating-tab="elo">Эло</button>
@@ -2823,9 +2570,9 @@
                                 <button class="click-btn" id="clickBtn">Кликнуть</button>
                                 <div class="click-timer" id="clickTimer">Готово!</div>
                                 <div id="clickerCaptcha" style="display:none; margin-top:12px;">
-                                    <div style="font-size:18px; color:#f0f0f0;">Введите код: <span id="captchaText"></span></div>
-                                    <input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #555; border-radius:4px; width:100%; margin:8px 0; background:#2a2a2a; color:#f0f0f0;">
-                                    <button id="captchaSubmit" style="border:2px solid #555; border-radius:4px; padding:8px 16px; cursor:pointer; background:#ff8c00; color:#000;">Подтвердить</button>
+                                    <div style="font-size:18px;">Введите код: <span id="captchaText"></span></div>
+                                    <input type="text" id="captchaInput" placeholder="Введите код" style="padding:8px; border:1px solid #2a7a7a; border-radius:4px; width:100%; margin:8px 0; background:#dce8e8; color:#1a2a2a;">
+                                    <button id="captchaSubmit" style="border:2px solid #2a7a7a; border-radius:4px; padding:8px 16px; cursor:pointer; background:#2a8a7a; color:#fff;">Подтвердить</button>
                                 </div>
                             </div>
                         </div>
@@ -2834,10 +2581,15 @@
                             <div class="coinflip-wrap">
                                 <div class="coinflip-stats">
                                     <span>💰 Баланс: <span id="cfBalance">0</span> ₽</span>
+                                    <span>💎 Рубины: <span id="cfRubies">0</span></span>
                                     <span>🎰 Игр: <span id="cfGames">0</span></span>
                                 </div>
                                 <div class="coinflip-create">
-                                    <input type="number" id="cfAmount" placeholder="Сумма ставки" min="1">
+                                    <input type="number" id="cfAmount" placeholder="Сумма" min="1">
+                                    <select id="cfCurrency">
+                                        <option value="coins">₽</option>
+                                        <option value="rubies">💎</option>
+                                    </select>
                                     <button id="cfCreateBtn">Создать ставку</button>
                                 </div>
                                 <div class="coinflip-list" id="cfList">
@@ -2864,13 +2616,13 @@
                     <!-- ПРОМОКОД -->
                     <section id="section-promo" class="section">
                         <div class="title">Промокод</div>
-                        <div style="padding:20px; text-align:center; background:#2a2a2a; border-radius:6px; border:1px solid #ff8c00; color:#f0f0f0;">
-                            <div style="font-size:18px; margin-bottom:12px; color:#fff;">Введите промокод</div>
+                        <div style="padding:20px; text-align:center; background:#dce8e8; border-radius:6px; border:1px solid #2a7a7a; color:#1a2a2a;">
+                            <div style="font-size:18px; margin-bottom:12px;">Введите промокод</div>
                             <div class="promo-input">
                                 <input type="text" id="promoInput" placeholder="Введите промокод (латиница)" style="max-width:200px;" inputmode="text">
                                 <button id="applyPromoBtn">Активировать</button>
                             </div>
-                            <div style="margin-top:12px; font-size:14px; color:#aaa;">Промокод: <strong style="color:#ff8c00;">dimadartiez</strong> (20 💎, 100 ₽, кейс "Игроки 1")</div>
+                            <div style="margin-top:12px; font-size:14px; color:#666;">Промокод: <strong style="color:#1a6a5a;">dimadartiez</strong> (20 💎, 100 ₽, кейс "Игроки 1")</div>
                             <div style="font-size:13px; color:#888; margin-top:4px;">Вводите латинскими буквами</div>
                         </div>
                     </section>
@@ -2911,11 +2663,11 @@
                         <div class="title">Аккаунт</div>
                         <div class="account-info" id="accountInfo"></div>
                         <div style="margin-top:12px;">
-                            <button id="showProgressBtn" style="padding:8px 16px; border:1px solid #555; border-radius:6px; background:#2a2a2a; cursor:pointer; color:#f0f0f0;">Прогресс до Max Level</button>
+                            <button id="showProgressBtn" style="padding:8px 16px; border:1px solid #2a7a7a; border-radius:6px; background:#dce8e8; cursor:pointer; color:#1a2a2a;">Прогресс до Max Level</button>
                             <div id="progressContainer" style="display:none; margin-top:10px;">
-                                <div style="font-size:14px; color:#f0f0f0;">Опыт: <span id="progressExp">0</span></div>
+                                <div style="font-size:14px;">Опыт: <span id="progressExp">0</span></div>
                                 <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%;"></div></div>
-                                <div style="font-size:13px; color:#aaa;" id="progressLabel">0% до Max Level</div>
+                                <div style="font-size:13px; color:#888;" id="progressLabel">0% до Max Level</div>
                             </div>
                         </div>
                         <div class="account-actions">
@@ -2925,8 +2677,8 @@
                             <button id="deleteAccountBtn" class="delete-account">Удалить аккаунт</button>
                             <button id="logoutBtnAccount" class="danger">Выйти</button>
                             <!-- Эксклюзивные кнопки -->
-                            <button id="exclusiveVisualIdBtn" style="display:none; background:#ff8c00; color:#000;">Сменить визуальный ID</button>
-                            <button id="exclusiveMenuColorBtn" style="display:none; background:#ff8c00; color:#000;">Сменить цвет меню</button>
+                            <button id="exclusiveVisualIdBtn" style="display:none; background:#2a8a7a; color:#fff;">Сменить визуальный ID</button>
+                            <button id="exclusiveMenuColorBtn" style="display:none; background:#2a8a7a; color:#fff;">Сменить цвет меню</button>
                         </div>
                     </section>
 
@@ -2961,16 +2713,16 @@
                             </div>
                         </div>
                         <div class="settings-group">
-                            <button id="showRaritiesBtn" style="padding:8px 16px; background:#2a2a2a; border:1px solid #555; border-radius:6px; cursor:pointer; color:#f0f0f0;">📊 Показать все редкости</button>
+                            <button id="showRaritiesBtn" style="padding:8px 16px; background:#dce8e8; border:1px solid #2a7a7a; border-radius:6px; cursor:pointer; color:#1a2a2a;">📊 Показать все редкости</button>
                         </div>
                     </section>
 
                     <!-- ОБНОВЛЕНИЯ -->
                     <section id="section-updates" class="section">
                         <div class="title">Обновления</div>
-                        <div style="padding:20px; border:1px solid #ff8c00; border-radius:6px; background:#2a2a2a; text-align:left; color:#f0f0f0;">
-                            <div style="font-size:20px; font-weight:bold; margin-bottom:10px; color:#ff8c00;">UNRELEASED (beta) — Большое обновление!</div>
-                            <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.7; color:#ddd;">
+                        <div style="padding:20px; border:1px solid #2a7a7a; border-radius:6px; background:#dce8e8; text-align:left; color:#1a2a2a;">
+                            <div style="font-size:20px; font-weight:bold; margin-bottom:10px; color:#1a5a5a;">Версия 1.0.0 — Релиз!</div>
+                            <ul style="list-style:disc; padding-left:20px; font-size:15px; line-height:1.7; color:#1a2a2a;">
                                 <li>🎮 Обновлены шансы кейсов "Мужики 1", "Города"</li>
                                 <li>🗑️ Убран кейс "Животные"</li>
                                 <li>🎁 Добавлен стартовый кейс "Горы" (даётся один раз при входе)</li>
@@ -2983,9 +2735,10 @@
                                 <li>🔑 Сохранение данных входа (квадратик с ником)</li>
                                 <li>📌 Убрана боевая музыка, оставлена мелодичная</li>
                                 <li>🎨 Цвета редкостей обновлены</li>
-                                <li>🪙 Добавлена игра Coin Flip (ставки между игроками, комиссия 5%)</li>
+                                <li>🪙 Добавлена игра Coin Flip (ставки между игроками, комиссия 5%) с поддержкой рубинов</li>
                                 <li>🔑 Ивент Города 3: за 50 кейсов выдаётся карта и рубиновый ключ (вместо эксклюзива)</li>
                                 <li>🔒 Убрана ручная активация эксклюзива — теперь только через Firebase</li>
+                                <li>🌿 Новая тема оформления "Win7 Teal" — зелено-голубая эстетика Windows 7</li>
                             </ul>
                         </div>
                     </section>
@@ -3018,12 +2771,12 @@
             <div class="slot-container" id="slotContainer"><div class="slot-track" id="slotTrack"></div></div>
             <div class="result-display" id="resultDisplay">
                 <span class="big-emoji">🎲</span>
-                <span class="result-name" style="color:#aaa;">Ожидайте...</span>
+                <span class="result-name" style="color:#888;">Ожидайте...</span>
                 <span class="result-rare"></span>
             </div>
             <div class="modal-buttons" id="modalButtons">
                 <button id="reopenBtn" style="display:none;">Открыть ещё</button>
-                <button id="sellResultBtn" style="display:none; background:#2a6a4a;">Продать</button>
+                <button id="sellResultBtn" style="display:none; background:#2a6a4a; color:#fff;">Продать</button>
             </div>
         </div>
     </div>
@@ -3031,7 +2784,7 @@
     <div class="chance-overlay" id="chanceModal">
         <div class="chance-box">
             <button class="close-btn" id="chanceClose">✕</button>
-            <div style="font-size:20px; margin-bottom:10px; color:#fff;">Шансы выпадения</div>
+            <div style="font-size:20px; margin-bottom:10px;">Шансы выпадения</div>
             <div id="chanceList"></div>
         </div>
     </div>
@@ -3039,7 +2792,7 @@
     <div class="chance-overlay" id="raritiesModal">
         <div class="chance-box">
             <button class="close-btn" id="raritiesClose">✕</button>
-            <div style="font-size:20px; margin-bottom:10px; color:#fff;">Все редкости</div>
+            <div style="font-size:20px; margin-bottom:10px;">Все редкости</div>
             <div id="raritiesList"></div>
         </div>
     </div>
@@ -3047,19 +2800,19 @@
     <div class="profile-modal-overlay" id="profileModal">
         <div class="profile-modal">
             <button class="close-btn" id="profileModalClose">✕</button>
-            <div style="font-size:20px; font-weight:bold; margin-bottom:10px; color:#fff;">Профиль игрока</div>
+            <div style="font-size:20px; font-weight:bold; margin-bottom:10px;">Профиль игрока</div>
             <div id="profileContent"></div>
         </div>
     </div>
 
     <div class="captcha-overlay hidden" id="resetCaptchaOverlay">
         <div class="captcha-box">
-            <h3 style="color:#fff;">Подтверждение сброса</h3>
-            <p style="color:#aaa;">Введите код с картинки:</p>
+            <h3 style="color:#1a2a2a;">Подтверждение сброса</h3>
+            <p style="color:#666;">Введите код с картинки:</p>
             <div class="captcha-text" id="resetCaptchaText">ABCD</div>
             <input type="text" id="resetCaptchaInput" placeholder="Введите код" maxlength="4">
             <button id="resetCaptchaSubmit">Подтвердить</button>
-            <button id="resetCaptchaCancel" style="background:#444; margin-left:10px;">Отмена</button>
+            <button id="resetCaptchaCancel" style="background:#b0c8c8; margin-left:10px; color:#1a2a2a;">Отмена</button>
         </div>
     </div>
 
@@ -3071,7 +2824,7 @@
             <div class="slot-container" id="cfSlotContainer"><div class="slot-track" id="cfSlotTrack"></div></div>
             <div class="result-display" id="cfResultDisplay">
                 <span class="big-emoji">🪙</span>
-                <span class="result-name" style="color:#aaa;">Ожидание...</span>
+                <span class="result-name" style="color:#888;">Ожидание...</span>
                 <span class="result-rare"></span>
             </div>
             <div class="modal-buttons">
@@ -3083,7 +2836,7 @@
     <div class="log-popup" id="logPopup"></div>
     <div class="activity-popup" id="activityPopup">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:6px;">
-            <span style="font-weight:bold; color:#ff8c00;">📊 Активность игроков (посл. 50)</span>
+            <span style="font-weight:bold; color:#2a8a7a;">📊 Активность игроков (посл. 50)</span>
             <button id="activityPopupClose" style="background:none; border:none; color:#888; font-size:18px; cursor:pointer;">✕</button>
         </div>
         <div id="activityList"></div>
@@ -3092,7 +2845,7 @@
     <!-- ===== JAVASCRIPT ===== -->
     <script>
     // ============================================================
-    //  ПОЛНЫЙ JS — UNRELEASED (beta) — ЧЁРНО-ОРАНЖЕВАЯ ТЕМА
+    //  ПОЛНЫЙ JS — 1.0.0 — ЗЕЛЕНО-ГОЛУБАЯ ТЕМА
     // ============================================================
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
@@ -3114,7 +2867,7 @@
         balance: 500, totalEarned: 0, totalSpent: 0, maxBalance: 500,
         elo: 1000, maxElo: 1000, casesOpened: 0, maxCasesOpened: 0,
         totalClicks: 0, clicksSinceCaptcha: 0, inventory: [], itemsCount: {},
-        settings: { theme: 'dark_orange', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1 },
+        settings: { theme: 'win7_teal', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1 },
         morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
         plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
         achievements: [], userId: null, nickname: '', uid: null, marketListings: [],
@@ -3178,14 +2931,13 @@
         bossRewards: {},
         quests: {},
         visualId: '',
-        menuColor: '#ff8c00',
+        menuColor: '#2a8a7a',
         customSortOrder: [],
         invSortMode: 'rarity',
         rubyKeys: 0,
         rubyKeyPrice: 100,
         welcomeOpened: false,
         musicTrack: 0,
-        // Coin Flip
         coinflipGames: 0
     };
 
@@ -4004,7 +3756,7 @@
             inventory: [],
             achievements: [],
             registrationDate: Date.now(),
-            settings: { theme: 'dark_orange', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1 },
+            settings: { theme: 'win7_teal', sound: true, sfx: true, music: true, musicVolume: 1, sfxVolume: 1 },
             morols: { maxSpeed: 0, maxDistance: 0, totalCoins: 0, gamesPlayed: 0, totalDistance: 0 },
             plane: { xp: 0, totalCoins: 0, bestTime: 0, gamesPlayed: 0 },
             exp: 0,
@@ -4047,7 +3799,7 @@
             bossRewards: {},
             quests: {},
             visualId: '',
-            menuColor: '#ff8c00',
+            menuColor: '#2a8a7a',
             customSortOrder: [],
             invSortMode: 'rarity',
             rubyKeys: 0,
@@ -4209,7 +3961,7 @@
             STATE.bossRewards = data.bossRewards || {};
             STATE.quests = data.quests || {};
             STATE.visualId = data.visualId || '';
-            STATE.menuColor = data.menuColor || '#ff8c00';
+            STATE.menuColor = data.menuColor || '#2a8a7a';
             STATE.customSortOrder = data.customSortOrder || [];
             STATE.invSortMode = data.invSortMode || 'rarity';
             STATE.rubyKeys = data.rubyKeys || 0;
@@ -4264,7 +4016,7 @@
             const app = document.getElementById('app');
             if (app) app.style.display = 'block';
 
-            applyTheme(STATE.settings.theme || 'dark_orange');
+            applyTheme(STATE.settings.theme || 'win7_teal');
 
             if (!STATE.welcomeShown) {
                 document.getElementById('welcomeOverlay').classList.add('open');
@@ -4276,7 +4028,7 @@
                 document.getElementById('welcomeOverlay').classList.remove('open');
             };
 
-            showToast('👋 Добро пожаловать! Игра в стадии beta, наслаждайтесь!', 5000);
+            showToast('👋 Добро пожаловать! Игра версии 1.0.0, наслаждайтесь!', 5000);
             saveStateToFirebase();
             addLog('💬 Показано приветствие');
 
@@ -4428,7 +4180,7 @@
             bossRewards: STATE.bossRewards || {},
             quests: STATE.quests || {},
             visualId: STATE.visualId || '',
-            menuColor: STATE.menuColor || '#ff8c00',
+            menuColor: STATE.menuColor || '#2a8a7a',
             customSortOrder: STATE.customSortOrder || [],
             invSortMode: STATE.invSortMode || 'rarity',
             rubyKeys: STATE.rubyKeys || 0,
@@ -4756,7 +4508,7 @@
         if (resultDisplay) {
             resultDisplay.innerHTML = `
                 <span class="big-emoji">🎲</span>
-                <span class="result-name" style="color:#aaa;">Ожидайте...</span>
+                <span class="result-name" style="color:#888;">Ожидайте...</span>
                 <span class="result-rare"></span>
             `;
         }
@@ -5106,7 +4858,7 @@
                 let html = '';
                 if (activeTab === 'sell') {
                     html += `<div class="market-sell-form">
-                        <h3 style="color:#fff;">Выставить лот (от 1 до 50 шт.)</h3>
+                        <h3 style="color:#1a2a2a;">Выставить лот (от 1 до 50 шт.)</h3>
                         <div class="row">
                             <select id="sellItemSelect">
                                 <option value="">Выберите предмет</option>
@@ -5418,7 +5170,7 @@
                         <span class="name">${isYou ? '⭐ ' : ''}${p.name} ${clanDisplay} ${titleDisplay} <span style="font-size:11px; color:#888;">${displayId}</span></span>
                         <span class="value">${valueDisplay}</span>
                         ${isYou ? '<span style="font-size:12px; color:#888;">вы</span>' : ''}
-                        ${isMaxLevel ? '<span style="font-size:12px; color:#ff8c00; margin-left:6px;">👑 Max Level</span>' : ''}
+                        ${isMaxLevel ? '<span style="font-size:12px; color:#1a6a5a; margin-left:6px;">👑 Max Level</span>' : ''}
                     </div>`;
                     rank++;
                 }
@@ -5984,7 +5736,7 @@
                     STATE.bossRewards = {};
                     STATE.quests = {};
                     STATE.visualId = '';
-                    STATE.menuColor = '#ff8c00';
+                    STATE.menuColor = '#2a8a7a';
                     STATE.customSortOrder = [];
                     STATE.invSortMode = 'rarity';
                     STATE.rubyKeys = 0;
@@ -6077,7 +5829,7 @@
 
         document.getElementById('exclusiveMenuColorBtn').onclick = function() {
             if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') { showToast('❌ Только для эксклюзива/разработчика'); return; }
-            const color = prompt('Введите цвет в формате #rrggbb:', STATE.menuColor || '#ff8c00');
+            const color = prompt('Введите цвет в формате #rrggbb:', STATE.menuColor || '#2a8a7a');
             if (color && /^#[0-9a-f]{6}$/i.test(color)) {
                 STATE.menuColor = color;
                 document.querySelectorAll('.sidebar button.active, .top-bar, .title, .update-announce, .wipe-banner, .exclusive-banner').forEach(el => {
@@ -6800,20 +6552,20 @@
         const container = document.getElementById('cities3EventList');
         if (!container) return;
         const count = STATE.cities3Opened || 0;
-        let html = '<div style="font-weight:bold; margin-bottom:6px; color:#ff8c00;">🏙️ Ивент: Открой Города 3! (открыто: ' + count + ')</div>';
+        let html = '<div style="font-weight:bold; margin-bottom:6px; color:#1a5a5a;">🏙️ Ивент: Открой Города 3! (открыто: ' + count + ')</div>';
         for (const reward of CITIES3_REWARDS) {
             const claimed = STATE.cities3Rewards?.[reward.count] || false;
             const done = count >= reward.count;
             const cardStr = reward.card ? ', карта "' + reward.card.name + '"' : '';
             const keyStr = reward.rubyKey ? ', +' + reward.rubyKey + ' ключ' : '';
             const exclStr = reward.exclusive ? ' 👑 ЭКСКЛЮЗИВ' : '';
-            html += `<div class="reward-line" style="${claimed ? 'color:#4a8a4a;' : (done ? 'color:#ff8c00;' : 'color:#666;')}">
+            html += `<div class="reward-line" style="${claimed ? 'color:#2a7a4a;' : (done ? 'color:#1a6a5a;' : 'color:#888;')}">
                 ${claimed ? '✅' : (done ? '⏳' : '🔒')} ${reward.count} кейсов → +${reward.coins} ₽, +${reward.rubies} 💎${cardStr}${keyStr}${exclStr}
                 ${claimed ? ' (получено!)' : (done ? ' (готово к получению!)' : '')}
             </div>`;
         }
         const extra = count > 50 ? (count - 50) : 0;
-        html += `<div class="reward-line" style="color:#aaa;">${extra > 0 ? '✅' : '⏳'} За каждый кейс после 50: +10 💎 (получено: ${extra * 10})</div>`;
+        html += `<div class="reward-line" style="color:#888;">${extra > 0 ? '✅' : '⏳'} За каждый кейс после 50: +10 💎 (получено: ${extra * 10})</div>`;
         container.innerHTML = html;
         if (!container.classList.contains('show')) {
             container.classList.add('show');
@@ -6822,7 +6574,7 @@
 
     // ===== НАСТРОЙКИ =====
     const THEMES = {
-        'dark_orange': 'Чёрно-оранжевая',
+        'win7_teal': 'Win7 Teal (по умолчанию)',
         'windows7': 'Windows 7',
         'windows_xp': 'Windows XP',
         'windows11': 'Windows 11',
@@ -6842,7 +6594,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'color-btn' + (key === STATE.settings.theme ? ' active' : '');
                 const colors = {
-                    'dark_orange': '#1a1a1a',
+                    'win7_teal': '#2a8a7a',
                     'windows7': '#2a6a9a',
                     'windows_xp': '#3a6ea5',
                     'windows11': '#f0f0f0',
@@ -6995,45 +6747,7 @@
         const code = input.value.trim().toUpperCase();
         addLog('🔑 Введён промокод: ' + code);
 
-        // Секретный промокод
-        if (code === 'BLATVSEGDAESTIETOODNOISPOTDVERJDENIY') {
-            if (STATE.promoCodesUsed['blatvsegdaestietoodnoispotdverjdeniy']) {
-                showToast('❌ Промокод уже использован');
-                return;
-            }
-            STATE.balance += 100000;
-            STATE.totalEarned += 100000;
-            STATE.maxBalance = Math.max(STATE.maxBalance, STATE.balance);
-            STATE.rubies += 10000;
-            STATE.totalRubies += 10000;
-            // Даём эксклюзив
-            if (STATE.currentTitle !== 'exclusive' && STATE.currentTitle !== 'developer') {
-                STATE.currentTitle = 'exclusive';
-                STATE.titleBonuses = { moneyMul: 0.1, passiveCoins: 15, caseDiscount: 0.1, passiveRubies: 10, sellBonus: 0.1, exclusive: true, clickBonus: 5 };
-                STATE.exclusiveActivated = true;
-                STATE.exclusiveGiven = true;
-                giveExclusiveBonus();
-                document.getElementById('exclusiveBanner').style.display = 'block';
-                document.getElementById('exclusiveVisualIdBtn').style.display = 'block';
-                document.getElementById('exclusiveMenuColorBtn').style.display = 'block';
-            } else {
-                showToast('💎 У вас уже есть эксклюзив/разработчик, дополнительно +10000 рубинов и монеты');
-            }
-            STATE.promoCodesUsed['blatvsegdaestietoodnoispotdverjdeniy'] = true;
-            addExp(50);
-            showToast('🎉 Секретный промокод активирован! +100000 ₽, +10000 💎 и эксклюзив!');
-            input.value = '';
-            updateUI();
-            saveStateToFirebase();
-            checkAllAchievements();
-            renderAccount();
-            renderCases();
-            renderInventory();
-            addLog('✅ Секретный промокод активирован');
-            logPlayerAction('активировал секретный промокод', '+100000 ₽, +10000 💎', true);
-            checkQuests();
-            return;
-        }
+        // Секретный промокод УДАЛЁН
 
         if (code === 'DIMADARTIEZ') {
             if (STATE.promoCodesUsed['dimadartiez']) { showToast('❌ Промокод уже использован'); return; }
@@ -7298,10 +7012,10 @@
                 const title = STATE.donateTitles[i];
                 if (title.hidden) continue;
                 if (title.isExclusive) {
-                    html += `<div class="shop-item" style="border-color:#ff8c00; background:#2a2a1a;">
+                    html += `<div class="shop-item" style="border-color:#2a8a7a; background:#d0e8e0;">
                         <div class="shop-item-name" style="background:linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${title.name}</div>
                         <div class="shop-item-price">⭐ НЕДОСТУПЕН ДЛЯ ПОКУПКИ</div>
-                        <div style="font-size:12px; color:#aaa; margin:4px 0;">Выдаётся вручную</div>
+                        <div style="font-size:12px; color:#666; margin:4px 0;">Выдаётся вручную</div>
                         <div style="font-size:11px; color:#888;">${Object.entries(title.bonus).map(([k,v]) => {
                             if (k === 'moneyMul') return '+'+(v*100)+'% к деньгам';
                             if (k === 'passiveCoins') return '+' + v + ' ₽/мин';
@@ -7311,7 +7025,7 @@
                             if (k === 'clickBonus') return '+' + v + ' ₽ за клик';
                             return '';
                         }).join(' | ')}</div>
-                        <div style="margin-top:6px; font-size:12px; color:#ff8c00;">⭐ Эксклюзивные возможности</div>
+                        <div style="margin-top:6px; font-size:12px; color:#1a6a5a;">⭐ Эксклюзивные возможности</div>
                     </div>`;
                     continue;
                 }
@@ -7340,7 +7054,7 @@
                     <button class="shop-buy-btn" data-type="donate" data-id="${title.id}" ${owned ? 'disabled' : ''} data-price="${buyPrice}">
                         ${owned ? (isActive ? 'Активен' : 'Куплен') : (buyPrice === 0 ? 'Взять' : 'Купить')}
                     </button>
-                    ${owned && !isActive ? `<button class="shop-buy-btn" data-type="donate_activate" data-id="${title.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                    ${owned && !isActive ? `<button class="shop-buy-btn" data-type="donate_activate" data-id="${title.id}" style="background:#3a7a6a; color:#fff;">Активировать</button>` : ''}
                     <div style="font-size:11px; color:#888; margin-top:4px;">${Object.entries(title.bonus).map(([k,v]) => {
                         if (k === 'moneyMul') return '+'+(v*100)+'% к деньгам';
                         if (k === 'passiveCoins') return '+' + v + ' ₽/мин';
@@ -7352,8 +7066,8 @@
                     }).join(' | ')}</div>
                 </div>`;
             }
-            html += `<div class="shop-item" style="border:2px dashed #ff8c00; background:#2a2a1a;">
-                <div class="shop-item-name" style="color:#ff8c00;">🔥 Скоро тут будут новые донаты</div>
+            html += `<div class="shop-item" style="border:2px dashed #2a8a7a; background:#dce8e8;">
+                <div class="shop-item-name" style="color:#1a6a5a;">🔥 Скоро тут будут новые донаты</div>
                 <div class="shop-item-price" style="color:#888;">Следите за обновлениями!</div>
                 <div class="coming-soon">⭐ В разработке</div>
             </div>`;
@@ -7371,7 +7085,7 @@
                         <div class="shop-item-price">Доступен за рубины</div>
                         ${owned ? `<div class="owned">${isActive ? '✅ Активен' : '✔ Куплен'}</div>` : ''}
                         <button class="shop-buy-btn" disabled>Купить за рубли нельзя</button>
-                        ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                        ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#3a7a6a; color:#fff;">Активировать</button>` : ''}
                     </div>`;
                 } else {
                     const price = skin.price;
@@ -7382,7 +7096,7 @@
                         <button class="shop-buy-btn" data-type="skin_rubles" data-id="${skin.id}" ${owned ? 'disabled' : ''} data-price="${price}">
                             ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
                         </button>
-                        ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                        ${owned && !isActive ? `<button class="shop-buy-btn" data-type="skin_activate" data-id="${skin.id}" style="background:#3a7a6a; color:#fff;">Активировать</button>` : ''}
                     </div>`;
                 }
             }
@@ -7399,7 +7113,7 @@
                     <button class="shop-buy-btn" data-type="ruby" data-id="${item.id}" data-skinid="${item.skinId || ''}" ${owned ? 'disabled' : ''}>
                         ${owned ? (isActive ? 'Активен' : 'Куплен') : 'Купить'}
                     </button>
-                    ${owned && !isActive && item.type === 'skin' ? `<button class="shop-buy-btn" data-type="ruby_activate" data-id="${item.skinId}" style="background:#4a8a4a;">Активировать</button>` : ''}
+                    ${owned && !isActive && item.type === 'skin' ? `<button class="shop-buy-btn" data-type="ruby_activate" data-id="${item.skinId}" style="background:#3a7a6a; color:#fff;">Активировать</button>` : ''}
                 </div>`;
             }
             html += `</div>`;
@@ -7408,7 +7122,7 @@
             html += `<div class="shop-item">
                 <div class="shop-item-name">🗝️ Ключ рубинового кейса</div>
                 <div class="shop-item-price">${STATE.rubyKeyPrice} 💎</div>
-                <div style="font-size:12px; color:#aaa;">Цена растёт на 1 после каждой покупки</div>
+                <div style="font-size:12px; color:#666;">Цена растёт на 1 после каждой покупки</div>
                 <button class="shop-buy-btn" data-type="ruby_key" id="buyRubyKeyBtn">Купить 1 ключ</button>
             </div>`;
             html += `</div>`;
@@ -7714,6 +7428,8 @@
             if (section.id === 'tab-coinflip') {
                 const bal = document.getElementById('cfBalance');
                 if (bal) bal.textContent = STATE.balance;
+                const rub = document.getElementById('cfRubies');
+                if (rub) rub.textContent = STATE.rubies;
                 const games = document.getElementById('cfGames');
                 if (games) games.textContent = STATE.coinflipGames || 0;
             }
@@ -7843,6 +7559,7 @@
         }
         // Обновляем баланс
         document.getElementById('cfBalance').textContent = STATE.balance;
+        document.getElementById('cfRubies').textContent = STATE.rubies;
         document.getElementById('cfGames').textContent = STATE.coinflipGames || 0;
 
         // Загружаем активные ставки
@@ -7864,11 +7581,13 @@
                 for (const bet of bets) {
                     if (bet.status !== 'waiting') continue;
                     const isCreator = (bet.creatorUid === STATE.uid);
-                    const canAccept = !isCreator && STATE.balance >= bet.amount;
+                    const currency = bet.currency || 'coins';
+                    const amount = bet.amount;
+                    const canAccept = !isCreator && (currency === 'coins' ? STATE.balance >= amount : STATE.rubies >= amount);
                     html += `<div class="coinflip-item">
                         <div>
                             <span class="creator">${bet.creatorName || 'Игрок'}</span>
-                            <span class="amount">ставит ${bet.amount} ₽</span>
+                            <span class="amount">ставит ${amount} ${currency === 'rubies' ? '💎' : '₽'}</span>
                             <span style="font-size:12px; color:#888;">${new Date(bet.timestamp).toLocaleTimeString()}</span>
                         </div>
                         <div>
@@ -7897,14 +7616,18 @@
 
     function createCoinFlip() {
         const input = document.getElementById('cfAmount');
+        const currencySelect = document.getElementById('cfCurrency');
+        const currency = currencySelect.value;
         const amount = parseInt(input.value);
         if (!amount || amount < 1) { showToast('Введите корректную сумму'); return; }
-        if (amount > STATE.balance) { showToast('❌ Недостаточно средств'); return; }
+        if (currency === 'coins' && amount > STATE.balance) { showToast('❌ Недостаточно рублей'); return; }
+        if (currency === 'rubies' && amount > STATE.rubies) { showToast('❌ Недостаточно рубинов'); return; }
 
         const bet = {
             creatorUid: STATE.uid,
             creatorName: STATE.nickname,
             amount: amount,
+            currency: currency,
             timestamp: Date.now(),
             status: 'waiting'
         };
@@ -7919,8 +7642,8 @@
             showToast('✅ Ставка создана! Ждите соперника.');
             input.value = '';
             renderCoinFlip();
-            addLog('🪙 Создана ставка Coin Flip на ' + amount + ' ₽');
-            logPlayerAction('создал ставку Coin Flip', 'на ' + amount + ' ₽', false);
+            addLog('🪙 Создана ставка Coin Flip на ' + amount + ' ' + (currency === 'rubies' ? '💎' : '₽'));
+            logPlayerAction('создал ставку Coin Flip', 'на ' + amount + ' ' + (currency === 'rubies' ? '💎' : '₽'), false);
         })
         .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
@@ -7932,35 +7655,39 @@
             .then(bet => {
                 if (!bet || bet.status !== 'waiting') { showToast('❌ Ставка уже не активна'); return; }
                 if (bet.creatorUid === STATE.uid) { showToast('❌ Нельзя принять свою ставку'); return; }
-                if (STATE.balance < bet.amount) { showToast('❌ Недостаточно средств'); return; }
+                const currency = bet.currency || 'coins';
+                const amount = bet.amount;
+                if (currency === 'coins' && STATE.balance < amount) { showToast('❌ Недостаточно рублей'); return; }
+                if (currency === 'rubies' && STATE.rubies < amount) { showToast('❌ Недостаточно рубинов'); return; }
 
-                // Списываем средства у обоих игроков
                 const creatorUid = bet.creatorUid;
                 const acceptorUid = STATE.uid;
-                const amount = bet.amount;
 
-                // Проверяем, что у создателя ещё есть деньги (может быть, он потратил)
-                // Загружаем данные создателя
+                // Проверяем баланс создателя
                 return fetch(DB_URL + '/users/' + creatorUid + '.json?auth=' + currentUser.idToken)
                     .then(res => res.json())
                     .then(creatorData => {
                         if (!creatorData) { showToast('❌ Создатель не найден'); return; }
-                        if (creatorData.balance < amount) {
+                        const creatorBalance = currency === 'coins' ? creatorData.balance : creatorData.rubies;
+                        if (creatorBalance < amount) {
                             showToast('❌ У создателя недостаточно средств, ставка отменена');
-                            // Удаляем ставку
                             fetch(DB_URL + '/coinflip/' + betId + '.json?auth=' + currentUser.idToken, { method: 'DELETE' }).catch(() => {});
                             renderCoinFlip();
                             return;
                         }
-                        // Списываем у создателя
-                        const creatorNewBalance = creatorData.balance - amount;
-                        // Списываем у принимающего
-                        STATE.balance -= amount;
+                        // Списываем у обоих
+                        const newCreatorBalance = creatorBalance - amount;
+                        if (currency === 'coins') {
+                            STATE.balance -= amount;
+                        } else {
+                            STATE.rubies -= amount;
+                        }
                         // Обновляем создателя
-                        return fetch(DB_URL + '/users/' + creatorUid + '/balance.json?auth=' + currentUser.idToken, {
+                        const balancePath = currency === 'coins' ? 'balance' : 'rubies';
+                        return fetch(DB_URL + '/users/' + creatorUid + '/' + balancePath + '.json?auth=' + currentUser.idToken, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(creatorNewBalance)
+                            body: JSON.stringify(newCreatorBalance)
                         })
                         .then(() => {
                             // Обновляем текущего
@@ -7978,33 +7705,36 @@
                             const winnerUid = winner === 'creator' ? creatorUid : acceptorUid;
                             const loserUid = winner === 'creator' ? acceptorUid : creatorUid;
                             const winnerName = winner === 'creator' ? bet.creatorName : STATE.nickname;
-                            // Выигрыш: сумма*2 минус комиссия 5%
-                            const winAmount = Math.floor(amount * 2 * 0.95);
+                            const winAmount = Math.floor(amount * 2 * 0.95); // комиссия 5%
                             // Начисляем победителю
                             return fetch(DB_URL + '/users/' + winnerUid + '.json?auth=' + currentUser.idToken)
                                 .then(res => res.json())
                                 .then(userData => {
                                     if (!userData) return;
-                                    const newBalance = (userData.balance || 0) + winAmount;
-                                    return fetch(DB_URL + '/users/' + winnerUid + '/balance.json?auth=' + currentUser.idToken, {
+                                    const currentBalance = currency === 'coins' ? userData.balance : userData.rubies;
+                                    const newBalance = (currentBalance || 0) + winAmount;
+                                    return fetch(DB_URL + '/users/' + winnerUid + '/' + balancePath + '.json?auth=' + currentUser.idToken, {
                                         method: 'PUT',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify(newBalance)
                                     })
                                     .then(() => {
-                                        // Показываем анимацию
-                                        showCoinFlipAnimation(winnerName, amount, winAmount);
-                                        // Если победитель текущий, обновляем локальный баланс
+                                        showCoinFlipAnimation(winnerName, amount, winAmount, currency);
                                         if (winnerUid === STATE.uid) {
-                                            STATE.balance += winAmount;
-                                            STATE.totalEarned += winAmount;
-                                            if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                                            if (currency === 'coins') {
+                                                STATE.balance += winAmount;
+                                                STATE.totalEarned += winAmount;
+                                                if (STATE.balance > STATE.maxBalance) STATE.maxBalance = STATE.balance;
+                                            } else {
+                                                STATE.rubies += winAmount;
+                                                STATE.totalRubies += winAmount;
+                                            }
                                             saveStateToFirebase();
                                             updateUI();
                                         }
                                         STATE.coinflipGames = (STATE.coinflipGames || 0) + 1;
                                         saveStateToFirebase();
-                                        logPlayerAction('сыграл в Coin Flip', 'ставка ' + amount + ' ₽, выиграл ' + (winnerUid === STATE.uid ? winAmount : '0'), true);
+                                        logPlayerAction('сыграл в Coin Flip', 'ставка ' + amount + ' ' + (currency === 'rubies' ? '💎' : '₽') + ', выиграл ' + (winnerUid === STATE.uid ? winAmount : '0'), true);
                                         renderCoinFlip();
                                         checkAllAchievements();
                                         checkQuests();
@@ -8016,22 +7746,19 @@
             .catch(err => showToast('❌ Ошибка: ' + err.message));
     }
 
-    function showCoinFlipAnimation(winnerName, amount, winAmount) {
+    function showCoinFlipAnimation(winnerName, amount, winAmount, currency) {
         const modal = document.getElementById('coinflipModal');
         const track = document.getElementById('cfSlotTrack');
         const resultDisplay = document.getElementById('cfResultDisplay');
         modal.classList.add('open');
 
-        // Создаём элементы для анимации (два исхода)
         track.innerHTML = '';
         const outcomes = ['🟢 Победа', '🔴 Поражение'];
-        // Добавим несколько повторений
         let items = [];
         for (let i=0; i<10; i++) {
             items.push(outcomes[0]);
             items.push(outcomes[1]);
         }
-        // В конец добавляем результат
         items.push('🏆 ' + winnerName + ' выиграл!');
         items.forEach((text, idx) => {
             const div = document.createElement('div');
@@ -8057,8 +7784,8 @@
                 track.style.transform = 'translateX(' + endOffset + 'px)';
                 resultDisplay.innerHTML = `
                     <span class="big-emoji">🪙</span>
-                    <span class="result-name">${winnerName} выиграл ${winAmount} ₽!</span>
-                    <span class="result-rare">Ставка: ${amount} ₽</span>
+                    <span class="result-name">${winnerName} выиграл ${winAmount} ${currency === 'rubies' ? '💎' : '₽'}!</span>
+                    <span class="result-rare">Ставка: ${amount} ${currency === 'rubies' ? '💎' : '₽'}</span>
                 `;
             }
         }
@@ -8111,7 +7838,6 @@
                 }
                 if (tab === 'coinflip') {
                     renderCoinFlip();
-                    // Навешиваем обработчик создания ставки
                     document.getElementById('cfCreateBtn').onclick = createCoinFlip;
                 }
             };
@@ -8126,15 +7852,15 @@
         });
 
         document.getElementById('ratingModeNow').onclick = function() {
-            this.style.background = '#ff8c00'; this.style.color = '#000';
-            document.getElementById('ratingModeEver').style.background = '#2a2a2a';
-            document.getElementById('ratingModeEver').style.color = '#f0f0f0';
+            this.style.background = '#2a8a7a'; this.style.color = '#fff';
+            document.getElementById('ratingModeEver').style.background = '#dce8e8';
+            document.getElementById('ratingModeEver').style.color = '#1a2a2a';
             renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
         };
         document.getElementById('ratingModeEver').onclick = function() {
-            this.style.background = '#ff8c00'; this.style.color = '#000';
-            document.getElementById('ratingModeNow').style.background = '#2a2a2a';
-            document.getElementById('ratingModeNow').style.color = '#f0f0f0';
+            this.style.background = '#2a8a7a'; this.style.color = '#fff';
+            document.getElementById('ratingModeNow').style.background = '#dce8e8';
+            document.getElementById('ratingModeNow').style.color = '#1a2a2a';
             renderRating(document.querySelector('#ratingTabs .active')?.dataset.ratingTab || 'elo');
         };
 
@@ -8377,7 +8103,7 @@
     });
 
     // ===== ВСПОМОГАТЕЛЬНЫЕ =====
-    console.log('✅ TTP кейсы UNRELEASED (beta) — чёрно-оранжевая тема, финальная версия');
+    console.log('✅ TTP кейсы 1.0.0 — релизная версия с зелено-голубой темой');
     </script>
 </body>
 </html>
